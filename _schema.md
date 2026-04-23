@@ -1,5 +1,5 @@
 > [!info] Read-only mirror
-> Canonical copy: `${CLAUDE_PLUGIN_ROOT}/schema.md` (or `~/repo/github/tatoflam/Plugins-tatoflam/claude-wiki/schema.md` locally).
+> Canonical copy: `/Users/tato/repo/github/tatoflam/Plugins-tatoflam/claude-wiki/schema.md`.
 > Overwritten by /wiki-ingest. Do not hand-edit.
 
 # Wiki Schema
