@@ -14,3 +14,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-04-23T04:32:50Z  op:lint    contradictions=0 orphans=0 stale=0 broken=0 stuck-inbox=0
 - 2026-04-23T04:33:02Z  op:lint    contradictions=0 orphans=0 stale=0 broken=0 stuck-inbox=0
 - 2026-04-23T04:44:49Z  op:ingest  S=2 I=0 pages=5 unsortable=0 (sessions 1504fcec, 8a25326c → diary + 3×05_learn + 06_output/2026-04)
+- 2026-04-23T04:49:27Z  op:ingest  S=2 I=0 pages=3 unsortable=0 (sessions 328b745a, 79206054 → 04_life/sayama-land-contract + diary ×2)
