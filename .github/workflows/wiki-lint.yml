@@ -1,0 +1,54 @@
+name: Wiki Lint
+
+on:
+  schedule:
+    # 00:00 UTC daily = 09:00 JST
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/wiki-lint.yml"
+      - ".github/scripts/wiki-lint.py"
+
+permissions:
+  contents: write
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run wiki lint
+        id: lint
+        continue-on-error: true
+        env:
+          VAULT_DIR: ${{ github.workspace }}
+        run: |
+          python .github/scripts/wiki-lint.py | tee -a "$GITHUB_STEP_SUMMARY"
+
+      - name: Commit log.md update
+        if: always()
+        run: |
+          if ! git diff --quiet -- log.md; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add log.md
+            git commit -m "lint: daily health check [skip ci]"
+            git push
+          else
+            echo "log.md unchanged; nothing to commit."
+          fi
+
+      - name: Fail on critical findings
+        if: steps.lint.outcome == 'failure'
+        run: |
+          echo "Critical findings detected (contradictions or broken links)."
+          exit 1
