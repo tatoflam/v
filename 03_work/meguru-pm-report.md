@@ -2,7 +2,7 @@
 title: MeguruPMReport
 category: 03_work
 tags: [meguruit, jooto, weekly-report, python]
-sources: [3e07de94-4eea-46b3-892a-e815cd133f4e]
+sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca]
 updated: 2026-04-24
 ---
 
@@ -41,8 +41,22 @@ Meguru 案件の **週次アップデート** を Gmail と Jooto から Claude 
 - `eval \`ssh-agent\`; ssh-add -k ~/.ssh/id_rsa7; ssh-add -k ~/.ssh/github_rsa` を **同一 Bash 呼び出し**で実行してから push
 - 詳細: [[05_learn/ssh-agent-shortcuts]]
 
+### `/jooto-backup` の差分同期が取りこぼす条件
+- 既定の差分同期は **board.updated_at** を見て全ボードスキップ判定する。タスクレベルの変更（ステータス遷移・コメント追加・期日更新）では board.updated_at が上がらないことがあり、差分同期だと拾えない
+- **回避**: `/jooto-backup --all-active --force` で強制再取得。週次レポート前に board 更新イベントが無くても、タスクは動いている想定で `--force` を当てる運用が安全
+- 2026-04-24 の `/weekly-report` 実行で発覚（差分同期が 38 ボード全スキップ → `--force` で再取得して中野坂上 S10_躯体積算の新規 overdue を検知）
+
+### Gmail MCP の再認証
+- 週次レポート中に Gmail MCP トークンが失効するとバッチ検索が全件エラーになる
+- 再認証手順と、Claude.ai ログインアカウントと MCP 対象 Gmail アカウントの違い: [[05_learn/gmail-mcp-reauth]]
+
+### 週次レポート成果物（リポジトリ内）
+- `reports/YYYY-MM-DD_weekly_update.md` に格納。前回比較元は `state/latest_summary.md` と `state/latest_state.json`、バッチ進行は `state/batch_progress.json`
+- 2026-04-24 版: **新規 overdue = 中野坂上 S10（CC 漏れ起因）**、板橋氷川町/東長崎4丁目/渋谷区本町5丁目/山王3丁目/中野1丁目/西荻北1丁目で大きな前進、高田馬場・東尾久・江古田江原・西巣鴨は停滞継続
+
 ## Links
 
 - [[02_diary/2026-04-24]]
 - [[05_learn/ssh-agent-shortcuts]]
+- [[05_learn/gmail-mcp-reauth]]
 - [[06_output/2026-04]]
