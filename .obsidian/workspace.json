@@ -33,12 +33,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02_diary/2026-04-24.md",
+                "file": "05_learn/gmail-mcp-reauth.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2026-04-24"
+              "title": "gmail-mcp-reauth"
             }
           }
         ]
@@ -205,24 +205,24 @@
   },
   "active": "f66dd5868da0aa90",
   "lastOpenFiles": [
-    "05_learn/pm-master-sheet-headers.md",
-    "05_learn/claude-plugin-namespace.md",
-    "05_learn/claude-code-plugin-namespace.md",
     "05_learn/google-sheets-multi-row-header.md",
-    "02_diary/2026-04-23.md",
-    "04_life/sayama-land-contract.md",
-    "03_work/meguru-pm-report.md",
+    "05_learn/ssh-agent-shortcuts.md",
     "03_work/yahatayama-rokujizo.md",
-    "05_learn/metsushitsu-touki-kihon.md",
-    "05_learn/gmail-mcp-reauth.md",
     "02_diary/2026-04-24.md",
-    "02_diary/2026-04-22.md",
+    "00_self/profile.md",
     "06_output/2026-04.md",
     "05_learn/wiki-automation-pipeline.md",
+    "05_learn/claude-code-plugin-namespace.md",
+    "04_life/sayama-land-contract.md",
+    "03_work/meguru-pm-report.md",
+    "02_diary/2026-04-23.md",
+    "05_learn/pm-master-sheet-headers.md",
+    "05_learn/claude-plugin-namespace.md",
+    "05_learn/metsushitsu-touki-kihon.md",
+    "05_learn/gmail-mcp-reauth.md",
+    "02_diary/2026-04-22.md",
     "05_learn/claude-code-hooks.md",
-    "05_learn/ssh-agent-shortcuts.md",
     "00_self/goals.md",
-    "00_self/profile.md",
     "00_self/skills.md",
     "log.md",
     "00_self/values.md",

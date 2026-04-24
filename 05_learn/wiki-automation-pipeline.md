@@ -2,8 +2,8 @@
 title: Wiki 自動運用パイプライン
 category: 05_learn
 tags: [wiki, automation, hooks, github-actions]
-sources: [8a25326c-5119-438b-bcf3-4c4c7dba4127]
-updated: 2026-04-23
+sources: [8a25326c-5119-438b-bcf3-4c4c7dba4127, a974a8f6-c56d-4b5f-9064-3ab8884ee7d8, 03859554-98cc-4d1a-b62e-212103596b54, 949188fb-38df-403c-8b5a-d1d560de74f0]
+updated: 2026-04-24
 ---
 
 # Wiki 自動運用パイプライン
@@ -62,9 +62,24 @@ Claude Code セッション終了 → wiki への取り込み → GitHub への 
 
 - `~/.claude/settings.json` への hook 登録 と `chmod +x` は、Claude 自身からは permission ガードで止められやすいので、ユーザ側で 1 回叩く
 
+### 並走 /wiki-ingest の race（2026-04-24 実例）
+
+重めのセッション（`bab023ec`）直後に SessionEnd hook が 3 回連続で fire し、3 本の `/wiki-ingest` が同じキューに対して並列に走るケースを観測（`a974a8f6` / `03859554` / `949188fb`、enqueue 間隔 1-2 分）。観測結果:
+
+- **データ破損はしない**: 最速セッションがメインの ingest コミットを打ち、残りは「既にページ更新済み」を検知してほぼ no-op。Idempotency（cursors.json ＋ ingest-log.jsonl ＋ Edit による差分ベース書き込み）が効いている
+- **git push failed がログに積まれる**: 複数セッションがほぼ同時に `git push` を試み、後続が non-fast-forward で reject される。`~/.claude/wiki/state/hook-errors.log` に `git push failed in ...` が並ぶ
+- **最終解消はユーザの手動 push**: 連続 reject の後、ユーザが明示的に push してようやく同期
+- **未採番セッション**: /wiki-ingest 自身が SessionEnd 時にさらにキューへ enqueue されるので、次の /wiki-ingest で拾われる。上限は見かけないので暴走リスクはあるが、現状は自己収束
+
+対策候補（未実装）:
+- hook 側で **flock** による exclusive lock（`~/.claude/wiki/state/ingest.lock`）
+- push 前の `git pull --rebase --autostash` fallback
+- キューが空の時の early exit（現在は空でも meta 処理だけ走る）
+
 ## Links
 
 - [[claude-code-hooks]] — フック挙動の詳細
 - [[ssh-agent-shortcuts]] — git push 前の鍵ロード
 - [[06_output/2026-04]] — vault と plugin の GitHub アーティファクト
 - [[02_diary/2026-04-23]]
+- [[02_diary/2026-04-24]] — 並走3本の race 実例
