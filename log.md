@@ -25,3 +25,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-04-24T05:39:20Z  op:ingest  S=2 I=0 pages=3 unsortable=0 (sessions 8eef274f, fb8c5c08 → 02_diary/2026-04-24 + 03_work/yahatayama-rokujizo + 05_learn/metsushitsu-touki-kihon)
 - 2026-04-24T07:05:00Z  op:ingest  S=2 I=0 pages=4 unsortable=0 (sessions 1d1cebb5, bab023ec → 02_diary/2026-04-24 + 03_work/meguru-pm-report + 05_learn/claude-code-plugin-namespace + 05_learn/google-sheets-multi-row-header; f57eba8c skipped — transcript_not_found)
 - 2026-04-24T08:58:00Z  op:ingest  S=3 I=0 pages=2 unsortable=0 (sessions a974a8f6, 03859554, 949188fb — all meta /wiki-ingest runs → 02_diary/2026-04-24 + 05_learn/wiki-automation-pipeline; 0859c613 skipped — transcript_not_found)
+- 2026-04-24T17:51:41Z  op:ingest  S=2 I=0 pages=2 unsortable=0 (sessions 4fda70a2 meta no-op, 30f065c1 → 02_diary/2026-04-24 + 05_learn/google-sheets-image-excel-compat)
