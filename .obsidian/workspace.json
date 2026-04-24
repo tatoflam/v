@@ -203,8 +203,10 @@
       "bases:新規ベースを作成": false
     }
   },
-  "active": "f66dd5868da0aa90",
+  "active": "01139fadcf5c9a34",
   "lastOpenFiles": [
+    "05_learn/fy-cycle-mmdd-year-inference.md",
+    "02_diary/2026-04-25.md",
     "05_learn/google-sheets-image-excel-compat.md",
     "05_learn/google-sheets-multi-row-header.md",
     "05_learn/claude-code-plugin-namespace.md",
@@ -229,8 +231,6 @@
     "00_self/values.md",
     "ようこそ.md",
     "_schema.md",
-    "index.md",
-    "make folders composition.md",
     "07_archive",
     "openspec/changes/archive",
     "openspec/specs",
