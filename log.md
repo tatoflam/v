@@ -18,3 +18,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-04-23T13:55:00Z  op:ingest  S=2 I=0 pages=3 unsortable=0 (sessions 18c5c830, f477e59d → diary + 04_life/sayama-land-contract expansion + 06_output/2026-04)
 - 2026-04-24T22:50:00Z  op:ingest  S=2 I=0 pages=5 unsortable=0 (sessions 559ab017, 3e07de94 → diary 2026-04-24 + 03_work/meguru-pm-report + 05_learn/ssh-agent-shortcuts + 06_output/2026-04 + diary 2026-04-23 meta)
 - 2026-04-24T22:56:00Z  op:ingest  S=3 I=0 pages=3 unsortable=0 (sessions 92ea8970, c336921a, 47476a4d → diary 2026-04-24 + 03_work/meguru-pm-report + 05_learn/gmail-mcp-reauth; 79725ddc skipped — transcript_not_found)
+- 2026-04-24T00:54:40Z  op:lint    contradictions=0 orphans=0 stale=0 broken=4 stuck-inbox=0
