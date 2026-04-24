@@ -21,3 +21,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-04-24T01:40:18Z  op:query  "設計監修MTG向けにMeguru週次の論点まとめ" → 03_work/meguru-pm-report
 - 2026-04-24T04:25:25Z  op:query  "八幡山六地蔵: 滅失登記と委任状の発行主体について" → no-match
 - 2026-04-24T04:25:02Z  op:ingest  S=2 I=0 pages=1 unsortable=0 (sessions a728e889, 8055f3a2 → 02_diary/2026-04-24)
+- 2026-04-24T05:39:20Z  op:ingest  S=2 I=0 pages=3 unsortable=0 (sessions 8eef274f, fb8c5c08 → 02_diary/2026-04-24 + 03_work/yahatayama-rokujizo + 05_learn/metsushitsu-touki-kihon)
