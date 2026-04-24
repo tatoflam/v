@@ -21,11 +21,13 @@ updated: 2026-04-23
 
 ## バックグラウンド
 
-- 金融機関向けアプリケーション開発（IT）
-- インプリメンテーション / オペレーション・マネージャー
-- カントリーマネージャー
-- 高校教員（情報科）
-- Fab Academy 卒業
+[Linkedin](https://www.linkedin.com/in/tatsuro-homma/) 
+
+- 金融機関向けアプリケーション開発（Engineering/IT Architect/Project Management）
+- [Knewton Japan カントリーマネージャ](https://japan.knewton.com/)
+- 高校教員（情報科/Digital Fabrication）
+- [Fab Academy](https://fabacademy.org/2020/labs/kannai/students/tatsuro-homma/)
+- [Fab Academy Instructor Note](http://tatsuro.homma.fabcloud.io/fabacademy/)
 
 ## 居住地・言語
 
@@ -34,9 +36,12 @@ updated: 2026-04-23
 
 ## 公開発信
 
-- X
-- GitHub
-- 個人ホームページ
+- [GitHub](https://github.com/tatoflam)
+- [Gitlab](https://gitlab.com/tatoflam)
+- [Facebook](https://www.facebook.com/tatsuro.homma)
+- [X](https://x.com/tatsuroff)
+- [Personal Blog](https://github.com/tatoflam)
+- [エミル株式会社](https://emile-tech.com/)
 
 ## 趣味
 
