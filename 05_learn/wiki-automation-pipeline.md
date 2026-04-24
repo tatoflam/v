@@ -1,9 +1,9 @@
 ---
 title: Wiki 自動運用パイプライン
 category: 05_learn
-tags: [wiki, automation, hooks, github-actions]
-sources: [8a25326c-5119-438b-bcf3-4c4c7dba4127, a974a8f6-c56d-4b5f-9064-3ab8884ee7d8, 03859554-98cc-4d1a-b62e-212103596b54, 949188fb-38df-403c-8b5a-d1d560de74f0]
-updated: 2026-04-24
+tags: [wiki, automation, hooks, github-actions, topic:wiki-system]
+sources: [8a25326c-5119-438b-bcf3-4c4c7dba4127, a974a8f6-c56d-4b5f-9064-3ab8884ee7d8, 03859554-98cc-4d1a-b62e-212103596b54, 949188fb-38df-403c-8b5a-d1d560de74f0, 6711184a-25c9-4cb4-9566-2c041aeb955b]
+updated: 2026-04-25
 ---
 
 # Wiki 自動運用パイプライン
@@ -76,6 +76,44 @@ Claude Code セッション終了 → wiki への取り込み → GitHub への 
 - push 前の `git pull --rebase --autostash` fallback
 - キューが空の時の early exit（現在は空でも meta 処理だけ走る）
 
+### エディタ ↔ hook の編集レース（2026-04-24 実例 → 2026-04-25 対策済み）
+
+上記の並走 race とは別カテゴリの競合。ユーザが Obsidian で `02_diary/2026-04-24.md` を live-edit 中に別セッション終了 → hook の `/wiki-ingest` が同ファイルに `## 18:01` 節と frontmatter を append + commit + push。その後エディタがメモリ上の stale buffer で保存 → hook 側の追記が working copy から消える退行。`git diff` で sources から uuid が消え `updated` が前日に戻り `## 18:01` 節が丸ごと欠けた。
+
+**何が失われるかと復旧**:
+- git 履歴には残っているのでデータロスはなし
+- working copy のみ退行 → HEAD 版を基準にユーザー加筆分だけ Edit で再適用（`git checkout --` は destructive ガードで止まる想定で、そもそも避ける）
+
+**対策（実装済、plugin commit `43d96ef`）**: **dirty-target gate** — 書き込み対象ファイルごとに `git status --porcelain <path>` を実行し、working copy が汚れていればそのセッションを queue に戻して deferred、`hook-errors.log` に `skip=dirty_working_copy  files=[...]` を記録。次回 ingest で自動リトライ。meta ファイル（`log.md` / `index.md` / `_schema.md`）は skill 所有なのでチェック対象外。`/wiki-ingest` のレポートに `Deferred (dirty working copy): <D>` 行を追加。
+
+**採用しなかった代案**:
+- B: ステージングファイル（`02_diary/YYYY-MM-DD.ingest.md`）へ書いて後でマージ — 2 ファイル分裂とマージ工程が要るので複雑
+- C: ingest 中 lockfile で push 遅延 — エディタ側上書きを防げないので根本治療にならず
+- D: Obsidian 側で外部変更を reload — プラグイン依存で汎用性なし
+
+副作用: ユーザが diary を開きっぱなしのまま次のセッションを閉じると deferred になり、明示的に Obsidian 側で保存＆エディタから離れる（clean 化）まで反映が保留される。queue は永続化されているので情報は失われない。
+
+### Tag taxonomy（2026-04-25 導入）
+
+プレフィックス付きタグで Obsidian のタグペインが facet として機能するようにした。schema.md §"Tag taxonomy" に定義、`/wiki-ingest` で新規作成ページに付与、`/wiki-lint` で compliance チェック。
+
+**Primary tag（必須・カテゴリ別 1 個）**:
+
+| Category   | 形式                  | 例 |
+|------------|---------------------|----|
+| 00_self    | `aspect:<slug>`     | `aspect:profile`, `aspect:values`, `aspect:goals` |
+| 03_work    | `project:<slug>`    | `project:meguru-pm-report`, `project:yahatayama-rokujizo` |
+| 04_life    | `domain:<slug>`     | `domain:house`, `domain:finance`, `domain:family` |
+| 05_learn   | `topic:<slug>`      | `topic:claude-code`, `topic:google-sheets`, `topic:wiki-system` |
+| 06_output  | `channel:<slug>`    | `channel:github`, `channel:gmail`, `channel:drive` |
+| 07_archive | 元タグ継承 + `status:archived` + `archived:<YYYY-MM-DD>` | |
+
+**Secondary（任意・複数可）**: `tech:<slug>`, `stage:<slug>`, `client:<slug>`, `entity:<slug>`, `status:<slug>`。
+
+**Grandfathering**: 既存の bare tag（`meguruit`, `python` 等）は update 時に**上書きせず**primary tag を並べて追加。`/wiki-lint` は primary tag 欠落ページを `## Non-compliant tags (<N>)` で報告するのみ、自動修正はしない。
+
+Slug 規則: lowercase, hyphen-separated, singular, reuse before invent。
+
 ## Links
 
 - [[claude-code-hooks]] — フック挙動の詳細
@@ -83,3 +121,4 @@ Claude Code セッション終了 → wiki への取り込み → GitHub への 
 - [[06_output/2026-04]] — vault と plugin の GitHub アーティファクト
 - [[02_diary/2026-04-23]]
 - [[02_diary/2026-04-24]] — 並走3本の race 実例
+- [[02_diary/2026-04-25]] — dirty-target gate + tag taxonomy 実装
