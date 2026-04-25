@@ -30,3 +30,6 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-04-24T23:42:22Z  op:ingest  S=2 I=0 pages=1 unsortable=0
 - 2026-04-24T23:57:17Z  op:ingest  S=2 I=0 pages=2 unsortable=0  (6711184a dirty-gate+tag-taxonomy, 6ecaa83c meta)
 - 2026-04-25T00:24:51Z  op:ingest  S=1 I=0 pages=1 unsortable=0
+- 2026-04-25T05:22:59Z  op:query  "狭山市契約書ドラフト3点レビュー" → 04_life/sayama-land-contract.md
+- 2026-04-25T08:01:27Z  op:query  "高波建設契約書類3点レビュー" → 04_life/sayama-land-contract.md
+- 2026-04-25T08:14:47Z  op:ingest  S=5 I=0 pages=3 unsortable=0 deferred=2 (84dd308c→woodone-pboard, 832016a3→sayama-contract)
