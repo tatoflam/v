@@ -33,3 +33,7 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-04-25T05:22:59Z  op:query  "狭山市契約書ドラフト3点レビュー" → 04_life/sayama-land-contract.md
 - 2026-04-25T08:01:27Z  op:query  "高波建設契約書類3点レビュー" → 04_life/sayama-land-contract.md
 - 2026-04-25T08:14:47Z  op:ingest  S=5 I=0 pages=3 unsortable=0 deferred=2 (84dd308c→woodone-pboard, 832016a3→sayama-contract)
+
+- 2026-04-25T23:39:25Z  op:query  "Riel返信(2026-04-26)への買主反論チェック・対案検討" → [[04_life/sayama-land-contract]]
+- 2026-04-26T01:03:08Z  op:query  "請負契約書とp.15-22見積明細の妥当性チェック (狭山市木造3F共同住宅)" → 04_life/sayama-land-contract
+- 2026-04-26T01:19:34Z  op:ingest  S=3 I=0 pages=2 unsortable=0 deferred=3
