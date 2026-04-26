@@ -37,3 +37,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-04-25T23:39:25Z  op:query  "Riel返信(2026-04-26)への買主反論チェック・対案検討" → [[04_life/sayama-land-contract]]
 - 2026-04-26T01:03:08Z  op:query  "請負契約書とp.15-22見積明細の妥当性チェック (狭山市木造3F共同住宅)" → 04_life/sayama-land-contract
 - 2026-04-26T01:19:34Z  op:ingest  S=3 I=0 pages=2 unsortable=0 deferred=3
+- 2026-04-26T02:48:00Z  op:ingest  S=4 I=0 pages=4 unsortable=0 (deferred=4 missing=1 meta=2 substantive=1: meguru-pm-report push)

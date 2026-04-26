@@ -1,9 +1,9 @@
 ---
 title: MeguruPMReport
 category: 03_work
-tags: [meguruit, jooto, weekly-report, python, google-sheets]
-sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8]
-updated: 2026-04-25
+tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, stage:active]
+sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354]
+updated: 2026-04-26
 ---
 
 # MeguruPMReport
@@ -38,7 +38,9 @@ Meguru 案件の **週次アップデート** を Gmail と Jooto から Claude 
 - 元リポジトリ（Plugins-Bizuayeu/JootoGrabber）と元ワークスペース（ClaudeWork/MeguruPM）は編集禁止
 
 ### Git push の前提
-- `eval \`ssh-agent\`; ssh-add -k ~/.ssh/id_rsa7; ssh-add -k ~/.ssh/github_rsa` を **同一 Bash 呼び出し**で実行してから push
+- `. ~/sshgl;` を **同一 Bash 呼び出し**で連結してから `git push`（2026-04-26 の `df5ce43` / `075077d` push でこの短縮形が Claude Code Bash でも通ると確認）
+- 旧手順 `eval \`ssh-agent\`; ssh-add -k ~/.ssh/id_rsa7; ssh-add -k ~/.ssh/github_rsa` は同等だが冗長。`~/sshgl` を source する短縮形が標準
+- 主要ブランチへの直接 push は harness ガードで初回拒否される（permission 承認が必要）。feature ブランチ + PR 運用に切り替えるのが本筋
 - 詳細: [[05_learn/ssh-agent-shortcuts]]
 
 ### `/jooto-backup` の差分同期が取りこぼす条件
