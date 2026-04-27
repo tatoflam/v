@@ -39,3 +39,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-04-26T01:19:34Z  op:ingest  S=3 I=0 pages=2 unsortable=0 deferred=3
 - 2026-04-26T02:48:00Z  op:ingest  S=4 I=0 pages=4 unsortable=0 (deferred=4 missing=1 meta=2 substantive=1: meguru-pm-report push)
 - 2026-04-27T08:30:00Z  op:ingest  S=1 I=0 pages=2 unsortable=0 deferred=4 missing=2
+- 2026-04-28T08:00:00Z  op:ingest  S=3 I=0 pages=4 unsortable=0 deferred=5 (substantive=1: SpecDrawing PR#2-#6 + PR#8 proposals; meta=2: 4f6e4bd9/b7650802 wiki-ingest backfill)
