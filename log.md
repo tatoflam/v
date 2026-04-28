@@ -42,3 +42,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-04-28T08:00:00Z  op:ingest  S=3 I=0 pages=4 unsortable=0 deferred=5 (substantive=1: SpecDrawing PR#2-#6 + PR#8 proposals; meta=2: 4f6e4bd9/b7650802 wiki-ingest backfill)
 - 2026-04-27T15:34:50Z  op:ingest  S=1 I=0 pages=1 deferred=6 (manual reconcile after parallel worker 4c3164ce committed 45b0343)
 - 2026-04-28T23:33:37Z  op:ingest  S=3 I=0 pages=4 deferred=5 missing=2 (substantive=2: 06fe1d24 SpecDrawing OVERVIEW_JA + 2648ee43 ToDoBot line-todo-bot-mvp init; meta=1: 7f0da536 backfill)
+- 2026-04-29T08:35:00Z  op:ingest  S=0 I=0 pages=2 deferred=5 (manual reconcile after parallel auto-worker @23:33Z; backfilled 7f0da536 session-id+section into 4-27 diary; removed duplicate 03_work/line-todo-bot.md created during race)
