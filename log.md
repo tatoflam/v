@@ -49,3 +49,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-04-29T02:30:14Z  op:ingest  S=37 I=0 pages=4 unsortable=0 deferred=9
 - 2026-04-29T02:35:00Z  op:ingest  S=4 I=0 pages=1 deferred=9 missing=2 (meta=2: efe5ecac no-op + f153e976 substantive→bbcd9ee; missing=2: cb5d3b35/8430978b habi-bff; deferred=9 rows/6 unique on user WIP)
 - 2026-04-29T02:47:39Z  op:ingest  S=4 I=0 pages=4 unsortable=0 deferred=6
+- 2026-04-29T02:51:59Z  op:ingest  S=2 I=0 pages=2 deferred=6 (substantive=1: 9d35dac4 ThreadsPosts cwd Q&A→05_learn/claude-code-session-resume.md new; meta=1: 2cb050d9 self; deferred=6 unique/9 rows on user WIP, consecutive 11th)
