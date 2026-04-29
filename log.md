@@ -51,3 +51,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-04-29T02:47:39Z  op:ingest  S=4 I=0 pages=4 unsortable=0 deferred=6
 - 2026-04-29T02:51:59Z  op:ingest  S=2 I=0 pages=2 deferred=6 (substantive=1: 9d35dac4 ThreadsPosts cwd Q&A→05_learn/claude-code-session-resume.md new; meta=1: 2cb050d9 self; deferred=6 unique/9 rows on user WIP, consecutive 11th)
 - 2026-04-29T02:57:36Z  op:ingest  S=2 I=0 pages=3 deferred=6 (substantive=1: d87e347c MeguruPMReport push f818fb1; meta=1: 9c3ef76a self→b96e7ee; deferred=6 unique/9 rows on user WIP, consecutive 12th)
+- 2026-04-29T16:06:33Z  op:ingest  S=3 I=0 pages=4 unsortable=0 deferred=6
