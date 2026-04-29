@@ -46,3 +46,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-04-28T23:35:52Z  op:reconcile  archived 03_work/todobot.md → 07_archive/todobot-2026-04-29.md (parallel-worker classification duplicate of 05_learn/todobot-line-mvp.md)
 - 2026-04-29T08:39:00Z  op:ingest  S=1 I=0 pages=1 deferred=5 (manual reconcile after auto-worker 0764010; ce961c5d meta no-op = prior manual /wiki-ingest in SpecDrawing cwd)
 - 2026-04-29T08:45:00Z  op:ingest  S=14 I=0 pages=1 deferred=5 missing=1 over-cap=5 (final drain of reconcile-cascade meta sessions: 5 manual /wiki-ingest reconciles + 8 MeguruPMReport SessionEnd metadata-only + 1 no-op queue-empty wiki-ingest; backfilled diary frontmatter sources)
+- 2026-04-29T02:30:14Z  op:ingest  S=37 I=0 pages=4 unsortable=0 deferred=9
