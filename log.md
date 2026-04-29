@@ -48,3 +48,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-04-29T08:45:00Z  op:ingest  S=14 I=0 pages=1 deferred=5 missing=1 over-cap=5 (final drain of reconcile-cascade meta sessions: 5 manual /wiki-ingest reconciles + 8 MeguruPMReport SessionEnd metadata-only + 1 no-op queue-empty wiki-ingest; backfilled diary frontmatter sources)
 - 2026-04-29T02:30:14Z  op:ingest  S=37 I=0 pages=4 unsortable=0 deferred=9
 - 2026-04-29T02:35:00Z  op:ingest  S=4 I=0 pages=1 deferred=9 missing=2 (meta=2: efe5ecac no-op + f153e976 substantive→bbcd9ee; missing=2: cb5d3b35/8430978b habi-bff; deferred=9 rows/6 unique on user WIP)
+- 2026-04-29T02:47:39Z  op:ingest  S=4 I=0 pages=4 unsortable=0 deferred=6
