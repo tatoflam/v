@@ -2,8 +2,8 @@
 title: SpecDrawing material-presenter MVP（Woodone /pboard/ 自作版）
 category: 05_learn
 tags: [topic:specdrawing-material-presenter, tech:next-js, tech:konva, tech:typescript, tech:openspec, tech:vercel, stage:active]
-sources: [84a5b2d0-402c-4114-a408-4bf81236eeb0, f16f3443-5ba1-4c74-9849-912a8b545d38, 06fe1d24-37d8-4e1f-806d-c8119ea2e8d2, 04e50b3d-6f4c-4645-88a7-39291c8b65b4]
-updated: 2026-04-30
+sources: [84a5b2d0-402c-4114-a408-4bf81236eeb0, f16f3443-5ba1-4c74-9849-912a8b545d38, 06fe1d24-37d8-4e1f-806d-c8119ea2e8d2, 04e50b3d-6f4c-4645-88a7-39291c8b65b4, 0d77b63d-cfe8-42b9-9e17-1b24b76b40a8]
+updated: 2026-05-01
 ---
 
 # SpecDrawing material-presenter MVP
