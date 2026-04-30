@@ -56,3 +56,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-04-30T12:02:22Z  op:ingest  S=3 I=0 pages=2 unsortable=0  deferred=6unique/9rows
 - 2026-05-01T07:00:00Z  op:ingest  S=2 I=0 pages=4 unsortable=0 (sessions: c2dd2c85 substantive habi-bff + 0d77b63d meta-flip; deferred 6 on WIP, 15th)
 - 2026-04-30T22:01:13Z  op:ingest  S=3 I=0 pages=3 unsortable=0 (sessions: e6de9be8 meta-flip prior-run + d87e347c no-op cursor-advance + add844fc missing-transcript; deferred 6 on WIP, 16th)
+- 2026-04-30T22:08:04Z  op:ingest  S=1 I=0 pages=4 unsortable=0 (substantive: 10c66066 SpecDrawing improve-finish-fidelity archive; meta-flip 1 e6de9be8; no-op 1 d87e347c; missing-transcript 1 add844fc; deferred 6unique/9rows on user WIP, 17th)

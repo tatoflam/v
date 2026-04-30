@@ -2,7 +2,7 @@
 title: SpecDrawing material-presenter MVP（Woodone /pboard/ 自作版）
 category: 05_learn
 tags: [topic:specdrawing-material-presenter, tech:next-js, tech:konva, tech:typescript, tech:openspec, tech:vercel, stage:active]
-sources: [84a5b2d0-402c-4114-a408-4bf81236eeb0, f16f3443-5ba1-4c74-9849-912a8b545d38, 06fe1d24-37d8-4e1f-806d-c8119ea2e8d2, 04e50b3d-6f4c-4645-88a7-39291c8b65b4, 0d77b63d-cfe8-42b9-9e17-1b24b76b40a8]
+sources: [84a5b2d0-402c-4114-a408-4bf81236eeb0, f16f3443-5ba1-4c74-9849-912a8b545d38, 06fe1d24-37d8-4e1f-806d-c8119ea2e8d2, 04e50b3d-6f4c-4645-88a7-39291c8b65b4, 0d77b63d-cfe8-42b9-9e17-1b24b76b40a8, 10c66066-eebf-43c9-a9ed-4f3cf33d206e]
 updated: 2026-05-01
 ---
 
@@ -274,12 +274,90 @@ Variant switcher と option 選択は**直交**にした:
 - **enum + 配列で表現すれば boolean フラグの組み合わせ爆発を回避できる**（`defaultForVariants: VariantKey[]` のパターン）
 - **mtime cache-bust は seed パイプラインのある SPA に必須**。アセット URL を `?v=<mtime>` で叩くだけで、seed 再生成 → 画面反映の経路がデバッグレスになる
 
+## 2026-05-01 — improve-finish-fidelity archive: tint-base `lift`、② 無 dilate/dim、export variant-aware default、/dev/trace 微調整
+
+10c66066 セッション（2026-04-30 19 時 JST → 2026-05-01 早朝）で `improve-finish-fidelity` を 35/35 完走 → archive。`add-urban-sea-variants-and-parts-export` も同セッションで archive。SpecDrawing repo は `proposal-memos-fidelity-and-vercel` ブランチに 9 commit を origin に push（`c5ab76b` archive urban-sea / `b5890d5` archive improve-finish-fidelity）。
+
+### `/dev/trace` UX 微調整 — 頂点 radius と右クリック削除バグ
+
+頂点ポインタが大きすぎて微調整しづらい → `radius` を**ディスプレイズーム逆数**化（`6/displayScale` → 最終 `2/displayScale`）して、シーン拡大率に関係なくスクリーン上で常に一定 px に固定（[TraceTool.client.tsx:1185-1187](https://github.com/tatoflam/SpecDrawing/blob/main/app/dev/trace/TraceTool.client.tsx#L1185-L1187)）。
+
+右クリックで頂点が削除されない問題:
+- **Konva の `click` イベントは DOM と異なりマウスボタンに関係なく発火**する。手順: 右クリック → `onContextMenu` で `handleDeleteVertex` 実行 → 頂点削除 → 続く `mouseup` で Konva が `click` 発火 → `handleStageClick` → `nearestEdge` がトレランス内 (12 px) で当該辺をヒット → **削除した位置に新しい頂点を再挿入**
+- 結果: 削除されたように見えても瞬時に同位置に頂点が戻り「何も起きていないように見える」
+- 修正: `handleStageClick` の冒頭で右クリック発火を弾く（[TraceTool.client.tsx:598-601](https://github.com/tatoflam/SpecDrawing/blob/main/app/dev/trace/TraceTool.client.tsx#L598-L601)）
+
+### 木目 shade tone 抑制（`tintBase` `lift` フィールド）
+
+リビング床 ⑮ / 玄関ドア ⑩ / 室内家具 ⑬ など、**木目のグレースケール shade** を multiply で重ねるパイプラインで「shade の暗部が強くて、白系・アイボリー系の選択 option がグレーに沈む」事象を解消:
+
+- スキーマ拡張: `tintBasePartSchema` に optional `lift: 0..1`（default `0`）を追加。後方互換維持
+- パイプライン: `scripts/cut-base-variants.mjs` が tint multiply の **前段**で luminance を `Y' = Y + (1 - Y) * lift` で持ち上げる。lift = 0 で無変化、1 で完全フラット（shade が消える）
+- 設定: `resources/catalog/finish-base-overrides.json`
+  - ⑩ 玄関ドアパネル: `lift: 0.55`
+  - ⑬ 室内家具パネル: `lift: 0.55`
+  - ⑮ 床(LDK): `lift: 0.15`（ユーザ判断で控えめ — 床は元々大きな問題なし）
+- 108 tinted PNG を再生成
+
+### Color-mode `tintBase`（ラベルレス、`shading_<id>.png` を直接 lift）
+
+サッシ枠 ⑰ は color-mode（multiply の元になる shade そのものが暗すぎて白系がくすむ）。texture-mode の `tintBase` と一本化したくなかったので **同じ JSON ファイル内で `label` の有無で 2 系統を切り替える**ハイブリッドを採用:
+
+- スキーマ: `label` を optional 化。`label` あり = 既存 texture-mode tinting、`label` なし = **color-mode shading-lift**
+- color-mode 枝: `cut-base-variants.mjs` が `shading_<id>.png` を直接読み、`Y' = Y + (255 - Y) × lift` を per-pixel に適用して書き戻す
+- **idempotency**: 初回実行時に `<name>.orig.png` sidecar を残す。再実行は常に `.orig` から lift し直し、二重 lift を防ぐ
+- 設定: `"17": { "lift": 0.5 }`
+- Konva は `shading_<id>.png` を URL でキャッシュするので画面更新は hard refresh（既存の `?v=mtime` cache-bust も併用）
+
+### ② 間接照明 OFF の bloom halo 問題（`noEffect` 拡張）
+
+「②（リビング天井間接照明）の **無** option を選ぶと、点灯領域がむしろ広がって見える」というスモーク #9.3 の不具合。原因と修正:
+
+- 原因: ②のポリゴン外にも bloom halo が広がっている → noEffect の 16 px ring サンプラーが halo を捕えてしまい、strip と halo が同色化 → 「点灯領域が消えるどころか広がった」
+- スキーマ拡張: `noEffect` エントリに以下 3 フィールド追加
+  - `dilate: number`（px、サンプル距離。default 16）
+  - `dim: 0..1`（色係数。default 1.0）
+  - `targetHex: string`（hex 直指定。dominant サンプリング上書き用）
+- 設定変更: ② 無 → `dilate: 80, dim: 0.55`
+- 検証: natural の場合 fill `rgb(109,99,87)` vs base `rgb(219,201,177)` で**約半分の明度**になり、消灯感が出る
+- ルール再確認: **有 = mask なし（点灯）／無 = mask あり（消灯）** が正しい仕様
+
+### Excel export の variant-aware default（⑮ 製品コード／アイコンのズレ）
+
+スモーク #9.5 で「Flat 表示中に床 ⑮ を選択無しで export すると **ハードメープル**（workbook 順 0 番）の製品コード/アイコンが出る。Flat の default は **ナラ樫** のはず」というバグ。
+
+- 原因: `buildSpecSheetRows` が選択無し時に `sheetOptions[0]` を fallback として使っており、これが**常に workbook 順 0 番**になっていた
+- 修正: `buildSpecSheetRows` に `activeVariantKey` を渡し、`defaultForVariants.includes(activeVariantKey)` を満たす option を優先。fallback は従来通り `sheetOptions[0]`
+- 結果: Flat 表示中 → ⑮ → ナラ樫が export される
+
+### `/opsx:archive improve-finish-fidelity` の最終形
+
+- Archive 先: `openspec/changes/archive/2026-05-01-improve-finish-fidelity/`
+- Spec delta sync: `finish-spec-catalog`（4 ADDED）+ `presentation-canvas`（1 MODIFIED）
+- Tasks: 35/35 完了
+- Commit `b5890d5`（228 files、+2810 / −740、LFS 35 MB アップロード）
+- 残アクティブ change は `add-vercel-deployment` (0/21) のみ
+
+### `~$部材リスト_*.xlsx` の `.gitignore` パターンは既出
+
+ユーザから「`resources/base/catalog/old/~$部材リスト*.xlsx` を ignore して」依頼があったが、`b5890d5` で既に `.gitignore:55` に追加済みの `~$部材リスト_*.xlsx` が**ディレクトリ非依存でマッチ**するため、`resources/catalog/old/` 配下にも有効。`git check-ignore` で確認済み。
+
+### 学び
+
+- **Konva の `click` イベントは右クリックでも発火**する → `onContextMenu` ハンドラと `onClick` ハンドラの両方を実装する場合、`onClick` 側で右クリック由来のイベントを早期に弾く必要がある
+- **画像合成パイプラインで lift パラメータは tint multiply の前段に置く** — 「shade と tint の境界をどこで持ち上げるか」を schema レベルで明示すると、tuning が再現可能になる
+- **`<name>.orig.png` sidecar による idempotency** はパイプラインを再実行可能に保つ重要パターン。一度 lift した PNG を再 lift しないために、変換器は常に `.orig` を入力に取る
+- **noEffect の bloom halo は dilate でサンプル距離を稼ぐ**：縁の halo 領域を超えて素の壁色を拾えるようにする発想。`dim` で更に色温度も下げる
+- **Excel export の default は variant-aware にする**: `defaultForVariants` を持つ option があるならそちらを優先、無いときだけ workbook 順 0 番に fallback
+
 ## Links
 
 - [[05_learn/woodone-pboard-architecture]] — 出発点となった Woodone /pboard/ の調査
 - [[06_output/2026-04]] — GitHub repo 初 push & PR 履歴
+- [[06_output/2026-05]] — `improve-finish-fidelity` archive push（`b5890d5`）
 - [[02_diary/2026-04-25]]
 - [[02_diary/2026-04-27]]
 - [[02_diary/2026-04-28]]
 - [[02_diary/2026-04-29]]
 - [[02_diary/2026-04-30]]
+- [[02_diary/2026-05-01]]
