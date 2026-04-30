@@ -2,7 +2,7 @@
 title: SpecDrawing material-presenter MVP（Woodone /pboard/ 自作版）
 category: 05_learn
 tags: [topic:specdrawing-material-presenter, tech:next-js, tech:konva, tech:typescript, tech:openspec, tech:vercel, stage:active]
-sources: [84a5b2d0-402c-4114-a408-4bf81236eeb0, f16f3443-5ba1-4c74-9849-912a8b545d38, 06fe1d24-37d8-4e1f-806d-c8119ea2e8d2]
+sources: [84a5b2d0-402c-4114-a408-4bf81236eeb0, f16f3443-5ba1-4c74-9849-912a8b545d38, 06fe1d24-37d8-4e1f-806d-c8119ea2e8d2, 04e50b3d-6f4c-4645-88a7-39291c8b65b4]
 updated: 2026-04-30
 ---
 
@@ -223,6 +223,57 @@ Phase A 単体 commit 後に `/dev/trace` を開くと `Cannot read properties o
 - 1 export あたり **約 ¥1.1**。1 日 1,000 件まで増えても構成変更不要。
 - コスト増要因: ① Vercel team seat 追加、② 監視ツール（Sentry/Datadog 等）、③ 複数シーン並列展開、④ 社外認証（SSO・Okta）。
 
+## 2026-04-30 — urban-sea variant switcher + 部材リスト.xlsx 列構造リライト
+
+`add-urban-sea-variants-and-parts-export` ＋ `rewrite-seed-for-variant-keyed-workbook` の 2 提案を立ち上げて MVP の **runtime 多様性軸**を 1 つ加えた。アーバンシー sheet で Natural / Flat / Sharp の base-variant を runtime に切り替えられるようにし、texture-mode part が variant 切替に追従するパイプラインに揃えた。コミット 9 本（`2fc870b` → `6c9fcac`）、`proposal-memos-fidelity-and-vercel` ブランチ、まだ origin 未 push（ahead 9）。
+
+### スキーマ追加（ランタイム側）
+
+- **`scenes.json` / `scene.json`**: `variants: { key, label, baseImageUrl }[]` と `variantsEnabled: boolean` を追加。`variantsEnabled === true` の sheet だけ UI に variant switcher が出る
+- **`finish-options.json`**: texture-mode option に `textureUrlByVariant: Record<VariantKey, string>` と `iconUrl: string`。Excel export がカラム埋め込み画像として `iconUrl` を使う
+- **`parts.json`**（アーバンシー scene）: 非アクセントクロス part を全部 `renderMode: "texture"` に書き換え（**designer-side breaking**）。アクセントクロス（キッチン accent / 収納 accent）だけ `color` mode のまま残し、ユーザの色選択を尊重
+
+### スキーマ追加（seed 側）
+
+- **`finishOptionSchema`** に `defaultForVariants: z.array(z.string()).default([])`
+  - **空配列 = "alternative"**（ユーザが手で選ぶ option）
+  - **non-empty 配列 = "per-variant default"**（その variant では何も選んでいない時に自動表示される option）
+  - 旧来の `isDefault` boolean を多次元化せずに **1 つの enum 配列に圧縮**した（あえてフラグを増やさない判断）
+- ランタイム側は variant 切替時に「現在の選択 option がその variant で texture を持つなら維持、持たない / 未選択なら variant default にフォールバック」のルールで動く
+
+### 部材リスト.xlsx 列構造リライト
+
+顧客が `部材リスト_20260430.xlsx` を新 layout で再支給。旧 layout は「D 列以降が flat な option 列」だったが、新 layout は **D / E / F = Natural / Flat / Sharp の per-variant default**、**G+ = alternative options**。`scripts/extract-finish-options.mjs` を全面書き換え:
+
+- ヘッダー行を読んで `Natural` / `Flat` / `Sharp` を**列名で動的に発見**（D/E/F 固定の前提を撤廃）。デザイナが将来列順を変えても seed が壊れない
+- 同じ part header 行の variant 列で「白/白/黒」のような重複ラベルが出ても、**1 option per distinct label に collapse**して `defaultForVariants` を埋める。3 option / 2 重複だった旧出力（`missing-swatch` 198 件発生）が消える
+- 製品コードは header 行**直下の sub-row（row + 1）**から、サブラベル（②照明の「電球色」「光無し」等）も同サブ行から取得
+- 画像 anchor は `xl/drawings/drawing*.xml` を読み、ラベルとは**異なる column × row の swatch cell** にマッチさせる（新 workbook はヘッダー直下の行に画像を置く）。`from`/`to` セル座標を辿る素朴な実装で安定マッチ
+- `SPECDRAWING_WORKBOOK` env-var fallback（旧 archive を seed 入力に指定する逃げ道）を撤去、`部材リスト.xlsx` を canonical 名に戻して `old/` 配下に旧版を歴史保存
+
+### Variant と option 選択の直交（`37b7ce4`）
+
+Variant switcher と option 選択は**直交**にした:
+
+- variant が切り替わったとき、選択中 option が新 variant で `textureUrlByVariant` を持てば **そのまま維持**
+- 選択 option がその variant で texture を持たない or そもそも未選択の場合 → **variant default**（`defaultForVariants` に当該 variant key を含む option）に fall back
+
+ユーザが Natural で手動選択した option を Sharp に切り替えただけで失わせない、という体験上重要なルール。
+
+### Cache-bust と auto-derive と collapsed-label texture override
+
+収束フェーズの 3 commit が一見小さいがどれも非自明:
+
+- **`5836a21` cache-bust**: option panel と Excel export の `thumbnailUrl` / `iconUrl` に **mtime ベースの query string** を付けて、seed 再実行直後にブラウザキャッシュを貫通させる。「部材リスト.xlsx にタイトル / アイコンを追記したのに画面に反映されない」問題の真因がブラウザキャッシュだった
+- **`5d1dcbb` auto-derive textureUrl**: option が **単一 variant の `defaultForVariants`** を持つ場合（つまり「該当 variant でしか登場しない collapsed-label option」）、`textureUrl` を該当 variant の swatch から自動派生する。デザイナが手で `textureUrl` を埋めなくても variant 切替時に正しい part 画像が表示される
+- **`6c9fcac` collapsed-label texture-following**: part header 直下の "default" option 群（UI 上は label が collapse される）について、variant 切替に追従する texture を表示するよう描画パイプラインを修正。さらに⑮（床）を `renderMode: "color"` → `"texture"` に flip。`finish-base-overrides.json` は collapsed-label のケース専用 hook と README で明文化して定義を簡素化（現状は登録不要で空のまま温存）
+
+### 学び
+
+- **新しい状態軸（variant）を入れるときは、既存軸（option 選択）との直交ルールを最初から決めておく**。後付けで決めようとすると "切替で何が消える / 残るか" のメンタルモデルがブレる
+- **enum + 配列で表現すれば boolean フラグの組み合わせ爆発を回避できる**（`defaultForVariants: VariantKey[]` のパターン）
+- **mtime cache-bust は seed パイプラインのある SPA に必須**。アセット URL を `?v=<mtime>` で叩くだけで、seed 再生成 → 画面反映の経路がデバッグレスになる
+
 ## Links
 
 - [[05_learn/woodone-pboard-architecture]] — 出発点となった Woodone /pboard/ の調査
@@ -231,3 +282,4 @@ Phase A 単体 commit 後に `/dev/trace` を開くと `Cannot read properties o
 - [[02_diary/2026-04-27]]
 - [[02_diary/2026-04-28]]
 - [[02_diary/2026-04-29]]
+- [[02_diary/2026-04-30]]
