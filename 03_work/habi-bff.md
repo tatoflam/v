@@ -2,7 +2,7 @@
 title: habi-bff — HABI BFF / インフラ層
 category: 03_work
 tags: [project:habi-bff, client:hlab, entity:habi, tech:typescript, tech:aws-lambda, tech:dynamodb, tech:openai, tech:openspec, stage:active]
-sources: [c2dd2c85-7cc6-45d2-8df6-ebd5f5358bc4]
+sources: [c2dd2c85-7cc6-45d2-8df6-ebd5f5358bc4, e6de9be8-7152-4213-b913-f501d258dafe]
 updated: 2026-05-01
 ---
 

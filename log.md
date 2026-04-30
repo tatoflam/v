@@ -55,3 +55,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-04-29T16:08:21Z  op:ingest  S=4 I=0 pages=0 deferred=6 (manual reconcile only: auto-worker 5dd1e35 already committed substantive 06fe1d24 SpecDrawing add-multiring-polygons + meta 7c4e30d3 + meta 08489701 + missing-transcript ae6932e0; this run advanced ~/.claude/wiki/state/ only — cursors + queue.jsonl flips, ingest-log.jsonl entries, hook-errors.log skip lines for 6 deferred. 13th consecutive defer.)
 - 2026-04-30T12:02:22Z  op:ingest  S=3 I=0 pages=2 unsortable=0  deferred=6unique/9rows
 - 2026-05-01T07:00:00Z  op:ingest  S=2 I=0 pages=4 unsortable=0 (sessions: c2dd2c85 substantive habi-bff + 0d77b63d meta-flip; deferred 6 on WIP, 15th)
+- 2026-04-30T22:01:13Z  op:ingest  S=3 I=0 pages=3 unsortable=0 (sessions: e6de9be8 meta-flip prior-run + d87e347c no-op cursor-advance + add844fc missing-transcript; deferred 6 on WIP, 16th)
