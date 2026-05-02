@@ -2,8 +2,8 @@
 title: SpecDrawing material-presenter MVP（Woodone /pboard/ 自作版）
 category: 05_learn
 tags: [topic:specdrawing-material-presenter, tech:next-js, tech:konva, tech:typescript, tech:openspec, tech:vercel, stage:active]
-sources: [84a5b2d0-402c-4114-a408-4bf81236eeb0, f16f3443-5ba1-4c74-9849-912a8b545d38, 06fe1d24-37d8-4e1f-806d-c8119ea2e8d2, 04e50b3d-6f4c-4645-88a7-39291c8b65b4, 0d77b63d-cfe8-42b9-9e17-1b24b76b40a8, 10c66066-eebf-43c9-a9ed-4f3cf33d206e]
-updated: 2026-05-01
+sources: [84a5b2d0-402c-4114-a408-4bf81236eeb0, f16f3443-5ba1-4c74-9849-912a8b545d38, 06fe1d24-37d8-4e1f-806d-c8119ea2e8d2, 04e50b3d-6f4c-4645-88a7-39291c8b65b4, 0d77b63d-cfe8-42b9-9e17-1b24b76b40a8, 10c66066-eebf-43c9-a9ed-4f3cf33d206e, 3c5be9c0-ca09-48a9-a034-8f8e46003dc3]
+updated: 2026-05-03
 ---
 
 # SpecDrawing material-presenter MVP
@@ -361,3 +361,25 @@ Variant switcher と option 選択は**直交**にした:
 - [[02_diary/2026-04-29]]
 - [[02_diary/2026-04-30]]
 - [[02_diary/2026-05-01]]
+
+## 2026-05-01 — `add-vercel-deployment` 着工：LFS pull + preview-gated /dev/trace ＋ vercel.json fix
+
+`improve-finish-fidelity` archive 直後に残った最後の active change `add-vercel-deployment`（0/21）に着手。Vercel preview デプロイで base / mask / shading 画像（LFS 配信）を解決させる配線と、ブランチ deploy が build error で失敗していた根因の解消。
+
+- **`15fae13` Wire up Vercel deployment with LFS pull + preview-gated /dev/trace**
+  - `vercel.json` の `installCommand` に `npm ci && git lfs pull` を仕込んで、LFS で配信する画像を build 時に解決（pointer file のままデプロイされるのを防止）
+  - `/dev/trace` を **preview / development のみ有効化**：`process.env.VERCEL_ENV === "production"` で `notFound()`
+  - `/api/dev/parts` も同条件でガード
+  - LFS pointer-file smoke check を installCommand に同居（build image の `file` コマンド有無に依存）
+
+- **`5cbda54` Fix vercel.json headers patterns for path-to-regexp v6**
+  - branch deploy が `Vercel - Deployment failed` で fail していた原因が **path-to-regexp v6 で unnamed group `(mask_|shading_|base_)` が reject される**ことと判明（[invalid-route-source-pattern](https://vercel.com/docs/errors/error-list#invalid-route-source-pattern)）
+  - GitHub PR Checks にしか build error が表示されず、Vercel UI の Deployments 一覧には出ないので発見遅延
+  - `headers` パターンを v6 互換のシンプル形（または :prefix(...) named group）に書き直して通過
+
+- **Vercel UI の挙動を整理**（[[05_learn/vercel-path-to-regexp]] に切出し）：
+  - 1 deploy = 2 つの URL（deploy-immutable と branch-stable）。"古い" と感じたら branch-stable URL を確認
+  - branch deploy が走らない場合は `Settings → Git` の Production Branch / Preview Deployments 設定を最初に疑う
+  - `VERCEL_ENV` で preview / production を判別（`NODE_ENV` では不可）
+
+- **未解決**: preview URL 上で `/dev/trace` autosave が「ローカルに保持中（再送信を試行...）」を継続表示。`/api/dev/parts` の preview 環境疎通の確認が次セッション。コミット追加なしで session 3c5be9c0 は 5-2 / 5-3 の実機検証ターンを残す

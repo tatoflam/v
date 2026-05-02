@@ -2,8 +2,8 @@
 title: ThreadsPosts — 腸活スタジオ Threads 自動投稿パイプライン
 category: 03_work
 tags: [project:threadsposts, channel:threads, tech:nodejs, tech:openspec, stage:active, entity:chokatsu-studio]
-sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa]
-updated: 2026-04-29
+sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd]
+updated: 2026-05-03
 ---
 
 # ThreadsPosts
@@ -101,8 +101,92 @@ npm run check:threads   # トークン疎通確認（60 日以内）
 - 楽天アフィリエイトの残り 9 商品を `products.yaml` に埋めるか
 - Section 6（効果測定 / Insights 同期）に進むか
 
+## 2026-04-30 update — Node 20 互換 fix（CI 緑化）+ 出典明記テンプレ確立
+
+セッション d7e16e9a（4-29 11:48 JST → 4-30 08:17 JST）。CI を緑化して「出典つき事実 + 自分の解釈/体験」のハイブリッドテンプレで Drafts D001–D010 を rewrite。
+
+### CI 緑化（Phase A、4-29 11:48 JST）
+
+`pipeline/publish.js` で `import { glob } from 'node:fs/promises'` を使っていたが、これは **Node 22+ 専用 API**。GitHub Actions の Node 20 ランナーで `SyntaxError: ... does not provide an export named 'glob'` となり CI 失敗。`Drafts/*.md` はフラット 1 階層 glob なので `readdir` で同等置換可（`Drafts/` 不在 = ENOENT は空配列）。
+
+- commit `dacde8c fix(publish): glob を readdir に置き換えて Node 20 互換に` を `main` に push
+- `pipeline/validate_frontmatter.js` も同じ `glob` を使っていたので Phase B でついでに修正（commit `3fba767`）。git hook / CI で同エラーを誘発する前に予防
+
+### 出典明記テンプレ確立（Phase B、4-30 07:42–08:17 JST）
+
+「Drafts は出典つき事実を出すか、自分の経験を語るか」というユーザの問いに対する戦略決定。健康・サプリ系の Threads では **「出典つき事実 + 自分の解釈/体験」のハイブリッド**が最強と判断:
+
+- **数字だけで出典なしは逆効果**: D001 の「490 人の研究」「95% が食物繊維不足」など具体数字が出典なしだと「コピペ垢」「煽り垢」見え、健康ジャンルは特に不信を招く。薬機法・景表法的にも出典明示は防御
+- **純粋体験談は弱い**: N=1 で権威性ゼロ、フォロワー増えにくい
+- **挟み込み型が強い**: 「○○大学の研究で△△と判明（出典）→ 実際にやってみた → だからこう考えるべき」
+
+CLAUDE.md の「誰が言ったか明記」既存ルールと整合。テンプレ:
+
+1. 結論断言（1 行目）
+2. **出典明記つき事実**（誰が・どこで言ったか）
+3. 自分なりの解釈/問いかけ
+4. 行動喚起
+5. frontmatter `source:` ブロック追加（`author` / `publisher` / `title` / `url` / `type` — JS validator は unknown field を弾かないので追加自由）
+
+### D001–D010 一括 rewrite と訂正
+
+- 全 10 本に `source:` frontmatter ブロック ＋ 本文に「医師・石黒成治氏の YouTube 解説より」「PIVOT『がんを防ぐ腸活』で〜」のように **人物名 + プラットフォーム/番組名** を主張の前に挿入
+- **「石黒誠先生」→「石黒成治氏（医師）」** に名前修正（D003 / D005 / D007 / D009 / D010 の 5 本）— K001 transcript と YouTube チャンネル情報で正しい名前を確認
+- **D010 の topic_id を K001 → K004 に修正** — 引用「やっぱりマーケティングなんですよね」が K004（PIVOT「がんを防ぐ腸活」）からの引用だったため
+- **D009 の引用符号解除** — 「メタボを笑ってる人は…」が verbatim quote として確認できないので、書き手の解釈として地の文に
+- **D008 から「30 品目」主張削除** — 福田慎司氏の発言ではなく石黒氏の発言だったため
+
+### 2 commit に分けて push（レビューしやすさ優先）
+
+1. `3fba767 fix(validate): glob を readdir に置き換えて Node 20 互換に`（4-30 08:17 JST）
+2. `f64fe58 content(drafts): D001-D010 に出典明記を追加・著者名と topic_id を訂正`（4-30 08:17 JST）
+
+範囲: `dacde8c..f64fe58 main -> main`
+
+### 学び
+
+- **Node 22+ 専用 API は CI runner 環境を確認**: `actions/setup-node` の version 指定とリポの `engines` の整合をチェック。`node:fs/promises` の `glob` は v22 追加で v20 に未バックポート
+- **健康ジャンルの Threads は事実 + 体験/解釈のハイブリッドが最強**: 純粋数字＋出典なしは逆効果、純粋体験は弱い、挟み込み型が信頼と人格の両立に必要
+- **frontmatter `source:` ブロックは JS validator が unknown field を弾かない**性質を利用して非破壊で追加可能（schema 拡張不要で出典追跡を始められる）
+
+### 進捗（4-30 終了時点）
+
+- D001–D010 の出典強化完了（**Section 7「ドキュメント」進行中** → 出典担保部分は完了）
+- D011 = 本番初投稿成功（4-29、post_id `17978831033843102`）
+- 次の投稿（D001–D010 のいずれか）は `status: scheduled` + `scheduled_at` 設定でローテ開始可能、ただしまだ実行されず
+
 ## Links
 
 - [[02_diary/2026-04-29]]
+- [[02_diary/2026-04-30]]
 - [[05_learn/threads-graph-api-setup]]
 - [[06_output/2026-04]]
+
+## 2026-04-29 — CI Node 20 互換 fix ＋ Drafts 出典明記（session d7e16e9a）
+
+### CI failure と修正
+- GitHub Actions で `pipeline/publish.js` が `node 20.20.2` 環境で `SyntaxError: 'node:fs/promises' does not provide an export named 'glob'` を吐いて落ちる。`import { glob } from 'node:fs/promises'` は **Node 22+ 専用**だが `engines` は `>=20` 宣言
+- 単一ディレクトリ glob (`Drafts/*.md`) なので `readdir` で代替。`Drafts/` 不在時は ENOENT を空配列に変換
+- 同 glob を使っていた `pipeline/validate_frontmatter.js` も同時修正
+
+### 出典明記の方針確立
+- 健康・サプリ系で「出典なしの数字」は煽り垢に見え、薬機法・景表法的にも防御が弱い。**出典つき事実 + 自分の解釈/体験**のハイブリッドで 3 段構成（断言 → 出典つき事実 → 解釈/問いかけ → 行動喚起）に統一
+- frontmatter に `source:` ブロック（`author` / `publisher` / `title` / `url` / `type`）を追加。本文に「医師・石黒成治氏のYouTube解説より」「PIVOT『がんを防ぐ腸活』で〜」のように **人物名 + プラットフォーム名**を主張前に挿入
+- D001–D010 全 10 本に出典 frontmatter ＋ 本文 1 行を反映
+
+### 付随訂正（出典確認で発見）
+- **「石黒誠先生」→「石黒成治氏（医師）」**：D003 / D005 / D007 / D009 / D010（YouTube チャンネル名で正しい姓を確認）
+- **D010 の `topic_id` を K001 → K004 に修正**：「やっぱりマーケティングなんですよね」が PIVOT K004 からの引用と判明
+- **D009 の引用符号を解除**：「メタボを笑ってる人は…」が verbatim quote として確認できず → 書き手の解釈として地の文に
+- **D008 の「30 品目」削除**：石黒氏の発言を福田氏に誤帰属していた
+
+### 出力
+- `3fba767 fix(validate): glob を readdir に置き換えて Node 20 互換に`
+- `f64fe58 content(drafts): D001-D010 に出典明記 + 著者名/topic_id 訂正`
+- 先行 `dacde8c` で `pipeline/publish.js` の Node 20 fix を単独 push 済
+- 範囲: `dacde8c..f64fe58 main -> main`（`origin/main`）
+- 検証: 11 ファイル validate / lint 通過、54 tests pass、ローカル `publish.js --dry-run` 動作
+
+### 学び
+- Node 20 ↔ 22 で `fs/promises` の `glob` export 有無が分かれる → engines バージョンと API 利用バージョンを揃える運用が必要
+- ヘルスケア発信は **N=1 体験談だけでは弱く、出典つき事実だけでも冷たい** → 「事実 + 解釈/体験」の挟み込み型が CV/フォロー両方に効く（コンテンツマーケティング基本則）
