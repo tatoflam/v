@@ -377,7 +377,7 @@ Variant switcher と option 選択は**直交**にした:
   - GitHub PR Checks にしか build error が表示されず、Vercel UI の Deployments 一覧には出ないので発見遅延
   - `headers` パターンを v6 互換のシンプル形（または :prefix(...) named group）に書き直して通過
 
-- **Vercel UI の挙動を整理**（[[05_learn/vercel-path-to-regexp]] に切出し）：
+- **Vercel UI の挙動を整理**（[[05_learn/vercel-path-to-regexp-v6]] に切出し）：
   - 1 deploy = 2 つの URL（deploy-immutable と branch-stable）。"古い" と感じたら branch-stable URL を確認
   - branch deploy が走らない場合は `Settings → Git` の Production Branch / Preview Deployments 設定を最初に疑う
   - `VERCEL_ENV` で preview / production を判別（`NODE_ENV` では不可）

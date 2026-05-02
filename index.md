@@ -50,7 +50,6 @@ _(empty)_
 - [[05_learn/threads-graph-api-setup]]
 - [[05_learn/todobot-line-mvp]]
 - [[05_learn/vercel-path-to-regexp-v6]]
-- [[05_learn/vercel-path-to-regexp]]
 - [[05_learn/wiki-automation-pipeline]]
 - [[05_learn/woodone-pboard-architecture]]
 
