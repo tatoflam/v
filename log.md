@@ -60,3 +60,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-05-02T23:38:26Z  op:ingest  S=9 I=0 pages=11 unsortable=0 deferred=6 (manual /wiki-ingest, drained 18-session backlog; defer-gate 18th)
 - 2026-05-03T06:02:38Z  op:ingest  S=12 I=0 pages=9 unsortable=0 deferred=6 (defer-gate 19th: sayama/saltmoon/woodone WIP)
 - 2026-05-03T06:15:45Z  op:ingest  S=2 I=0 pages=3 unsortable=0 (deferred 6 on WIP, 20th cycle)
+- 2026-05-03T06:36:14Z  op:ingest  S=3 I=0 pages=1 unsortable=0 (meta-flip 2 + 0d885baa cursor-advance; deferred 6unique/9rows on WIP, 21st cycle)
