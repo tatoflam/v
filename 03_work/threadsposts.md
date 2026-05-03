@@ -1,9 +1,9 @@
 ---
 title: ThreadsPosts — 腸活スタジオ Threads 自動投稿パイプライン
 category: 03_work
-tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, stage:active, entity:chokatsu-studio, milestone:v2-launch, milestone:d002-production, infra:claude-github-app, infra:remote-agent]
-sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d]
-updated: 2026-05-03
+tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, stage:active, entity:chokatsu-studio, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, infra:claude-github-app, infra:remote-agent]
+sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063]
+updated: 2026-05-04
 ---
 
 # ThreadsPosts
@@ -450,3 +450,105 @@ user 提案: 「このリポジトリを会社化したい」 → `https://githu
 - **API 規約とスクレイピングの境界線は「正規 login + 低頻度 + 人手起動」**: 完全自動化（リフレッシュトークン保管含む）は規約 7 条のグレーに落ちやすいが、**人手 login → 短縮 URL 一括取得 → CI でその後 long URL refresh のみ自動化**、というハイブリッドはコストもリスクも低く取り回せる。「機械的アクセス」と判定される境目は「**人間が起動した形跡があるか**」が大きい
 - **`name` ≠ `search_query` の分離設計**: 商品マスターの「人間向け説明的表記」と「API 検索クエリ」は別フィールドにすべき。`steamed_soybeans` の `蒸し大豆・豆類ミックス` (name) vs `蒸し大豆` (search_query) のような乖離は健康・食品ジャンルでは頻発する（複合表記が API DB に存在しない）。fallback の N-gram カスケードに加え、override フィールドを設計時から入れておく
 - **「ステージング不要、いきなり本番」判断は構造的に正しい**: アカウントが既にライブな状況では staging account の追加コストは管理負荷だけ増やす。`POSTING_MODE` 切替で本番／dry-run を制御できる pipeline を整えた時点で、staging account は不要
+
+## 2026-05-04 — research-pipeline-k006 完走（dept/research/ 着工 + K006/K007/K008 自動生成 + Whisper ASR + OpenSpec 7→8）
+
+5/9 以降の Drafts 在庫ゼロ問題への打ち手として、e01596df セッション末尾で宿題化していた「`dept/research/` 着工」を会社化提案より先に着手。1 セッション（5-3 24:26 → 5-4 03:02 JST、約 2.5 時間）で **62 タスク完走 → PR #2 マージ → archive commit `712ac50`** まで貫通。
+
+### 起票（`/opsx:propose research-pipeline-k006`）
+
+`openspec/changes/research-pipeline-k006/` に 4 artifacts (proposal / design / specs / tasks)、validate 4/4。design.md の D1-D10 で:
+
+- CLI: `npm run research -- --keyword <kw> | --url <url>`、`--max-candidates` / `--auto-pick` / `--force` / `--dry-run`
+- D2 候補選択: YouTube Data API v3、再生数 × 新しさ
+- **D3（後で全面書換え）**: 当初は `youtube-transcript` 一択、字幕なし skip、ASR 不採用
+- D5 Topics 合成: Claude Sonnet 4.6 + プロンプトキャッシュ + K005 を few-shot
+- D6 frontmatter: `topic_id` / `source_url` / `generated_at` / `model` / `transcript_path` / `status: draft_auto`
+- D7 採番: 既存 K001-K005 は frontmatter なし legacy、ディレクトリスキャンで最大連番 +1
+- D8 dedup: `source_url` の正規化（v= パラメータのみ）で衝突検出
+
+### `--asr` opt-in 仕様変更（user 主導の `/opsx:explore`）
+
+「ASR は明示フラグ時のみ起動 / 通常運用は無料・即時 / 字幕なし遭遇したら明示的にコストを払う / 多言語は別問題: Topics 生成の system prompt に『出力は常に日本語』追加」を user 指示。コスト試算（1h 動画基準・月 60 本想定）:
+
+| 手段 | 1h あたり | 月 60 本 | 多言語 | 字幕なし | 精度 |
+|---|---|---|---|---|---|
+| timedtext（デフォルト） | $0 | $0 | △ | ❌ | △ |
+| Whisper API（`--asr`） | $0.36 | $21.6 | ✅ | ✅ | ◎ |
+| Whisper local（`--asr=local`、予約） | $0 | $0 | ✅ | ✅ | ◎ |
+
+→ design.md D3 全面書換え + **D11「ASR 実装の構造」新設** + D9 に `OPENAI_API_KEY` 追加 + D10 にテスト 2 件追加 + Goals/Non-Goals/Risks/Migration 全更新。spec.md にも「ASR opt-in via --asr flag」「ASR transcript file format」の 2 Requirement 新設（6 シナリオ）
+
+### 実装（`/opsx:apply` で 55/62 タスク + smoke 残り）
+
+新規 8 ファイル + tests を [pipeline/research/](pipeline/research/) 配下に:
+
+| ファイル | 役割 |
+|---|---|
+| `index.js` | CLI dispatcher、6 フラグ |
+| `youtube_search.js` | YouTube Data API v3 直叩き + tests 5 件 |
+| `transcript_fetch.js` | 言語優先 `ja > en > その他` + tests 7 件 |
+| `audio_download.js` | yt-dlp ラッパ + tmp sweep + tests（asr.js と合計 10 件） |
+| `asr.js` | Whisper API + verbose_json + finally cleanup |
+| `topic_synthesize.js` | Claude Sonnet 4.6 + cache_control + K005 few-shot + 「日本語出力」prompt + tests 6 件 |
+| `write_knowledge.js` | frontmatter + ファイル名サニタイズ + 衝突検出 + tests 5 件 |
+| `k_numbering.js` + `dedup.js` | tests 12 件 |
+
+### Smoke 実行（K006 → ASR auth エラー → openai SDK upgrade → K007 bug fix → K008）
+
+| Step | Knowledge | 経路 | コスト | 結果 |
+|---|---|---|---|---|
+| §10.3 実生成（キーワード） | K006 PIVOT「痩せ菌」(35分) | `youtube-transcript ja` | ~$0.08 | ✅ 校閲 PASS |
+| §10.5 ASR smoke 1st | くるくるメディカル「大腸菌」(60秒) | `whisper-1` | — | ⚠ Node v25 + openai v4 で `ECONNRESET` |
+| 副産物 commit `55f57e1` | — | — | — | openai SDK v4 → v6 upgrade |
+| §10.5 ASR smoke 2nd | 同上 | `whisper-1` | — | ⚠ 429 quota（user 側で billing 設定 + auto-recharge） |
+| §10.5 ASR smoke 3rd | K008 同上 | `whisper-1` | $0.006 + Topics $0.04 | ✅ end-to-end OK、Whisper 誤字「イイコリ」「肝菌」を Claude が `E. coli` `グラム陰性桿菌` に文脈解釈 |
+| §10.6 多言語 smoke | K007 TED-Ed (5分) | `youtube-transcript ja (auto-translated)` | ~$0.05 | ⚠ JA コミュニティ翻訳字幕で迂回（真の EN→JA Claude 翻訳パス未検証） |
+| §10.6 再検証 | BBC Global 1667 chars EN | `youtube-transcript en` → Claude 翻訳 | (smoke のみ、保存せず) | ✅ 真の EN→JA パス verified |
+
+K007 生成時に **3 件の bug 発見**（commit `8841d66`）:
+
+1. **markdown コードフェンス ` ``` ` 混入 + frontmatter 二重**: system prompt の出力フォーマット例を ` ``` ` で囲んだら Claude が literal コピー → 出力例を plaintext に変更
+2. **`model: claude-opus-4-5` を hallucinate**: 我々の指定は `claude-sonnet-4-6` → frontmatter は LLM に任せず、プログラム側で確実に上書き
+3. **`(unknown)` / `(URL指定)` メタデータ**: `--url` モードで動画 metadata を fetch していなかった → YouTube oEmbed 取得を追加
+
+加えて docs に **ffmpeg 必須** を追記（yt-dlp のみ言及していた）
+
+### archive（`/opsx:archive research-pipeline-k006`）
+
+- archive 先: [openspec/changes/archive/2026-05-04-research-pipeline-k006/](openspec/changes/archive/2026-05-04-research-pipeline-k006/)
+- specs sync: 新規 `openspec/specs/research-pipeline/spec.md`（15 Requirements）+ 更新 `openspec/specs/dept-organization/spec.md`（capability mapping 7→8）
+- archive commit: `712ac50 chore: archive research-pipeline-k006 + research-pipeline spec を main へ反映`
+
+### commit 全リスト（`origin/main` 反映済）
+
+```
+71f910d feat(research): K006+ Knowledge 自動生成パイプライン
+0bb51f5 content(research): K006 校閲完了 → status: ready
+55f57e1 fix(research): openai SDK v4 → v6 で multipart upload の ECONNRESET を解消
+8841d66 fix(research): K007 生成で発覚した 3 件の不具合を修正
+8e511a5 content(research): K007 校閲完了 → status: ready
+712ac50 chore: archive research-pipeline-k006 + research-pipeline spec を main へ反映
+165831e Merge pull request #2 from tatoflam/feat/research-pipeline-k006
+```
+
+### 最終成果
+
+| 項目 | 値 |
+|---|---|
+| タスク完走 | **62 / 62** |
+| Knowledge 在庫 | K001-K005（legacy）+ **K006 / K007 / K008（新規生成、全 ready）** |
+| 合計コスト | **~$0.18**（K006 $0.08 + K007 $0.05 + K008 $0.05） |
+| OpenSpec capability | **7 → 8**（`research-pipeline` 新設） |
+| tests | 197 → 203（bug fix で +6 件） |
+
+詳細パターンは [[05_learn/youtube-knowledge-pipeline]] に切出し（`--asr` opt-in 設計 / Claude few-shot Topics / 多言語 EN→JA / frontmatter LLM 任せない / system prompt のコードフェンス罠 / Whisper 誤字を Claude が文脈吸収）
+
+### 次セッションでやること（user 明示の固定順序）
+
+1. `/opsx:propose companify-pipeline-relocate` — `pipeline/*.js` を `dept/dev/pipeline/` へ
+2. `/opsx:propose marketing-strategy-split` — 配信戦略を `dept/marketing/` 分離
+3. **Drafts 在庫補充** — K006-K008 → `npm run generate -- --topic K00X --target "..."` で人実行（5/9 以降の在庫ゼロを解消）
+4. `/opsx:propose multi-tenant-bootstrap` — 2 アカウント目立ち上げ時
+
+memory: [[memory: project_session_2026-05-04]]
