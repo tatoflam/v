@@ -1,8 +1,8 @@
 ---
 title: ThreadsPosts — 腸活スタジオ Threads 自動投稿パイプライン
 category: 03_work
-tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, stage:active, entity:chokatsu-studio, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, infra:claude-github-app, infra:remote-agent]
-sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063]
+tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, stage:active, entity:chokatsu-studio, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic]
+sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8]
 updated: 2026-05-04
 ---
 
@@ -552,3 +552,143 @@ K007 生成時に **3 件の bug 発見**（commit `8841d66`）:
 4. `/opsx:propose multi-tenant-bootstrap` — 2 アカウント目立ち上げ時
 
 memory: [[memory: project_session_2026-05-04]]
+
+## 2026-05-04 — companify-bc-hybrid 完走 + 4 OpenSpec changes 起票 + 3 実装 Phase 1 + Local-First 確定（sessions 57a002bd + d40649e2）
+
+research-pipeline-k006 完走の翌セッションから、**会社化の本丸 (B+C ハイブリッド)** を着工。`/opsx:propose companify-bc-hybrid` 起票（マルチアカウント観点を user 指摘で追加）→ `/opsx:apply` で artifact mismatch 検出 → 即停止 → Node.js 化と scope 縮小で再 plan → 36/39 → 39/39 → archive → README.md 新規 → push 完了（PR #1）。続くセッション d40649e2 では **次セッション固定順序リスト** を user 明示で消化:
+
+1. companify-pipeline-relocate（pipeline → dept/dev/pipeline）
+2. marketing-strategy-split（配信戦略 YAML 化）
+3. Drafts 在庫補充 K006-K008（D011-D013 生成）
+4. multi-tenant-bootstrap（genres 二層化）
+
+途中で **`marketing-cycle-bootstrap` を分離起票**（user 提案の循環ループを別 change で扱う二段構え）+ `/opsx:explore` で **Local-First 原則** を確定（Max plan x20 を払っているなら GH Actions に Anthropic API を持ち込まない）+ user 提案の **週次バッチ運用** を 7 フェーズ + 3 段重ね reminder で spec 化。
+
+### companify-bc-hybrid（57a002bd、5-3 23:21 → 5-4 00:21 JST）
+
+| Phase | 内容 |
+|---|---|
+| A. 起票 | `genres/<g>/{shared,accounts/<a>}/` 二層構造（マルチアカウント観点を user 指摘で追加）、4 artifacts validate pass |
+| B. apply 開始即停止 | tasks/specs は Python `scripts/` 前提、リポは Node.js `pipeline/` → 即 stop、user `1` 選択で artifact 全更新（Node.js 化 + scope 縮小） |
+| C. 実装 36/39 | dept/ skeleton + git mv 5 dir + path 参照更新（pipeline / GH Actions / tests / docs） + 152/152 tests pass + 7 capability cross-check |
+| D. release | commit `c8637e7` → push → PR #1 → user merge → archive `910eda0` → main 直 push がローカル hook で正しく拒否 → user 手動 push |
+| E. README | user `「結局何ができるアプリ？」` → README.md 新規 (107 行) + archive tasks 7.1/7.2 tick-off を 1 commit `dbb7564` → push 完了 |
+
+push 反映 commit:
+```
+c128543 Merge pull request #1 from tatoflam/refactor/companify-bc-hybrid-stage1
+c8637e7 refactor(repo): B+C ハイブリッド第1弾 — content/data ディレクトリを dept/ へ再編
+910eda0 chore: archive companify-bc-hybrid + dept-organization spec を main spec へ反映
+dbb7564 docs: README.md 新規追加 + archive tasks の 7.1/7.2 を完了マーク
+```
+
+dept-organization spec が canonical 化（`openspec/specs/dept-organization/spec.md`）、capability mapping 7→8（research-pipeline）を引継ぎ
+
+### d40649e2（5-4 03:02 → 08:24 JST）— 4 changes 起票 + 3 実装 + 4 commits（push 未）
+
+#### 起票 4 件（全て 4/4 artifacts complete）
+
+| change | 概要 |
+|---|---|
+| companify-pipeline-relocate | `pipeline/*.js` を `dept/dev/pipeline/` へ移動。dept-organization の MODIFIED delta で「pipeline 据え置き」例外を撤廃 |
+| marketing-strategy-split | post-scheduler から配信戦略を切出して `dept/marketing/strategy/posting_policy.yaml` + 新 capability `posting-strategy`（marketing 所有）に移管 |
+| multi-tenant-bootstrap | `dept/` 単一 tenant → `genres/gut-health/{shared,accounts/chokatsu-studio}/<dept>/` 二層化。新 capability `tenant-path-resolver` + `account-config`。Phase A=1-account 化 + Phase B=2 アカウント目立ち上げ。**design.md に "Local-First Anthropic" 原則を追記** |
+| marketing-cycle-bootstrap | 7 フェーズ循環ループ (REVIEW → MARKETING → RESEARCH → CONTENT → AFFILIATE → SCHEDULE → PUSH) を週次バッチ spec 化。Phase β: P1 = orchestrator + B-1〜B-4 + idempotency + `/weekly-cycle` skill / P2 = launchd + sessionStart hook + Stop hook。新 capability 3 / modify 5。月初週は B-3 (persona 見直し) 強制実行 |
+
+#### Local-First 原則確定（`/opsx:explore` で reframe）
+
+| 環境 | Anthropic API | コスト |
+|---|---|---|
+| ローカル (Claude Code) | Max plan x20 経由 | **既に支払い済 ($200/月固定)** |
+| GH Actions | API key 経由 | **追加課金 ($/token、月 $5-30 推定)** |
+
+Max plan x20 は OAuth ベースで GH Actions では使えない → Anthropic API を GH Actions に持ち込む = **二重課金**。**Local-First** 確定:
+
+- Anthropic 使うステップ（research / generate / B フェーズ分析）= ローカル Claude Code
+- GH Actions = Threads / 楽天 API のみ呼ぶ workflow（publish, sync_metrics, weekly_report, resolve_affiliates）
+- workflow_dispatch の手動 Anthropic 起動は将来の拡張として残す（`confirm_anthropic_cost: true` 必須）
+
+→ multi-tenant-bootstrap design.md に明記、marketing-cycle-bootstrap の weekly-cycle-orchestrator capability に "Local-First execution" 要件として spec 化
+
+#### 週次バッチ = OODA ループ（user 指摘で B フェーズ追加）
+
+当初 6 フェーズ案（A REVIEW → C RESEARCH → D CONTENT → E AFFILIATE → F SCHEDULE → G PUSH）に user 指摘:
+
+> 「review と research の間に marketing（何に需要があり、どのような収益モデルを描けるかの戦略を立てる）のフェーズは必要ないかな？」
+
+→ **Observe (REVIEW) → Act (RESEARCH 以降)** 直結で **Orient (戦略立案)** が抜けている = OODA 短絡。**B MARKETING フェーズ追加**:
+
+- B-1 仮説出し / B-2 affiliate モデル / B-3 persona 見直し（月初週強制）/ B-4 戦略 ratify (status: draft → ratified → superseded)
+- 戦略アウトプット格納: `dept/marketing/strategy/weekly/<ISO_week>.md`
+
+#### 3 段重ね reminder（Phase 2）
+
+- Layer 1: launchd 日曜 14:00 → macOS 通知 + iMessage to self
+- Layer 2: Claude Code sessionStart hook → check_weekly_due.js が exit 1 なら system-reminder inject
+- Layer 3: user が `/weekly-cycle` を直接叩く
+
+通知メディアは macOS 純正 + iMessage to self のみ（Apple ロックインだが user 環境最適）
+
+#### Drafts D011-D013 補充
+
+| Draft | topic | target | 型 |
+|---|---|---|---|
+| D011 | K006 | ヨーグルトを習慣にしてるのに痩せない人 | 認知の置換（短鎖脂肪酸リレー） |
+| D012 | K007 | 甘いヨーグルトに頼ってる人 | 認知の置換（食物繊維と多様性） |
+| D013 | K008 | 腸内細菌は善玉菌だけと思ってる人 | 意味の再定義（大腸菌の二面性） |
+
+3 本 lint/validate green。**衝突発見**: 既存 `published/D011_腸活スタジオ始動.md` と新 D011 が被る → `generate_post.js` の numbering bug（`published/` を考慮していない）。即時事故無し（別 dir）だが publish 時の上書きリスク → marketing-cycle-bootstrap の content-pipeline spec delta に **「D0XX numbering accounts for both drafts and published」** 要件として組み込み、Phase 1 tasks に含む
+
+#### `/opsx:apply` 3 件連続実装 → 4 commits（push 未）
+
+```
+3397f6e refactor: pipeline/ を dept/dev/pipeline/ へ移動 (companify-pipeline-relocate)
+56ff446 refactor: 配信戦略を dept/marketing/posting-strategy へ分離 (marketing-strategy-split)
+ebccdaa feat: weekly-cycle orchestrator (marketing-cycle-bootstrap Phase 1)
+d848bd8 content: Drafts D011-D013 補充 + multi-tenant-bootstrap 提案起票
+```
+
+| change | 完了タスク | 実装内容 |
+|---|---|---|
+| companify-pipeline-relocate | 33/41 | 47 R rename + path 参照更新 + 203/203 tests pass。残 8 = post-merge / archive |
+| marketing-strategy-split | 25/30 | `posting_policy.yaml` + `pipeline/lib/posting_policy.js` (9 unit tests) + `schedule.js` を YAML 読込型 refactor + fail-fast 検証。212/212 tests pass |
+| marketing-cycle-bootstrap P1 | 25/61 | `pipeline/lib/iso_week.js` (16 tests) + `weekly_state.js` (5 tests) + 既存 weekly_report.js 改修 (4 tests) + WeeklyCycle skill + `dept/marketing/strategy/weekly/` template + dept/marketing README |
+
+#### skill 名 kebab-case 統一
+
+user 指摘 `「/weekly-cycle は VS Code の Claude code プラグイン上では使えない？」` → 当初 PascalCase `WeeklyCycle` だったので `/WeeklyCycle` でしか叩けない。SKILL.md / tasks 内の表記揺れも合わせて全部 kebab-case に統一:
+
+- `.claude/skills/WeeklyCycle/` → `.claude/skills/weekly-cycle/`
+- frontmatter `name`: `WeeklyCycle` → `weekly-cycle`
+- VS Code プラグイン / CLI / Web 全環境で `/weekly-cycle` 動作確認
+
+### 次セッション再開手順
+
+push 未の 4 commit を上げる前に user 確認:
+
+```bash
+cd /Users/tato/repo/github/tatoflam/ThreadsPosts
+git status                  # 4 commits ahead of origin/main
+git push origin main        # client-side hook が PR review bypass で拒否される可能性あり、user 手動 push 想定
+```
+
+その後の優先順位:
+
+1. push 完了 → PR ベースで通すなら branch 切り戻し
+2. `/opsx:apply marketing-cycle-bootstrap` Phase 2（launchd + hooks の trigger 機構）
+3. `/opsx:apply multi-tenant-bootstrap`（2 アカウント目立ち上げ trigger 時）
+4. **`/weekly-cycle` 実運用開始** — 週次バッチを実体験して必要に応じ skill 改善
+
+### 学び（横展開可能）
+
+- **artifact mismatch は smoke 段階で即停止**: 起票時の前提（Python 等）と実装時の現実（Node.js）がズレた時、タスクを進めながら型を変えると差分管理が破綻する。section 1 で気づいたら即 stop → user に「artifact 更新で進める / scope 変えない」の選択を投げて再 plan するのが正解
+- **Max plan x20 を払っているなら Anthropic API は Local-First**: GH Actions に持ち込むと別建ての従量課金で **二重課金**。Local Claude Code セッション = Max plan 内で消費、GH Actions = 非 Anthropic workflow（Threads / 楽天 / 計測 API）のみ自動 cron する分離が最適
+- **OODA で見ると週次サイクルは A=Observe / B=Orient / C-G=Act の構造**: 当初 6 フェーズ案で B (Orient) を抜きたくなるが、それは OODA 短絡で「先週の数字を見ても次の打ち手が決まらない」状態を作る。月初週は B-3 (persona 見直し) を強制実行する設計で戦略漂流を防ぐ
+- **段取りオーバーヘッドが分散すると続かない → 集中タイムの週次バッチが続けやすい**: 1 セッション 30-90 分で「今週分終わり」の状態に到達するバッチ式が user の運用継続性にフィット
+- **3 段重ね reminder で運用継続性を担保**: 単一 trigger ではオフライン時の通知見逃し / Mac 開かない期間で取りこぼす。launchd + hook + 直接実行の 3 層冗長化で「今週やってない」状態を残さない
+- **マルチアカウント観点は会社化提案の必須要素**: 1 ジャンル × N アカウントは会社運営の最初の必然（rate limit / ペルソナ並列 / シャドウバン耐性）。`genres/<g>/{shared,accounts/<a>}/` の二層構造を提案段階から組み込む
+- **dev 部署は account 軸を超える例外**: pipeline コードを `genres/<g>/shared/dev/` に入れない方針はコード fork 防止のため。tenant-path-resolver でも `dept='dev'` は reject
+- **skill 名は kebab-case で統一が PascalCase より良い**: VS Code プラグイン / CLI / Web で全部共通の registry。user の指打ちは `/weekly-cycle` のような lowercase が自然なので、ディレクトリ名 + frontmatter name を kebab で統一
+- **D0XX numbering は drafts と published 両方を見るべき**: `generate_post.js` が `published/` を numbering 計算に含めてないと、別 dir なので即時事故は無いが publish 時の上書きリスクが残る。numbering 関数の入力 set を draft + published 両方に拡張するのが安全
+
+詳細な運用パターンは [[05_learn/local-first-anthropic-ops]] に切出し（Local-First 原則 / 週次バッチ = OODA / 3 段重ね reminder）
