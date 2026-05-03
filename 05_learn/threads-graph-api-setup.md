@@ -2,8 +2,8 @@
 title: Threads Graph API セットアップ — Meta Developer Console の落とし穴
 category: 05_learn
 tags: [topic:threads-graph-api, tech:nodejs, channel:threads, entity:meta-developer-console]
-sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa]
-updated: 2026-04-29
+sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29]
+updated: 2026-05-03
 ---
 
 # Threads Graph API セットアップ — Meta Developer Console の落とし穴
@@ -97,3 +97,24 @@ $ npm run check:threads
 - [[03_work/threadsposts]]
 - [[02_diary/2026-04-29]]
 - [[06_output/2026-04]]
+
+## 7. ID/トークン対応表 — User ID と App ID は別物（2026-05-03 追加）
+
+`THREADS_USER_ID` と `THREADS_APP_ID` の取り違えで詰まりがち。`docs/meta_developer_setup.md` 冒頭に対応表を置いて取り違え予防（commit `f6691db docs(setup): ID/トークン対応表を追加し User ID 取得手順を強調`）。
+
+| 変数 | 例 | 取得元 | いつ作られる |
+|---|---|---|---|
+| `THREADS_APP_ID` | `2128135774707190` | Meta Developer Console → Apps → 該当アプリの「App ID」 | アプリ作成時に自動採番 |
+| `THREADS_APP_SECRET` | `xxxxx...` | 同 → 「App Secret」 | アプリ作成時に自動採番（再生成可） |
+| `THREADS_USER_ID` | `36075427142056546` | OAuth flow（手順 5）または `npm run check:threads` の出力 | 初回アクセストークン発行時に判明 |
+| `THREADS_ACCESS_TOKEN` | `THAA...`（60 日有効） | 「ユースケース → カスタマイズ → アクセストークンを作成」 | 手順 3〜4 で発行 |
+
+**重要**: User ID は手順 5（OAuth flow）でしか自然に取れない → 取り忘れた場合は `npm run check:threads` の出力をコピペすればリカバリ可能。スクリプトは `/me?fields=id,username` を叩いて User ID と username の両方を返す。
+
+```bash
+$ npm run check:threads
+[check] OK
+  user id:  36075427142056546   ← これが THREADS_USER_ID
+  username: @chokatsu_studio    ← これは表示用、API には使わない
+[check] set THREADS_USER_ID=36075427142056546 in your .env
+```

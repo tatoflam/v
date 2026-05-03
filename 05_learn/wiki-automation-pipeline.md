@@ -2,8 +2,8 @@
 title: Wiki 自動運用パイプライン
 category: 05_learn
 tags: [wiki, automation, hooks, github-actions, topic:wiki-system]
-sources: [8a25326c-5119-438b-bcf3-4c4c7dba4127, a974a8f6-c56d-4b5f-9064-3ab8884ee7d8, 03859554-98cc-4d1a-b62e-212103596b54, 949188fb-38df-403c-8b5a-d1d560de74f0, 6711184a-25c9-4cb4-9566-2c041aeb955b]
-updated: 2026-04-25
+sources: [8a25326c-5119-438b-bcf3-4c4c7dba4127, a974a8f6-c56d-4b5f-9064-3ab8884ee7d8, 03859554-98cc-4d1a-b62e-212103596b54, 949188fb-38df-403c-8b5a-d1d560de74f0, 6711184a-25c9-4cb4-9566-2c041aeb955b, 5a969394-b6e8-4550-aa00-4ea7dbd77df8, 023f317a-a958-4f56-ad10-efcf22773aba, 536fc370-29c5-41fc-9eb0-69219ed653ad, 663d418d-e50e-4fab-9865-243d8963e0aa]
+updated: 2026-05-03
 ---
 
 # Wiki 自動運用パイプライン
@@ -122,3 +122,87 @@ Slug 規則: lowercase, hyphen-separated, singular, reuse before invent。
 - [[02_diary/2026-04-23]]
 - [[02_diary/2026-04-24]] — 並走3本の race 実例
 - [[02_diary/2026-04-25]] — dirty-target gate + tag taxonomy 実装
+
+## 病理学 — auto-worker zombie ＋ duplicate-write race ＋ 18 サイクル defer の 3 系統（2026-05-02 → 05-03 観察）
+
+5-2 朝〜5-3 朝の 9 連続 yield と最終 drain（commit `d6c64ad` ＋ 事後 cleanup `efd00e2`）で観察した、並走 ingest の病理を 3 系統に分けて整理。
+
+### 病理 1 — auto-worker zombie が remote diverge で stuck retry
+
+**症状**: 18 並行 auto-worker（PIDs 28514/28551/30116/30118/30120/31857 系、etime 9-12 分）が `git push` 失敗で stuck retry ループ。HEAD は `8538d57` から動かないのに queue は 27 → 30 と増加し続ける。`cursors.json` / `ingest-log.jsonl` も May 1 07:08 で更新止まり。SessionEnd hook が新 worker を spawn し続けるので worker pile up が止まらない。
+
+**復旧手順**:
+
+```bash
+# 1. worker 全滅
+pkill -f 'auto-ingest-push.sh'
+pkill -f 'claude.*wiki-ingest'
+
+# 2. remote と同期
+cd ~/repo/github/tatoflam/v
+git pull --rebase
+
+# 3. duplicate ファイル手動統合（病理 2 参照）
+
+# 4. 長期 WIP は commit/discard を強制（病理 3 参照）
+
+# 5. 再 ingest で cursors/queue を自動 reconcile
+claude --dangerously-skip-permissions -p "/claude-wiki:wiki-ingest"
+```
+
+**根本治療候補（未実装）**: `auto-ingest-push.sh` 側で `git push` 失敗時の **fail-fast + ロックファイル即時開放** を入れて、後続 worker が retry を肩代わりしないようにする。`ingest.lock` の `flock` で 1 worker / 5 分の上限を強制するのも効く。
+
+### 病理 2 — 同セッションを別ファイル名で生成する duplicate-write race
+
+**症状**: 同 `da24ce6d` セッションから 2 worker が **`apartment-garbage-stocker-shortlist.md` と `apartment-gomi-stocker-sizing.md` の 2 ファイル**を別名で並行生成。同様に `vercel-path-to-regexp.md` (auto-worker A 版) と `vercel-path-to-regexp-v6.md` (auto-worker B 版) の near-duplicate も発生（後者が Team scope + repo transfer まで含む superior 内容で canonical 採用）。
+
+**事後 cleanup の定型**（commit `efd00e2` を参考）:
+
+```bash
+# 1. duplicate 検出（/wiki-lint で near-duplicate slug を検出）
+/wiki-lint
+
+# 2. canonical 判定（より thorough な内容のものを採用）
+
+# 3. git rm 重複 + sed -i '' でリンク全置換
+git rm 05_learn/vercel-path-to-regexp.md
+sed -i '' 's|\[\[vercel-path-to-regexp\]\]|[[vercel-path-to-regexp-v6]]|g' \
+  02_diary/2026-05-01.md \
+  05_learn/specdrawing-material-presenter.md \
+  06_output/2026-05.md \
+  index.md
+
+# 4. hallucinated narrative 検出 + 訂正
+#    （auto-worker が推測で書いた内容を正しい narrative に置換）
+
+# 5. index.md の重複 entry も dedupe
+```
+
+**予防策（未実装）**: ingest 開始時に **session_id をキー**として「このセッションが既に touch したファイル」を `~/.claude/wiki/state/in-flight.json` に記録、別 worker が同 session を扱おうとしたら yield。
+
+### 病理 3 — user の Obsidian live-edit による 18 サイクル defer
+
+**症状**: 同じ 6 sessions（84dd308c → woodone, 832016a3 / c08d4720 / f75e4e61 / 385eff5c → sayama, d030ba7d → sayama + saltmoon）が **18 営業日連続**で deferred のまま。原因は user が Obsidian 上でこれら 3 ファイル（`04_life/sayama-land-contract.md` M, `04_life/saltmoon-llc-operations.md` ??, `05_learn/woodone-pboard-architecture.md` ??）を live-edit したまま commit しないこと。dirty-target gate が機能しているので破壊は起きないが、関連 session の取り込みが永続的にブロックされる。
+
+**user 側の解消手順**:
+
+1. Obsidian で当該 3 ファイルの編集を一段落させる
+2. ターミナルで commit:
+   ```bash
+   cd ~/repo/github/tatoflam/v
+   git add 04_life/sayama-land-contract.md 04_life/saltmoon-llc-operations.md 05_learn/woodone-pboard-architecture.md
+   git commit -m "wip: snapshot sayama / saltmoon / woodone live-edits"
+   ```
+3. 次回 `/wiki-ingest` で 6 sessions が drain される
+
+**自動化の限界**: skill 側からは「user がエディタを開いている」かは検知できない（mtime と git status だけが手がかり）。**ingest レポートに `Deferred (dirty working copy): N` を必ず表示**し、user に「commit してください」を継続的にリマインドするのが現状の最善。
+
+### 5-3 race cleanup commit 構造（参考）
+
+```
+d6c64ad ingest: 9 sessions + 0 inbox, 11 pages touched (drained 18-session backlog; defer-gate 18th)
+↓ 並走 manual run + auto-worker が同時収束
+efd00e2 ingest cleanup: dedupe vercel-path-to-regexp + fix hallucinated 0a7a9e22 narrative
+```
+
+`d6c64ad` で書込みが成立し、`efd00e2` で重複 page と hallucination を後始末する 2 段階が、並走時の典型パターン。
