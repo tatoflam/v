@@ -62,3 +62,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-05-03T06:15:45Z  op:ingest  S=2 I=0 pages=3 unsortable=0 (deferred 6 on WIP, 20th cycle)
 - 2026-05-03T06:36:14Z  op:ingest  S=3 I=0 pages=1 unsortable=0 (meta-flip 2 + 0d885baa cursor-advance; deferred 6unique/9rows on WIP, 21st cycle)
 - 2026-05-03T14:32:48Z  op:ingest  S=3 I=0 pages=3 unsortable=0 (substantive=2: 4695d1ed D002 production publish 17884465608547868 + e01596df rakuten resolver/r10.to+JST schedule/2 changes archive/cc-company B+C; meta-flip=1: d61bd11c cursor-advance for prior wiki-ingest commit 4531e02; deferred 6unique/9rows on WIP, 22nd cycle)
+- 2026-05-03T14:36:19Z  op:ingest  S=9 I=0 pages=11 unsortable=0 deferred=0 (drained 22-cycle WIP backlog: sayama / saltmoon / woodone)
