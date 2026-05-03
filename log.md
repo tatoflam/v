@@ -59,3 +59,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-04-30T22:08:04Z  op:ingest  S=1 I=0 pages=4 unsortable=0 (substantive: 10c66066 SpecDrawing improve-finish-fidelity archive; meta-flip 1 e6de9be8; no-op 1 d87e347c; missing-transcript 1 add844fc; deferred 6unique/9rows on user WIP, 17th)
 - 2026-05-02T23:38:26Z  op:ingest  S=9 I=0 pages=11 unsortable=0 deferred=6 (manual /wiki-ingest, drained 18-session backlog; defer-gate 18th)
 - 2026-05-03T06:02:38Z  op:ingest  S=12 I=0 pages=9 unsortable=0 deferred=6 (defer-gate 19th: sayama/saltmoon/woodone WIP)
+- 2026-05-03T06:15:45Z  op:ingest  S=2 I=0 pages=3 unsortable=0 (deferred 6 on WIP, 20th cycle)
