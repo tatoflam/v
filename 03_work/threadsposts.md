@@ -1,8 +1,8 @@
 ---
 title: ThreadsPosts — 腸活スタジオ Threads 自動投稿パイプライン
 category: 03_work
-tags: [project:threadsposts, channel:threads, tech:nodejs, tech:openspec, stage:active, entity:chokatsu-studio, milestone:v2-launch, infra:claude-github-app, infra:remote-agent]
-sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92]
+tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, stage:active, entity:chokatsu-studio, milestone:v2-launch, milestone:d002-production, infra:claude-github-app, infra:remote-agent]
+sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d]
 updated: 2026-05-03
 ---
 
@@ -332,3 +332,121 @@ D002 と D003 の `scheduled_at` を交換 → **5/4 08:00 JST の初投稿が D
 
 - **既にトラッカー層を兼ねるベンダー短縮 URL（r10.to）には別系の短縮 URL を被せない**: 二重リダイレクトの UX 劣化 + ベンダー層からのトラッキング情報を分断するデメリットが、独立計測軸のメリットを上回りやすい。Amazon / iHerb など別チャネル展開で「統一計測軸が要る」と判明した時に再評価する
 - **OpenSpec の `[~] DEFERRED` ステータス**: 削除でも完了でもない第三のステータスで、「タスクは生きているが今 cycle では着手しない」判断履歴を spec 上に保持できる。Decision 追加と組み合わせて使うと判断トレースが綺麗
+
+## 2026-05-03 evening — D002 本番初の手動 publish + Rakuten resolver / a.r10.to 自動化 + 8 commits + cc-company B+C 方針（sessions 4695d1ed + e01596df）
+
+午後の `0d885baa` follow-up でアフィリ紐付け 4 本が整い、5/4 08:00 JST に D002 が cron 自動投稿される構造ができたあと、夜にかけて **「いきなり本番で前倒し publish」＋「products.yaml アフィリ URL の解決パイプライン本格化」** の 2 軸が並走。session 順は narrative 上 4695d1ed → e01596df（D002 publish が先、resolver 整備が後）。
+
+### D002 本番初の自動投稿成功（session 4695d1ed）
+
+D011 アカウント始動（4-29）以来 **2 投稿目を cron 待たずに手動で前倒し publish**。
+
+- アカウント: `@chokatsu_studio` (id `36075427142056546`)
+- 投稿: D002「日本人の95%が食物繊維不足」→ Threads post_id **`17884465608547868`**
+- アフィリ: `inulin_powder` 楽天 r10.to URL 入り PR ブロック、240/500 字
+- 副産物:
+  - `Analytics/metrics.csv` 初書き込み（メトリクス CSV パイプ稼働確認）
+  - Drafts/D002 → Published/D002 自動移動、frontmatter `status: published` 反映
+- 残課題: D011（post_id `17978831033843102`）は Threads 側で insights API が 404 を返す → 古いテスト投稿の残骸推定、削除 or 残置は user 保留
+
+### Amazon アソシエイト登録（180 日ハードル）
+
+- store ID: `chokatsustudi-22`（5-3 登録）
+- デッドライン: **2026-10-30**（180 日後）— 登録から 180 日以内に Amazon 経由 3 件以上の適格売上が必要、未達でアカウント取消
+- サイト説明文（256 字以内）: chokatsu_studio のミッションに合わせて user 採用
+- **重要**: `Affiliates/products.yaml` の Amazon URL は **全 11 商品で `null` のまま**（楽天 URL のみ充足）。今のまま投稿しても Amazon クリック 0 → 180 日後にアカウント停止リスク。**戦略は「楽天で実績作り → Amazon は実績後に紐付け」を維持** [[memory: project_affiliate_accounts]]
+
+### 8.4（GH Actions 有効化）確認 → 32/33 完了
+
+- `THREADS_ACCESS_TOKEN` (5-3 05:13Z) / `THREADS_USER_ID` (5-3 05:15Z) Secrets 登録済
+- `Publish scheduled Threads posts` workflow active
+- `tasks.md` の 8.4 を `[x]` 反映、進捗 32/33（gut-health-affiliate-marketing）
+- 残 8.5 のみ — 1 週間後の週次レビュー（`Analytics/weekly_2026-W19.md` 待ち、user セッション停止）
+
+### Rakuten resolver / a.r10.to 自動化パイプライン（session e01596df）
+
+`/opsx:propose` 2 件で **products.yaml の affiliate URL を半自動で埋めるパイプライン**を確立。
+
+#### auto-resolve-rakuten-affiliate-links（楽天市場 API → long URL）
+
+- `pipeline/resolve_rakuten_links.js` 起こし: `IchibaItem/Search` で商品名検索、**レビュー件数最多** の itemUrl を選んで `affiliate_urls/rakuten` に書き戻す
+- CI: `.github/workflows/resolve_affiliates.yml` を手動 dispatch で動作確認（workflow run `e18dd37 auto-resolve: rakuten links [skip ci]`）
+- 楽天 Web Service 設定:
+  - `RAKUTEN_APPLICATION_ID` = `0cf35ebb-3d03-4789-86c1-77d3248ebc52`
+  - `RAKUTEN_AFFILIATE_ID` = `53692ea4.f6bb037f.53692ea5.997c9a74`（管理画面の **専用 ID** 表記、商品ごとに変わるソース内 `ichiba/<id>/` ではない）
+  - allowed website に `github.com` 不要（GH Actions からは any-origin OK）
+
+#### auto-rakuten-short-url（Playwright login → a.r10.to）
+
+- Bitly 案を user 主導で却下（コスト＋上限リスク＋楽天が既にトラッカー層）
+- 代わりに **楽天アフィリエイトサイトの「短縮 URL」機能を Playwright login で叩く** 方針に転換
+- `pipeline/rakuten_login.js` + `npm run rakuten:login` で local human が 1 度 login → cookie 保存 → 短縮 URL 一括取得
+- **CI と人手の責務分離** (commit `4b1c881 refactor`):
+  - CI = `SHORTEN_URLS=false` で long URL refresh 専任（`resolve_affiliates.yml`）
+  - 人手 = local で短縮 URL 取得（`npm run resolve:rakuten` + Playwright）
+  - 規約 7 条「機械的アクセス」は低頻度・正規 login・人手起動の組合せで許容範囲、reCAPTCHA 出現時は人手対応
+- 11/11 商品の a.r10.to 短縮 URL を埋める（commit `8282608`）
+- redirect 待ち + `PLAYWRIGHT_HEADLESS` env 読込み修正（commit `ddb1ca9`）
+
+#### `steamed_soybeans` ハマり → 検索 fallback 3 段階化（汎用 fix + 個別 override）
+
+- 商品名 `蒸し大豆・豆類ミックス` は楽天市場に存在しない複合語で 0 件、旧 fallback の `蒸し大豆 豆類ミックス`（中黒で先頭 2 語連結）も 0 件、`蒸し大豆`（先頭 1 語）で 343 件ヒット
+- **汎用 fix**: `generateQueryVariants` を `[<full>] → [<先頭2語>] → [<先頭1語>]` の 3 段カスケードに拡張
+- **個別 fix**: `Affiliates/products.yaml` の `steamed_soybeans` に `rakuten_search_query: '蒸し大豆'` を追加（人間 override の例示・即時解決）。`name` は説明的表記、`search_query` は検索精度優先で別管理する設計
+- commit `3aab8f8 fix(resolve-rakuten)`
+
+#### scheduled_at JST 化 + 人間らしい揺らぎ（commit `40ecc03`）
+
+- 旧: UTC 表記＋ `:00` 完全揃い → 機械臭が強い
+- 新: JST 表記、朝 7:55–8:04 / 夜 20:58–21:09 のレンジで秒もランダム化、「ちょっと早めに上げる人」感を演出
+- 5/4-5/8 の 9 draft（D001/D003-D010）に分配、146/146 tests pass
+
+#### rakuten-dashboard clean URL 抽出（commit `04e0d78`）
+
+- RWS の `itemUrl` を `freelink` に直渡しすると wrap 文字列で破綻 → clean item URL を抽出する parser を入れて修正
+
+### 2 changes archive（gut-health-affiliate-marketing 完走 + 関連 2 change）
+
+- `3c59820 archive gut-health-affiliate-marketing + 5 specs を main spec へ反映`: メイン change を完走 archive、配下 5 specs を main spec へマージ
+- `9d3ccae openspec archive 2 changes + performance-tracking 実装の差分整理`: `auto-resolve-rakuten-affiliate-links` + `auto-rakuten-short-url` の 2 change を archive、untracked だった performance-tracking 実装ファイルを差分整理として同 commit に含める運用、152/152 tests pass
+
+### 8 commits 全リスト（origin/main 反映済）
+
+```
+3c59820 archive gut-health-affiliate-marketing + 5 specs
+9d3ccae archive 2 changes + performance-tracking 実装差分整理
+3aab8f8 fix(resolve-rakuten): 検索 fallback 3 段階化 + steamed_soybeans search_query
+40ecc03 content(drafts): scheduled_at JST 表記化 + 配信時刻最適化
+04e0d78 fix(rakuten-dashboard): RWS itemUrl から clean item URL を抽出
+8282608 chore(affiliates): 楽天 a.r10.to 短縮 URL を 11/11 商品に反映
+ddb1ca9 fix(rakuten-login): redirect 待ち + PLAYWRIGHT_HEADLESS env 修正
+4b1c881 refactor(auto-rakuten-short-url): CI と人手の責務分離 (CI は SHORTEN_URLS=false)
+```
+
+### 5/9 (土) 以降の Drafts 在庫ゼロ問題
+
+D001-D010 が 5/4-5/8 で消費し尽くされる構造を確認。Knowledge 別の偏り:
+
+- **K001**（乳酸菌×パーキンソン病）: 1/?? しか活用していない、深堀り余地大
+- **K002**（ポストバイオティクス）: published 2 件
+- **K003**: 活用余地大
+- **K004**（PIVOT がんを防ぐ腸活）: 5/?? と過密
+- **K005**: 中程度
+
+5/9-5/15 で朝夜 14 投稿の新規ネタ 10-12 件起案（次セッションで採用判断）。例: K001 系「合わない兆候の見つけ方」「腸脳相関と迷走神経」「同じ菌摂取のリスクとローテーション」、K002 系「短鎖脂肪酸を増やす食べ方」など。
+
+### 会社化（cc-company B+C ハイブリッド段階導入）
+
+user 提案: 「このリポジトリを会社化したい」 → `https://github.com/tatoflam/cc-company` plugin の構想を借用。3 解釈を整理:
+
+- **A. cc-company plugin install**: `/plugin marketplace add Shin-sibainu/cc-company` → `/company` で `.company/` 配下に「腸活スタジオ」のメタ組織。コードは現状維持、Claude との会話交通整理だけ変わる
+- **B. ディレクトリ部署別再編**: `dept/research/` `dept/content/` `dept/marketing/` `dept/dev/` のような部署フォルダに ThreadsPosts のコードを再配置
+- **C. multi-tenant 将来拡張**: 1 リポで複数アカウント運用（chokatsu / 別ジャンル）
+
+**user 判断**: **B+C ハイブリッドを段階導入**、cc-company plugin 導入にはこだわらない（手段でしかない）。次セッションで `/opsx:propose` 起票予定 [[memory: project_companify_direction]]
+
+### 学び（横展開可能）
+
+- **API 規約とスクレイピングの境界線は「正規 login + 低頻度 + 人手起動」**: 完全自動化（リフレッシュトークン保管含む）は規約 7 条のグレーに落ちやすいが、**人手 login → 短縮 URL 一括取得 → CI でその後 long URL refresh のみ自動化**、というハイブリッドはコストもリスクも低く取り回せる。「機械的アクセス」と判定される境目は「**人間が起動した形跡があるか**」が大きい
+- **`name` ≠ `search_query` の分離設計**: 商品マスターの「人間向け説明的表記」と「API 検索クエリ」は別フィールドにすべき。`steamed_soybeans` の `蒸し大豆・豆類ミックス` (name) vs `蒸し大豆` (search_query) のような乖離は健康・食品ジャンルでは頻発する（複合表記が API DB に存在しない）。fallback の N-gram カスケードに加え、override フィールドを設計時から入れておく
+- **「ステージング不要、いきなり本番」判断は構造的に正しい**: アカウントが既にライブな状況では staging account の追加コストは管理負荷だけ増やす。`POSTING_MODE` 切替で本番／dry-run を制御できる pipeline を整えた時点で、staging account は不要
