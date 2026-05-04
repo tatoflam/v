@@ -1,9 +1,9 @@
 ---
 title: ThreadsPosts — 腸活スタジオ Threads 自動投稿パイプライン
 category: 03_work
-tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, stage:active, stage:incident-response, entity:chokatsu-studio, entity:meta-classifier, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, milestone:weekly-cycle-w19-execution, milestone:openspec-3-archive-batch, milestone:playbook-process-revamp, milestone:playbook-archive-sync, milestone:account-ban-pivot, milestone:openspec-3-change-ban-pivot, incident:threads-ban-2026-05-04, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic]
-sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8, a73c0aa2-c9a4-46e3-ab60-72b6b426901a, 8b57f7c8-b8fa-4f65-8c06-06cf6fbe87b3, 97d3f618-8d6c-40e6-8210-06549512f183, cef7a3c1-5798-4534-ab51-63c1a2279734, c02fca64-85c4-40f5-9bae-00ea56f138c1]
-updated: 2026-05-04
+tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, stage:active, stage:incident-response, entity:chokatsu-studio, entity:meta-classifier, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, milestone:weekly-cycle-w19-execution, milestone:openspec-3-archive-batch, milestone:playbook-process-revamp, milestone:playbook-archive-sync, milestone:account-ban-pivot, milestone:openspec-3-change-ban-pivot, milestone:ban-pivot-explore-synthesis, incident:threads-ban-2026-05-04, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic, principle:capture-first-explore]
+sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8, a73c0aa2-c9a4-46e3-ab60-72b6b426901a, 8b57f7c8-b8fa-4f65-8c06-06cf6fbe87b3, 97d3f618-8d6c-40e6-8210-06549512f183, cef7a3c1-5798-4534-ab51-63c1a2279734, c02fca64-85c4-40f5-9bae-00ea56f138c1, f198b34e-7c91-4bee-8bf4-a3a532f86901]
+updated: 2026-05-05
 ---
 
 # ThreadsPosts
@@ -945,6 +945,53 @@ publish-relocate-local (公開アーキ刷新、技術独立)
 - commit `2ec9509 openspec: pivot 3 changes for Threads BAN response` (28 files、+2165 / −249) を local main に積んだ
 - **未 push** (`origin/main..HEAD = 2ec9509` のみ)
 - pre-existing 未 commit work (skills / drafts / pipeline / product DB / `archive/2026-05-04-playbook-process-revamp/` フォルダ) は working tree にそのまま残置 — BAN pivot とは別軸で次セッションで整理
+
+## 2026-05-04 update — `/opsx:explore` で BAN pivot 6 判断を確定 (f198b34e、5-4 23:03 → 5-5 00:21 JST)
+
+BAN pivot commit `2ec9509` 直後、3 change が並走中 (合計 226 task、進捗 0/226) の状態で `/opsx:explore` を起動して全体地形を整理。explore mode のまま design.md / proposal.md / tasks.md に判断を capture (capture は implementing ではないので explore mode 内で完結)。セッション末尾で `/opsx:apply publish-relocate-local` 起動 → 「Using change: ...」announce 直後に session 終了 → 実装は次セッション。
+
+### user 確定 6 判断
+
+| # | 判断 |
+|---|---|
+| 1 | **収益目標を再下方修正: 月 50 万 → 月 30 万** (3 ヶ月後 = Month 3 W9-W12 で月¥300k ラン)。warmup で 1 ヶ月失う前提で再校正。memory `project_revenue_target.md` 同期 |
+| 2 | **仮説 4 (CI/CD trigger = 機械投稿が BAN 起因) を支配的仮説に格上げ** → `publish-relocate-local` が本丸 change |
+| 3 | **Warmup は "humanness 保険" として位置付け、緩めない** (W2 affiliate 0% を含めて維持)。仮説 4 が支配的でも保険策を spec で言語化 |
+| 4 | **Amazon affiliate 棚上げ確定**。180 日 3 件 (期限 2026-11-01) 失効許容、コード/schema 温存 (`products.yaml` の Amazon URL field、`account-config.yaml` の `amazon_associate_id` を null/空欄で残す) |
+| 5 | **multi-tenant-bootstrap は両軸 support**: per-account override + genre-level switching の両方。lookup precedence は **account first → shared fallback** |
+| 6 | **ジャンル選定 3 日デッドライン: 2026-05-04 → 2026-05-07**。人ゲートが 3 change 全体のクリティカルパスに座っているため切る |
+
+### 算術 (新目標 30 万円/月 が daily target 2 投稿/日 で着地する根拠)
+
+```
+Month 3 = 28 日 × 2 投稿/日 = 56 投稿
+→ 1 投稿あたり ¥5,357 売上 (旧目標 ¥13,400 の 40%)
+→ 楽天 affiliate 報酬率 3% 仮定で 1 投稿あたり ¥178,571 GMV
+→ ¥10,000 商品で約 18 件/投稿/月、または ¥5,000 商品で約 36 件/投稿/月
+```
+
+→ `posting_policy.yaml` の `phases` を W5+ で 3-4 投稿/日 に引き上げる必要が消えた。warmup → normal の連続性が自然になり、目標と運用設計の整合が取れた。
+
+### 反映済 OpenSpec edits (8 編集 + memory 3 件、+162 / −7、validate 通過)
+
+- `account-pivot-warmup/proposal.md` — Why 段落更新 (仮説優先順位 + 50→30 + Phase 0 5/7 deadline + 楽天単独 genre 基準)
+- `account-pivot-warmup/design.md` — Goal 5 を 30 万に、**Decision 7** (仮説重み付け) / **Decision 8** (revenue arithmetic) / **Decision 9** (Amazon 棚上げ) 新設
+- `account-pivot-warmup/tasks.md` — §1.1 5/7 deadline、§1.10 Amazon 棚上げ確認に書換、§12.2 目標値
+- `multi-tenant-bootstrap/design.md` — **Decision 9** (両軸 + lookup precedence)
+- memory 3 件 (`project_revenue_target.md` / `project_affiliate_accounts.md` / `MEMORY.md`)
+
+### 実装着手順 (確定)
+
+1. **`publish-relocate-local` §1-4** (本丸、Claude 単独で進む。Day 1-3 で完走可能)
+2. **`account-pivot-warmup` §1.1-1.4** (ジャンル選定 — 2026-05-07 までに human input、Claude は調査支援)
+3. **`multi-tenant-bootstrap`** (前 2 つ完了後)
+
+### 学び (横展開可能)
+
+- **explore mode は capture まで含めて 1 セッションで成立する**: 「explore = thinking、implementing は不可」だが OpenSpec artifact (proposal/design/tasks) への書き込みは capture であって implementing ではない。explore セッションが消えずに spec に着地する
+- **incident で目標を動かすときは算術で裏取りする**: 「30 万に下方修正」を memory に書くだけでなく daily target × posting count × GMV 換算 × 報酬率まで一気に計算しておくと、後から戻すときに何を変えれば届くかが見える
+- **仮説 1〜N 並列 → 1 つを支配的に格上げする操作の価値**: 4 仮説並列の proposal を「機械投稿が BAN 起因」で 1 つに重み。本丸 change が決まり、warmup を「保険」と位置付け直して緩めない判断が論理的に整合した
+- **explore → apply の継ぎ目で session が切れても損失は小さい**: capture-first の利得 — design.md / tasks.md に判断が capture 済なら次セッションは状態 0 から再開できる
 
 ### 学び (横展開可能)
 
