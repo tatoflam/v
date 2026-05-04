@@ -1,8 +1,8 @@
 ---
 title: ThreadsPosts — 腸活スタジオ Threads 自動投稿パイプライン
 category: 03_work
-tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, stage:active, entity:chokatsu-studio, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, milestone:weekly-cycle-w19-execution, milestone:openspec-3-archive-batch, milestone:playbook-process-revamp, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic]
-sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8, a73c0aa2-c9a4-46e3-ab60-72b6b426901a, 8b57f7c8-b8fa-4f65-8c06-06cf6fbe87b3, 97d3f618-8d6c-40e6-8210-06549512f183]
+tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, stage:active, stage:incident-response, entity:chokatsu-studio, entity:meta-classifier, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, milestone:weekly-cycle-w19-execution, milestone:openspec-3-archive-batch, milestone:playbook-process-revamp, milestone:playbook-archive-sync, milestone:account-ban-pivot, milestone:openspec-3-change-ban-pivot, incident:threads-ban-2026-05-04, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic]
+sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8, a73c0aa2-c9a4-46e3-ab60-72b6b426901a, 8b57f7c8-b8fa-4f65-8c06-06cf6fbe87b3, 97d3f618-8d6c-40e6-8210-06549512f183, cef7a3c1-5798-4534-ab51-63c1a2279734, c02fca64-85c4-40f5-9bae-00ea56f138c1]
 updated: 2026-05-04
 ---
 
@@ -874,3 +874,89 @@ main spec capability 数: 8 → 11 (+3 新規)。
 - 未 commit 約 30 ファイルを 1 commit (例: `feat: playbook-process-revamp — 6 投稿型 + 3 セールスライティング型 + フックライブラリ + banned_patterns YAML + Rakuten events`) で push
 - `/opsx:archive playbook-process-revamp` で main spec capability 11 → 13 想定 (`account-research` / `post-templates` 新設反映)
 - D016 以降の生成で 6 型のいずれか (`shop_search_redirect` 既定) を採用、`product_single` から脱却
+
+## 2026-05-04 update — playbook archive sync 完了 (cef7a3c1、5-4 20:32 JST)
+
+`/opsx:archive playbook-process-revamp` を実行、main spec への capability 反映を完走。
+
+- artifacts 全 done、tasks 52/53 完了 (5.4 smoke test = Anthropic API 課金リスクで intentionally deferred、tasks.md ノート明記)
+- AskUserQuestion で「sync to main specs (推奨)」「skip sync」「abort」を user に提示 → user は **sync** を選択
+- Agent 経由 sync 実行: ADDED 2 (`account-research` / `post-templates` 新設、main spec ファイル新規作成) + MODIFIED 4 (`content-pipeline` / `posting-strategy` / `performance-tracking` / `marketing-cycle` のヘッダ完全一致 merge)
+- archive collision check OK → `git mv openspec/changes/playbook-process-revamp openspec/changes/archive/2026-05-04-playbook-process-revamp/` 実行
+- `openspec validate --specs --strict` で 15 main specs 全 PASS
+- ⚠ archive folder は working tree に **untracked** 状態で残存 (commit されず)
+- 結果: capability 11 → **13** (新規 2)。in-progress changes は当初 `multi-tenant-bootstrap` のみとなったが、3h 後の BAN 対応で別 3 change が起票される
+
+## 2026-05-04 update — Threads BAN 対応 — 3 OpenSpec changes pivot (c02fca64、5-4 23:02 JST、commit `2ec9509` local-only)
+
+5-4 中に `@chokatsu_studio` (Threads + 連携 IG) が突如 BAN。Meta 通知文言:「弊社のテクノロジーにより…テクノロジーにより措置が講じられました」「再審査はリクエストできません」「あなたの情報はすべて完全に削除されます」 → **ML 自動分類器による enforcement、人間レビューなし、最重 tier**。`/opsx:explore` で診断 → `/opsx:propose` × 2 + 既存 update × 1 で運用 pivot。
+
+### BAN 仮説と切り分け
+
+「IP 変更 (GH Actions → local) より Account が人間に見えるか が本丸」(inauthentic / automation 分類器発火が最有力)。要因の太さ:
+
+```
+████████████  アフィリリンク密度 (r10.to + Amazon 毎投稿)
+██████████    新規アカウント × API 投稿の即時開始
+████████      投稿の type/文体類似性 (テンプレ感)
+██████        2 投稿/日の機械的 cadence
+████          GH Actions IP (datacenter)
+██            User-Agent / API call signature
+```
+
+GH Actions IP は singular cause ではなく構成要素の一つ。warmup プロトコルで複数要因を同時に潰す。
+
+### 決定事項 (user 確定)
+
+1. 別ジャンル / 別ハンドルで再起 (`@chokatsu_studio` は廃止)
+2. 別ドメイン振り直し、IG も新規作成
+3. 電話番号は別を使う (もう 1 つ手元にある)
+4. **月 50 万 / 3 ヶ月**目標に下方修正 (旧 月 10-1000 万から)
+5. アーキテクチャは Option C (publish のみ local + metrics/affiliate は GH Actions read-only) + B 寄り (擬人化重視)
+
+### 起票・update した 3 change
+
+| change | type | tasks | scope |
+|---|---|---|---|
+| **account-pivot-warmup** | 新規 | 80 | 5-phase warmup (Week 1 観察 / Week 2 ソフト / Week 3 段階 / Week 4 通常移行 / Week 5+ 通常運用)、`posting_policy.yaml` の `phases` キー、`publish.js` の hard reject ゲート、新 capability `account-warmup-protocol` + `account-isolation-hygiene` (9 項目分離 + PII scrub)、delta `posting-strategy` / `post-scheduler` / `account-config` |
+| **publish-relocate-local** | 新規 | 73 | 公開アーキ刷新。`publish.js` を local 起動 (新 skill `/post-due`) のみに、`publish.yml` 削除、`sync_metrics.js` も local 化、新 capability `local-publish-runner` + `local-metrics-sync`、delta `post-scheduler` / `performance-tracking` / `dept-organization` (`_archive/<slug>/` 正式化) / `weekly-cycle-orchestrator` |
+| **multi-tenant-bootstrap** | 既存 update | 71 → 73 | BAN 前提崩壊で proposal/design/tasks 全面書き換え (option A)。Phase A + Phase B → 単一 phase (新 tenant 単独立上げ) に縮約。token は GH secrets → local `.env` 経由。具体 slug → `<G>` / `<A>` プレースホルダー (Phase 0 完了後置換)。`_archive/` 認知を `dept-organization` spec で正式化 |
+
+### 3 change の依存グラフ
+
+```
+multi-tenant-bootstrap (新 tenant scaffolding)
+  ├ depends on: account-pivot-warmup Phase 0 (slug 確定)
+  ├ depends on: publish-relocate-local 旧 tenant archive 完了
+  └ provides: tenant_paths.js / account_config / per-account paths
+
+account-pivot-warmup (warmup + isolation)
+  ├ depends on: multi-tenant-bootstrap (account-config schema 拡張先)
+  └ provides: phase gate / warmup spec / hygiene checklist
+
+publish-relocate-local (公開アーキ刷新、技術独立)
+  └ provides: env loader / /post-due / GH secrets 削除 / 旧 tenant archive
+```
+
+推奨 merge 順: `multi-tenant-bootstrap` → `publish-relocate-local` → `account-pivot-warmup`。同じ `publish.js` を編集するが箇所が重ならない設計で並走可能化。
+
+### 配信
+
+- commit `2ec9509 openspec: pivot 3 changes for Threads BAN response` (28 files、+2165 / −249) を local main に積んだ
+- **未 push** (`origin/main..HEAD = 2ec9509` のみ)
+- pre-existing 未 commit work (skills / drafts / pipeline / product DB / `archive/2026-05-04-playbook-process-revamp/` フォルダ) は working tree にそのまま残置 — BAN pivot とは別軸で次セッションで整理
+
+### 学び (横展開可能)
+
+- **Meta 自動分類器の文言で違反種別を読み解く**: 「再審査リクエスト不可」「情報すべて削除」「テクノロジーにより措置」は **inauthentic / automation 分類器の最重 tier** signature。commercial policy 違反なら通常 reason がもう少し具体。IP 変更だけで隠れる相手ではない判断材料
+- **BAN 要因はスタックする — 単一原因に絞ると 2 度目を踏む**: アフィリ密度 + 新規 × API 即時開始 + テンプレ感 + 機械的 cadence + GH Actions IP + UA を全部疑い、warmup プロトコル (Week 1-5+) で段階的に humanness signal を積む方が安全
+- **既存 OpenSpec change は scrap せず option A (update + apply)**: BAN で前提崩壊した `multi-tenant-bootstrap` を scrap して新規起票するより、proposal/design/tasks を BAN 文脈に書き直す option A の方が編集量も OpenSpec 履歴ノイズも少ない。「BAN を機にスコープ刷新した」事実が archive 時に残る
+- **3 change 並走は merge 順序と「編集箇所の非交差」で成立させる**: 技術独立な change と依存関係を持つ change を分離。同じファイルを編集する場合は箇所が重ならない設計
+- **revenue target は incident で動的に下方修正する**: 旧 月 10-1000 万 → 新 月 50 万 / 3 ヶ月。warmup で 1 ヶ月失う前提で再設定。incident で目標を動かさない方が「今すぐ通常運用に戻したい」圧力で warmup を破る誘惑になる
+
+### 残タスク (次セッション以降)
+
+- pre-existing 未 commit work (skills / drafts / pipeline / product DB / `archive/2026-05-04-playbook-process-revamp/` フォルダ) の整理 commit
+- `account-pivot-warmup` Phase 0 (新ジャンル選定リサーチ) 着手 → 3 change の slug 確定で全体 unblock
+- `multi-tenant-bootstrap` Section 4-5 (resolver 実装 + pipeline refactor) は slug プレースホルダーのまま先行実装可能
+- 3 change を draft 状態で PR 切る準備 (push to origin)
