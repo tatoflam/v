@@ -67,3 +67,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-05-03T23:35:55Z  op:ingest  S=4 I=0 pages=4 unsortable=0 (57a002bd companify-bc-hybrid + d40649e2 4-changes/Local-First; 34378f6f deferred yield, 930584ad processed in prior run = source-flip only)
 - 2026-05-04T00:58:49Z  op:ingest  S=2 I=0 pages=4 unsortable=0 (substantive=1: a73c0aa2 W19 weekly-cycle 初実行 — drafts D011-D015 scheduled + humanJitter + footnote URL drop A/B + 6 commits push; meta-flip=1: fdd9f971 prior-run cursor-advance; deferred=0)
 - 2026-05-04T02:38:51Z  op:ingest  S=2 I=0 pages=3 unsortable=0 (substantive=1: 8b57f7c8 OpenSpec 3 changes archive batch — pipeline-relocate / strategy-split / cycle-bootstrap、Phase 2 不採用判定、commit 24cef9f push、main spec capability 8→11; meta-flip=1: e723638b prior /wiki-ingest run cursor-advance; deferred=0)
+- 2026-05-04T04:05:17Z  op:ingest  S=2 I=0 pages=2 unsortable=0

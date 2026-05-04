@@ -1,8 +1,8 @@
 ---
 title: ThreadsPosts — 腸活スタジオ Threads 自動投稿パイプライン
 category: 03_work
-tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, stage:active, entity:chokatsu-studio, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, milestone:weekly-cycle-w19-execution, milestone:openspec-3-archive-batch, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic]
-sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8, a73c0aa2-c9a4-46e3-ab60-72b6b426901a, 8b57f7c8-b8fa-4f65-8c06-06cf6fbe87b3]
+tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, stage:active, entity:chokatsu-studio, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, milestone:weekly-cycle-w19-execution, milestone:openspec-3-archive-batch, milestone:playbook-process-revamp, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic]
+sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8, a73c0aa2-c9a4-46e3-ab60-72b6b426901a, 8b57f7c8-b8fa-4f65-8c06-06cf6fbe87b3, 97d3f618-8d6c-40e6-8210-06549512f183]
 updated: 2026-05-04
 ---
 
@@ -822,3 +822,55 @@ main spec capability 数: 8 → 11 (+3 新規)。
 
 - 単一 in-progress change: `multi-tenant-bootstrap` (0/71) — trigger は「2 アカウント目立ち上げ」、当面寝かせ
 - W20 サイクル開始時の優先順位は変わらず (上記)
+
+## 2026-05-04 update — playbook-process-revamp 起票 + 52/53 実装 (97d3f618、5-4 12:58 JST 終了)
+
+攻略本 (3818 行) + 外部 5 リンク (楽天年間カレンダー / 競合リサーチ note / 分析の鬼 5 投稿サイクル / note 公開記事 / Intage SNS) から運用知見を吸い上げ、`/opsx:propose playbook-process-revamp` で 1 OpenSpec change を起票 → そのまま `/opsx:apply` で 6 phase 実装まで貫通。
+
+### 主要成果
+
+- **6 投稿型テンプレ**: `dept/content/templates/` に `product_single` / `summary_set` / `summary_tree` / `room_redirect` / `shop_redirect` / `shop_search_redirect` (収益期待ランク: `shop_search_redirect` > `shop_redirect` > `summary_tree` > `summary_set` > `room_redirect` > `product_single`、攻略本由来)
+- **3 セールスライティングパターン**: `dept/content/templates/patterns/` に `prep` / `pasona` / `aidma` (`none` は frontmatter 値のみ)
+- **gut-health フックライブラリ**: `dept/content/hooks/gut-health.md` に 40+ 構文 (compliance: ok / borderline / banned 3 階層)
+- **banned_patterns YAML 化**: `dept/content/style/banned_patterns.yaml` で CLAUDE.md の「使ってはいけない表現」を機械検証可能化
+- **rakuten_events.yaml**: 2026 年末まで 10 events (毎月 1 日 / 5・10・15・20・25 日 / 18 日 / マラソン / スーパーセール / ブラックフライデー / 大感謝祭 / イーグルス感謝祭 / ブランドデー)
+- **competitors skeleton**: `dept/research/competitors/gut-health.yaml` (a.r10.to 検索 / フォロワー 3k-20k / 楽天リンク率 70% 以上 を満たす爆益アカウント DB)
+- **posting_policy 拡張**: `type_slots` (型別スロット) / `jitter_minutes_max` / `event_boosts` キー追加
+- **pipeline 改修**: `rule_lint.js` (frontmatter `template_type` / `copywriting_pattern` 必須化 + YAML banned-patterns + hook validation) / `generate_post.js` (`--template` / `--pattern` / `--genre` フラグ) / `schedule.js` (`type_slots` 優先 + `event_boosts` 窓検出) / `account-research/index.js` 新規 (`competitors` / `products` / `promote` 3 サブコマンド)
+- **performance-tracking 改修**: `sync_metrics.js` (`first_30min_engagement` 25-35 分窓 / `buzz_class` 自動派生 / `audience_match_flag` 上書き禁止 / 新 CSV カラム) / `weekly_report.js` (Template-type ROI / Buzz-class summary / 30-min early signal セクション)
+- **Skills + CLAUDE.md**: `weekly-cycle/SKILL.md` に B-5 楽天イベントチェック + B-1 爆益アカウント review + D CONTENT 40:50:10 構成比ガード追加 / `PostCreation/SKILL.md` にテンプレ・パターン・フック読み込み手順 / CLAUDE.md に「型選択 → 構造 → フック」セクション追加
+- **遡及 backfill**: D001-D015 + published 16 件全てに `template_type: product_single` / `copywriting_pattern: none` 付与 (working tree M 30 ファイル)
+- **tests**: 237 → 247 (+10、新規テストケース)、5.4 (6 型 smoke test) のみ Anthropic API call 発生で deferred (user 対話実行)
+
+### 起票 → 実装フロー
+
+| Phase | 内容 | 完了率 |
+|---|---|---|
+| Phase 0 | Foundation files (テンプレ 6 + パターン 3 + フック 1 + YAML 5) | 15/15 |
+| Phase 1 | Pipeline code (lint / generate / schedule / account-research) | 14/14 |
+| Phase 2 | Performance tracking (sync_metrics / weekly_report) | 7/7 |
+| Phase 3 | Skills + CLAUDE.md | 7/7 |
+| Phase 4 | Backfill + validation (lint pass 16/16) | 4/5 (5.4 deferred) |
+| Phase 5 | Memory + READMEs (memory 2 件追加) | 5/5 |
+| **合計** | | **52/53** |
+
+### 新 capability
+
+- `account-research` (新設、5 Requirement) — 爆益アカウント DB / 商品候補抽出 / プロモ抽出
+- `post-templates` (新設、6 Requirement) — 6 投稿型 + 3 セールスライティング型 + フック構文集
+- 既存 modify 4: `marketing-cycle` (B-5 楽天イベント追加 + B-1 拡張) / `content-pipeline` (テンプレ・パターン・フック・40:50:10) / `posting-strategy` (type_slots / jitter / event_boosts / banned_patterns YAML) / `performance-tracking` (first_30min_engagement / buzz_class / template_type ROI)
+
+### 学び (横展開可能)
+
+- **「攻略本 + 外部リンク → 運用知見 YAML / markdown 化」の OpenSpec 変換パターン**: 3818 行の生資料を 6 spec delta に分解し proposal/design/specs/tasks 一式で起票すると、そのまま `/opsx:apply` で実装まで一貫できる。生資料を CLAUDE.md ベタ貼りより spec 化のほうが横展開しやすい
+- **型選択 (構造) と文体 (語り口) は別レイヤで管理する**: 6 投稿型は構造、3 セールスライティング型は構造内の論理展開、文体ルールはどの型でも常時遵守 — の 3 層分離。CLAUDE.md でこの分離を明文化することで「型選択 → 文体生成」の判断順序が固定される
+- **収益期待ランクは攻略本主張をそのまま採用、検証は 8 週後**: ランクは攻略本由来だが weekly_report.js で `template_type` × ROI が 8 週分蓄積されるまで観察フェーズ。全テンプレを `product_single` から脱却させる動機になる
+- **banned_patterns YAML 化で文体ルールを CLAUDE.md とコード両方から参照可能に**: 人間用 (CLAUDE.md) と lint 用 (banned_patterns.yaml) の二層同期で、人間生成と lint 機械検証で同じルールが効く
+- **Anthropic API call ありのタスクは `/opsx:apply` 内で deferred 妥当**: 6 型 smoke test = Anthropic API call × 6 = 意図せぬ課金リスク → user 対話実行に委ねるのが Local-First 原則と整合 (5.4 タスク)
+
+### 残タスク (次セッション)
+
+- 5.4 (6 型 smoke test) を user 対話で実行 → 各型の lint / scheduling 動作確認
+- 未 commit 約 30 ファイルを 1 commit (例: `feat: playbook-process-revamp — 6 投稿型 + 3 セールスライティング型 + フックライブラリ + banned_patterns YAML + Rakuten events`) で push
+- `/opsx:archive playbook-process-revamp` で main spec capability 11 → 13 想定 (`account-research` / `post-templates` 新設反映)
+- D016 以降の生成で 6 型のいずれか (`shop_search_redirect` 既定) を採用、`product_single` から脱却
