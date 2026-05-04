@@ -1,8 +1,8 @@
 ---
 title: ThreadsPosts — 腸活スタジオ Threads 自動投稿パイプライン
 category: 03_work
-tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, stage:active, entity:chokatsu-studio, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic]
-sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8]
+tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, stage:active, entity:chokatsu-studio, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, milestone:weekly-cycle-w19-execution, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic]
+sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8, a73c0aa2-c9a4-46e3-ab60-72b6b426901a]
 updated: 2026-05-04
 ---
 
@@ -692,3 +692,84 @@ git push origin main        # client-side hook が PR review bypass で拒否さ
 - **D0XX numbering は drafts と published 両方を見るべき**: `generate_post.js` が `published/` を numbering 計算に含めてないと、別 dir なので即時事故は無いが publish 時の上書きリスクが残る。numbering 関数の入力 set を draft + published 両方に拡張するのが安全
 
 詳細な運用パターンは [[05_learn/local-first-anthropic-ops]] に切出し（Local-First 原則 / 週次バッチ = OODA / 3 段重ね reminder）
+
+## 2026-05-04 update — 2026-W19 weekly-cycle 初実行（a73c0aa2、5-4 08:24 → 09:50 JST、約 1.5 時間）
+
+`/weekly-cycle` skill を実運用初回起動。1 セッション 1.5h で **W19 (5/4-5/10) 戦略 ratify + drafts D011-D015 を 5/8-5/10 に scheduled + 6 commits push** まで完走。Local-First アーキテクチャの実体検証も同時に実現。
+
+### A REVIEW
+先週 weekly_report 不在（初回）+ metrics 全 0（sync_metrics.yml 集計前）+ D001/D003-D010 既 scheduled 済 + D011-D013 未割当 + K001-K008 在庫。⚠ Step 0 で `git fetch` を回し忘れ、リモート既存の `weekly_2026-W17.md` / `W18.md` を見落とした（後段で発覚、次サイクルで spec 改修対象）。
+
+### B MARKETING
+- B-1: products.yaml × topic 連動度の照合表を作成。K002/K003/K005 が連動度高、K001 (乳酸菌) は商品連動 0 → トラフィック獲得用と割り切る
+- B-2: 楽天 12 商品 hot、Amazon 待機中、新商品「ラクトフェリン+EC-12+ケフィア」は K001 と逆方向 → 次週候補メモのみ
+- B-3: W19 は月初週ではない / user 明示要求なし → persona 見直し skip
+- B-4: 4 テーマ優先順位（1: K006 痩せ菌 / 2: プレ×プロ×シン整理 / 3: K007 食事 / 4: 個人差）、楽天 5 商品重点、`status: draft → ratified`
+
+戦略: [`dept/marketing/strategy/weekly/2026-W19.md`](dept/marketing/strategy/weekly/2026-W19.md) (Section 1-7 すべて埋め)
+
+### D CONTENT — 脚注 URL 省略 A/B 開始（user 提案）
+D011-D013 既存 lint pass。K006 起点で D014 (海外サプリ流行 — アッカーマンシア vs ブラウティア) + D015 (冷めたご飯 — レジスタントスターチ) 新規生成。
+
+⚠ user 提案 **「YouTube 動画が毎回 Threads について来るのはユーザーからウザがられる可能性ないか」** → **D011-D015 全 5 本の脚注から YouTube URL を削除**、タイトル + publisher のみ残す。lint は URL 必須化していないので安全に削除可能。memory `feedback_footnote_no_url.md` 記録。**A/B 仕様**: D001-D010 (URL あり) vs D011 以降 (URL なし) の engagement 差を計測
+
+### E AFFILIATE
+products.yaml の topics に K006/K007 追加（auto match を効かせるため）。明示マッピング:
+
+| Draft | Product | 理由 |
+|---|---|---|
+| D011 (痩せ菌リレー) | inulin_powder | 第 1 走者の餌 |
+| D012 (甘いヨーグルト NG) | fructooligo_syrup | 無糖ヨーグルト + オリゴ糖 |
+| D013 (大腸菌二面性) | (なし) | 商品連動弱い |
+| D014 (ブラウティア菌) | fiber_supplement_mix | 既存菌の餌 |
+| D015 (冷めたご飯) | (なし) | RS 直結商品なし |
+
+inject 後 5 本 lint pass（412-420 chars、500 以下）
+
+### F SCHEDULE — humanJitter 実装
+
+dry-run の 5/8 (金) 19:00 → 5/10 (日) 19:00 割当に対し user 指摘 **「人間らしく数分ずらすのをよろしく」**:
+
+- `dept/dev/pipeline/schedule.js` に `humanJitter()` 追加: **draft path の FNV ハッシュ → +60〜599 sec オフセット**（決定論的、同じ draft path に対して常に同じ jitter）
+- 当初 +0〜599 sec 範囲だったが「24 秒オフセットでは人間らしさが薄い」と判断して下限 60 sec に調整
+- 全 237 tests pass
+
+最終時刻 (JST): D011 5/8 19:04:24 / D012 5/9 08:08:37 / D013 5/9 19:04:53 / D014 5/10 08:06:12 / D015 5/10 19:09:18
+
+### G PUSH — default branch 保護 → settings 編集 → rebase → 6 commits push
+
+2 commit 分割: `feat(schedule): add deterministic human jitter` + `chore(W19): execute weekly cycle - drafts D011-D015 scheduled, footnote URL drop trial`。
+
+⚠ `git push origin main` がローカル設定の **default branch 保護**で deny。`.claude/settings.local.json` の編集も harness が「user の `C` 一文字では self-permission 編集として不十分」と拒否 → user **明示承認 (`Bash(git push origin main)` / `Bash(git push origin main:*)` を追加)** で設定編集 → push 再試行
+
+⚠ リモートに先行 2 commits 発見 = `D005 auto-publish` + `metrics.csv sync` — **GH Actions が Local-First 構成通りに自動 cron で動いている証拠**。rebase で取り込み → `cb8a62e..5727199 main → main` 6 commits push 完了
+
+push 後 publish.yml の次回 cron で D001/D003-D015 順次自動投稿開始
+
+### W19 サイクルで証明された Local-First の正しさ
+
+本セッション中に GH Actions が **Anthropic を使わない workflow 2 種** (publish + metrics sync) を独立に push してきた。Local Anthropic 使用セッション（B / D / F の Claude 推論）と並走しても衝突なし。「Anthropic を使う作業はローカル / 外部 API のみの作業は GH Actions」の分離が運用上正しいことを実体で確認
+
+### 学び（追加）
+
+- **A REVIEW Step 0 に `git fetch` 必須**: 初回サイクルで weekly_2026-W17/W18 見落とし発生。次サイクル前に SKILL.md の Step 0 を spec 改修（openspec 起票候補）
+- **default branch 保護を緩める settings 編集は user の literal 列挙承認が必要**: `C` 一文字回答では harness が self-permission 編集を拒否する。「`Bash(git push origin main)` を追加することを承認した」のような対象ルール明示が必須
+- **決定論的 humanJitter は draft path ハッシュベース**: 乱数だと同じ draft の再スケジュールで時刻が変わる問題が出る。FNV ハッシュ + 60〜599 sec で再現性 + 人間らしさを両立。下限 0 だと「24 秒オフセット」で人間らしさ薄、下限 60 sec で十分
+- **脚注 URL 省略 A/B のための D011 境界**: D001-D010 は URL あり、D011 以降は URL なしで engagement 差を測定。Threads フィードに毎回 YouTube プレビューが付くのは特に同チャンネル連発時に「広告化」と見えるリスク
+
+### 次セッション再開手順
+
+```bash
+cd /Users/tato/repo/github/tatoflam/ThreadsPosts
+git fetch origin             # ← 必ず最初に
+git pull --rebase origin main
+ls dept/analytics/data/weekly_*.md   # W17 / W18 のリモート既存レポート読込
+```
+
+W20 サイクル開始時の優先順位:
+
+1. weekly_2026-W17.md / W18.md の内容を読み A REVIEW 改善
+2. D013/D015 (アフィリ無し) vs D011/D012/D014 (アフィリ有り) の engagement 差測定
+3. URL 有無 (D001-D010 vs D011 以降) の engagement 差測定
+4. weekly-cycle SKILL.md に「Step 0 で git fetch」を spec 改修 (openspec 起票)
+5. `/opsx:apply marketing-cycle-bootstrap` Phase 2（launchd + hooks の trigger 機構）

@@ -65,3 +65,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-05-03T14:36:19Z  op:ingest  S=9 I=0 pages=11 unsortable=0 deferred=0 (drained 22-cycle WIP backlog: sayama / saltmoon / woodone)
 - 2026-05-03T18:11:30Z  op:ingest  S=3 I=0 pages=5 unsortable=0 (substantive=1: ce4cb7d1 research-pipeline-k006 完走 K006/K007/K008 + Whisper ASR + OpenSpec 7→8; meta-flip=2: 51ec96dd commit f24ab4a + e69f095c commit b96f859; deferred=0)
 - 2026-05-03T23:35:55Z  op:ingest  S=4 I=0 pages=4 unsortable=0 (57a002bd companify-bc-hybrid + d40649e2 4-changes/Local-First; 34378f6f deferred yield, 930584ad processed in prior run = source-flip only)
+- 2026-05-04T00:58:49Z  op:ingest  S=2 I=0 pages=4 unsortable=0 (substantive=1: a73c0aa2 W19 weekly-cycle 初実行 — drafts D011-D015 scheduled + humanJitter + footnote URL drop A/B + 6 commits push; meta-flip=1: fdd9f971 prior-run cursor-advance; deferred=0)
