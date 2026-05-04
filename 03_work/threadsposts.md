@@ -1,8 +1,8 @@
 ---
 title: ThreadsPosts — 腸活スタジオ Threads 自動投稿パイプライン
 category: 03_work
-tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, stage:active, stage:incident-response, entity:chokatsu-studio, entity:meta-classifier, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, milestone:weekly-cycle-w19-execution, milestone:openspec-3-archive-batch, milestone:playbook-process-revamp, milestone:playbook-archive-sync, milestone:account-ban-pivot, milestone:openspec-3-change-ban-pivot, milestone:ban-pivot-explore-synthesis, incident:threads-ban-2026-05-04, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic, principle:capture-first-explore]
-sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8, a73c0aa2-c9a4-46e3-ab60-72b6b426901a, 8b57f7c8-b8fa-4f65-8c06-06cf6fbe87b3, 97d3f618-8d6c-40e6-8210-06549512f183, cef7a3c1-5798-4534-ab51-63c1a2279734, c02fca64-85c4-40f5-9bae-00ea56f138c1, f198b34e-7c91-4bee-8bf4-a3a532f86901]
+tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, stage:active, stage:incident-response, entity:chokatsu-studio, entity:meta-classifier, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, milestone:weekly-cycle-w19-execution, milestone:openspec-3-archive-batch, milestone:playbook-process-revamp, milestone:playbook-archive-sync, milestone:account-ban-pivot, milestone:openspec-3-change-ban-pivot, milestone:ban-pivot-explore-synthesis, milestone:publish-relocate-local-shipping, milestone:legacy-tenant-archive, incident:threads-ban-2026-05-04, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic, principle:capture-first-explore, principle:change-boundary-equals-commit-boundary]
+sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8, a73c0aa2-c9a4-46e3-ab60-72b6b426901a, 8b57f7c8-b8fa-4f65-8c06-06cf6fbe87b3, 97d3f618-8d6c-40e6-8210-06549512f183, cef7a3c1-5798-4534-ab51-63c1a2279734, c02fca64-85c4-40f5-9bae-00ea56f138c1, f198b34e-7c91-4bee-8bf4-a3a532f86901, ea0b21e8-0197-4d87-a637-45d18bc759d7]
 updated: 2026-05-05
 ---
 
@@ -1007,3 +1007,63 @@ Month 3 = 28 日 × 2 投稿/日 = 56 投稿
 - `account-pivot-warmup` Phase 0 (新ジャンル選定リサーチ) 着手 → 3 change の slug 確定で全体 unblock
 - `multi-tenant-bootstrap` Section 4-5 (resolver 実装 + pipeline refactor) は slug プレースホルダーのまま先行実装可能
 - 3 change を draft 状態で PR 切る準備 (push to origin)
+
+## 2026-05-05 update — `/opsx:apply publish-relocate-local` 67/73 + 3-commit clean push (f198b34e 後半、5-5 00:21 → 02:?? JST)
+
+直前 explore セッション末尾で起動した `/opsx:apply publish-relocate-local` を 0/73 から再開。auto モードで Claude が安全に進められる範囲を §1-§12 まで一気通貫で消化、最後に user 選択 (「pushだけしといて」) で `origin/main` へ 4 commits を push 完了。
+
+### 完了内訳 (67/73)
+
+- **§1 env loader (5/6)**: `lib/load_env.js` 新規 (`~/.config/threads-posts/.env` ロード優先 + `.env.local` フォールバック + `GITHUB_ACTIONS=true` で refuse)、`.env.local.example` / `.gitignore` / `dept/dev/README.md` 整備
+- **§2 publish.js (8/8)** + **§3 sync_metrics.js (4/4)**: `loadEnv` 経由に統一、`--live`/`--ci` 削除、GH Actions 検出時 exit 3 + refusal、構造化ログ、exit codes 0-4、invocation cap
+- **§4 `/post-due` skill (5/5)**: `npm run publish:due` を canonical 経路として包む phase gate skill
+- **§5 npm scripts (4/4)**: `publish:due` / `publish:dry` / `metrics:sync` 追加 + 旧 `sync:metrics` 統合
+- **§6 GH workflows (4/5)**: `publish.yml` 削除、`weekly_report.yml` から sync step + Threads env 撤去
+- **§7 旧 tenant archive 完了**: slug `gut-health-immune-allergy` を `dept/{content,analytics,research,marketing}/` から `genres/_archive/<slug>/` へ git mv (41 renames)、`ARCHIVED.md` 作成、PII grep スキャン clean
+- **§8 verification (4/6)**: 8.2 / 8.4 / 8.5 / 8.6 動作確認、`__tests__/local_runner_manual_verification.md` に記録
+- **§9 GH secrets (4/5)**: `THREADS_ACCESS_TOKEN` / `THREADS_USER_ID` を `gh secret delete`、6 件 (BITLY / RAKUTEN_*) 据え置きを残存確認
+- **§10 docs (8/8)**: `CLAUDE.md` / `README.md` / `dept/dev` / `dept/analytics` / `genres` / weekly-cycle SKILL を Local-First + `/post-due` canonical で整合
+- **§11 memory (3/3)**: `project_account_ban_pivot.md` / `feedback_weekly_cycle_step0_fetch.md` / `reference_threads_token_location.md`
+- **§12.1**: `openspec validate` ✓ (全 spec)
+- **§12.2**: `account-pivot-warmup` 進捗確認 (0/72、Phase 0 ジャンル選定リサーチ待ち)
+
+### 3 commit clean 分離 (user 選択肢 1: change 単位で分離)
+
+```
+edba97b chore: bundle playbook-process-revamp leftovers from prior W19 session   (44 files)
+442533c archive: relocate retired tenant gut-health-immune-allergy to genres/_archive/   (42 files, 41 renames + ARCHIVED.md)
+16f8de5 feat(local-first): relocate Threads publish + sync_metrics from GH Actions to local Mac   (20 files)
+2ec9509 openspec: pivot 3 changes for Threads BAN response   (既存)
+```
+
+`origin/main` に 4 ahead だった状態で、user 指示「pushだけしといて」を受けて 4 commits まとめて push 完了。247 tests pass、git tree clean。
+
+### 残 6 タスク (本 change を完了→archive するために必要)
+
+| § | 内容 | 種類 |
+|---|---|---|
+| §1.6 | 旧 token を `~/.config/threads-posts/.env` に物理配置 | user 操作 (1Password 経由) |
+| §8.1, §8.3 | 旧 token で `npm run publish:dry` / `metrics:sync` を実機検証 | user 検証 |
+| §9.5 | 次月曜 (2026-05-11) 07:00 JST cron で `weekly_report.yml` が sync 不要 + 成功することを confirm | async (時間待ち) |
+| §12.3-§12.5 | PR 作成 → merge → `/opsx:archive publish-relocate-local` | user 判断 |
+
+### 設計上の確定事項 (このセッションで固まったもの)
+
+- **token 配置 canonical**: `~/.config/threads-posts/.env` (XDG-style)。GH secrets には置かない。memory `reference_threads_token_location.md` に永続化
+- **GH Actions 残置 workflow**: `weekly_report.yml` (CSV 集計のみ、Threads API 不使用) と `resolve_affiliates.yml` (楽天 RWS のみ) のみ。Threads API を call するすべての経路はローカル Mac 起動
+- **`/post-due` skill が canonical**: weekly-cycle 内 G PUSH phase は `/post-due` または `npm run publish:due` のいずれかで起動。GH Actions cron からは呼ばれない
+- **archive 凍結 slug の handle**: `gut-health-immune-allergy` を `genres/_archive/<slug>/` 配下に固定。新規 tenant の slug は別途 account-pivot-warmup Phase 0 で確定
+
+### 学び (横展開可能)
+
+- **混在 working tree の整理は user に 3 択提示 → 順序実行**: 「1 commit にまとめる / change 単位で分離 / 別 PR で切る」を提示して「1, 2, 3 の順で」を選ばせる。auto モードで黙って 1 commit にしていたら playbook-process-revamp の文脈が失われていた。**git history 上の change boundary は spec の change boundary と一致させる**価値が大きい
+- **PII scrub は memory + design の slug 単一化が前提**: 凍結対象 slug を memory・design 双方に default として置いておくと grep 対象が一意に決まり、scrub 漏れリスクが落ちる。slug が 2 か所でズレていると scrub 後に旧 slug が漏れ続ける
+- **GH secrets 削除の検証は実運用 cron で取る**: `gh workflow run` でテストしても、削除した env を参照している step が存在しないなら何も検証できない。**「設定削除の検証は次の本番 cron run」** という async pattern を memory にしておくと、停止地点で confusion しない
+- **大型 archive は `git mv` 逐次でも rename detection が効く**: 41 renames が status に正しく載る。`mv` で動かしてから `git add -A` だと delete + add 扱いになる場合がある。**archive 操作は必ず `git mv`**
+- **auto モードの定義を user と共有しておく**: 「Claude が安全に実行できる範囲」 = token 配置 / 実機検証 / async monitor を含まない。これを最初に伝えておくと、停止地点で「なぜ止まった？」が起きない
+
+### 次の判断点 (user)
+
+1. PR 作成 (§12.3) を `account-pivot-warmup` と同時 merge にするか単独 land にするか
+2. `account-pivot-warmup` Phase 0 (新ジャンル選定リサーチ) を 5/7 deadline までに着手
+3. token 配置 (§1.6) → `publish:dry` 実機検証 (§8.1, §8.3) のタイミング
