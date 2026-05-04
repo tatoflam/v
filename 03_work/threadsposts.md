@@ -1,8 +1,8 @@
 ---
 title: ThreadsPosts — 腸活スタジオ Threads 自動投稿パイプライン
 category: 03_work
-tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, stage:active, entity:chokatsu-studio, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, milestone:weekly-cycle-w19-execution, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic]
-sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8, a73c0aa2-c9a4-46e3-ab60-72b6b426901a]
+tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, stage:active, entity:chokatsu-studio, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, milestone:weekly-cycle-w19-execution, milestone:openspec-3-archive-batch, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic]
+sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8, a73c0aa2-c9a4-46e3-ab60-72b6b426901a, 8b57f7c8-b8fa-4f65-8c06-06cf6fbe87b3]
 updated: 2026-05-04
 ---
 
@@ -772,4 +772,53 @@ W20 サイクル開始時の優先順位:
 2. D013/D015 (アフィリ無し) vs D011/D012/D014 (アフィリ有り) の engagement 差測定
 3. URL 有無 (D001-D010 vs D011 以降) の engagement 差測定
 4. weekly-cycle SKILL.md に「Step 0 で git fetch」を spec 改修 (openspec 起票)
-5. `/opsx:apply marketing-cycle-bootstrap` Phase 2（launchd + hooks の trigger 機構）
+
+## 2026-05-04 update — OpenSpec 3 changes archive batch + Phase 2 不採用判定 (8b57f7c8、5-4 09:50-11:10 JST)
+
+`/opsx:explore` で 4 in-progress changes の依存グラフを整理し、3 changes を一気に archive。Phase 2 (launchd / Stop hook / 通知) は W19 cycle 実運用で `/weekly-cycle` 手動運用が回ったため不採用判定。
+
+### archive した 3 changes
+
+| change | archive 先 | 主要 spec 影響 |
+|--------|------------|---------------|
+| `companify-pipeline-relocate` | `archive/2026-05-04-companify-pipeline-relocate` | `dept-organization` ~1 (pipeline → dept/dev/pipeline) |
+| `marketing-strategy-split` | `archive/2026-05-04-marketing-strategy-split` | `dept-organization` ~1 / `post-scheduler` +1~3 / 新規 `posting-strategy` create |
+| `marketing-cycle-bootstrap` | `archive/2026-05-04-marketing-cycle-bootstrap` | 新規 `marketing-cycle` / `weekly-cycle-orchestrator` / `account-config` create + `content-pipeline` / `research-pipeline` / `performance-tracking` 追記 |
+
+main spec capability 数: 8 → 11 (+3 新規)。
+
+### Phase 2 (`weekly-cycle-trigger` capability) 不採用
+
+- 元設計: launchd で 17:00 JST に reminder ファイル投下 → Claude Stop hook で reminder 検出 → user 通知 → 手動 `/weekly-cycle` 起動の 3 段重ね
+- 不採用理由: W19 cycle 実運用 (commit `5727199`、5-4 朝 1.5h) で **手動 `/weekly-cycle` 起動が実用上完走できた**ため overkill
+- 処置:
+  - `weekly-cycle-trigger/spec.md` 削除 (`account-config` / `content-pipeline` / `marketing-cycle` / `performance-tracking` / `posting-strategy` / `research-pipeline` / `weekly-cycle-orchestrator` の 7 spec 構成へ縮小)
+  - tasks 10.x-15.x (Phase 2 実装タスク) 削除
+  - proposal.md に `Note (2026-05-04): Phase 2 は不採用` を追記、判断根拠 (W19 cycle 実運用) 記録
+  - 必要になれば別 change で再起票可能
+
+### task 16.1 の遅延依存解消
+
+- 旧: 「`multi-tenant-bootstrap` merge 後に `genres/README.md` に週次サイクル節追加」 — multi-tenant 着手まで cycle archive を縛る
+- 新: 「現状の `genres/README.md` (予約状態) に追記、multi-tenant 着手時に再編集」 — multi-tenant 待たず archive 開放
+
+### 副産物 doc 更新
+
+- `README.md` に「週次サイクル (推奨)」節 — `/weekly-cycle` skill が通常ループの推奨運用であることを明示
+- `docs/operations.md` に `/weekly-cycle` セクション — A REVIEW から G PUSH のフェーズ概要 + 運用ガード (Step 0 fetch、戦略 ratify gate、`--live` 確認 prompt)
+
+### push commits
+
+- `24cef9f chore: archive 3 changes — pipeline-relocate / strategy-split / cycle-bootstrap` (36 files, +600/−281、`5727199..24cef9f main → main`)
+- 237/237 tests pass
+
+### 学び (横展開可能)
+
+- **自動化機構は手動運用が回ってから判断する**: 設計時に欲しかった Phase 2 (launchd + hooks + 通知) が、実際に手動 `/weekly-cycle` を 1 回回したら自動化欲求が消えた。**「設計時に欲しい機能」と「運用時に必要な機能」のズレ** を W19 cycle が露呈させた
+- **archive 時の MODIFIED Requirements は main spec header と完全一致が必須**: 起票時 (header 文言が起票時点の draft) と archive 時 (current main spec が更新済) で header にズレがあると `/opsx:archive` が「header not found」で失敗する → delta 側を current main の文言に合わせて再 archive
+- **OpenSpec change の遅延依存は task X.1「他 change merge 後の doc 更新」で発生しがち**: 回避策は (A) doc を current state 前提に書き換え、(B) follow-up change に切り出し。今回は (A) を採用
+
+### 残タスク
+
+- 単一 in-progress change: `multi-tenant-bootstrap` (0/71) — trigger は「2 アカウント目立ち上げ」、当面寝かせ
+- W20 サイクル開始時の優先順位は変わらず (上記)
