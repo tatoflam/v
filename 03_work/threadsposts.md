@@ -1,9 +1,9 @@
 ---
 title: ThreadsPosts — 腸活スタジオ Threads 自動投稿パイプライン
 category: 03_work
-tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, stage:active, stage:incident-response, entity:chokatsu-studio, entity:meta-classifier, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, milestone:weekly-cycle-w19-execution, milestone:openspec-3-archive-batch, milestone:playbook-process-revamp, milestone:playbook-archive-sync, milestone:account-ban-pivot, milestone:openspec-3-change-ban-pivot, milestone:ban-pivot-explore-synthesis, milestone:publish-relocate-local-shipping, milestone:legacy-tenant-archive, incident:threads-ban-2026-05-04, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic, principle:capture-first-explore, principle:change-boundary-equals-commit-boundary]
-sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8, a73c0aa2-c9a4-46e3-ab60-72b6b426901a, 8b57f7c8-b8fa-4f65-8c06-06cf6fbe87b3, 97d3f618-8d6c-40e6-8210-06549512f183, cef7a3c1-5798-4534-ab51-63c1a2279734, c02fca64-85c4-40f5-9bae-00ea56f138c1, f198b34e-7c91-4bee-8bf4-a3a532f86901, ea0b21e8-0197-4d87-a637-45d18bc759d7]
-updated: 2026-05-05
+tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, stage:active, stage:incident-response, entity:chokatsu-studio, entity:meta-classifier, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, milestone:weekly-cycle-w19-execution, milestone:openspec-3-archive-batch, milestone:playbook-process-revamp, milestone:playbook-archive-sync, milestone:account-ban-pivot, milestone:openspec-3-change-ban-pivot, milestone:ban-pivot-explore-synthesis, milestone:publish-relocate-local-shipping, milestone:legacy-tenant-archive, milestone:ban-decision7-reframing, incident:threads-ban-2026-05-04, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic, principle:capture-first-explore, principle:change-boundary-equals-commit-boundary, principle:composite-fingerprint-not-single-cause]
+sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8, a73c0aa2-c9a4-46e3-ab60-72b6b426901a, 8b57f7c8-b8fa-4f65-8c06-06cf6fbe87b3, 97d3f618-8d6c-40e6-8210-06549512f183, cef7a3c1-5798-4534-ab51-63c1a2279734, c02fca64-85c4-40f5-9bae-00ea56f138c1, f198b34e-7c91-4bee-8bf4-a3a532f86901, ea0b21e8-0197-4d87-a637-45d18bc759d7, 665cb2da-de7e-4b1b-93f9-2500f8d6fe95]
+updated: 2026-05-07
 ---
 
 # ThreadsPosts
@@ -1067,3 +1067,40 @@ edba97b chore: bundle playbook-process-revamp leftovers from prior W19 session  
 1. PR 作成 (§12.3) を `account-pivot-warmup` と同時 merge にするか単独 land にするか
 2. `account-pivot-warmup` Phase 0 (新ジャンル選定リサーチ) を 5/7 deadline までに着手
 3. token 配置 (§1.6) → `publish:dry` 実機検証 (§8.1, §8.3) のタイミング
+
+## 2026-05-05 update — Decision 7 reframe (複合フィンガープリント仮説、665cb2da)
+
+publish-relocate-local apply と並行 window で走った短い `/opsx:explore` セッション (5-5 01:14 → 01:20 JST)。user が ChatGPT の BAN 6 行可能性表を持ち込んで「Claude Code の見解は？」と問い直し、その diff を取った結果、`account-pivot-warmup/design.md` Decision 7 の framing を書き換えた。
+
+### 何が変わったか
+
+**Before**: 「(4) GH Actions cron = datacenter IP **支配的**、`publish-relocate-local` が**本丸**、warmup は humanness **保険**」
+**After**: 「**複合フィンガープリント仮説** — (1) 機械的 cadence + (2) 100% affiliate + (3) 新規アカ + (4) IP + (5) 健康ジャンル × 商業 + (6) engagement 受動性 の AND を inauthentic 分類器が見ている。warmup = **humanness 主力対処**、local-first = **IP 信号対処 + 副次便益 (token 衛生 + Anthropic ローカル消費)**」
+
+### ChatGPT 表との diff で見えたもの
+
+ChatGPT 6 行表には以下 2 信号が**入っていなかった**:
+- **健康/サプリジャンル × 商業リンク** (Meta が特に厳しい領域: 効能を匂わせやすい)
+- **engagement の受動性** (like/reply/scroll ゼロ → humanness 信号が立たない)
+
+逆に ChatGPT 表の「行 1 (非公式 API/Cookie ログイン) 高」は本件には適用外 (旧アカは Threads Graph API + token publish のみ)。第三者 framing との diff を取ると、自分のフレームの blind spot と相手のフレームの blind spot が両方見える。
+
+### 書き換え 3 ファイル + memory
+
+- `account-pivot-warmup/proposal.md` 行 6: 二段構え → 三段構え
+- `account-pivot-warmup/design.md` Decision 7 全体 (4 → 6 信号、weight 反転)
+- `account-pivot-warmup/design.md` Decision 8 行 256 (warmup の位置付け文言)
+- `memory/project_account_ban_pivot.md` (複合フィンガープリント仮説への改訂を Why に追記)
+
+`openspec validate account-pivot-warmup` パス。実装挙動 (warmup 上限 / phase gate / Phase 0 ジャンル選定基準) は不変、framing と判断軸だけ更新。
+
+### 学び (causal-attribution 一般)
+
+- **incident response で「単独支配仮説」を採るとフレーム固定リスクが高い**: IP だけ residential に変えて旧パターンを踏むと 2 度目の BAN を引きうる。複数信号の AND を分類器が見ているという前提なら、IP 単独除去では足りない
+- **第三者 (ChatGPT) の framing と自分の framing の diff を取ると blind spot が両方見える**: framing の merge 検証 = 単独査読では届かない
+- **framing rewrite は実装挙動を変えなくてもやる価値**: 「将来の判断軸が変わる」だけでも spec の framing を更新する意味あり。Decision 7 を放置すると後続 change が「IP 信号さえ消せば緩めて良い」と読み違える余地が残る
+- **explore mode の触り分け**: framing の是非を 6 行表で確認 → user が「1で」で確定 → そのまま即 edit に入った。`/opsx:apply` を経ずに edit したのは「framing 修正は実装変更を伴わない」と user が判断したため
+
+### 残論点
+
+- 2 番目の論点 (健康訴求 × 商業リンクを Phase 0 ジャンル選定基準 / `dept/content/hooks/<新genre>.md` compliance に明示組込) は本セッションでは保留。5/7 Phase 0 deadline が近いので、ジャンル選定基準の追補から着手するのが自然

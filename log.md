@@ -71,3 +71,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-05-04T14:15:39Z  op:ingest  S=4 I=0 pages=2 unsortable=0  (deferred=0; meta sessions 2efd7524+d734e6a0 had no content; cef7a3c1=archive sync; c02fca64=BAN pivot 3 changes commit 2ec9509)
 - 2026-05-05T00:26:44+09:00  op:ingest  S=2 I=0 pages=2 unsortable=0
 - 2026-05-05T01:17:57+09:00  op:ingest  S=2 I=0 pages=3 unsortable=0  (substantive=1: f198b34e 後半 publish-relocate-local 67/73 + 3-commit clean push 16f8de5/442533c/edba97b → origin; meta=1: ea0b21e8 prior /wiki-ingest meta-run; deferred=0)
+- 2026-05-07T06:54:54+09:00  op:ingest  S=2 I=0 pages=2 unsortable=0  (substantive=1: 665cb2da /opsx:explore Decision 7 reframe → 単独支配仮説撤回・複合フィンガープリント仮説確定 (account-pivot-warmup proposal/design/Decision 8 + memory project_account_ban_pivot 改訂); meta=1: afde4eed prior /wiki-ingest run; deferred=0)
