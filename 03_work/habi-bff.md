@@ -2,8 +2,8 @@
 title: habi-bff — HABI BFF / インフラ層
 category: 03_work
 tags: [project:habi-bff, client:hlab, entity:habi, tech:typescript, tech:aws-lambda, tech:dynamodb, tech:openai, tech:openspec, tech:sqs, capability:async-chat-pipeline, capability:attunement-policy, capability:bff-guard, stage:active]
-sources: [c2dd2c85-7cc6-45d2-8df6-ebd5f5358bc4, e6de9be8-7152-4213-b913-f501d258dafe, 6a2f552b-d79a-4c1e-93ca-5b6b3bc4a045, c5c0230b-b3e6-43ae-ba7f-ea585ad01a6e]
-updated: 2026-05-07
+sources: [c2dd2c85-7cc6-45d2-8df6-ebd5f5358bc4, e6de9be8-7152-4213-b913-f501d258dafe, 6a2f552b-d79a-4c1e-93ca-5b6b3bc4a045, c5c0230b-b3e6-43ae-ba7f-ea585ad01a6e, c6b59a1d-11af-4eb4-8f38-5910c5644ab3]
+updated: 2026-05-08
 ---
 
 # habi-bff
@@ -223,3 +223,89 @@ add-quality-always-on (独立・CI 層、Seed の expected_traits が attunement
 ```
 
 see also: [[02_diary/2026-05-07]], [[05_learn/habi-bff-pmchat-localdev-gap]]
+
+## 2026-05-07 — Plan C 確定 + docs/plans 統廃合 + PM 依頼書刷新 + policy-monitoring を M3 へ繰り下げ (session c6b59a1d)
+
+`/opsx:explore` で M1 マトリクス (`260216`) と現状実装の突合 → アクションプラン Plan C を採択 → ドキュメント整理と PM 依頼書刷新を 1 セッションで完走。**3 commits push (`a2f2883` / `33ace48` / `546794a` 全て `origin/main`)**、unit/integration テストノータッチ (docs のみ)。
+
+### マトリクス突合の結論
+
+| 層 | M | v1.0 要件 | 現状 |
+|---|---|---|---|
+| Habi Core / Engagement Boundary | M1 | ◎ | **◎** [habi-client.ts:321/669](src/services/habi-client.ts) で system prompt 注入 + BoundaryFlags 配線済 |
+| User OS 保存・読込 | M2 | △ | **◎相当** DynamoDB + 楽観ロック as-built ([user-os-persistence/spec.md](openspec/specs/user-os-persistence/spec.md)) — v1.0 要件超過達成 |
+| Attunement Policy | M2 | ◎ ルールベース | **◎** [selector.ts](src/services/attunement/selector.ts) + [rules.ts](src/services/attunement/rules.ts) |
+| BFF Guard 5値Verdict | M2 | ◎ | **◎** [evaluator.ts](src/services/guard/evaluator.ts) + [state-machine.ts](src/services/guard/state-machine.ts) |
+| 段ジャンプ制御 / 違反ログ | M2 | △ | **△** StepTrace + [violation-log.ts](src/services/guard/violation-log.ts) |
+| **Narrative Memory** | M3 | △ | **× 未着手** (`grep narrative\|memory\|abstract.?log` 0 件) |
+| **Context Builder (削減)** | M4 | △ | **× 未着手** |
+
+**結論**: M3/M4 のみ未着手。M3/M4 OpenSpec 提案は v1.0 リリース計画確定後に持ち越し。
+
+### Plan C — PM Seed 手数を最優先
+
+```
+[今] ┬─→ add-bff-policy-monitoring (★ M3 へ繰り下げに変更)
+     │
+     └─→ add-quality-always-on (CTO 足場 / PM Seed 30 本)
+              ↓
+          [v1.0 リリース計画確定]
+              ↓
+          add-narrative-memory (M3) / add-context-builder (M4) を起票
+              ↓
+          v1.0 リリース
+```
+
+### Fast/Deep ルーティングを v2.0 送り
+
+マトリクス上 v1.0 では未要求のため Month 2.2 を v1.0 必須から外す。HABI_DEVELOPMENT.md 第1部に新節 **§1.9「ルーティング層 — v2.0 送り」**、第3部 Month 2.2 に callout、第6部 OpenSpec ロードマップに `add-processing-flow-fast-deep` (未起票) を追加。HABI_LOADMAP.md Phase 1 §5 を Phase 2 §7-bis へ移動。
+
+### docs/plans/ ファイル統廃合 (4 → 3 + archive、commit `a2f2883`)
+
+- HABI_DEVELOPMENT.md (v1, 1003 行) と HABI_DEVELOPMENT_v2.md (v2, 265 行) を **統合 1270 行** へマージ → 旧 v2 は `git mv archive/` (履歴保持)
+- HABI_DEVELOPMENT_CHANGELOG.md / HABI_LOADMAP.md に [2026-05-07] エントリ + 進化マップ
+- 統合後章構成: 第0部 (3 バージョン位置づけ) / 第1部 (層×Month×Vマトリクス 1.1〜1.9) / 第2部 (v2.0 で追加された 4 層解説) / 第3部 (M1-M12 月別) / 第4部 (テスト計画) / 第5部 (リスク管理) / 第6部 (OpenSpec ロードマップ) / 第7部 (関連)
+- 7 files changed、+521/-122。active な change の参照リンクも更新済 (`add-bff-policy-monitoring/tasks.md`, `add-quality-always-on/tasks.md`, `docs/README.md`)
+
+### PM 依頼書を §8/§9/§10 で刷新 (commit `33ace48`、+251/-4)
+
+- `PM_REQUEST_MONTH2_USER_OS.md` に **§8 Attunement Policy 監修 / §9 BFF Guard 監修 / §10 Step Debug 検証 (外部仕様のみ)** を追加 (+358 行)
+- 冒頭に「🆕 2026-05-07 1 週間期限の優先確認サマリ」表 → A〜D ブロック (推定 0.5〜1 日 each) で全体俯瞰
+- 期限 **2026-05-14** (1 週間)
+- 旧 `HABI_ARCH_STEP_DEBUG.md` は `git mv archive/` へ退避し外部仕様のみを §10 へ吸収
+  - **割愛した内部仕様**: LLM Off 時の JSON 構造、`< 5ms` メトリクス、`[OFF]` バッジ色 → F4「Input/Output 表示は検証に十分か」で抽象化、ユニット/統合テスト範囲とした
+- 完了条件チェックリスト: 従来 6 項目 + 新規 3 項目 (Attunement/Guard/Step Debug)
+- テスト環境: `https://ww6knpkhu4.execute-api.ap-northeast-1.amazonaws.com/development/pm/chat` / `pm-test@example.com / TestPass123` (PM Chat Tool で A1〜E4 自動実行)
+- フィードバック方法: **会話ログコピー** + **Google Document に転記済み → PM が赤字記入で連絡 → CTO がリポジトリへ反映** の併用 (PM はリポを直接編集しない)
+- メール文面はドラフト作成したが「送信用なので残さない」(本文は user 手元から送信、リポには残さず)
+
+### add-bff-policy-monitoring を M2 → M3 へ繰り下げ (commit `546794a`、3 files、+57/-7)
+
+性格は「**M2 単発の Done ではなく、M2 以降毎回の継続観測**」。マトリクス上は v1.0 = △ (計測のみ) だが、Month 2 完了条件 (Done) には載っていなかった (CTO タスクには記載 / Done には未反映 → ドリフト)。
+
+判断: **PM Seed 30 本オーサリングが M2 直後の最大手数**になるため、CTO は quality-always-on の足場作りに集中、policy-monitoring は M3 (`add-narrative-memory` と並行) で着手。pino ログに metrics 列を足すだけなので M3 の本命と並行可能。
+
+反映:
+- HABI_DEVELOPMENT.md §1.8 マトリクス行・§2.4 見出し: 「M2 以降毎回」→「M3 以降毎回」
+- 第3部 Month 2 CTO タスクから Month 3 CTO タスクへ移設 (callout で「M3 へ繰り下げ」明記)
+- 第6部 OpenSpec ロードマップ表の Month 列を更新
+- proposal.md の Why に「PM Seed の手数を優先するため M3 へ繰り下げ」4 行追記、Roadmap alignment を Month 3 に修正
+- HABI_DEVELOPMENT_CHANGELOG.md に [2026-05-07] 単独エントリ
+- `openspec validate add-bff-policy-monitoring --strict` 通過、tasks.md は無修正
+
+不要だったもの: PM 依頼書の追記 (PM 監修対象ではない CTO 内部観測)、Month 2 完了条件 (そもそも Done にゲートしていなかった)。
+
+### 副産物の小ネタ
+
+- **Excel ロックファイル `~$★★★…マトリクス.xlsx`** を git add 時にスキップする運用：Excel を開いている間だけ生成される一時ファイル、閉じれば消える。コミット対象から除外する
+- **archive 内の不変原則**: CHANGELOG L219 の 2026-04-06 当時の v2 参照は **過去の事実** なので不変、書き換えない (改ざんしない)
+
+### 残 (Plan C ベース)
+
+```
+[M2 残り]    PM 監修待ち (5/14) → HOLD 語感など feedback 反映
+[M2 完了後]  add-quality-always-on 足場 (CTO 単独着手可)
+[M3 着手]    add-narrative-memory (本命) + add-bff-policy-monitoring (並行)
+```
+
+see also: [[02_diary/2026-05-08]], [[06_output/2026-05]]
