@@ -1,8 +1,8 @@
 ---
 title: ThreadsPosts — 腸活スタジオ Threads 自動投稿パイプライン
 category: 03_work
-tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, stage:active, stage:incident-response, entity:chokatsu-studio, entity:meta-classifier, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, milestone:weekly-cycle-w19-execution, milestone:openspec-3-archive-batch, milestone:playbook-process-revamp, milestone:playbook-archive-sync, milestone:account-ban-pivot, milestone:openspec-3-change-ban-pivot, milestone:ban-pivot-explore-synthesis, milestone:publish-relocate-local-shipping, milestone:legacy-tenant-archive, milestone:ban-decision7-reframing, incident:threads-ban-2026-05-04, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic, principle:capture-first-explore, principle:change-boundary-equals-commit-boundary, principle:composite-fingerprint-not-single-cause]
-sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8, a73c0aa2-c9a4-46e3-ab60-72b6b426901a, 8b57f7c8-b8fa-4f65-8c06-06cf6fbe87b3, 97d3f618-8d6c-40e6-8210-06549512f183, cef7a3c1-5798-4534-ab51-63c1a2279734, c02fca64-85c4-40f5-9bae-00ea56f138c1, f198b34e-7c91-4bee-8bf4-a3a532f86901, ea0b21e8-0197-4d87-a637-45d18bc759d7, 665cb2da-de7e-4b1b-93f9-2500f8d6fe95]
+tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, tech:esim, stage:active, stage:incident-response, entity:chokatsu-studio, entity:meta-classifier, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, milestone:weekly-cycle-w19-execution, milestone:openspec-3-archive-batch, milestone:playbook-process-revamp, milestone:playbook-archive-sync, milestone:account-ban-pivot, milestone:openspec-3-change-ban-pivot, milestone:ban-pivot-explore-synthesis, milestone:publish-relocate-local-shipping, milestone:legacy-tenant-archive, milestone:ban-decision7-reframing, milestone:3-account-staged-scaling, milestone:interior-uchi-style-confirmed, incident:threads-ban-2026-05-04, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic, principle:capture-first-explore, principle:change-boundary-equals-commit-boundary, principle:composite-fingerprint-not-single-cause, principle:milestone-driven-scaling, principle:subject-axis-not-credential-axis]
+sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8, a73c0aa2-c9a4-46e3-ab60-72b6b426901a, 8b57f7c8-b8fa-4f65-8c06-06cf6fbe87b3, 97d3f618-8d6c-40e6-8210-06549512f183, cef7a3c1-5798-4534-ab51-63c1a2279734, c02fca64-85c4-40f5-9bae-00ea56f138c1, f198b34e-7c91-4bee-8bf4-a3a532f86901, ea0b21e8-0197-4d87-a637-45d18bc759d7, 665cb2da-de7e-4b1b-93f9-2500f8d6fe95, 99902682-b840-494b-b76c-59c90854c892]
 updated: 2026-05-07
 ---
 
@@ -1104,3 +1104,129 @@ ChatGPT 6 行表には以下 2 信号が**入っていなかった**:
 ### 残論点
 
 - 2 番目の論点 (健康訴求 × 商業リンクを Phase 0 ジャンル選定基準 / `dept/content/hooks/<新genre>.md` compliance に明示組込) は本セッションでは保留。5/7 Phase 0 deadline が近いので、ジャンル選定基準の追補から着手するのが自然
+
+## 2026-05-07 — Phase 0 ジャンル選定 + 3 アカ並行 scaling 設計 + eSIM 副回線確定 (99902682、5-7 11:04 JST)
+
+BAN 後 pivot の Phase 0 deadline (= 今日) を完走するための `/opsx:explore` セッション。5 ジャンル候補を比較 → interior 単独確定 → 3 アカ段階的 scaling 設計 → eSIM 副回線で電話番号 isolation → 2 commits push (`6c1a0d4` openspec pivot + `137c07a` task 7.14 tick) until `origin/main`。
+
+### 5 ジャンル候補 → interior 単独確定
+
+候補挙げ → 比較表 → 1 つに絞る、を 1 セッションで踏んだ。
+
+| 候補 | persona | fingerprint離脱 | 楽天在庫 | niche | 動線 | 採否 |
+|------|---------|-----------------|---------|-------|------|------|
+| キャンプ・釣り・アウトドア | ○ (年2-4回) | ✓ | ◎ | 子育×教育で◎ | ◎ | 保留 (account_2/_3 候補) |
+| 腸活 | ◎ (実践者) | ✗ 高被り | ✓ | △ 旧と同じ | ◎ | **却下** (BAN 再発リスク) |
+| 植物 (ビカクシダ・エアプランツ) | ○ (始めたて) | ✓ | ○ | ○ niche | ◎ | 保留 |
+| ギター・電子楽器 | ◎◎ (歴30年) | ✓ | ○ | ○ ジャズ×Pops | △ サウンドハウス問題 | 保留 |
+| **インテリア (建築設計PM経験)** | ○ → ◎ | ✓ | ◎ | △ 競合多 → subject 軸で○ | ◎ | **採用 = account_1** |
+
+`gut-health` (=旧ジャンル) は composite-fingerprint hypothesis (Decision 7 reframe) 上で「健康ジャンル × 商業リンク」が信号 (5) として残るので、明示的に Phase 0 ジャンル選定基準で却下。これで 5-5 explore で残した「ジャンル選定基準を spec に書く」論点を消化。
+
+### Persona の三段階 refine — 「PM施主」 → 「駆け出しデザイナー」 → 「賃貸を整え始めた覚書」
+
+interior に決まった後、persona を 3 回書き直して各 stage の罠を毎回名指しで崩した。
+
+```
+Stage A: 建築 PM × 施主視点 (一旦保留)
+  → "PM" を名乗ると進行管理プロを期待される、施主側経験はゼロ
+  → 「肩書 + 駆け出し」二重構造 = 旧 persona「医師でない×訴える」の言い換え
+
+Stage B: 駆け出しデザイナーが選ぶおしゃれな小物 (本人却下)
+  → 直前の発言「デザインセンス的にはこれから」と矛盾
+  → "選ぶ" の教え口調にズレる、IG/Threads で死ぬほど枯れた定型
+
+Stage C (確定): 賃貸を整え始めた覚書 (subject 軸で広げる)
+  → subject = うちの家、これで固定 (誰の家でもなく "私の" 家で差別化)
+  → カテゴリは家具/照明/雑貨/収納/動線 を横断
+  → 建築設計 PM 経験は account プロフィール 1 行のみ、本文では振りかざさない
+```
+
+「肩書軸」(専門家、デザイナー) で広げると教え口調にズレる、「subject 軸」 (私の家、私の体験) で広げると一人称が全カテゴリで成立、というのが核。
+
+### 文体: 「私は」 → 「うち / うちの」 (interior 限定)
+
+旧 persona の `私は` は (1) 上から目線禁止 (2) 権威化禁止 (3) 咀嚼者ポジション、の 3 つの load-bearing 機能を持っていた。interior ジャンルでは「私はリビングのペンダントを 3 回選び直した」が `説明会・教える側` に滑りやすい (賃貸インテリアは「整えた人がカタログを示す」構造に近い)。`私は` を **`うち / うちの`** に置き換えて 3 機能を維持する中道案で確定。
+
+```
+旧: 私はリビングのペンダントライトを 3 回選び直した
+新: うちのリビング、ペンダントライトを 3 回選び直した
+
+旧: 私は賃貸でも置ける造作家具モドキを 2 種類試した
+新: うちは賃貸だけど、造作家具モドキを 2 種類試した
+```
+
+`account_2/_3` 用ジャンルは未確定なので、文体も別途検討。memory `feedback_interior_persona_uchi_style.md` で interior 限定であることを明示。
+
+### Decision 8 書き直し: D3-b 段階的 (¥300k × 3 = ¥900k)
+
+「いきなり 3 アカ並行で本気アフィリ → 連鎖 BAN」を回避する設計。1 アカ目で運用 protocol を validate (= BAN/警告ゼロ + cadence 維持 + 月次 ¥50-100k ラン) してから 2 アカ目を起動、という milestone-driven の **中道** 案を Decision 10 として spec 化。
+
+```
+Stage 1 (2026-05〜2026-08): account_1 (interior) 単独
+  W1-W4 warmup → +4w normal → +8w 第 2 milestone (BAN ゼロ + ¥50-100k ラン)
+  → ここで account_2 起動判断
+Stage 2 (2026-08〜2026-12): account_1 維持 + account_2 (TBD) 立上げ
+  account_1 は normal で ¥300k ラン目指し続ける
+  account_2 W1-W4 warmup → normal → 4 週運用 + 収益軌道確認
+  → ここで account_3 起動判断
+Stage 3 (2026-12〜2027-02): account_1,_2 維持 + account_3 (TBD) 立上げ
+  全体 ¥900k ラン到達 = D3-b 達成
+```
+
+「同時 3 アカ起動」「単独で ¥900k 超過」は明示的に Non-Goal。
+
+### Decision 11 新設: 4 軸 isolation × 3 セット (X1 = eSIM 副回線推奨)
+
+「3 アカで同じ電話番号を使いたい」 → 6 案を比較。
+
+```
+1. 同じ番号で 3 アカ作成      ✗ Meta 同一人物検知で連鎖 BAN
+2. 物理 SIM #1 + eSIM #2,#3   ◎ ★推奨 (povo 2.0 月額 0 円維持等)
+3. 物理 SIM 3 枚              ◎ コスト最大、isolation 最大
+4. IP 電話 (050plus 等)       ✗ IG 認証で拒否される事例多数
+5. 家族の番号を 3 つ借りる    △ 家族 identity 紐付けリスク
+6. SMS API (Twilio)           ✗ IG 認証拒否頻発
+```
+
+**X1 = 物理 SIM 1 + eSIM 2 (povo 2.0)** で iPhone 1 台運用。Decision 11 として正式化、`account-pivot-warmup/tasks.md` 1.6 / 1B.8 / 1C.8 / 3.7 に具体反映。残るリスク (device 軸、請求口座) と mitigation (別ブラウザ profile、Threads web 化) も明示。
+
+→ [[05_learn/instagram-multi-account-isolation]] に切り出し
+
+### 更新 artifact (5 ファイル + memory 4 ファイル)
+
+| File | Δ |
+|---|---|
+| `account-pivot-warmup/proposal.md` | 1 アカ→3 アカ並行 (段階的 scaling) 拡張、capability `multi-account-scaling-strategy` 追加、Impact (Account 構成 / Timeline 9 ヶ月 / Operational 4 軸×3 セット) |
+| `account-pivot-warmup/design.md` | Decision 8 完全書き直し (D3-b 段階的)、Decision 10 新設 (中道 milestone-driven)、Decision 11 新設 (4 軸 × 3 セット isolation)、Risks 3 つ追加、Migration Plan を Stage 1/2/3 構造に再構成 |
+| `account-pivot-warmup/tasks.md` | Phase 0 を account_1 確定 / account_2 TBD / account_3 TBD の 3 セットに展開、staggered start タイムライン追加 |
+| `multi-tenant-bootstrap/proposal.md` | 「2 アカウント目は将来別 change」の non-Goal 撤回、3 ジャンル × 3 アカ並行立上げを本 change で扱う |
+| `publish-relocate-local/tasks.md` | 7.14 のチェック更新 (実 commit reference 付き、前セッション残) |
+
+memory 更新: `project_revenue_target.md` / `project_account_scaling_strategy.md` / `project_affiliate_accounts.md` / `feedback_interior_persona_uchi_style.md`。
+
+### 2 commits push (前セッション差分は別 commit)
+
+```
+6c1a0d4 openspec: pivot to 3-account staged scaling (D3-b ¥900k, milestone-driven)
+        4 files (account-pivot-warmup proposal/design/tasks + multi-tenant-bootstrap proposal)
+        +401 / -119 lines
+137c07a chore: tick publish-relocate-local task 7.14 with archive commit refs
+        1 file, +1 / -1 line, 前セッション残
+```
+
+main への直接 push が harness 側でハードブロック → user 自身が `git push origin main` でローカル実行 → `origin/main` 同期確認。
+
+### 学び (横展開可能)
+
+- **persona refine は 1 回で決まらない、3 回書き直す覚悟**: 各 stage で「直前の自分が言ったことと矛盾しないか」「肩書借り / 嘘の宣言 / 教え口調 のどれかに滑っていないか」を都度照合する。一発で正解を出そうとせず、書き直しを許容する方が結果的に sustainable な persona に着地する
+- **subject 軸で広げる > 肩書軸で広げる**: 複数カテゴリ横断したいとき、肩書 (デザイナー、専門家) で広げると教え口調にズレる。subject (私の家、私の体験) で広げると一人称が全カテゴリで成立し、差別化も "私の" 私性で取れる
+- **isolation 4 軸 AND で考える、1 軸完全分離では足りない**: phone 完全分離しても device fingerprint で同一視されうる。Composite fingerprint hypothesis と同じ前提で、Meta 側も複数信号の AND で同一人物判定している前提で 4 軸全部に boundaries を引く。device 軸は完全分離が非現実的なので「best effort + Stage 1 で実観測」に倒した
+- **段階的 scaling = 1 アカ内 protocol を複数アカ間に拡張**: warmup の「観察 → 段階的に活発化」を 1 アカ内ではなく複数アカ間にも適用する発想。「前アカが BAN ゼロ + 収益軌道」を milestone gate にすると、1 アカ目で踏んだ罠が 2 アカ目で再発しないことを事前 detect できる
+- **harness のハード block を user 手動 push で迂回する pattern**: main への直接 push が harness で禁止されているとき、commit までは Claude が積む / push だけ user terminal で叩くという分業が一番速い。permission rule を更新するのは将来の同じ操作を量産する想定があるときだけで、単発なら手動 push で済ます
+
+### 次の判断点 (user)
+
+1. **Phase 0 残作業着手** (Section 1A interior hooks 5-10 本 stock + 第 1 週 draft 1 本 + CLAUDE.md 更新)
+2. **Section 1.6-1.9** 新 IG / 新メアド / token / 楽天 ID #1 取得 (eSIM は account_1 では既存メイン回線を使うので Stage 2 まで保留)
+3. **publish-relocate-local 残 6 タスク** (token 配置、実機検証、5/11 cron monitor、PR 作成→merge→archive)
