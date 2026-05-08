@@ -2,8 +2,8 @@
 title: Threads Graph API セットアップ — Meta Developer Console の落とし穴
 category: 05_learn
 tags: [topic:threads-graph-api, tech:nodejs, channel:threads, entity:meta-developer-console]
-sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29]
-updated: 2026-05-03
+sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, c0b0dfea-a81b-4470-b2f5-07cbbaa4aae8]
+updated: 2026-05-09
 ---
 
 # Threads Graph API セットアップ — Meta Developer Console の落とし穴
@@ -118,3 +118,83 @@ $ npm run check:threads
   username: @chokatsu_studio    ← これは表示用、API には使わない
 [check] set THREADS_USER_ID=36075427142056546 in your .env
 ```
+
+## 8. 2 アカウント目 (oheyamemo) で再現確認 + 4-5 日で変わった UI 差分（2026-05-07 追加）
+
+旧 `@chokatsu_studio` が 2026-05-04 に BAN され、新 account `@oheyamemo` (interior ジャンル) を立上げた。同じ手順で再現できたが、**4-5 日のうちに UI 経路がいくつか動いていた**ので 2 つ目以降の立上げで確認すべき差分を残す。
+
+### 8.1 「Threads APIにアクセス」を use case で直接選べる
+
+| 手順 | 旧 chokatsu (2026-04-29) | oheyamemo (2026-05-07) |
+|------|-------------------------|----------------------|
+| アプリ作成時の use case | 「ユースケースなし → カスタマイズ」で進めた | **「Threads APIにアクセス」を直接選択** が最短経路 |
+
+`Threads API にアクセス` を選ぶと scope 設定や User Token Generator が事前配線された画面に直行する。`ユースケースなし → カスタマイズ` で作って後付けする旧経路でも動くが、scope を後から「追加」する画面遷移が一段増えるので新規アカは前者を推奨。
+
+### 8.2 Threads tester 経路 — `Roles → Roles` ではなく `ユースケース内の User Token Generator`
+
+混乱しやすい:
+
+| 場所 | identity 要件 | 用途 |
+|------|--------------|------|
+| **App settings → Roles → Roles** | **FB ユーザー必須** | App 管理者 / 開発者の管理。**Threads tester とは別物** |
+| **ユースケース → Threads APIにアクセス → User Token Generator → 「Add or remove Threads testers」** | **Threads handle (`@oheyamemo`) のみで OK、FB account 不要** | Threads API 利用許可を受ける Threads アカウント招待 |
+
+旧 chokatsu の手順 docs を辿って `Roles → Roles` に行くと `/roles/test-users/` 画面に着いて「テストユーザーの作成機能が一時的に停止されています」赤通知が出る。**これは FB テストユーザー (FB account を疑似的に作る機能) の停止であって、Threads tester とは無関係**。URL を読まずにメッセージだけ見て「Threads tester も作れない」と勘違いしかねない罠。
+
+正しい経路は **「ユースケース → Threads APIにアクセス → User Token Generator」**。同セクション内の「Add or remove Threads testers」で `@oheyamemo` を入力 → 招待 → Threads アプリ通知から承認、で `User Token Generator` リスト内に行が追加される。その行の **「アクセストークン生成」** ボタンが正解。
+
+### 8.3 `th_exchange_token` (Step D) が不要なパターン
+
+「アクセストークン生成」ボタンで取得した token は **最初から long-lived (60日)** で発行されることがある。その状態で旧 docs に従い `th_exchange_token` で再交換しようとすると:
+
+```
+{"error":{"message":"Session key invalid. ... user has revoked this session",
+  "type":"OAuthException","code":452,"error_subcode":4279019,...}}
+```
+
+短命 → long-lived 交換は **「現在の token が短命の場合のみ必要」**。実装上は `/me` を 1 回叩いて 200 OK が返れば既に long-lived (使える) 判定で、Step D はスキップで OK。
+
+### 8.4 Privacy Policy URL 必須 (旧経路でも要、再確認)
+
+「ベーシック → プライバシーポリシー URL」必須。仮 URL でも保存は通る (Threads 側で URL 内容検査までは行っていない、ただし審査でリンク踏まれる前提で仮ページは用意しておく)。
+
+### 8.5 4 scope を Available 化
+
+旧 chokatsu と同じ 4 scope を確認。`threads_read_replies` は publish 自体には不要だが W2 以降の reply tracking (humanness 蓄積観測) に使うので account_1 から含める。
+
+```
+threads_basic
+threads_content_publish
+threads_manage_insights
+threads_read_replies
+```
+
+### 8.6 account_1 (oheyamemo) 立上げ後の env 配置 — xdg `.env` を canonical 化
+
+publish-relocate-local 後の運用 (2026-05-05〜) で env の canonical 配置先は **`~/.config/threads-posts/.env` (xdg)** に確定済。repo `.env` (IDE で開きっぱなし) に user が誤って追記する流れが構造的に再発しうるので、立上げ手順では **xdg `.env` を新規作成してから記入** を案内。pipeline ログ `[publish] env_token=xdg env_user_id=xdg` で load 元を判定できる。
+
+```sh
+mkdir -p ~/.config/threads-posts
+chmod 700 ~/.config/threads-posts
+cat > ~/.config/threads-posts/.env <<EOF
+THREADS_ACCESS_TOKEN=...
+THREADS_USER_ID=...
+THREADS_APP_ID=...
+THREADS_APP_SECRET=...
+EOF
+chmod 600 ~/.config/threads-posts/.env
+```
+
+新規 account では `npm run publish:dry` (= `node dept/dev/pipeline/publish.js --due --dry-run`) で疎通確認:
+
+```
+[publish] runner=local entry="publish.js --due --dry-run" pid=70631 ...
+[publish] env_token=xdg env_user_id=xdg
+[publish] run_summary=true published=0 failed=0 skipped=0 ... dry_run=true
+[publish] no posts due
+```
+
+`env_token=xdg` が出れば xdg 経由 load が成立。
+
+詳細は [[03_work/threadsposts]] 2026-05-07 セクション参照。

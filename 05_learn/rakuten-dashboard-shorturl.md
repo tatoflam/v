@@ -2,8 +2,8 @@
 title: 楽天 a.r10.to 短縮 URL の自動取得 — RWS API + dashboard 内部 API + 2 つの罠
 category: 05_learn
 tags: [topic:rakuten-affiliate, topic:web-automation, tech:nodejs, tech:playwright, tech:rakuten-rws, project:threadsposts]
-sources: [e01596df-0fca-4571-bc96-599e88e0e72c]
-updated: 2026-05-03
+sources: [e01596df-0fca-4571-bc96-599e88e0e72c, c0b0dfea-a81b-4470-b2f5-07cbbaa4aae8]
+updated: 2026-05-09
 ---
 
 # 楽天 a.r10.to 短縮 URL の自動取得
@@ -187,3 +187,21 @@ Headers:
 - [[03_work/threadsposts]]
 - [[05_learn/threads-graph-api-setup]]
 - [[06_output/2026-05]]
+
+## ⚠️ 旧 RWS Ichiba API は 2026-05-14 完全停止 — 新 endpoint への移行（2026-05-07 追加）
+
+楽天 Web Service が 2026-02-10 に完全リニューアル済。**旧 endpoint と旧形式 applicationId は 2026-05-14 に完全停止** (本ページ初稿 2026-05-03 時点であと 11 日)。account_1 (oheyamemo) 立上げ時に user 指摘で再確認した。
+
+| 項目 | 旧仕様 | 新仕様 |
+|------|------|------|
+| Endpoint | `https://app.rakuten.co.jp/services/api/IchibaItem/Search/...` | `https://openapi.rakuten.co.jp/ichibams/api/...` |
+| `applicationId` | 19 桁数字 (例: `0cf35ebb...` 系) | **UUID 形式** (例: `375dca6b-f31d-4426-adbc-fc624ad92a36`) |
+| `accessKey` | 不要 | **`pk_` 始まり、URL param 必須** |
+| Developer Portal | `webservice.rakuten.co.jp` | `https://openapi.rakuten.co.jp/dashboard/` |
+| 完全停止 | 2026-05-14 | — |
+
+**ThreadsPosts pipeline の状態**: `pipeline/resolve_rakuten_links.js` は新 endpoint 対応済 (memory `reference_rakuten_api_2026_renewal.md` の archived `auto-resolve-rakuten-links` 投入時に切替)。新規 account 立上げ時 (例: account_1 oheyamemo) は **必ず新 Developer Portal でアプリを作成** する。
+
+**`a.r10.to` 短縮 URL pipeline (本ページの主題) は別系**: アフィリエイト管理画面 (`https://affiliate.rakuten.co.jp/`) の dashboard 内部 API を Playwright で叩く構成なので、RWS Ichiba API の renewal とは独立。短縮 URL 取得ルートは現状のまま動作する。
+
+→ memory `reference_rakuten_api_2026_renewal.md` で具体値・サンプルレスポンス込みの参照を保持。詳細経緯は [[02_diary/2026-05-07]] / [[03_work/threadsposts]]。
