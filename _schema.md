@@ -1,6 +1,8 @@
 > [!info] Read-only mirror
 > Canonical copy: `/Users/tato/repo/github/tatoflam/Plugins-tatoflam/claude-wiki/schema.md`.
-> Overwritten by /wiki-ingest. Do not hand-edit.# Wiki Schema
+> Overwritten by /wiki-ingest. Do not hand-edit.
+
+# Wiki Schema
 
 Inspired by Karpathy's LLM-wiki pattern
 (https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f).
