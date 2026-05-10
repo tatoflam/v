@@ -3,7 +3,7 @@ title: SpecDrawing material-presenter MVP（Woodone /pboard/ 自作版）
 category: 05_learn
 tags: [topic:specdrawing-material-presenter, tech:next-js, tech:konva, tech:typescript, tech:openspec, tech:vercel, stage:active]
 sources: [84a5b2d0-402c-4114-a408-4bf81236eeb0, f16f3443-5ba1-4c74-9849-912a8b545d38, 06fe1d24-37d8-4e1f-806d-c8119ea2e8d2, 04e50b3d-6f4c-4645-88a7-39291c8b65b4, 0d77b63d-cfe8-42b9-9e17-1b24b76b40a8, 10c66066-eebf-43c9-a9ed-4f3cf33d206e, 3c5be9c0-ca09-48a9-a034-8f8e46003dc3]
-updated: 2026-05-03
+updated: 2026-05-11
 ---
 
 # SpecDrawing material-presenter MVP
@@ -383,3 +383,43 @@ Variant switcher と option 選択は**直交**にした:
   - `VERCEL_ENV` で preview / production を判別（`NODE_ENV` では不可）
 
 - **未解決**: preview URL 上で `/dev/trace` autosave が「ローカルに保持中（再送信を試行...）」を継続表示。`/api/dev/parts` の preview 環境疎通の確認が次セッション。コミット追加なしで session 3c5be9c0 は 5-2 / 5-3 の実機検証ターンを残す
+
+## 2026-05-03 — `add-vercel-deployment` archive：PR #8 merge → production 3.5/3.6 検証 → `/opsx:archive` (commit `acd6714`)
+
+3c5be9c0 セッションの終盤 (5-3 10:16–10:30 JST) で **add-vercel-deployment** を完走。
+
+### PR #8 merge (merge commit 方式)
+
+- `proposal-memos-fidelity-and-vercel → main` を **merge commit** で main に取込 (過去 PR #3-#7 が全て merge commit だったので規約踏襲)
+- main へ反映: `0e0bc75 Merge pull request #8 from meguruit/proposal-memos-fidelity-and-vercel`
+- Vercel が production deploy を自動起動
+
+### Production 検証 (user 報告ベース)
+
+- **3.5**: production URL `/` で全画像（mask / shading / finishes / base perspective）表示 OK
+- **3.6**: `/api/dev/parts` 直アクセス → **404** OK、`/dev/trace` → **「/dev/trace は本番環境では無効です」プレースホルダ表示** OK
+- → `VERCEL_ENV === "production"` ガードが両 path で正しく作動
+
+### `/opsx:archive add-vercel-deployment` (commit `acd6714`)
+
+- 既存 `openspec/specs/dev-trace-tool/spec.md` の "Tool scope and gating" requirement を改訂 (preview/dev でのみ有効化を明文化)
+- **新規 capability `vercel-deployment`** を追加 (`openspec/specs/vercel-deployment/spec.md`)
+- change ディレクトリを `openspec/changes/archive/2026-05-03-add-vercel-deployment/` に `git mv`
+- design.md に **post-implementation correction** を追記:
+  > Vercel filesystem is read-only → エディタの編集はブラウザ localStorage に保持 → ダウンロード → commit ワークフロー
+- **section 5 の 4 タスク** (custom domain / Password Protection / Analytics / build concurrency) は **明示的な非ゴール**として未チェックで archive
+- main に archive + spec sync を 1 commit に集約: `acd6714`
+- branch `proposal-memos-fidelity-and-vercel` を local + remote から削除
+
+### デプロイ運用の最終形
+
+- `main` への push → production 自動反映
+- branch / PR への push → preview deploy 発行
+- `/dev/trace` は **local dev + Vercel preview** で読込可、production では placeholder
+- preview での編集は **ブラウザ localStorage → ダウンロード → commit** のワークフロー (Vercel FS が read-only であることを設計に折り込み)
+
+### 学び (横展開可能)
+
+- **PR ごとの merge 方式は過去ログを引いて統一する**: PR #3-#7 で merge commit を採用していれば PR #8 も merge commit が無難 (squash / rebase に切り替えると履歴比較性が悪化)
+- **archive 時の post-implementation correction セクション**: 実装で判明した仕様逸脱や前提変更 (Vercel FS read-only など) を design.md に **後追い注釈** で残す。change を archive すると design.md は spec/ 配下の正本にコピーされないので、design.md 末尾に追記するのが breadcrumb として機能
+- **section 5 の "明示的非ゴール"**: tasks.md にチェックマーク付かないままで archive する判断 (custom domain / 課金機能 / Analytics は将来別 change で個別検討)。`/opsx:archive` 実行時に「未完了タスクあり」警告を踏み倒すための **意思表示 callout** を tasks.md 末尾に書く運用

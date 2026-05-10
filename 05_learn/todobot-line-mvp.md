@@ -1,9 +1,9 @@
 ---
 title: ToDoBot — LINE グループ業務会話 → 日次 ToDo レポート MVP
 category: 05_learn
-tags: [topic:todobot, project:todobot, tech:openspec, tech:python, tech:firebase, tech:firestore, tech:line-messaging-api, tech:anthropic-claude, tech:google-workspace, stage:proposed]
+tags: [topic:todobot, project:todobot, tech:openspec, tech:python, tech:firebase, tech:firestore, tech:line-messaging-api, tech:anthropic-claude, tech:google-workspace, stage:active]
 sources: [2648ee43-ade1-4be4-b64a-b31c9d21bfb3]
-updated: 2026-04-29
+updated: 2026-05-11
 ---
 
 # ToDoBot — LINE グループ業務会話 → 日次 ToDo レポート MVP
@@ -93,8 +93,53 @@ OpenSpec design.md の OQ 区分:
 - **OQ5**: SMTP Relay の許可 IP / VPC Connector 要否（Workspace 管理者ヒアリング待ち）
 - **OQ6**: Anthropic 残データ取扱と Workspace データ持出ポリシーの整合（社内法務確認）
 
+## 実装進捗 (2026-05-11 時点)
+
+planning (4-28) の 23.0 人日見積に対し、**§1-§4 + B1-B4 + ops docs の 5 commit が landed**（4-29〜4-30 で 1 セッション完走、54 tests pass）。残は §5-§10。
+
+| § | 内容 | 状態 | コミット |
+|---|---|---|---|
+| 1 | プロジェクト初期化 | ✅ | `8b98f60` (root) |
+| 2 | 設定／プロファイル | ✅ (29 tests) | `2b22b35` |
+| 3 | データ層 (Firestore) | ✅ (11 tests) | `106f9fd` |
+| 4 | LINE Webhook 受信 | ✅ (14 tests) | `dac0875` |
+| 5 | ToDo 抽出 (LLM) | ⬜ next | — |
+| 6 | 日次レポート配信 | ⬜ | — |
+| 7 | Scheduled Functions | ⬜ | — |
+| 8 | 観測・運用 | ⬜ | — |
+| 9 | デプロイ (Firebase) | ⬜ | — |
+| 10 | 動作確認 | ⬜ | — |
+| B1-B4 | 外部準備チェックリスト | ✅ docs | `710cb9b` |
+| Ops | 運用ドキュメント (二層) | ✅ docs | `c7556f9` |
+
+詳細とリポ状態は [[03_work/todobot]]。
+
+### 設計→実装で確定したスペック
+
+- **config.py**: `ProfilesFile` + `Settings` (pydantic-settings)、`HH:MM` 正規表現 / `zoneinfo.ZoneInfo` / `EmailStr` (`email-validator`) / `active_profiles` ⊆ `profiles` の `model_validator`。env override + CSV active_profiles parse + シークレット未設定の早期検出 (`assert_runtime_secrets_present()`)
+- **models.py**: `RawMessage`（mentions / quoted_message_id 含む）/ `UserCache` / `Todo`（信頼度 0-1、source 非空、TTL 30 日）/ `ReportRun`
+- **firestore_repo.py**: 4 コレクション facade、`try_acquire_report_run` でトランザクション冪等
+- **line_handler.py**: `WebhookParser` 署名検証、group/room の text のみ収集、`UserMentionee` / `AllMentionee` / `quoted_message_id` をスペック通り捕捉
+- **main.py**: `@cache` で cold-start 後 handler 再利用、`InvalidSignatureError`→403。`firebase-functions` SDK の sync/async ユニオン型に `# type: ignore` を `get_user` / `get_message` で揃える対処
+- **テスト 54 件**: `pytest` / `ruff` / `black --check` / `mypy --strict` 全クリア
+
+### 4-29 実装時のハマりポイント
+
+- **`.python-version=3.11` → pyenv に未インストール**（`python3.11 not found`） → `.python-version` を `3.10.11` に書き換え（system に既にインストール済）で対応。**pyenv install せず既存版に揃える** が手早い
+- **`firebase-functions` SDK の型 stub が sync/async ユニオン** → 部分的 `# type: ignore` で対処、同じスタイルに揃える
+- **`ruff` UP037（quote 付き forward ref）+ I001（import 並び）** → auto-fix 一発、`black` 再整形 1 ファイル
+
+### 4-30 朝 — 運用ドキュメントの二層化パターン
+
+「初回セットアップ」と「運用中の参照」を **同じドキュメントに混ぜると 3〜6 ヶ月後に探すコストが高い** という気づきから、`docs/external-setup/`（時系列の手順書）と `docs/operations/`（所在マップ + ローテ手順 + トラブルシュート）の二層構造を確立。両層から相互リンク。
+
+このパターンは **API キー / SMTP / OAuth / クラウドサービスの credentials 全般** に転用可能 — habi-bff の `docs/plans/` も同様の二層化が候補（現状は `HABI_DEVELOPMENT.md` 単一に集約済）。
+
 ## Links
 
 - [[02_diary/2026-04-28]]
+- [[02_diary/2026-04-29]] — §2-§4 + B1-B4 一気実装
+- [[02_diary/2026-04-30]] — 運用ドキュメント二層化
+- [[03_work/todobot]] — プロジェクトステータス
 - [[05_learn/wiki-automation-pipeline]] — OpenSpec ワークフロー
 - [[05_learn/specdrawing-material-presenter]] — 同じく OpenSpec 駆動の MVP 事例

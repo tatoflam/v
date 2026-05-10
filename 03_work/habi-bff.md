@@ -1,9 +1,9 @@
 ---
 title: habi-bff — HABI BFF / インフラ層
 category: 03_work
-tags: [project:habi-bff, client:hlab, entity:habi, tech:typescript, tech:aws-lambda, tech:dynamodb, tech:openai, tech:openspec, tech:sqs, capability:async-chat-pipeline, capability:attunement-policy, capability:bff-guard, stage:active]
-sources: [c2dd2c85-7cc6-45d2-8df6-ebd5f5358bc4, e6de9be8-7152-4213-b913-f501d258dafe, 6a2f552b-d79a-4c1e-93ca-5b6b3bc4a045, c5c0230b-b3e6-43ae-ba7f-ea585ad01a6e, c6b59a1d-11af-4eb4-8f38-5910c5644ab3]
-updated: 2026-05-08
+tags: [project:habi-bff, client:hlab, entity:habi, tech:typescript, tech:aws-lambda, tech:dynamodb, tech:openai, tech:openspec, tech:sqs, capability:async-chat-pipeline, capability:attunement-policy, capability:bff-guard, milestone:pm-inquiry-260508, stage:active]
+sources: [c2dd2c85-7cc6-45d2-8df6-ebd5f5358bc4, e6de9be8-7152-4213-b913-f501d258dafe, 6a2f552b-d79a-4c1e-93ca-5b6b3bc4a045, c5c0230b-b3e6-43ae-ba7f-ea585ad01a6e, c6b59a1d-11af-4eb4-8f38-5910c5644ab3, 8694d4d3-0a31-40a3-8cf9-f711376af20b]
+updated: 2026-05-11
 ---
 
 # habi-bff
@@ -309,3 +309,40 @@ see also: [[02_diary/2026-05-07]], [[05_learn/habi-bff-pmchat-localdev-gap]]
 ```
 
 see also: [[02_diary/2026-05-08]], [[06_output/2026-05]]
+
+## 2026-05-09 — Habi (PM/GPT) からの 15 問 inquiry に Markdown インライン回答 (session 8694d4d3)
+
+ハビ (PM 横で動作する GPT エージェント) から `(質問)ハビからの現時点での内容確認用質問260508.docx` で投げられた 15 問を、Word の章立てを保ったまま `docs/plans/Inquiry_20260508/answers_260509.md` にインライン回答。
+
+### 配信モデル変更による書き換え (1 周目 → 2 周目)
+
+- **1 周目**: リポジトリ相対パス + 行番号リンクで根拠提示 (例: `[habi-client.ts:275-617](src/services/habi-client.ts#L275-L617)`)
+- **user 指摘**: 「PM/Habi はリポジトリを参照しないので、参照先の概要を本文に展開してリンクを外して」
+- **2 周目**: 全リンク削除 + **「> 注:」ブロック**で設計上の固有名 (Verdict 5 種、Quality Always-On の 5 種、Narrative Memory 抽象ログ方針 等) のサマリを本文化 + **用語前置きセクション** (4BOX / habi-bff / habi-core / habi-os / habi-identity / OpenSpec) を冒頭に追加 → PM + ハビが Word + GPT 単独で完結読破できる構成に
+
+### 回答ハイライト
+
+| ブロック | 質問 | 回答要点 |
+|---|---|---|
+| 構造 | Q1〜Q5 (4BOX 独立改善 / Direction 出力拡張) | すべて Yes、Fast/Deep だけは v1.0 で Attunement 5 段で代替 → v2.0 送り |
+| AI ガード | Q6〜Q9 | CLAUDE.md + openspec/project.md + OpenSpec ワークフロー + Quality Always-On の **多層防御**。Word の DO NOT リストを CLAUDE.md に転記する次アクション提案 |
+| 進捗 | Q10 | 1 ループ◎ / rewrite◎ / Summarize ログのみ△ / UserOS◎ |
+| 不安定/硬さ | Q11/Q12 | 不安定 = Summarize と Attunement のルール詰め。硬い = UserOS スキーマ・API GW 29s・**意図的に硬い** habi-core 不変条文 |
+| A/B | Q13〜Q15 | `stepOptions` フラグで個別 OFF が今でも可能、専用 CI スイートは `add-quality-always-on` (0/26) で構築中 |
+
+最重要 Q への総合回答: **「器は壊れていない、むしろ意図的に空けてある」**
+
+### 文末の次アクション 5 件 (CTO → ハビ)
+
+1. Word の DO NOT リストを CLAUDE.md に常駐化
+2. Seed 30 本オーサリング
+3. Narrative Memory change 提案
+4. Policy Monitoring 実装
+5. 月次 Step Debug
+
+### 副産物・学び
+
+- **PM/外部読者向けドキュメントは「リポ参照ゼロ」を要件に書く**: 一次成果物がコードリンク前提だと PM/Habi の手元では読めない。設計上の固有名は本文に展開 + 「> 注:」で短縮サマリを併記する型がワークする
+- **GPT エージェントを介した質疑応答は Word + Markdown の双方向**: docx 入力 → Markdown インライン回答 → PM が再 docx 化、というフローを前提に章立てを保つ重要性
+
+see also: [[02_diary/2026-05-09]], [[06_output/2026-05]]

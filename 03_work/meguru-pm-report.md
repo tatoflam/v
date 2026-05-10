@@ -2,8 +2,8 @@
 title: MeguruPMReport
 category: 03_work
 tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, stage:active]
-sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386]
-updated: 2026-04-29
+sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1]
+updated: 2026-05-11
 ---
 
 # MeguruPMReport
@@ -85,10 +85,26 @@ Meguru 案件の **週次アップデート** を Gmail と Jooto から Claude 
   - Q7: `案件番号` の値形式（`FY26_01` 形式かどうか）— 次の `/weekly-report` 突合で判明、失敗時は `display_name` fallback を follow-up change で追加
   - Q8: `/pm-master-backup` を `/weekly-report` から自動トリガするか — 別 change
 
+### 週次レポート履歴（2026-05 系統）
+
+- **2026-05-01**（session 61d82ae6、5-7 22:00 JST）: `/jooto-backup --all-active` (39 ボード、1 skip) → `/jooto-overdue-scan` (73 件) → `/pm-master-backup` → `/weekly-report` で `reports/2026-05-01_weekly_update.md` 生成。前回比較元 `state/latest_*` = 2026-04-29 版、2 日差分。期日超過 6 件 → 5 件（解消 2 = 滝野川5丁目 M08/M09、新規 1 = 八幡山六地蔵 M04 4/30 期日通過 5 週間更新停止）。主要マイルストーン: 渋谷区本町5丁目 4/30 着工時金 88,080,000 円入金完了、西荻北1丁目 構造 KO MTG 49 分実施、板橋氷川町 4/30 ♦︎ MM4 本受け移行 Jooto 公式化、祐天寺 4/30 本受予定未達確定（三軸 UU 結果 5/9-10 まで入手なし）。運用課題: 完了済 overdue タスクの Jooto status 未更新が目立つ（笹塚方南 MM6 / 東長崎 MM2 / 中野坂上 S12）→ 構造的ノイズ。レポートはリポ内に未コミットで残置（内部成果物、外部公開なし）
+- **2026-05-08**（session 552ceb4f、5-8 07:17 JST、`diff_against=2026-05-01 run_date=2026-05-08`）: `/jooto-backup --all-active` (40 ボード、**新規 `FY26_27 中野区本町5丁目` と `FY26_29 きつね塚通り前`** を検出) → `/jooto-overdue-scan` (1241349「２課」のみ archive で 404、FY26 案件は全件正常完了) → `/pm-master-backup` → 24 案件並列 Gmail 検索 (3 batch × 8-10 件) → `reports/2026-05-08_weekly_update.md`。
+  - 主要トピック: **🚨 笹塚方南1丁目** 5/7 中村先生 Jooto で「隣地土地権利問題により PJ 休止中」発覚（引渡 5/17 の 9 日前）／**高円寺南** さくら構造「監理外」→ 大神別途費用交渉、新規 overdue 2 件（案内図・道路使用 / サッシ・UB 見積）／**世田谷大原** 本間の整合チェック 6 項目再督促、中村レス 11 日遅延（本受 5/31 まで 23 日）／**祐天寺** 三軸結果 16-17 日入手なし、5/20 下付達成困難／**中野坂上** 施工マイルストーン詳細確定（各階電気/スリーブ図リミット + 上棟 10/5）／**中野1丁目** 解体 5/18-6/4 延期通知＋ウチヤマ地盤調査／**駒込駅前** さくら構造に長期地耐力検討依頼／**西巣鴨駅前** 4/30 請負契約調印完了後の意匠フェーズ移行／**東長崎4丁目** 確認申請＋条例関連 7 項目督促（5/13 社判押印期日）
+  - handover_diff 3 件: FY26_03/04/18 が「未定」→ ２課/１課/２課担当に確定
+  - 新規ボード 2 件は projects.csv 未反映のため per-project セクション省略
+  - 詳細: [[02_diary/2026-05-08]]
+
+### 横展開できる小ネタ (2026-05 系統 2 ラン経由)
+
+- **新規ボード検出は projects.csv 反映と独立**: `/jooto-backup --all-active` は board.updated_at をシードに新ボードを発見できるが、`projects.csv` (案件マスター) に entry が無ければ per-project セクションは生成されない (5-8 ランで `FY26_27 中野区本町5丁目` と `FY26_29 きつね塚通り前` が typically 検出 → 全体サマリ末尾の 1 行注記のみで本体省略)。新ボードは「検出 → projects.csv 追記 → 翌週 per-project 化」の 3 段で取り込む運用
+- **archive ボードの 404 は許容**: `1241349 ２課` のような archive 済ボードは `/jooto-overdue-scan` で 404 を返す。FY26 案件側は `--board <id>` で個別実行が並列で正常完了するので、404 はログに残しつつ batch を止めない方針
+- **handover_diff の現場担当変更 (「未定」→ ２課/１課)** は週次レポートで前回差分末尾に `; 申し送り: ...` 形式で吸収される。複数案件で同タイミング (= 期初の振り分け) に発生しがちで、週次レポートの主要トピックには浮上しないが、後続の overdue 検知に影響するので handover_diff だけは別途確認する習慣
+
 ## Links
 
 - [[02_diary/2026-04-24]]
 - [[02_diary/2026-04-25]]
+- [[02_diary/2026-05-08]]
 - [[05_learn/ssh-agent-shortcuts]]
 - [[05_learn/gmail-mcp-reauth]]
 - [[05_learn/google-sheets-multi-row-header]]
