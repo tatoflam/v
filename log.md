@@ -79,3 +79,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-05-08T16:05:26Z  op:ingest  S=3 I=0 pages=5 unsortable=0  (substantive=1: c0b0dfea /opsx:apply Phase 0 → account_1 oheyamemo (interior) 立上げ完走 — IG/Threads/Meta App/long-lived token/楽天 Web App (新仕様 UUID+pk_)/affiliate ID + interior scaffolding + sample draft、PR #3 fe84d4c、W1 開始 = API 投稿+Claude Code 監視ゼロ、persona を explore 後にもう 1 回書き直し お部屋を整え始めた覚書 + PM background 削除、Rakuten API 旧仕様は 2026-05-14 完全停止; meta=2: bea96226/074ff5d7 並行 /wiki-ingest 後発 no-op safe-degrade)
 - 2026-05-08T23:16:47Z  op:ingest  S=2 I=0 pages=1 unsortable=0  (meta-only=1: 7f5aecd1 prior /wiki-ingest run already produced commit dca01e9; missing=1: 51e340c7 transcript not found → hook-errors.log)
 - 2026-05-10T21:54:10Z  op:ingest  S=21 I=0 pages=15 unsortable=0
+- 2026-05-13T15:58:00Z  op:ingest  S=13 I=0 pages=1 unsortable=13  missing_transcripts=6
