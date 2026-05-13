@@ -80,3 +80,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-05-08T23:16:47Z  op:ingest  S=2 I=0 pages=1 unsortable=0  (meta-only=1: 7f5aecd1 prior /wiki-ingest run already produced commit dca01e9; missing=1: 51e340c7 transcript not found → hook-errors.log)
 - 2026-05-10T21:54:10Z  op:ingest  S=21 I=0 pages=15 unsortable=0
 - 2026-05-13T15:58:00Z  op:ingest  S=13 I=0 pages=1 unsortable=13  missing_transcripts=6
+- 2026-05-13T07:05:24Z  op:ingest  S=19 I=0 pages=3 unsortable=0

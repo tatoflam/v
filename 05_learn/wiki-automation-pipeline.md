@@ -2,8 +2,8 @@
 title: Wiki 自動運用パイプライン
 category: 05_learn
 tags: [wiki, automation, hooks, github-actions, topic:wiki-system]
-sources: [8a25326c-5119-438b-bcf3-4c4c7dba4127, a974a8f6-c56d-4b5f-9064-3ab8884ee7d8, 03859554-98cc-4d1a-b62e-212103596b54, 949188fb-38df-403c-8b5a-d1d560de74f0, 6711184a-25c9-4cb4-9566-2c041aeb955b, 5a969394-b6e8-4550-aa00-4ea7dbd77df8, 023f317a-a958-4f56-ad10-efcf22773aba, 536fc370-29c5-41fc-9eb0-69219ed653ad, 663d418d-e50e-4fab-9865-243d8963e0aa]
-updated: 2026-05-03
+sources: [8a25326c-5119-438b-bcf3-4c4c7dba4127, a974a8f6-c56d-4b5f-9064-3ab8884ee7d8, 03859554-98cc-4d1a-b62e-212103596b54, 949188fb-38df-403c-8b5a-d1d560de74f0, 6711184a-25c9-4cb4-9566-2c041aeb955b, 5a969394-b6e8-4550-aa00-4ea7dbd77df8, 023f317a-a958-4f56-ad10-efcf22773aba, 536fc370-29c5-41fc-9eb0-69219ed653ad, 663d418d-e50e-4fab-9865-243d8963e0aa, dc9a7e40-43ae-4e27-a21f-645777ba320c, 6f7fbba7-fca3-49cc-b8e4-061a3aaf9959, ffb55997-2783-45e8-a8ca-0538e3667bf2]
+updated: 2026-05-13
 ---
 
 # Wiki 自動運用パイプライン
@@ -206,3 +206,36 @@ efd00e2 ingest cleanup: dedupe vercel-path-to-regexp + fix hallucinated 0a7a9e22
 ```
 
 `d6c64ad` で書込みが成立し、`efd00e2` で重複 page と hallucination を後始末する 2 段階が、並走時の典型パターン。
+
+### 病理 4 — cron / launchd 環境での `claude` 認証切れ（2026-05-12 観察）
+
+**症状**: 5-12 14:31 / 14:35 / 14:38 JST に 7 cwd 横断で `~/.claude/wiki/hooks/auto-ingest-push.sh` 起動。全 7 sessions の assistant 第 1 ターンが **`Not logged in · Please run /login` 固定文字列のみ**で終了、tool call ゼロ・vault 書き込みゼロ。session ファイルは 20KB 級の「プロンプト受信 + 拒否応答」だけが残る。
+
+**原因推定**:
+
+- macOS launchd / cron 経由で `claude` バイナリを叩くと、ユーザー対話シェルとは異なる環境変数 / keychain アクセス権で起動する
+- anthropic CLI の認証トークンは keychain 保管。launchd context では keychain unlock 状態でないため、認証ロードに失敗 → 「Not logged in」固定応答
+- 手動 invoke (`claude -p /claude-wiki:wiki-ingest`) では問題なし — keychain unlocked な対話セッションで起動するため
+
+**queue への影響**: 7 sessions が `processed=false` で滞留 → 翌日の手動 drain で「cursor 0 → EOF flip、no-op clear」する必要が生じる。コンテンツ書き込みはゼロなので破壊は起きないが、queue ノイズが蓄積する。
+
+**予防策（未実装）**:
+
+- `auto-ingest-push.sh` 冒頭で `claude --version` 系の軽量コマンドで login 状態を pre-check
+- 失敗時は queue に enqueue 自体をスキップ（hook-errors.log に `skip=auth_missing` で記録）
+- もしくは launchd plist に `keychain unlock` フックを仕込む（user パスワード平文保存になるので非推奨）
+
+**検出方法**: 同日内に 5+ cwd 横断で同一秒台の `Not logged in` session が発生していたら本病理。`grep -l "Not logged in" ~/.claude/projects/**/*.jsonl | xargs ls -la` で日付クラスタを目視。
+
+### 病理 5 — auto-worker dead residue（untracked diary file、2026-05-13 観察）
+
+**症状**: auto-worker が `02_diary/YYYY-MM-DD.md` を新規作成して書き込み始めたが、cursor / queue 更新前に死亡 → vault working copy に **frontmatter 欠落の untracked diary file** が残る。後続 ingest run の dirty-target gate が「user 編集か dead residue か」判定できずに defer 連鎖を起こすリスク。
+
+**判定基準**（手作業）:
+
+- frontmatter (`---` ブロック) 欠落 → dead residue 確度高
+- 該当 session の transcript file が `~/.claude/projects/` から消えている → dead 確定
+- 文面が `/wiki-ingest` の典型 output パターン（`session: <id>  cwd: <leaf>`、`queue contained N` 等）→ residue
+- 上記が揃えば手動 invoke で上書き finalize して良い
+
+**5-13 ケース**: `d4c85561` (habi-bff cwd) が 15:56:34 JST 起動 → 02_diary/2026-05-13.md を frontmatter 抜きで書いた直後に死亡（transcript missing）→ 同日 16:xx JST の手動 drain で上書き完成 + git add で tracked 化。
