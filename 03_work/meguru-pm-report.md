@@ -2,8 +2,8 @@
 title: MeguruPMReport
 category: 03_work
 tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, stage:active]
-sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1]
-updated: 2026-05-11
+sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94]
+updated: 2026-05-15
 ---
 
 # MeguruPMReport
@@ -93,6 +93,11 @@ Meguru 案件の **週次アップデート** を Gmail と Jooto から Claude 
   - handover_diff 3 件: FY26_03/04/18 が「未定」→ ２課/１課/２課担当に確定
   - 新規ボード 2 件は projects.csv 未反映のため per-project セクション省略
   - 詳細: [[02_diary/2026-05-08]]
+- **2026-05-13**（session 50e16870、5-15 08:45 JST、ユーザー第一声「最新のレポートを作成して！」のみ）: `/jooto-backup --all-active` → `/jooto-overdue-scan` → `/pm-master-backup` → 24 案件 Gmail 並列検索 → `/weekly-report` で `reports/2026-05-13_weekly_update.md` (43 KB) 生成。前回比較元 = 5-08 版（5 日差分、`diff_against` 未指定 → `state/latest_*` 採用）。期日超過 8 → 7 件（解消 1 = 世田谷大原 MM2 / 5-8 本間「完了扱い」運用クローズ）。
+  - 主要トピック: **東長崎4丁目** 審査機関質疑伸長で本受 7/10 → 7/20 へ +2 週間後ろ倒し確定／**駒込駅前** 仮受 6/10・本受 8/3・下付 8/27 への工程後倒し提案＋構造梁壁見直し CAD 共有で着手準備／**祐天寺** 軒高さ整合問題が顕在→構造図書差替で解消（5/12 完了、井上「審査機関へ差替手続き」）／**滝野川5丁目・中野1丁目** アスベスト顕出で解体後ずれ＋近隣家屋調査追加（ヤマダイ仕切 10 万円/軒）／**中野坂上** 着工準備一気に整備（躯体施工図／地震火災保険 WEB 完了／NICE 検査 6/11／道路使用 5/13-5/27）／**江古田江原・山王3丁目・幡ヶ谷不動尊通り・大森西2丁目** 長期停滞 4 案件が今週軒並み初動
+  - 申し送り 18 件変更（基礎形状「直接基礎 → ベタ基礎」表記統一含む）
+  - Jooto API: **板 1241349「２課」のみ HTTP 404** (archived) → projects.csv 対象案件には影響なし、log のみで batch 継続
+  - 詳細: [[02_diary/2026-05-15]]
 
 ### 横展開できる小ネタ (2026-05 系統 2 ラン経由)
 
@@ -105,6 +110,7 @@ Meguru 案件の **週次アップデート** を Gmail と Jooto から Claude 
 - [[02_diary/2026-04-24]]
 - [[02_diary/2026-04-25]]
 - [[02_diary/2026-05-08]]
+- [[02_diary/2026-05-15]]
 - [[05_learn/ssh-agent-shortcuts]]
 - [[05_learn/gmail-mcp-reauth]]
 - [[05_learn/google-sheets-multi-row-header]]
