@@ -85,3 +85,5 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-05-15T05:47:56Z  op:ingest  S=1 I=4 pages=2 unsortable=0 (1 session missing transcript: 84efd71d)
 - 2026-05-15T15:37:02Z  op:ingest  S=3 I=0 pages=1 unsortable=2 (drain-only: e4ee0a08+1228fa25 meta cursor flip, 1 missing transcript: 9c17fb94; inbox .html ineligible left in place)
 - 2026-05-16T00:50:00Z  op:ingest  S=6 I=0 pages=2 unsortable=0 (audit-only: e4ee0a08 sources backfill; concurrent /wiki-ingest race observed)
+- 2026-05-15T15:43:44Z  op:ingest  S=0 I=0 pages=1 unsortable=0 (user-invoked /wiki-ingest, no-op: auto-worker drained queue in 391cdad+5bdf4a8 before this run; queue.delta=+3 deferred to next worker fire)
+- 2026-05-15T15:45:25Z  op:ingest  S=5 I=0 pages=0 unsortable=5 (drain-only: 4 concurrent /wiki-ingest workers — work landed in 391cdad/5bdf4a8; 2 missing transcripts e30ff121, 58a38a2c; 1 inbox .html ineligible)
