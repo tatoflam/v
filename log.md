@@ -89,3 +89,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-05-15T15:45:25Z  op:ingest  S=5 I=0 pages=0 unsortable=5 (drain-only: 4 concurrent /wiki-ingest workers — work landed in 391cdad/5bdf4a8; 2 missing transcripts e30ff121, 58a38a2c; 1 inbox .html ineligible)
 - 2026-05-15T17:18:57Z  op:ingest  S=4 I=0 pages=3 unsortable=0 deferred=1 (SessionEnd fanout: 9fbe5dc5/91ba116f/cbfe2df6/3ca18b54 consolidated to 1 diary entry + pathology 6; 8cf2b80c deferred via dirty-target gate on 06_output/2026-05.md; afterschoolplatform stub created)
 - 2026-05-15T21:55:17Z  op:ingest  S=1 I=0 pages=2 unsortable=0 (d59da658 substantive; ff907781 meta-noop; 8cf2b80c 3rd-deferral)
+- 2026-05-15T22:33:13Z  op:ingest  S=2 I=0 pages=3 unsortable=0 deferred=1
