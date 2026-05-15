@@ -2,8 +2,8 @@
 title: 家庭用エアコンの省エネ規制 — トップランナー / 区分(い・ろ・は) / 建築物省エネ法
 category: 05_learn
 tags: [topic:real-estate-law, topic:energy-saving-regulation, tech:hvac, entity:hisense, entity:hisense-japan, stage:active]
-sources: [2026-05-15_AC_highsense_inquiry.md, 2026-05-15_AC_claude.md, 2026-05-15_AC_gemini.md, 2026-05-15_AC_highsense_chatgpt.md]
-updated: 2026-05-15
+sources: [2026-05-15_AC_highsense_inquiry.md, 2026-05-15_AC_claude.md, 2026-05-15_AC_gemini.md, 2026-05-15_AC_highsense_chatgpt.md, e4ee0a08-0fae-478e-ab3d-c10a1637c7d6]
+updated: 2026-05-16
 ---
 
 # 家庭用エアコンの省エネ規制 — トップランナー / 区分(い・ろ・は) / 建築物省エネ法
