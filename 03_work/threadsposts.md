@@ -1,9 +1,9 @@
 ---
 title: ThreadsPosts — 腸活スタジオ Threads 自動投稿パイプライン
 category: 03_work
-tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, tech:esim, stage:active, stage:incident-response, entity:chokatsu-studio, entity:meta-classifier, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, milestone:weekly-cycle-w19-execution, milestone:openspec-3-archive-batch, milestone:playbook-process-revamp, milestone:playbook-archive-sync, milestone:account-ban-pivot, milestone:openspec-3-change-ban-pivot, milestone:ban-pivot-explore-synthesis, milestone:publish-relocate-local-shipping, milestone:legacy-tenant-archive, milestone:ban-decision7-reframing, milestone:3-account-staged-scaling, milestone:interior-uchi-style-confirmed, milestone:account-1-phase-0-shipped, entity:oheyamemo, genre:interior, incident:threads-ban-2026-05-04, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic, principle:capture-first-explore, principle:change-boundary-equals-commit-boundary, principle:composite-fingerprint-not-single-cause, principle:milestone-driven-scaling, principle:subject-axis-not-credential-axis]
-sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8, a73c0aa2-c9a4-46e3-ab60-72b6b426901a, 8b57f7c8-b8fa-4f65-8c06-06cf6fbe87b3, 97d3f618-8d6c-40e6-8210-06549512f183, cef7a3c1-5798-4534-ab51-63c1a2279734, c02fca64-85c4-40f5-9bae-00ea56f138c1, f198b34e-7c91-4bee-8bf4-a3a532f86901, ea0b21e8-0197-4d87-a637-45d18bc759d7, 665cb2da-de7e-4b1b-93f9-2500f8d6fe95, 99902682-b840-494b-b76c-59c90854c892, c0b0dfea-a81b-4470-b2f5-07cbbaa4aae8, 1228fa25-787b-4c38-b347-3a9231d5431a]
-updated: 2026-05-11
+tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, tech:esim, stage:active, stage:incident-response, entity:chokatsu-studio, entity:meta-classifier, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, milestone:weekly-cycle-w19-execution, milestone:openspec-3-archive-batch, milestone:playbook-process-revamp, milestone:playbook-archive-sync, milestone:account-ban-pivot, milestone:openspec-3-change-ban-pivot, milestone:ban-pivot-explore-synthesis, milestone:publish-relocate-local-shipping, milestone:legacy-tenant-archive, milestone:ban-decision7-reframing, milestone:3-account-staged-scaling, milestone:interior-uchi-style-confirmed, milestone:account-1-phase-0-shipped, milestone:account-1-d001-draft, entity:oheyamemo, genre:interior, incident:threads-ban-2026-05-04, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic, principle:capture-first-explore, principle:change-boundary-equals-commit-boundary, principle:composite-fingerprint-not-single-cause, principle:milestone-driven-scaling, principle:subject-axis-not-credential-axis, topic:ceiling-light, topic:youtube-subtitle-research]
+sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8, a73c0aa2-c9a4-46e3-ab60-72b6b426901a, 8b57f7c8-b8fa-4f65-8c06-06cf6fbe87b3, 97d3f618-8d6c-40e6-8210-06549512f183, cef7a3c1-5798-4534-ab51-63c1a2279734, c02fca64-85c4-40f5-9bae-00ea56f138c1, f198b34e-7c91-4bee-8bf4-a3a532f86901, ea0b21e8-0197-4d87-a637-45d18bc759d7, 665cb2da-de7e-4b1b-93f9-2500f8d6fe95, 99902682-b840-494b-b76c-59c90854c892, c0b0dfea-a81b-4470-b2f5-07cbbaa4aae8, 1228fa25-787b-4c38-b347-3a9231d5431a, d59da658-e5d8-4292-9095-c907f18fcca8]
+updated: 2026-05-16
 ---
 
 # ThreadsPosts
@@ -1433,3 +1433,50 @@ Claude 単独で進められる範囲は実装:
 - **「3 段詰まり」の判定軸を 1 ページに**: 詳細は新規 [[05_learn/threads-scrape-tos]] にスペック・robots.txt・Graph API surface を整理。次回 Threads / Instagram 関連の scout 系 change で **propose 入口で参照する想定**
 
 see also: [[02_diary/2026-05-09]] / [[05_learn/threads-scrape-tos]] / [[05_learn/instagram-multi-account-isolation]]
+
+## 2026-05-16 — account_1 (oheyamemo) 最初の interior content: K001/D001 シーリングライト end-to-end (d59da658、5-16 02:50-03:55 JST)
+
+### 経緯
+
+W2 (2026-05-14〜20) に入って account_1 (oheyamemo / interior) の最初の content をどう作るか未定だった状態で、user prompt 一発「YouTube URL `https://www.youtube.com/watch?v=UVHzIuORp44` の内容をもとに可能な範囲で自動でパイプラインを回したい」が起点。動画は YUKICH NO HOME「【シーリングライト14選】この照明でインテリアが激変｜プロ目線の選び方」で、interior の照明カテゴリ直撃。
+
+### Pipeline 完走の構成と output
+
+| Phase | コマンド | output |
+|---|---|---|
+| C RESEARCH | `npm run research -- --url <YouTube URL>` | `dept/research/knowledge/Transcripts/K001_YUKICH_NO_HOME_...md` + `Topics/K001_シーリングライト14選・プロ目線の選び方.md` (Claude による要点合成) |
+| D CONTENT scaffold | `npm run generate -- --topic K001 --target "賃貸でシーリングライトを交換したい人" --template shop_search_redirect --pattern none --genre interior --tone classic --format text --account account_1` | `dept/content/drafts/D001_賃貸でシーリングライトを交換したい人.md` の frontmatter + scaffold |
+| 本文書き込み | Claude が CLAUDE.md ルール準拠で本文を手書き | "うち" 文体 / 500 字以内 / 問い締め / 脚注 URL なし |
+| Lint | `npm run lint:posts` / `npm run lint:templates` / `npm run validate` | error 0 / warn 0 (字数 562 → 500 字以内に 62 字削減 1 周) |
+
+### Memory が全部刺さった事実 (interior pivot 後の最初の運用適用例)
+
+| memory | 適用 |
+|---|---|
+| `feedback_footnote_no_url` (D011 以降 YouTube URL を脚注に載せない A/B) | 脚注はタイトル+publisher のみ。D001 を A/B のリンクなし側の最初の sample に位置付け |
+| `project_format_strategy_text_first` (2026-05-16 確定) | `format: text` 固定、`format_mix.account_1.text=100` posting_policy gate 通過 |
+| `feedback_interior_persona_uchi_style` | 文体は「うち」(主語) を貫いた、"私は" 系の混入なし |
+| `feedback_post_templates` (`shop_search_redirect` 既定) | shop_search_redirect 採用、収益期待ランク最上位 |
+
+### Whisper 不要が確認できた (字幕で完走、追加コスト 0)
+
+memo: account_1 (interior) の YouTube 解説動画は字幕付きが多い前提に立てそう。今後 K002, K003 ... を量産する際の最初の選別軸として「字幕の有無」をチェックすれば Whisper API コスト発生を avoid できる。Whisper を呼ぶのは字幕なし動画でかつ高優先度のもののみに限定する運用が次の課題。
+
+### Pipeline の今のところの正解形 (half-auto)
+
+完全自動 LLM 本文生成は CLAUDE.md ルール (文体・問い締め・字数・脚注) の 4 軸同時 satisfy が安定しなかった (562 字オーバーで 1 周削減が必要だった、これは scaffold ベースの手書きでも起きた現象)。今は scaffold (`generate_post.js` で frontmatter + テンプレ構造) + 本文 Claude/人 手書き の half-auto が安定する。完全自動化を急ぐより、scaffold + 手書きで draft 量産する形を先に確立する判断。
+
+### 残ゲート (D001 を実 publish するために必要な人作業)
+
+1. **`status: draft_auto → ready`** — Topic frontmatter (人レビューでドラフトを confirmed 状態に flip)
+2. **`[ショップ内検索 URL]` プレースホルダ差し替え** — `products.yaml` に該当エントリ無く `inject_affiliate` 自動マッチせず。`resolve:rakuten` で楽天ショップ内検索 URL を生成 or 手動で `a.r10.to` 短縮 URL を貼る、の判断
+3. **`scheduled_at` 設定** — `posting_policy.yaml` の `preferred_jst_hours / min_gap_hours` と W2 残枠 (2026-05-16〜20) で人判断
+4. **publish** — `/post-due` skill または `npm run publish:due` をローカル Mac から (Local-First)
+
+### 学び (横展開可能)
+
+- **YouTube 動画 1 本 → draft 1 件のリードタイム ~5 分** が demonstrated。account_1 の content supply 問題は YouTube 動画キューの整備さえできれば律速にならない、と判った
+- **interior account_1 の最初の interior content がやっと出た** (Phase 0 完了 5/7 から 9 日、W2 中盤)。Stage 1 milestone の「normal phase + 4 週 + ¥50-100k ラン」までは draft 量産優先で 5-7 件目標
+- **post-tone-frank-and-format-strategy spec の effect が出始め**: frontmatter に `template_type` / `copywriting_pattern` / `tone` / `format` を書く運用が D001 から実流入。これらメタデータが将来の W4 期 A/B (classic vs frank, text vs image) の dataset 基盤になる
+
+see also: [[02_diary/2026-05-16]] / [[05_learn/wiki-automation-pipeline]]
