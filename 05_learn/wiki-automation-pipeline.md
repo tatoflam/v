@@ -2,8 +2,8 @@
 title: Wiki 自動運用パイプライン
 category: 05_learn
 tags: [wiki, automation, hooks, github-actions, topic:wiki-system]
-sources: [8a25326c-5119-438b-bcf3-4c4c7dba4127, a974a8f6-c56d-4b5f-9064-3ab8884ee7d8, 03859554-98cc-4d1a-b62e-212103596b54, 949188fb-38df-403c-8b5a-d1d560de74f0, 6711184a-25c9-4cb4-9566-2c041aeb955b, 5a969394-b6e8-4550-aa00-4ea7dbd77df8, 023f317a-a958-4f56-ad10-efcf22773aba, 536fc370-29c5-41fc-9eb0-69219ed653ad, 663d418d-e50e-4fab-9865-243d8963e0aa, dc9a7e40-43ae-4e27-a21f-645777ba320c, 6f7fbba7-fca3-49cc-b8e4-061a3aaf9959, ffb55997-2783-45e8-a8ca-0538e3667bf2]
-updated: 2026-05-13
+sources: [8a25326c-5119-438b-bcf3-4c4c7dba4127, a974a8f6-c56d-4b5f-9064-3ab8884ee7d8, 03859554-98cc-4d1a-b62e-212103596b54, 949188fb-38df-403c-8b5a-d1d560de74f0, 6711184a-25c9-4cb4-9566-2c041aeb955b, 5a969394-b6e8-4550-aa00-4ea7dbd77df8, 023f317a-a958-4f56-ad10-efcf22773aba, 536fc370-29c5-41fc-9eb0-69219ed653ad, 663d418d-e50e-4fab-9865-243d8963e0aa, dc9a7e40-43ae-4e27-a21f-645777ba320c, 6f7fbba7-fca3-49cc-b8e4-061a3aaf9959, ffb55997-2783-45e8-a8ca-0538e3667bf2, 9fbe5dc5-5c0a-4afa-9b75-35848727f8de, 91ba116f-dc5e-494b-a0dd-f7ec2d56632e, cbfe2df6-6fe3-4ef0-9c18-3795800a122b, 3ca18b54-5b6e-41c2-91d1-315125bc379d]
+updated: 2026-05-16
 ---
 
 # Wiki 自動運用パイプライン
@@ -239,3 +239,32 @@ efd00e2 ingest cleanup: dedupe vercel-path-to-regexp + fix hallucinated 0a7a9e22
 - 上記が揃えば手動 invoke で上書き finalize して良い
 
 **5-13 ケース**: `d4c85561` (habi-bff cwd) が 15:56:34 JST 起動 → 02_diary/2026-05-13.md を frontmatter 抜きで書いた直後に死亡（transcript missing）→ 同日 16:xx JST の手動 drain で上書き完成 + git add で tracked 化。
+
+### 病理 6 — SessionEnd 自己 enqueue feedback loop (2026-05-16 観察)
+
+**症状**: `/wiki-ingest` 自身が `auto-ingest-push.sh` 経由で起動する → SessionEnd hook が「自分の session」をまた enqueue する → 次の ingest がそれを発見して走る → SessionEnd でまた自己 enqueue ... の自己再帰。複数 cwd で同時並走すると N²-ish に拡散し、各セッションは内容ゼロでも 200-400KB の transcript file を残すため storage と queue.jsonl の bloat が累積する。
+
+**5-16 ケース**: 4 cwd (ThreadsPosts / ToDoBot / AfterSchoolPlatform × 2) で SessionEnd hook が同時 fanout。`9fbe5dc5` / `91ba116f` / `cbfe2df6` / `3ca18b54` の 4 セッション全てが no-op (先行 worker のコミット参照と race-defer 観測のみ) で終了。本ランで初めて queue から拾われたが、substantive content ゼロ → 該当日 diary 1 エントリに集約。
+
+**構造**:
+
+```
+user invokes /wiki-ingest in terminal A
+  ↓ SessionEnd hook fires
+  ↓ auto-ingest-push.sh in cwd A enqueues session_A
+  ↓ auto-ingest-push.sh ALSO launches `claude -p /claude-wiki:wiki-ingest`
+  ↓ that claude process opens session_B (auto-worker)
+  ↓ session_B drains queue (including session_A)
+  ↓ session_B ends → SessionEnd hook enqueues session_B
+  ↓ next ingest finds session_B → drains → ends → enqueues ... (永続化)
+```
+
+**ノイズ吸収コスト**: 1 cwd あたり cursor flip + queue dedup で ~1 page touched/ingest を消費。4 cwd 並走 = 1 ラウンドで 4 件のノイズ + 後段 ingest で各々の自己再帰分が追加積上げ。
+
+**推奨抑止策 (未実装、5/16 時点)**:
+
+1. `auto-ingest-push.sh` 冒頭で「現セッションのコマンドが `/wiki-ingest` 1 件のみ」を判定 → 真なら enqueue を skip
+2. SessionEnd hook を `transcript_size > 50KB` または `user_turn_count > 2` でゲート → meta-only session は queue に積まない
+3. queue.jsonl の dedup: 同一 cwd で processed=false が既にあれば重複 enqueue を skip
+
+**当面の運用**: 1 エントリに集約 (4 session ID を frontmatter sources に書く)、log.md には 1 行で `... (concurrent fanout, N-way race observed)` と記載、本病理を識別マーカーとして残す。
