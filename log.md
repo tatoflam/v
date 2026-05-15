@@ -83,3 +83,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-05-13T07:05:24Z  op:ingest  S=19 I=0 pages=3 unsortable=0
 - 2026-05-14T23:50:29Z  op:ingest  S=3 I=0 pages=3 unsortable=0
 - 2026-05-15T05:47:56Z  op:ingest  S=1 I=4 pages=2 unsortable=0 (1 session missing transcript: 84efd71d)
+- 2026-05-15T15:37:02Z  op:ingest  S=3 I=0 pages=1 unsortable=2 (drain-only: e4ee0a08+1228fa25 meta cursor flip, 1 missing transcript: 9c17fb94; inbox .html ineligible left in place)
