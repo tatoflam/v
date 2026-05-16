@@ -1,24 +1,76 @@
 ---
 title: ToDoBot — LINE 業務会話 → 日次 ToDo レポート
 category: 03_work
-tags: [project:todobot, tech:python, tech:firebase, tech:firestore, tech:line-messaging-api, tech:anthropic-claude, tech:google-workspace, tech:openspec, stage:active]
-sources: [2648ee43-ade1-4be4-b64a-b31c9d21bfb3]
-updated: 2026-05-11
+tags: [project:todobot, tech:python, tech:firebase, tech:firestore, tech:line-messaging-api, tech:anthropic-claude, tech:google-workspace, tech:openspec, tech:pytest, tech:mypy-strict, stage:implementation-complete, stage:pre-deploy, milestone:mvp-code-complete, milestone:repo-pushed-meguruit, entity:meguruit-org, client:meguruit]
+sources: [2648ee43-ade1-4be4-b64a-b31c9d21bfb3, 8dc542f5-d276-4e26-b04a-6f9fe822db47]
+updated: 2026-05-16
 ---
 
 # ToDoBot
 
 ## Summary
 
-LINE グループに常駐する Bot が業務会話を受信し、1 日 1 回 LLM (Claude Haiku/Sonnet) で「誰が・いつまでに・何を」を構造化抽出、指定時刻 (既定 20:00 JST、プロファイル可変) に LINE push とメールで配信する個人事業向けの自動化。リポ: [tatoflam/ToDoBot](https://github.com/tatoflam/ToDoBot) (private、2026-04-29 root-commit `8b98f60`)。
+LINE グループに常駐する Bot が業務会話を受信し、1 日 1 回 LLM (Claude Haiku/Sonnet) で「誰が・いつまでに・何を」を構造化抽出、指定時刻 (既定 20:00 JST、プロファイル可変) に LINE push とメールで配信する個人事業向けの自動化。
+
+リポ: 当初 `tatoflam/ToDoBot` (4-29 root-commit `8b98f60`) で着手していたが、2026-05-16 に user が組織アカウント側で新リポ `meguruit/ToDoBot` (private、SSH origin) を切り、`main` を push 完了 → これが canonical となった。ローカルの working tree パスは `/Users/tato/repo/github/tatoflam/ToDoBot` のまま (path はリネームせず、remote だけ差し替え)。
 
 OpenSpec workflow で proposal / design / specs / tasks 一式起票、change 名 `line-todo-bot-mvp`。設計詳細・運用コスト試算・spec 一覧は [[05_learn/todobot-line-mvp]] を参照。
 
-## ステータス (2026-05-11 時点)
+## ステータス (2026-05-16 時点) — MVP コード完成 + push 完了
 
-### コミット履歴 (main 直 commit、push なし)
+- **28/30 タスク完了** (`line-todo-bot-mvp` change、spec-driven)。残 §10.1 (24h ドッグフード) / §10.2 (受入チェックリスト消化) は実機デプロイ後の手動運用タスクで、コード作業は完了
+- **テスト**: 54 → **142 件** green、カバレッジ **92%**、`mypy --strict` / `ruff` / `black --check` 全クリア (28 ソースファイル)
+- **意図的に低カバレッジ**: `firestore_repo.py` (30%、薄い委譲層 → Firestore エミュレータで spec §10.1 統合テスト)、`main.py` (Cloud Functions SDK デコレータ層 → デプロイ後 curl 疎通)
+- **追加コミット 6 本** (4-30 → 5-16 で 7 ヶ月ぶり、論理単位で分割):
+  ```
+  3cad119 chore(ops): wire Functions, deploy script, alerting & acceptance docs
+  3adecdf feat(scheduler): idempotent daily-report runner + cleanup + structured logs
+  3239d98 feat(notify): LINE/SMTP notifiers with 30s/2m/8m retries (§6.2-6.4)
+  f80365d feat(report): assignee-grouped daily report builder (§6.1)
+  e641ec0 feat(extraction): Anthropic LLM client, PII masking, ToDo extraction (§5)
+  db6fc7d feat(line): LINE Profile API resolver with Firestore-backed cache (§4.3)
+  ```
+- **`/opsx:archive` はまだ呼ばない**: §10.1/§10.2 が未消化なので change を closed にするのは早い。実環境ドッグフード完走後
+
+### 今回追加されたモジュール (5/16 セッション)
+
+| ファイル | 役割 | spec § |
+|---|---|---|
+| `functions/src/todobot/line_profile.py` | LINE Profile API resolver + TTL'd `users/` キャッシュ + graceful fallback | §4.3 |
+| `functions/src/todobot/llm.py` | `LLMClient` protocol + Anthropic 実装、プロンプトキャッシュ対応 | §5.1 |
+| `functions/src/todobot/pii.py` | email / phone / Luhn 検証付き CC マスキング | §5.4 |
+| `functions/src/todobot/extraction.py` | system prompt + 5 few-shots + `record_todos` tool + mention boost 付き担当者解決 | §5.2/§5.3 |
+| `functions/src/todobot/report.py` | 担当者 group / due 昇順 / 「未割当」末尾 / 低 confidence ⚠️ バッジ / LINE 5000 字分割 / メール multipart text+HTML | §6.1 |
+| `functions/src/todobot/notify.py` | `LineNotifier` chunking + `SMTPNotifier` 受信者ごと封筒 + 30s/2m/8m 指数バックオフ | §6.2-§6.4 |
+| `functions/src/todobot/scheduler.py` | `DailyReportRunner` (冪等 / 部分失敗対応) + `ScheduledRunner` ±7min 窓 | §6.4-§6.5/§7.1 |
+| `functions/src/todobot/cleanup.py` | TTL 30 日の belt-and-braces 削除 | §7.2 |
+| `functions/src/todobot/observability.py` | JSON Cloud Logging + contextvar log fields + `RunMetrics` | §8.1 |
+| `functions/main.py` | 4 Cloud Functions 結線 (`line_webhook` / `daily_report_scheduled` / `daily_report_trigger` 共有秘密チェック付き / `cleanup_scheduled`) | — |
+| `scripts/deploy.sh`, `scripts/smoke_smtp.py` | デプロイスクリプト + SMTP 疎通スモーク | §9.1/§9.2 |
+| `docs/operations/{alerting,deploy,acceptance}.md` | アラート設計 / デプロイ手順 / §10.1-§10.2 ドッグフード runbook | §8.2/§9.1/§10 |
+
+### 設計判断の要点 (5/16 実装で固めた)
+
+- **`build_report` 出力構造** (`report.py`): LINE は 1 グループ宛 `pushMessage`、ヘッダ `📋 {date} の本日のToDo (N件)`、担当者ごとに `👤 名前 (件数)` セクション → 期限昇順 → `[mm/dd HH:MM] タスク` → `↳ HH:MM 元発言抜粋` (80 字 trim)。担当者 sort は **既知名 表示名順 → 「未割当」最後**。低 confidence (< 0.5) は `⚠️ 要確認` + セクション見出しに `⚠️`
+- **メール**: `email_to` の各エントリに 1 通ずつ、From は `profile.email_from`、Subject `[ToDoBot] {date} {profile} ToDo N件`、multipart/alternative (text + HTML 両出し)、HTML はユーザ入力を `html.escape` で XSS 防止
+- **0 件の日**: `skip_empty=false` で「本日のToDoはありませんでした。」単行、`skip_empty=true` で送信丸ごとスキップ
+- **§5 抽出方針**: Anthropic `claude-haiku-4-5` 既定、tools ベース構造化出力 (`record_todos` tool)、プロンプトキャッシュ (system + few-shot 5 件 ~3,500 tok を 1 日 1 回 write)、担当者解決は `@mentions` を最優先 (=mention boost)、PII マスキング (`pii.py`) は LLM 投入前に email/phone/CC を `[EMAIL]`/`[PHONE]`/`[CC]` に置換
+
+### 次の動き
+
+1. **§10.1 — 実機ドッグフード** (24h): 本番 LINE channel に Bot を招待 → 実会話 1 日分を流して `daily_report_trigger` を curl で叩いて結果検証 → runbook ([docs/operations/acceptance.md](https://github.com/meguruit/ToDoBot/blob/main/docs/operations/acceptance.md)) のチェックボックスを順次埋める
+2. **§10.2 — 受入チェックリスト**: 同 runbook 内、コスト計測 (Anthropic / LINE push / SMTP / Firestore reads) と SLA 観測 (push success rate / mail bounce / extraction confidence 分布) を 24h 取得
+3. **B1 — Workspace SMTP 管理者承認**: user 側継続 (1〜3 営業日)、承認後 `secrets:set SMTP_*` で本番投入
+
+### コミット履歴 (2026-04-29 → 2026-05-16、main 直 commit)
 
 ```
+3cad119 chore(ops): wire Functions, deploy script, alerting & acceptance docs   # 5-16 push to meguruit/ToDoBot
+3adecdf feat(scheduler): idempotent daily-report runner + cleanup + structured logs
+3239d98 feat(notify): LINE/SMTP notifiers with 30s/2m/8m retries (§6.2-6.4)
+f80365d feat(report): assignee-grouped daily report builder (§6.1)
+e641ec0 feat(extraction): Anthropic LLM client, PII masking, ToDo extraction (§5)
+db6fc7d feat(line): LINE Profile API resolver with Firestore-backed cache (§4.3)
 c7556f9 docs(ops): LINE and GWS SMTP credential references for maintenance   # 4-30 07:49 JST
 710cb9b docs(setup): external service preparation checklists (B1-B4)         # 4-29 12:18 JST
 dac0875 feat(webhook): LINE webhook handler with mention/reply capture (§4)  # 4-29 12:15 JST
@@ -26,6 +78,12 @@ dac0875 feat(webhook): LINE webhook handler with mention/reply capture (§4)  # 
 2b22b35 feat(config): implement profile loader and Settings (§2)             # 4-29 12:00 JST
 8b98f60 chore: scaffold OpenSpec proposal and Firebase Functions skeleton    # 4-29 11:46 JST (root)
 ```
+
+(5/11 時点で「次は §5」「remote 未設定 / push なし」だった状態から、5/16 1 セッションで §5-§10 を完走 + push まで到達。)
+
+## ステータス (2026-05-11 時点) — §5 着手前 (履歴保存)
+
+### コミット履歴 (main 直 commit、push なし)
 
 ### tasks.md 進捗 (10 sections × 19.0 人日見積、本稿時点で 5 章完了)
 
@@ -102,3 +160,4 @@ dac0875 feat(webhook): LINE webhook handler with mention/reply capture (§4)  # 
 - [[02_diary/2026-04-28]] — 初日: ユースケース定義 + Plan B 棄却 + Firebase 一本化
 - [[02_diary/2026-04-29]] — 実装 §2-§4 + B1-B4 docs
 - [[02_diary/2026-04-30]] — 運用ドキュメント二層化
+- [[02_diary/2026-05-16]] — §5-§10 完走 + 6 commits 分割 + meguruit/ToDoBot へ push
