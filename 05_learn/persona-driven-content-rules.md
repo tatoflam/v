@@ -1,9 +1,9 @@
 ---
 title: ペルソナ駆動の継続可能なコンテンツルール（健康ジャンル Threads から学んだ）
 category: 05_learn
-tags: [topic:persona-driven-content-rules, domain:content-creation, lesson:authenticity, anti-pattern:authority-borrowing, channel:threads]
-sources: [ea7dfd5b-e2ac-4067-82b3-a2efde32bb29]
-updated: 2026-05-03
+tags: [topic:persona-driven-content-rules, domain:content-creation, lesson:authenticity, anti-pattern:authority-borrowing, channel:threads, principle:subject-omission-style, principle:launch-week-trust-first, principle:two-layer-persona-profile-ok-body-ng]
+sources: [ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 6c99bbeb-c873-4342-bc9c-e6807882b5f3]
+updated: 2026-05-17
 ---
 
 # ペルソナ駆動の継続可能なコンテンツルール
@@ -112,9 +112,49 @@ frontmatter には `source:` ブロック（`author` / `publisher` / `title` / `
 
 「肩書を借りて広げる」は健康インフルエンサーの「医師監修」と同じ罠の言い換え。subject 軸固定で広げるのが sustainable。
 
+## 「うち」撤回 → 主語省略デフォルト (2026-05-16 改訂)
+
+2026-05-07 で `私は` → `うち / うちの` と確定した interior 専用文体を **9 日で撤回**。D002-D005 launch drafts を実物で書いた直後の review で「うち」が冗長と判明し、**主語省略をデフォルト** に切替。
+
+```
+旧 (2026-05-07): うちのリビング、ペンダントライトを 3 回選び直した
+新 (2026-05-16): リビングのペンダントライトを 3 回選び直した
+                 (主語省略、文意で自分が主語と分かる)
+```
+
+例外: 他人や一般論との対比で **所有を明示する必要がある時のみ** `うちの<具体名>` を残す。例えば「玄関の鏡」では曖昧、「うちの玄関の鏡」で初めて自分の家と分かる場面。`私は` は引き続き不採用。
+
+横展開可能な学び:
+- **文体ルールは drafts を 5-10 本書いてから最終確定**: 設計レビューでは検出できず、実物レビューで初めて出る冗長性がある。`drafts/` から逆流して spec を書き直すサイクルが本質
+- subject 軸固定 (= 私の家、うちの家) の原則は維持。「うち」というキーワードを残すかどうかは表現選択の問題で、subject 軸そのものは不変
+
+## launch 週は出典・固有商品名・ブランド名を抑制 (2026-05-16 新設、interior limited)
+
+D002 launch debut で「Art Work Studio『GLOW LED シーリング』を試して」末尾と D003 「Tiny Glass Ceiling Light 3」+ YUKICH NO HOME 出典について user 指摘 — launch debut で唐突にブランド名が浮く、empathy 型の構造ルールにも違反。新ルール: warmup 期は信用形成を先行、固有名詞・出典・アフィ URL を Phase 別に段階解禁:
+
+| Phase | 出典脚注 | 固有商品名・ブランド名 (本文) | アフィ URL |
+|---|---|---|---|
+| warmup_w1 | × | × | × |
+| warmup_w2 | × | × | × |
+| warmup_w3 | × | × | △ (monetization 型のみ、ratio 30%) |
+| warmup_w4 | △ | △ (1 投稿あたり 1 つまで) | △ (ratio 50%) |
+| normal_w5+ | ○ | ○ | ○ (ratio 80%) |
+
+横展開可能な原則: **launch 週は信用形成 (= 固有名詞ゼロで「人柄が出る投稿」を 4 週積む) を先行**、商品紐付けは後。フォロワー獲得前にアフィ URL や出典を出すと「広告アカウント」と認知されて伸びない構造。subject 軸固定 + 主語省略文体 と組み合わせて、launch 週の投稿は **「誰かの家での試行錯誤の覚書」** に振り切る。
+
+## persona 2 層運用 — プロフィール OK / 本文 NG (2026-05-16 暫定、要 user 決定)
+
+Threads bio の 130 字枠で第三者にスキャンされる際の信用フックは取りに行きつつ、本文では権威化禁止を維持する中道:
+
+- **プロフィール (Threads bio)**: 「建築のプロの視点で」等の弱い権威化を明示 OK (130 字枠で第三者スキャン時の信用フック)
+- **投稿本文 (D0XX)**: 肩書きは一切出さない。subject 軸 + 主語省略 + 出典脚注なし (warmup 期は brand 名も抑制) を貫徹
+
+CLAUDE.md 本体の「PM/設計 background はすべての層で明示しない」ルールとの矛盾は user 判断待ち (A. 2 層確定 / B. 全層 OK / C. プロフィールも戻す)。本記事は A (2 層運用) を暫定採用前提の記録。
+
 ## Links
 
-- [[03_work/threadsposts]] — 適用先プロジェクト
+- [[03_work/threadsposts]] — 適用先プロジェクト (2026-05-16 interior-playbook-from-K セクション)
 - [[05_learn/threads-graph-api-setup]] — Threads 投稿の技術的セットアップ
+- [[05_learn/threads-engagement-rotation-pattern]] — 4 役割ローテ + 共感の解像度 (沼子。事例)
 - [[06_output/2026-05]] — v2 launch の commit 群
 - [[02_diary/2026-05-03]]

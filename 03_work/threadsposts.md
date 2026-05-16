@@ -1,9 +1,9 @@
 ---
 title: ThreadsPosts — 腸活スタジオ Threads 自動投稿パイプライン
 category: 03_work
-tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, tech:esim, stage:active, stage:incident-response, entity:chokatsu-studio, entity:meta-classifier, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, milestone:weekly-cycle-w19-execution, milestone:openspec-3-archive-batch, milestone:playbook-process-revamp, milestone:playbook-archive-sync, milestone:account-ban-pivot, milestone:openspec-3-change-ban-pivot, milestone:ban-pivot-explore-synthesis, milestone:publish-relocate-local-shipping, milestone:legacy-tenant-archive, milestone:ban-decision7-reframing, milestone:3-account-staged-scaling, milestone:interior-uchi-style-confirmed, milestone:account-1-phase-0-shipped, milestone:account-1-d001-draft, entity:oheyamemo, genre:interior, incident:threads-ban-2026-05-04, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic, principle:capture-first-explore, principle:change-boundary-equals-commit-boundary, principle:composite-fingerprint-not-single-cause, principle:milestone-driven-scaling, principle:subject-axis-not-credential-axis, topic:ceiling-light, topic:youtube-subtitle-research]
-sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8, a73c0aa2-c9a4-46e3-ab60-72b6b426901a, 8b57f7c8-b8fa-4f65-8c06-06cf6fbe87b3, 97d3f618-8d6c-40e6-8210-06549512f183, cef7a3c1-5798-4534-ab51-63c1a2279734, c02fca64-85c4-40f5-9bae-00ea56f138c1, f198b34e-7c91-4bee-8bf4-a3a532f86901, ea0b21e8-0197-4d87-a637-45d18bc759d7, 665cb2da-de7e-4b1b-93f9-2500f8d6fe95, 99902682-b840-494b-b76c-59c90854c892, c0b0dfea-a81b-4470-b2f5-07cbbaa4aae8, 1228fa25-787b-4c38-b347-3a9231d5431a, d59da658-e5d8-4292-9095-c907f18fcca8, 196a73b5-f043-46ca-a902-3a9ba3669c98, 028c145c-62e4-46ba-8c98-efc52d5d77cc]
-updated: 2026-05-16
+tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, tech:esim, stage:active, stage:incident-response, entity:chokatsu-studio, entity:meta-classifier, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, milestone:weekly-cycle-w19-execution, milestone:openspec-3-archive-batch, milestone:playbook-process-revamp, milestone:playbook-archive-sync, milestone:account-ban-pivot, milestone:openspec-3-change-ban-pivot, milestone:ban-pivot-explore-synthesis, milestone:publish-relocate-local-shipping, milestone:legacy-tenant-archive, milestone:ban-decision7-reframing, milestone:3-account-staged-scaling, milestone:interior-uchi-style-confirmed, milestone:account-1-phase-0-shipped, milestone:account-1-d001-draft, milestone:interior-playbook-from-K, milestone:subject-omission-style, milestone:launch-week-brand-suppression, entity:oheyamemo, genre:interior, incident:threads-ban-2026-05-04, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic, principle:capture-first-explore, principle:change-boundary-equals-commit-boundary, principle:composite-fingerprint-not-single-cause, principle:milestone-driven-scaling, principle:subject-axis-not-credential-axis, principle:two-layer-persona-profile-ok-body-ng, principle:launch-week-trust-first, topic:ceiling-light, topic:youtube-subtitle-research]
+sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8, a73c0aa2-c9a4-46e3-ab60-72b6b426901a, 8b57f7c8-b8fa-4f65-8c06-06cf6fbe87b3, 97d3f618-8d6c-40e6-8210-06549512f183, cef7a3c1-5798-4534-ab51-63c1a2279734, c02fca64-85c4-40f5-9bae-00ea56f138c1, f198b34e-7c91-4bee-8bf4-a3a532f86901, ea0b21e8-0197-4d87-a637-45d18bc759d7, 665cb2da-de7e-4b1b-93f9-2500f8d6fe95, 99902682-b840-494b-b76c-59c90854c892, c0b0dfea-a81b-4470-b2f5-07cbbaa4aae8, 1228fa25-787b-4c38-b347-3a9231d5431a, d59da658-e5d8-4292-9095-c907f18fcca8, 196a73b5-f043-46ca-a902-3a9ba3669c98, 028c145c-62e4-46ba-8c98-efc52d5d77cc, 6c99bbeb-c873-4342-bc9c-e6807882b5f3]
+updated: 2026-05-17
 ---
 
 # ThreadsPosts
@@ -1502,3 +1502,75 @@ D001 着地後の同日に 2 件のお手入れ作業:
 ### see also
 - [[02_diary/2026-05-16]] — 07:50 / 07:51 エントリ
 - [[05_learn/threads-engagement-rotation-pattern]] — 本日由来の新ナレッジ
+
+## 2026-05-16 interior-playbook-from-K 49/50 完走 + 「うち」撤回 + launch 週 brand 抑制 (6c99bbeb、07:52-09:14 JST)
+
+K-spec (k01_攻略本 / k02_05_沼子。分析) からの seed を一気に capability 化する change を user-invoked `/opsx:propose interior-playbook-from-K` → `/opsx:apply` で 1.5h で完走 (1 タスクのみ defer: 11.6 branch 作成 = warmup 中は API 投稿せず手動観察 user 判断)。続けて K001-シーリングライト draft 投入 → ad-hoc な user review で「うち」文体撤回 + launch 週 brand 抑制の 2 件のルール改訂が連鎖した。
+
+### change 実装 (49/50)
+
+| 種別 | capability | 主成果物 |
+|---|---|---|
+| 新規 | `post-purpose-types` | [dept/content/templates/purposes/](dept/content/templates/purposes/) 配下 5 テンプレ + frontmatter `post_purpose` 軸 |
+| 新規 | `post-rotation-pattern` | [rotation_account_1.yaml](dept/marketing/strategy/rotation_account_1.yaml) + [rotation_decision_log.md](dept/marketing/strategy/rotation_decision_log.md) + [lib/rotation.js](dept/dev/pipeline/lib/rotation.js) |
+| 新規 | `shop-catalog` | [shops/interior.yaml](dept/research/shops/interior.yaml) (33 shops: ok 25 / unknown 8) + [lib/shop_catalog.js](dept/dev/pipeline/lib/shop_catalog.js) + `npm run research:shops` |
+| 更新 | `post-templates` | [hooks/interior.md](dept/content/hooks/interior.md) 51 entries (ok 30 / ok-frank 18 / 12 カテゴリ) |
+| 更新 | `content-pipeline` | generator `--purpose` + rotation/fallback 経路 ([generate_post.js](dept/dev/pipeline/generate_post.js)) |
+| 更新 | `account-research` | [prompts/interior.md](dept/dev/pipeline/account-research/prompts/interior.md) + [_default.md](dept/dev/pipeline/account-research/prompts/_default.md) + competitors/interior.yaml seed (@tokimeki_numako) |
+| 更新 | `draft-metadata` | frontmatter `post_purpose` + `template_type` + `copywriting_pattern` + `rotation_position` 軸追加 |
+
+- change 名 rename: 当初 `-kapi` → user 指示で `-K` に。K-spec (k01〜k02_05) seed 由来を強調
+- tests: 247/247 pass、`lint:hooks` / `lint:templates --include-templates --include-purposes` 全 clear
+
+### persona 2 層運用 (プロフィール OK / 本文 NG) 仮置き
+
+user から最新 Threads bio (`フォローするだけで〜🪄 / 🏠 / 📐 ｜建築のプロの視点で〜 / ☕ コーヒーと読書と cero`) を受領し [persona.md](genres/interior/accounts/oheyamemo/persona.md) に保管。**「建築のプロの視点」** が **既存 CLAUDE.md ルール「PM/設計 background はすべての層で明示しない」と矛盾** したため即時報告 → 暫定的に **プロフィール OK / 本文 NG の 2 層運用** に解釈 (persona.md + memory `project_account_1_oheyamemo_facts.md` に 2026-05-16 改訂として記録)。CLAUDE.md 本体改訂は user 判断 (A. 2 層確定 / B. 全層 OK / C. プロフィールも戻す) 待ち、本セッションは A 仮置きで実装
+
+### 文体 2 連続改訂 — 実物書いてからルール固定
+
+D002-D005 K001-シーリングライト drafts を主語 = うち版で書いた直後の user review で 2 連続ルール改訂が発生:
+
+#### 「うち」撤回 → 主語省略デフォルト (2026-05-07→2026-05-16)
+
+`私は` → `うち / うちの` の interior 専用文体を **9 日で撤回**。新ルール: **主語省略がデフォルト**、例外として対比文脈の `うちの<具体名>` のみ可。反映先 7 箇所:
+
+- [CLAUDE.md](CLAUDE.md) account_1 セクション (主語省略 + 例外条項)
+- [persona.md](genres/interior/accounts/oheyamemo/persona.md) 投稿本文ルール
+- [dept/content/style/frank_voice.md](dept/content/style/frank_voice.md) フランク文体ガイド
+- [hooks/interior.md](dept/content/hooks/interior.md) 51 entries 全書換 (lint:hooks ✓)
+- 11 テンプレ (6 monetization + 5 purpose) フランク版 example body から「うち」除去 (lint:templates ✓)
+- 旧 D001 削除 (2 か所) + D002-D005 を主語省略版にリライト + D002 ファイル名から `うちの` slug 除去
+- memory `feedback_interior_persona_uchi_style.md` を 2026-05-07→2026-05-16 経緯付きで全面書換 + `MEMORY.md` 行更新
+
+#### launch 週 (warmup_w1〜w4) は出典・固有商品名・ブランド名を抑制
+
+D002 末尾「Art Work Studio『GLOW LED シーリング』を試して」+ D003 「Tiny Glass Ceiling Light 3」+ YUKICH NO HOME 出典 を user 指摘 — launch debut で唐突にブランド名が浮く + empathy 型の構造ルール違反。新ルール: warmup 期は信用形成を先行、固有名詞・出典・アフィ URL を Phase 別に段階解禁:
+
+| Phase | 出典 | 固有名詞 | アフィ |
+|---|---|---|---|
+| warmup_w1 | × | × | × |
+| warmup_w2 | × | × | × |
+| warmup_w3 | × | × | △ (ratio 30%) |
+| warmup_w4 | △ | △ (1 投稿 1 つ) | △ (ratio 50%) |
+| normal_w5+ | ○ | ○ | ○ (ratio 80%) |
+
+反映先: CLAUDE.md (1 行 + persona.md 参照) / persona.md `launch 週の追加制約` 節新設 / [empathy_relatable.md](dept/content/templates/purposes/empathy_relatable.md) 構造ルール + NG パターン / [informational_value.md](dept/content/templates/purposes/informational_value.md) 例外条項 + NG パターン / memory `feedback_launch_week_footnote_brand_suppression.md` 新規 + `MEMORY.md` 更新
+
+D002 → 「アッパーライト独立調光がついている機種」、D003 → 「小ぶりに作られてる機種」に書直し、D004/D005 は元から該当なしで変更不要
+
+### 学び (横展開可能)
+
+- **文体ルールは drafts を 5-10 本書いてから最終確定**: 「うち」文体は 2026-05-07 確定だったが、D002-D005 を実物で書いてみたら冗長と判明、9 日後に撤回。設計レビューでなく実物レビューでないと検出できなかった
+- **launch 週デザインは信用形成優先で固有名詞ゼロ**: 4 週積んでから商品紐付け解禁が鉄則 (フォロワー獲得前の brand 露出は「広告アカウント」認知に直結)
+- **persona 2 層運用** = 本文では権威化禁止を維持 + プロフィール 130 字では信用フックを取りに行く中道。CLAUDE.md 本体改訂は user 判断待ち
+
+### 次セッション
+
+- 11.6 branch creation (warmup 中は手動観察) → user 判断
+- CLAUDE.md 本体の 2 層運用文言改訂 → user 判断
+- W2 (5/14-20) の rotation 配列を `2026-W20.md` で ratify → /weekly-cycle B-4 時
+
+### see also
+- [[02_diary/2026-05-16]] — 07:52 エントリ (本セッション、3 層変更を時系列で)
+- [[05_learn/persona-driven-content-rules]] — 2026-05-16 改訂 (うち撤回 + launch 週抑制) を追記
+- [[05_learn/threads-engagement-rotation-pattern]] — 沼子。事例の 4 役割ローテが post-rotation-pattern capability の seed
