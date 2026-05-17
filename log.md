@@ -95,3 +95,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-05-16T08:49:23Z  op:ingest  S=2 I=0 pages=1 unsortable=0 deferred=1 (b3e8bd06 meta-noop self-enqueue from ToDoBot; 0231b1d3 missing transcript gakudo; diary append only; 8cf2b80c 7th-defer dirty 06_output/2026-05.md)
 - 2026-05-16T23:32:16Z  op:ingest  S=3 I=0 pages=3 unsortable=0 deferred=1 (6c99bbeb interior-playbook-from-K + うち撤回 + launch-week brand 抑制; 1915c650 gakudo meta-only flip; 8cf2b80c 8th defer 06_output dirty)
 - 2026-05-16T23:38:00Z  op:ingest  S=1 I=0 D=2 pages=1 unsortable=0  (drained e4bb4f63 meta-only; deferred 8cf2b80c [9th] + c7f92639 [1st] on dirty 06_output/2026-05.md)
+- 2026-05-17T00:55:32Z  op:ingest  S=4 I=0 pages=1 unsortable=0 deferred=3 (06_output/2026-05.md dirty 10 runs)
