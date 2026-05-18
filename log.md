@@ -104,3 +104,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-05-18T04:12:00Z  op:ingest  S=0 (race-cleanup-v2) I=0 pages=1 unsortable=0 deferred=0  (concurrent 13:30 worker deleted 03_work/gakudo.md and updated 5-16 diary to point at 04_life; this run RESTORED 04_life/minami-gakudo-fubokai-2026.md per consensus survival state. Final canonical = 04_life/minami-gakudo-fubokai-2026. NB: log.md entry @04:08:00Z is stale — supersedes it)
 - 2026-05-18T07:09:23Z  op:ingest  S=2 I=0 pages=1 unsortable=0 deferred=5 missing=1
 - 2026-05-18T22:47:15Z  op:ingest  S=2 (meta drain) I=0 D=6 pages=1 unsortable=0  (drained cdc87a18 + 2e7675ac wiki-ingest meta; deferred 8cf2b80c[16]/c7f92639[8]/86141ecc[7]/a878e29c[6]/fdc3d957[2]/72d2768d[1] on dirty 06_output/2026-05.md; created 2026-05-19 diary)
+- 2026-05-18T23:54:36Z  op:ingest  S=1 I=0 pages=1 unsortable=0 deferred=6 missing=1 (06_output/2026-05.md dirty 17 runs)
