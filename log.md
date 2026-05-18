@@ -98,3 +98,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-05-17T00:55:32Z  op:ingest  S=4 I=0 pages=1 unsortable=0 deferred=3 (06_output/2026-05.md dirty 10 runs)
 - 2026-05-17T02:51:58Z  op:ingest  S=1 I=0 pages=1 unsortable=0 (drained 1 meta, deferred 4 substantive on dirty 06_output/2026-05.md, 11th run)
 - 2026-05-18T03:59:46Z  op:ingest  S=1 I=0 D=4 pages=1 missing=5  (drained e550d7c3 meta; deferred 8cf2b80c[12]/c7f92639[4]/86141ecc[3]/a878e29c[2] on dirty 06_output/2026-05.md; 5 missing transcripts SessionEnd fanout @03:57:53Z)
+- 2026-05-18T04:01:40Z  op:ingest  S=5 (meta-race drain) I=0 D=4 pages=0 missing=1  (5 concurrent /wiki-ingest race-drains + a6aa6031 self-enqueue missing; 4 substantive deferred 13/5/4/3 on dirty 06_output/2026-05.md; no vault content change, no diary append)
