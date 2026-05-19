@@ -1,0 +1,142 @@
+---
+title: meguru-manuals — 建築設計業務マニュアル PPTX 生成パイプライン
+category: 03_work
+tags: [project:meguru-manuals, client:meguru, tech:nodejs, tech:pptxgenjs, tech:react-icons, tech:libreoffice, tech:poppler, stage:active, milestone:5-part-standard-structure-2026-04]
+sources: [aa4f1029-a4cd-4adc-8c2c-c83a8c36438f]
+updated: 2026-05-19
+---
+
+# meguru-manuals
+
+## Summary
+
+株式会社めぐる向けの建築設計業務マニュアル（PPTX）を Claude Code + pptxgenjs で自動生成するパイプライン。現状の対象マニュアルは **建築測量 / 地盤調査 / 地盤改良 / 自火報** の 4 件、`manuals/<分野>/generate.js` 1 ファイル＋ `assets/` 配下の元資料（Excel / PDF / Markdown / PPTX）から PPTX を 1 コマンドで生成し、`scripts/qa.sh` で PDF → JPG 経由の目視 QA を回す。テーマは `themes/ocean.js` / `themes/yellow.js` を 1 行差し替え可能、コアの slide-builders 関数群はテーマ非依存。
+
+## 標準マニュアル構成（2026-04〜、aa4f1029 で確立）
+
+新規マニュアルは原則 **3 部構成**（CLAUDE.md に明文化、`manuals/地盤調査/generate.js` で実装済）:
+
+1. **{対象業務} の目的** — 何のために行うのか（俯瞰＋個別）
+2. **業務マニュアル**
+   - 2-1 業務フロー（`buildFlowSlide` 全体像）
+   - 2-2 資料と成果物（業務フローのどこで登場するかを明示）
+   - 2-3 手順（設計 PM が実施する Step 形式）
+   - 2-4 ルールと注意事項（判断基準＋落とし穴＋用語チェック）
+3. **ケーススタディ** — 実案件ベースのよくある状況と対応
+
+> [!info] 構成要件（QA で機械チェック）
+> - 目次番号 と 各スライドの `sectionLabel` が一致（例：目次 `3-1` → スライド `Sec.3-1 ...`）
+> - サブセクションを持つ章は TOC で `subs` を使う
+> - 各スライドに `subject`（設計 PM / 構造設計者 / 地盤調査会社 / 測量士 …）を指定 → タイトル右下に「主語：○○」バッジで自動表示
+> - 業務フロースライドの各ステップは `role` フィールドで明示（`subject` は不要）
+
+## 対象者レベルの使い分け
+
+aa4f1029 で確定したルール:
+
+- **経験者向け**: `buildChecklistSlide` 中心。**抜け漏れ防止のチェックリスト**として機能
+- **未経験者向け**: `why` フィールドで「なぜ必要か」を添える。**教育の台本**として機能（💡 なぜ必要？ ボックスで自動表示）
+- `why` と `note` は **排他**。両方必要な情報過多スライドは **2 枚に分割**
+- 実案件の判断例は Sec. ケーススタディ にまとめる（本間提案→回答→結論の 3 段構造）
+
+## コアアーキテクチャ
+
+```
+meguru-manuals/
+├── core/
+│   ├── slide-builders.js   — 10 種のスライドテンプレート関数（pptxgenjs ラッパ）
+│   └── icon-helper.js      — react-icons → PNG 変換
+├── themes/
+│   ├── ocean.js            — Ocean Blue（ダーク表紙、青アクセント）
+│   └── yellow.js           — Yellow/Warning（白表紙、黄色バー）
+├── manuals/<分野>/
+│   ├── generate.js         — コンテンツ定義＋テーマ指定（1 行で差替）
+│   ├── assets/             — 入力（Excel/PDF/PPTX/Markdown）
+│   └── output/             — 生成 PPTX
+└── scripts/
+    ├── build.sh            — 単一マニュアル生成
+    └── qa.sh               — PDF 変換 → JPG 化 → 目視 QA
+```
+
+`core/slide-builders.js` は **テーマ非依存**。テーマ追加時はファイル 1 枚を `themes/` に置くだけで完結する設計。
+
+### スライドテンプレート選定表
+
+| 用途 | テンプレート関数 |
+|------|----------------|
+| 表紙 | `buildCoverSlide` |
+| 読み方ガイド | `buildGuideSlide` |
+| 目次 | `buildTocSlide`（`subs` で階層 TOC） |
+| 俯瞰（カードグリッド） | `buildIconGridSlide` |
+| 本文（テキスト＋箇条書き、`why` 対応） | `buildContentSlide` |
+| 2 カラム比較 | `buildTwoColumnSlide` |
+| フローチャート | `buildFlowSlide` |
+| 分岐フロー | `buildBranchFlowSlide` |
+| 画像＋注釈 | `buildImageSlide` |
+| チェックリスト（`why` 対応） | `buildChecklistSlide` |
+| 連絡先・まとめ | `buildEndSlide` |
+
+## Claude Design vs Claude Code（aa4f1029 の判断）
+
+- **Claude Design**（Anthropic Labs の別製品、canvas UI ベース、対話的デザイン生成）は **CLI ツールではない** ため、本リポの「プログラマティック／再現可能なマニュアル生成」用途には合わない
+- **PPTX 系 MCP**（office-pptx-mcp 等）は既存 `pptxgenjs` と抽象度が重複 → **追加せず**
+- **Playwright MCP** は既に Claude Code 環境に同梱済 → 追加インストール不要、UI 比較が必要な場合のみ使用
+- 結論: **Claude Code + pptxgenjs の現構成が優位**、外部依存追加は最小化
+
+## 元資料を漏れなく反映する原則（aa4f1029 で痛感）
+
+`assets/` 配下の **全ファイル**に目を通してから `generate.js` を書く。地盤調査マニュアルでは:
+
+- 旧 PPT → 土の種類（ローム/シルト/凝灰質粘土等）、土質試験判断基準、ローム層基礎選定パターン
+- 用語集.xlsx → 試験系用語（三軸 UU / 圧密 / LLT / 一軸圧縮 / 細粒分 / 二層地盤）
+- 室内試験判断基準メモ.md → **5 件の実案件ケーススタディ**（[[03_work/yahatayama-rokujizo|八幡山六地蔵]] / 世田谷大原 / 中野坂上 / 東長崎 / 東日暮里）
+- 報告書 PDF → 業者の正式連絡先（ウチヤマ地質工業 t@uchiyama-geo.com、TEL）
+
+→ コンテンツが旧版比 **23% 増**（1.19 MB pptx）に達した。aa4f1029 では `_backup_20260422.pptx` を作って旧版を保全したうえで上書き再生成。
+
+## 文体ルール
+
+- **語りかけ口調**（「〜してくれます」「〜しましょう」）
+- 注意事項は「要注意！」「ここ大事！」「確認！」で呼びかける
+- タイトルは動詞で終わる（「〜を確認しよう」「〜をはっきりさせる」）
+- `assets/(分野)/OutOfScope` に置いた内容は **スコープ外**として冒頭で明示、本文には含めない
+- `assets/(分野)/一般知識` の内容は **用語注釈や基礎知識の補記**として活用
+
+## QA 基準
+
+`bash scripts/qa.sh manuals/<名前>/output/*.pptx` 後、生成された `slide-*.jpg` を目視（or Claude に直接画像を渡す）で:
+
+- テキストの溢れ・重なり
+- 全スライドに sectionLabel が付いているか
+- **目次番号と各スライドの sectionLabel が一致**（aa4f1029 で QA 項目化）
+- **subject バッジが業務フロー以外のすべての業務スライドに表示**（aa4f1029 で追加）
+- note / callout がスライド下端に収まっているか
+- 画像スライドで画像が正しく表示
+- TODO / xxx 等のプレースホルダー残置なし
+- **元資料の重要コンテンツが漏れなく反映**（aa4f1029 で明文化）
+
+## 依存関係
+
+- Node.js 18+
+- npm: `pptxgenjs` / `react` / `react-dom` / `react-icons` / `sharp`
+- LibreOffice (`soffice`) — PDF 変換用（**aa4f1029 時点で aa4f1029 環境には未インストール、PDF QA は実施不可だった**）
+- poppler-utils (`pdftoppm`) — 画像化用
+
+## よく使うコマンド
+
+```bash
+# 単一マニュアル生成
+bash scripts/build.sh manuals/建築測量
+
+# QA（PDF → JPG）
+bash scripts/qa.sh manuals/建築測量/output/建築測量_業務マニュアル.pptx
+
+# 全マニュアル一括生成
+for d in manuals/*/; do bash scripts/build.sh "$d"; done
+```
+
+## Links
+
+- [[02_diary/2026-05-19]] — aa4f1029（5-part 構成の確立 + Claude Design 調査 + slide-builders 拡張 + 地盤調査マニュアル再生成）
+- [[03_work/yahatayama-rokujizo]] — 八幡山六地蔵案件、地盤調査マニュアルのケーススタディ 5 件のうち 1 件
+- [[03_work/meguru-pm-report]] — めぐる関連、同じ client:meguru タグ
