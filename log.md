@@ -106,3 +106,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-05-18T22:47:15Z  op:ingest  S=2 (meta drain) I=0 D=6 pages=1 unsortable=0  (drained cdc87a18 + 2e7675ac wiki-ingest meta; deferred 8cf2b80c[16]/c7f92639[8]/86141ecc[7]/a878e29c[6]/fdc3d957[2]/72d2768d[1] on dirty 06_output/2026-05.md; created 2026-05-19 diary)
 - 2026-05-18T23:54:36Z  op:ingest  S=1 I=0 pages=1 unsortable=0 deferred=6 missing=1 (06_output/2026-05.md dirty 17 runs)
 - 2026-05-18T23:58:59Z  op:ingest  S=2 I=0 pages=1 unsortable=0 deferred=6 missing=1 (cwd=ToDoBot, dirty 06_output/2026-05.md run-18)
+- 2026-05-19T00:48:27Z  op:ingest  S=0 I=1 pages=2 unsortable=0 deferred=6 (06_output/2026-05.md dirty run-19; inbox HTML merged into 05_learn/ac-energy-saving-regulation.md)
