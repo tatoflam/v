@@ -114,3 +114,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-05-19T15:03:09Z  op:ingest  S=2 I=0 pages=3 unsortable=0 (run-24: meguru-manuals substantive + run-23 meta drain + 24th-run defer 6 on dirty 06_output/2026-05.md)
 - 2026-05-19T17:09:58Z  op:ingest  S=2 I=0 pages=3 unsortable=0  (run-25: 0a506395 hatagaya-3社 substantive backfill + ad6c9e22 run-24 meta drain, 25th-run dirty defer 6)
 - 2026-05-21T00:22:58Z  op:ingest  S=3 (meta drain) I=0 pages=2 unsortable=0 deferred=6 missing=3 (run-26: 5-20 02:10/21:18 + 5-21 09:13 trivial drain; 26th-run dirty defer 6 on 06_output/2026-05.md unchanged 9 days since 5-12 14:35; 3 missing transcripts ToDoBot+habi-bff)
+- 2026-05-21T03:45:56Z  op:ingest  S=2 I=0 pages=1 unsortable=0 deferred=6
