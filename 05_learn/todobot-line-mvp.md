@@ -1,9 +1,9 @@
 ---
 title: ToDoBot — LINE グループ業務会話 → 日次 ToDo レポート MVP
 category: 05_learn
-tags: [topic:todobot, project:todobot, tech:openspec, tech:python, tech:firebase, tech:firestore, tech:line-messaging-api, tech:anthropic-claude, tech:google-workspace, stage:active]
-sources: [2648ee43-ade1-4be4-b64a-b31c9d21bfb3]
-updated: 2026-05-11
+tags: [topic:todobot, project:todobot, tech:openspec, tech:python, tech:firebase, tech:firestore, tech:line-messaging-api, tech:anthropic-claude, tech:google-workspace, tech:gmail-api, tech:domain-wide-delegation, stage:dogfood]
+sources: [2648ee43-ade1-4be4-b64a-b31c9d21bfb3, f9415d55-991f-4d85-8f11-50e87deb910b]
+updated: 2026-05-21
 ---
 
 # ToDoBot — LINE グループ業務会話 → 日次 ToDo レポート MVP
@@ -22,7 +22,7 @@ Q&A 4 件（LLM、メール、Firebase、抽出範囲）の回答反映後の最
 | DB | **Firestore**（TTL 30 日、scheduled function で集計） |
 | スケジューラ | **Scheduled Functions**（Cloud Scheduler は使わない） |
 | LLM | **Anthropic Claude**（既定 `claude-haiku-4-5`、必要時 Sonnet）。`tools` ベースの構造化出力＋プロンプトキャッシュ |
-| メール送信 | **Google Workspace SMTP Relay**（`smtp-relay.gmail.com:587`、SMTP AUTH + アプリパスワード）。代替: Gmail API + Domain-wide Delegation。Notifier 抽象で吸収 |
+| メール送信 | **Gmail API + Domain-wide Delegation (キーレス DWD)**（5/21 に SMTP Relay から切替、`iamcredentials.googleapis.com` 経由で `developer1@` の short-lived token を発行 → `gmail.users.messages.send`）。`Notifier` 抽象で吸収済み、置換はモジュール 1 つで完結。SMTP Relay 案は archive 扱い（user が Workspace 管理者本人で 2SV を 1 サービスアカウントにも入れたくなかったため鍵廃止に振り切り） |
 | LINE | **Messaging API**（webhook → Bot push） |
 
 旧案（Cloud Run + Postgres + Cloud Scheduler）は捨て、Firebase に一本化することで Docker / Alembic / Scheduler の独立セットアップを削除。
@@ -90,8 +90,28 @@ Q&A 4 件（LLM、メール、Firebase、抽出範囲）の回答反映後の最
 OpenSpec design.md の OQ 区分:
 
 - **OQ1–OQ4**: 解決済（LLM=Claude、メール=Workspace SMTP、ランタイム=Firebase、抽出範囲=全文＋メンション重み付け）
-- **OQ5**: SMTP Relay の許可 IP / VPC Connector 要否（Workspace 管理者ヒアリング待ち）
+- **OQ5**: ~~SMTP Relay の許可 IP / VPC Connector 要否~~ **2026-05-21 close** — メール送信を Gmail API + DWD に切替えたため SMTP Relay の許可 IP 議論自体が消滅。Gmail API は HTTPS 経由で VPC Connector 不要
 - **OQ6**: Anthropic 残データ取扱と Workspace データ持出ポリシーの整合（社内法務確認）
+
+## メール送信方式の変更 (2026-05-21)
+
+SMTP Relay → Gmail API + Domain-wide Delegation (キーレス DWD) への切替。理由と手順を [[03_work/todobot]] §「2026-05-21 E2E 疎通の流れと詰まりポイント」で詳述。要点:
+
+- Workspace アプリパスワードは Workspace の 2SV 強制設定がプロジェクト管理者本人 (`thomma@`) でも避けたく、SA 鍵も発行したくない → `iamcredentials.googleapis.com` で **キーレス impersonation**
+- DWD 登録: admin.google.com → セキュリティ → API の制御 → ドメイン全体委任、クライアント ID = ランタイム SA の Numeric ID、スコープ `https://www.googleapis.com/auth/gmail.send`
+- ランタイム SA に自己 `roles/iam.serviceAccountTokenCreator` を付与（同一 SA が自身に対し短命トークンを発行）
+- `iamcredentials.googleapis.com` の enable と SA self Token-Creator の binding は **`thomma@` （super-admin）でないと PERMISSION_DENIED**（`developer1@` に Service Usage Admin を付けても org policy で弾かれる）
+
+## @mention 解決の修正 (2026-05-21)
+
+`resolve_assignee` の初版は @mention の user_id を `users/` キャッシュと照合してから採用していた。`users/` は LINE Profile API の制約で「グループで発言したことのあるメンバー」しか格納されず、**未発言の人を @mention しても「未割り当て」に分類されていた**バグ。
+
+修正後 (`b83d678`):
+
+- 一意の @mention user_id があればキャッシュ未登録でもその user_id を担当者として採用
+- 表示名はメッセージ本文の mention span (`mentionees[].index` + `length`) から `@` を除いて抽出（=新ヘルパー `_mention_display_name`）
+
+design.md の「mention boost」方針はそのまま維持しつつ、boost の前提条件（発言履歴あり）を緩めた形。テストは `test_extraction.py` に未発言メンバー @mention の 4 ケースを追加。
 
 ## 実装進捗 (2026-05-11 時点)
 

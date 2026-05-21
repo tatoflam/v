@@ -1,9 +1,9 @@
 ---
 title: ToDoBot — LINE 業務会話 → 日次 ToDo レポート
 category: 03_work
-tags: [project:todobot, tech:python, tech:firebase, tech:firestore, tech:line-messaging-api, tech:anthropic-claude, tech:google-workspace, tech:openspec, tech:pytest, tech:mypy-strict, stage:implementation-complete, stage:pre-deploy, milestone:mvp-code-complete, milestone:repo-pushed-meguruit, entity:meguruit-org, client:meguruit]
-sources: [2648ee43-ade1-4be4-b64a-b31c9d21bfb3, 8dc542f5-d276-4e26-b04a-6f9fe822db47]
-updated: 2026-05-16
+tags: [project:todobot, tech:python, tech:firebase, tech:firestore, tech:line-messaging-api, tech:anthropic-claude, tech:google-workspace, tech:gmail-api, tech:domain-wide-delegation, tech:openspec, tech:pytest, tech:mypy-strict, stage:dogfood, milestone:mvp-code-complete, milestone:repo-pushed-meguruit, milestone:e2e-validated, entity:meguruit-org, client:meguruit]
+sources: [2648ee43-ade1-4be4-b64a-b31c9d21bfb3, 8dc542f5-d276-4e26-b04a-6f9fe822db47, f9415d55-991f-4d85-8f11-50e87deb910b, 5905d91d-8f8f-4b6f-b8d0-06c7f97422e2]
+updated: 2026-05-21
 ---
 
 # ToDoBot
@@ -15,6 +15,41 @@ LINE グループに常駐する Bot が業務会話を受信し、1 日 1 回 L
 リポ: 当初 `tatoflam/ToDoBot` (4-29 root-commit `8b98f60`) で着手していたが、2026-05-16 に user が組織アカウント側で新リポ `meguruit/ToDoBot` (private、SSH origin) を切り、`main` を push 完了 → これが canonical となった。ローカルの working tree パスは `/Users/tato/repo/github/tatoflam/ToDoBot` のまま (path はリネームせず、remote だけ差し替え)。
 
 OpenSpec workflow で proposal / design / specs / tasks 一式起票、change 名 `line-todo-bot-mvp`。設計詳細・運用コスト試算・spec 一覧は [[05_learn/todobot-line-mvp]] を参照。
+
+## ステータス (2026-05-21 時点) — E2E 疎通完了、§10.1 ドッグフード進行中
+
+2026-05-21 セッションで初回エンドツーエンド疎通（LINE Verify → グループ招待 → メッセージ受信 → `daily_report_trigger` 手動 curl → LINE push 配信成功 → Gmail 配信成功）まで到達。残作業は §10.1 の 24h ドッグフード継続と §10.2 受入チェックリスト消化のみ。
+
+- **追加コミット 2 本** (5-16 → 5-21、論理単位で分割):
+  ```
+  b83d678 fix(extraction): resolve @mention assignee even when mentionee is uncached
+  b7898db feat: Gmail API email delivery, requester tracking, deploy hardening
+  ```
+- **テスト**: 142 → **147 件** green（mention 解決の追加ケース 4 件＋requester 追跡 1 件）、`mypy --strict` / `ruff` / `black` 全クリア維持
+- **メール配信方式変更**: SMTP Relay → **Gmail API + Domain-wide Delegation (キーレス DWD)**（詳細は [[05_learn/todobot-line-mvp]] §採用スタック の差分）。理由: user 自身が Workspace 管理者で、`developer1@` だけ 2SV を ON にする運用が煩雑だったため、SA キー無しの DWD に振り切った
+- **5/21 セッションで実装した変更**:
+  - `GmailNotifier`（`google-auth` + `googleapiclient` 経由、`iamcredentials.googleapis.com` で `developer1@` の short-lived token を発行 → `gmail.users.messages.send`）— SMTP secrets (`GWS_SMTP_USER`/`GWS_SMTP_PASS`) は廃止
+  - **依頼者 (requester) 追跡**: ToDo モデルに `requester` / `requested_at` を追加、レポートで「依頼者 → 担当者」を表示（user 側で並行実装した分を同梱）
+  - **`secrets=[...]` 宣言を Functions デコレータに追加**: Secret Manager に投入済みでも関数 ENV に mount されておらず 500 を返していた（初回デプロイのハマりどころ）
+  - **predeploy hook**: `config/profiles.yaml` はリポ root にあり Functions bundle に含まれないため、`firebase.json` の `predeploy` で `functions/` 配下にコピー
+  - メール HTML 見出しを `<div>` インラインスタイル化（h1 巨大化を抑制、読みやすさ調整）
+- **@mention 解決バグ修正 (b83d678)**: `resolve_assignee` が `users/` キャッシュ（= グループで発言したことのあるメンバーだけ）との照合を要求していたため、未発言のメンバーを @mention しても「未割り当て」に分類されていた。@mention は user_id を確実に含むので、キャッシュ未登録でも user_id ベースで担当者を割り当てるよう修正。表示名はメッセージ本文の mention span (`mentionees[].index/length`) から抽出
+- **`/opsx:archive` はまだ呼ばない**: §10.1 ドッグフード 24h 完走後
+
+### 2026-05-21 E2E 疎通の流れと詰まりポイント
+
+1. **Firebase ログインを `thomma@meguru-construction.com`（Workspace 超管理者）で実施** — 当初メモは `admin@` だったが実在せず。プロジェクトを `meguru-construction.com` GCP Organization 配下に作るには super-admin が必須。Workspace サブスク課金と GCP Cloud Billing は別商品だが、同じ Payments Profile / 同じカードに紐付ければ「同じ請求書」で運用可能（→ B4 docs を全面書き換え）
+2. **IAM ハイブリッド運用**: `thomma@` = プロジェクト作成・Org IAM・課金・API enable。`developer1@` = 日常 CLI ops。ただし `gcloud services enable iamcredentials.googleapis.com` は `developer1@` に Service Usage Admin を付けても `PERMISSION_DENIED` → `--account=thomma@` 明示で通った（org policy で API enable は super-admin に閉じている）。`firebase deploy` 自体は事前に Eventarc 等の API を auto-enable しに行くため、`developer1@` を Service Usage Admin に格上げする必要があった
+3. **LINE Verify** — 1 回目タイムアウト（コールド起動 + バインド未済の 500）、`secrets=[...]` 修正と再デプロイで Verify OK
+4. **Bot 招待 → groupId 取得**: OA Manager で「グループ・複数人トーク参加」ON、`@541dotgb` を招待、1 通発言で Firestore `groups/` に `Cbb2771c...` 形式の groupId 記録。`config/profiles.yaml` の `Cxxxxxxx` placeholder を実値に書換 → 再デプロイ
+5. **ToDo 抽出のタイムウィンドウ**: `[実行日 00:00 (プロファイル TZ), trigger 実行時刻 now)` — `created_at` 基準。team-b で「テスト」1 件のみだと `skip_empty=true` で無送信になるため、ToDo っぽいメッセージを 2〜3 通流して動作確認
+6. **DWD 登録は admin.google.com**: クライアント ID `113869879276262501859`、スコープ `https://www.googleapis.com/auth/gmail.send`。SA に自己 Token Creator (`roles/iam.serviceAccountTokenCreator`) を付与すれば、SA 鍵を発行せずに impersonation できる
+7. **デフォルト返信メッセージ**: 「メッセージありがとうございます！申し訳ありませんが、このアカウントでは個別のお問い合わせを受け付けておりません。次の配信までお待ちください 🌙」— Bot は dispatch-only、対話はしない設計を明示
+
+### 採用スタック 差分 (5/21 確定)
+
+- **メール送信**: ~~Google Workspace SMTP Relay (アプリパスワード)~~ → **Gmail API + Domain-wide Delegation (キーレス、`iamcredentials.googleapis.com` 経由)**。コード側は `Notifier` 抽象で吸収済だったので差し替えはモジュール 1 つの置換で完結
+- **シークレット**: `GWS_SMTP_USER` / `GWS_SMTP_PASS` を廃止、`GMAIL_DELEGATED_SENDER` 等の Gmail API 用設定に置換
 
 ## ステータス (2026-05-16 時点) — MVP コード完成 + push 完了
 
@@ -161,3 +196,4 @@ dac0875 feat(webhook): LINE webhook handler with mention/reply capture (§4)  # 
 - [[02_diary/2026-04-29]] — 実装 §2-§4 + B1-B4 docs
 - [[02_diary/2026-04-30]] — 運用ドキュメント二層化
 - [[02_diary/2026-05-16]] — §5-§10 完走 + 6 commits 分割 + meguruit/ToDoBot へ push
+- [[02_diary/2026-05-21]] — E2E 疎通 + Gmail API DWD 切替 + @mention 解決バグ修正 + ドッグフード開始
