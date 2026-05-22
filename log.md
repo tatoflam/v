@@ -121,3 +121,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-05-22T19:30:30Z  op:ingest  S=2 I=0 pages=2 unsortable=0 deferred=6
 - 2026-05-22T13:29:57Z  op:ingest  S=2 I=0 pages=1 unsortable=0 deferred=8 (run-32: 431725a6 run-31 worker meta drain + be681581 ThreadsPosts null-run worker; 32 連続 defer の母数が 6→8 に増加 = 5-15〜5-18 持ち越し 6 + 5-22 新規 ba2b8e66/d244f847 2 件、いずれも `06_output/2026-05.md` dirty 不変が根拠、fix=`cd ~/repo/github/tatoflam/v && git restore 06_output/2026-05.md`)
 - 2026-05-22T13:49:55Z  op:ingest  S=2 I=0 pages=1 unsortable=0 (run-33: diary-only 1 + meta drain 1 + 33 連続 defer 8)
+- 2026-05-22T14:27:58Z  op:ingest  S=2 I=0 pages=2 unsortable=0 (run-34: substantive 1 ab52fdac + meta drain 1 e60cec64 + defer 8 dirty 06_output/2026-05.md)

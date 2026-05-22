@@ -1,9 +1,9 @@
 ---
 title: ToDoBot — LINE 業務会話 → 日次 ToDo レポート
 category: 03_work
-tags: [project:todobot, tech:python, tech:firebase, tech:firestore, tech:line-messaging-api, tech:anthropic-claude, tech:google-workspace, tech:gmail-api, tech:domain-wide-delegation, tech:openspec, tech:pytest, tech:mypy-strict, stage:dogfood, milestone:mvp-code-complete, milestone:repo-pushed-meguruit, milestone:e2e-validated, entity:meguruit-org, client:meguruit]
-sources: [2648ee43-ade1-4be4-b64a-b31c9d21bfb3, 8dc542f5-d276-4e26-b04a-6f9fe822db47, f9415d55-991f-4d85-8f11-50e87deb910b, 5905d91d-8f8f-4b6f-b8d0-06c7f97422e2]
-updated: 2026-05-21
+tags: [project:todobot, tech:python, tech:firebase, tech:firestore, tech:line-messaging-api, tech:anthropic-claude, tech:google-workspace, tech:gmail-api, tech:domain-wide-delegation, tech:openspec, tech:pytest, tech:mypy-strict, tech:mermaid, tech:chrome-headless-pdf, stage:dogfood, stage:proposal-ready, milestone:mvp-code-complete, milestone:repo-pushed-meguruit, milestone:e2e-validated, milestone:client-proposal-pdf, entity:meguruit-org, client:meguruit]
+sources: [2648ee43-ade1-4be4-b64a-b31c9d21bfb3, 8dc542f5-d276-4e26-b04a-6f9fe822db47, f9415d55-991f-4d85-8f11-50e87deb910b, 5905d91d-8f8f-4b6f-b8d0-06c7f97422e2, ab52fdac-54a0-4291-bdb0-c112d8f67a03]
+updated: 2026-05-22
 ---
 
 # ToDoBot
@@ -15,6 +15,39 @@ LINE グループに常駐する Bot が業務会話を受信し、1 日 1 回 L
 リポ: 当初 `tatoflam/ToDoBot` (4-29 root-commit `8b98f60`) で着手していたが、2026-05-16 に user が組織アカウント側で新リポ `meguruit/ToDoBot` (private、SSH origin) を切り、`main` を push 完了 → これが canonical となった。ローカルの working tree パスは `/Users/tato/repo/github/tatoflam/ToDoBot` のまま (path はリネームせず、remote だけ差し替え)。
 
 OpenSpec workflow で proposal / design / specs / tasks 一式起票、change 名 `line-todo-bot-mvp`。設計詳細・運用コスト試算・spec 一覧は [[05_learn/todobot-line-mvp]] を参照。
+
+## ステータス (2026-05-22 時点) — クライアント向け提案書 (HTML/PDF) + Mermaid 図、工数 253.5h 確定
+
+5/22 にクライアント向け提案書を `docs/proposal/todobot-proposal.html` + `todobot-proposal.pdf` で作成、README.md にも Mermaid データフロー図を追加。**未 push 状態**（`?? docs/proposal/`、`M README.md`）でローカル待機 → 配布アクションは未実施のため [[06_output/2026-05]] には記録せず、配布後に改めて追記する想定。
+
+### 工数明細 (時間単位、合計 253.5h ≒ 31.7 人日、1人日=8h)
+
+| フェーズ | 内容 | 工数 | 備考 |
+|---|---|---:|---|
+| **企画・設計** | ユースケース定義 + アーキテクチャ決定 + OpenSpec 仕様策定 (proposal/design + 4 capability specs) + コスト試算 | **20h** | |
+| **実装** | §1 init / §2 config / §3 data / §4 webhook / §5 extraction / §6 report / §7 scheduler / §8 observability / §9 deploy / §10.0 まで | **128h** | tasks.md の §1-§10 実装分、`8b98f60..b83d678` の 11 commits |
+| **インフラ構築・外部サービス設定** *(独立計上、初版 217.5h から +24h)* | Firebase Blaze + Secret Manager + Firestore index/TTL/rules / LINE Developers / Workspace 超管理者経由 Gmail API 認可 + DWD / Anthropic / B1-B4 外部サービス準備 | **24h** | thomma@/developer1@ のハイブリッド IAM + DWD 登録（admin.google.com）を含む |
+| **テスト** | unit (142→147 件) + integration + mypy/ruff/black 強制 + プロンプトキャッシュ動作確認 | **38h** | |
+| **運用テスト・受け入れ確認** *(初版 15h から +12h)* | §10.1 24h+ ドッグフード + §10.2 受入チェックリスト + 実環境バグ修正（`secrets=[...]` 追加 + predeploy hook + @mention 解決 + Gmail API 移行など） | **27h** | 配信成功率 / コスト計測 / SLA 観測 |
+| **積み残し** | チャネル追加 (account_2/3 想定) + 通知先追加 (メール宛先プロファイル) + ダッシュボード | **16.5h** | |
+| **合計** | | **253.5h** | 実施済 237h + 積み残し 16.5h |
+
+### クライアント向け提案書 (8 ページ A4、ネイビー基調)
+
+- `docs/proposal/todobot-proposal.html` — 編集可能なソース。
+- `docs/proposal/todobot-proposal.pdf` — 配布用 PDF (8 ページ)。
+- 構成: ① 表紙 / ② エグゼクティブサマリ + 目次 / ③ 背景課題 + ソリューション + 配信サマリイメージ / ④ 主要機能 (4 capability + スコープ外) / ⑤ システム仕様 (アーキテクチャ + データモデル) + Mermaid データフロー図 (SVG 埋め込み) / ⑥ 工数見積 (上記表 + 実装内訳) / ⑦ 運用コスト試算 (月額 約¥300) / ⑧ スケジュール + 前提 + リスク + 次のステップ
+- **PDF 生成手段**: `wkhtmltopdf` / `weasyprint` / `chromium` 未インストール環境のため **Google Chrome ヘッドレス** で生成。再生成コマンド: `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --disable-gpu --no-pdf-header-footer --print-to-pdf=todobot-proposal.pdf "file://$(pwd)/todobot-proposal.html"`
+- **目視 QA**: `pdftoppm -png -r 110 todobot-proposal.pdf pp` でページごとの PNG を生成し、page 6 でコールアウトがフッターに重なる issue を 1 件発見 → CSS で余白調整 → 8 ページに収束
+- **Mermaid 図の二重配置**:
+  - README.md → Mermaid 記法のまま記述 (GitHub がネイティブ描画、エンジニア向け閲覧経路)
+  - 提案書 HTML → ネットワーク制限下で `mmdc` (mermaid-cli) は使えなかったが `cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js` は curl 可 → ブラウザ side でレンダリング後 SVG 埋め込みで PDF 化 (PDF 配布先がオフライン環境でも描画される)
+- **配布アクション (未実施 / TODO)**: メール送付 / Drive 共有 / クライアント宛 Slack 投稿 のいずれか。配布次第 [[06_output/2026-05]] に「Client proposal delivered」として記録する想定
+
+### see also (5/22 セッション由来)
+
+- [[02_diary/2026-05-22]] `23:xx  ToDoBot クライアント向け提案書` ブロック — 工数調整プロセスの逐次ログ
+- session `ab52fdac-54a0-4291-bdb0-c112d8f67a03`
 
 ## ステータス (2026-05-21 時点) — E2E 疎通完了、§10.1 ドッグフード進行中
 
@@ -197,3 +230,4 @@ dac0875 feat(webhook): LINE webhook handler with mention/reply capture (§4)  # 
 - [[02_diary/2026-04-30]] — 運用ドキュメント二層化
 - [[02_diary/2026-05-16]] — §5-§10 完走 + 6 commits 分割 + meguruit/ToDoBot へ push
 - [[02_diary/2026-05-21]] — E2E 疎通 + Gmail API DWD 切替 + @mention 解決バグ修正 + ドッグフード開始
+- [[02_diary/2026-05-22]] — クライアント向け提案書 (HTML/PDF) + Mermaid 図 + 工数 253.5h 確定
