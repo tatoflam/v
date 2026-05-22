@@ -116,3 +116,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-05-21T00:22:58Z  op:ingest  S=3 (meta drain) I=0 pages=2 unsortable=0 deferred=6 missing=3 (run-26: 5-20 02:10/21:18 + 5-21 09:13 trivial drain; 26th-run dirty defer 6 on 06_output/2026-05.md unchanged 9 days since 5-12 14:35; 3 missing transcripts ToDoBot+habi-bff)
 - 2026-05-21T03:45:56Z  op:ingest  S=2 I=0 pages=1 unsortable=0 deferred=6
 - 2026-05-21T07:30:04.506380+00:00  op:ingest  S=2 I=0 pages=3 unsortable=0 deferred=6
+- 2026-05-22T06:10:22Z  op:ingest  S=1 I=0 pages=1 unsortable=0 deferred=6 (run-29: 6f0af8f2 MeguruPMReport meta drain; 29th-run dirty defer 6 on 06_output/2026-05.md unchanged 11 days since 5-12 14:35; AskUserQuestion offered restore-or-defer, user cancelled → default defer per spec)
