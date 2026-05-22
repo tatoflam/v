@@ -1,9 +1,9 @@
 ---
 title: MeguruPMReport
 category: 03_work
-tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, stage:active]
-sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a]
-updated: 2026-05-20
+tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, stage:active]
+sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748]
+updated: 2026-05-23
 ---
 
 # MeguruPMReport
@@ -132,6 +132,17 @@ Meguru 案件の **週次アップデート** を Gmail と Jooto から Claude 
   - 意匠負荷ビュー警告: **鈴木 4 件**（FY26_01/05/20/22）／**井上 3 件**（FY26_06/21/23）、加納は **2026-05-20 空き見込み**（FY26_08 高田馬場 基本図承認 5/20 通過後）
   - 06_output 該当判定: **該当せず**（reports/2026-05-19_weekly_update.md は MeguruPMReport repo に未コミット、外部公開 evidence なし。state/latest_summary.md / latest_state.json / batch_progress.json も同期更新済）
   - 詳細: [[02_diary/2026-05-19]] 23:29 entry
+- **2026-05-22**（session b50d3ddb、5-22 23:xx→5-23 00:01 JST、ユーザー第一声「最新のレポートを作成して！前回の会議後のフィードバックは、`2026-05-19_weekly_update.md` にのみ更新済み。フィードバックの内容を `latest_summary.md` に必要あれば転記した上で、今回のレポートを作成してほしい」）: 会議フィードバック 4 点（八幡山六地蔵=刃工法/RES-P 依頼分担＋大神 island 連絡、板橋氷川町=越境是正の着工後計画変更案、山王3丁目=RES-P 総和返信待ち）を `state/latest_summary.md` 全体サマリ＋per-project セクションへ手動転記 → `/jooto-backup --all-active` → `/jooto-overdue-scan`（**非 FY26 ボードで HTTP 404 で全件一括が停止** → FY26 ボード 24 件を個別 `--board <id>` スキャン）→ `/pm-master-backup` → 24 案件並列 Gmail → `reports/2026-05-22_weekly_update.md` 生成。前回比較元 = 5-19 版（`state/latest_*`）。期日超過 4 件 → **5 件**（新規 1 = 幡ヶ谷本町 MM2_意匠仮受が 5/20 未達で overdue 化）
+  - 初版で発生した重大欠落と恒久対策（必読）: ユーザー指摘「幡ヶ谷本町は、仮受当日になって天空率の計算ミスが発覚、プラン見直しとなっており、山口設計士・大神・本間の間で頻繁にメールのやり取りがあるが、拾われていないのはなぜ？」→ assistant 初動「メールボックスに存在しないと推測」誤判定 → ユーザー再指摘「該当ラベルに届いてやり取りしてる、Gmail 検索が動いていないとしか思えない」→ assistant が `get_thread` で「【渋谷区幡ヶ谷本町】質疑」スレッドを直接展開 → **全 47 通中先頭 5 通（5/12 まで）しか `search_threads` が返していなかったことが判明、5/13 以降の 42 通が完全欠落**。`mcp__claude_ai_Gmail__search_threads` のスレッド先頭打ち切り仕様による取りこぼし。canonical: [[05_learn/gmail-search-threads-message-limit]]
+  - 仕様恒久反映: `.claude/commands/weekly-report.md` 改訂（`search_threads` 結果だけで要約せず、**各スレッドを `get_thread` で全件展開し対象期間内のメッセージを 1 通も取りこぼさない**ことを完了条件に明記）／`config/workspace_defaults.md` に「期間内メッセージの全件取得（必須）」節を追加（期間外・引用履歴の非展開でコンテキスト節約、期間内の取りこぼしは許容せず）
+  - 再点検 3 並列 subagent（全 24 案件の対象スレッドを `get_thread` で全件展開して 5/19→5/22 差分を再構築） → **取りこぼし 3 案件特定**:
+    - **幡ヶ谷本町**: 仮受当日 5/20 に **天空率・日影規制の不適合発覚 → 建物形状を伴うプラン見直し** という重大インシデントが完全欠落 → 案件セクションを全面書き直し、全体サマリの「重要な動き①【重大インシデント】」に格上げ、MM2_意匠仮受 overdue の原因も明記。現況: 日影規制適合に平均地盤面〜4F パラペット天端 11.4m / 3F 天端 8.825m が必要、550mm 以上 建物高さを下げ＋埋め戻しで平均 GL 調整 or 小規模空堀で建物全体を下げる案を検討中。構造は着手済のため実費精算・手戻り発生、設備計画も再検討、施主への金利負担・スケジュール影響あり
+    - **八幡山六地蔵**: 施主（島田さん）の 3 点確認のうち、②建物右側の自転車置き場が成立するか（配置プラン論点）／③リビングのプロジェクター設置距離 が省略 → 補記
+    - **西巣鴨駅前**: 5/22 有間→大神「想定通りの測量図になっています」と修正測量図を承認したメッセージが欠落 → 実績に反映、未解決から「修正測量図の有間確認」を削除
+  - 主要トピック（再点検後）: **🚨 幡ヶ谷本町 仮受当日 天空率・日影不適合 → プラン見直し**（上述）／**祐天寺** 確認済証 5/19 発行で下付着地（5/20 下付予定達成）／**滝野川5丁目** 整合性チェック収束（構造図のみ修正）・特寸サッシ製作可能確定・構造質疑のさくら対応始動／**大森西2丁目** 構造設計のさくら契約調印完了（5/21 電子署名）／**江古田江原** さくら構造担当アサイン完了・構造実施設計始動／**西巣鴨駅前** 越境物（トタン屋根・雨どい）敷地除外で測量図修正＋有間承認／**八幡山六地蔵** 会議 FB 通り大神→島田パース確認連絡を実行、施主から違和感なし＋3 点質問（自転車置き場・プロジェクター距離・残 1 点）／**中野1丁目** 申し送り「審査機関=アウェイ」→「アウェイ／国際確認」変更
+  - Jooto API 運用課題: **非 FY26 ボードでの HTTP 404 で `/jooto-overdue-scan` 一括実行が止まる**（5-13 / 5-15 ランで観測した 1241349「２課」と同類）→ FY26 案件 24 ボードを個別 `--board <id>` スキャンで運用回避。`workspace_defaults.md` または `/jooto-overdue-scan` 側の 404-tolerant 化が follow-up 候補
+  - 06_output 該当判定: **該当せず**（`reports/2026-05-22_weekly_update.md` は MeguruPMReport repo に commit `ff1e628 update: 0522`、origin/main へ push 済だが、内部成果物で外部公開 evidence なしの 5-19 precedent を踏襲。内部 private repo への push は schema §"06_output/ auto-detection" の「外部公開」基準には満たないと解釈）
+  - 詳細: [[02_diary/2026-05-23]] run-36 entry（本ファイル更新を実行した /wiki-ingest ラン）
 
 ### 横展開できる小ネタ (2026-05 系統 2 ラン経由)
 
@@ -146,8 +157,10 @@ Meguru 案件の **週次アップデート** を Gmail と Jooto から Claude 
 - [[02_diary/2026-05-08]]
 - [[02_diary/2026-05-15]]
 - [[02_diary/2026-05-19]]
+- [[02_diary/2026-05-23]]
 - [[05_learn/ssh-agent-shortcuts]]
 - [[05_learn/gmail-mcp-reauth]]
+- [[05_learn/gmail-search-threads-message-limit]]
 - [[05_learn/google-sheets-multi-row-header]]
 - [[05_learn/claude-code-plugin-namespace]]
 - [[05_learn/fy-cycle-mmdd-year-inference]]
