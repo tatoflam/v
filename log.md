@@ -117,3 +117,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-05-21T03:45:56Z  op:ingest  S=2 I=0 pages=1 unsortable=0 deferred=6
 - 2026-05-21T07:30:04.506380+00:00  op:ingest  S=2 I=0 pages=3 unsortable=0 deferred=6
 - 2026-05-22T06:10:22Z  op:ingest  S=1 I=0 pages=1 unsortable=0 deferred=6 (run-29: 6f0af8f2 MeguruPMReport meta drain; 29th-run dirty defer 6 on 06_output/2026-05.md unchanged 11 days since 5-12 14:35; AskUserQuestion offered restore-or-defer, user cancelled → default defer per spec)
+- 2026-05-22T06:43:06Z  op:ingest  S=2 (meta drain 1 + hook-error 1) I=0 pages=1 unsortable=0 deferred=6 (run-30: d78dbee9 Plugins-Bizuayeu run-29 worker meta drain + a9b793ae wikiMaintenance missing-transcript hook-error; 30th-run dirty defer 6 on 06_output/2026-05.md unchanged 12 days since 5-12 14:35; AskUserQuestion not re-offered; fix=`cd ~/repo/github/tatoflam/v && git restore 06_output/2026-05.md`)
