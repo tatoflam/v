@@ -2,8 +2,8 @@
 title: MeguruPMReport
 category: 03_work
 tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, stage:active]
-sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748]
-updated: 2026-05-23
+sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33]
+updated: 2026-05-27
 ---
 
 # MeguruPMReport
@@ -144,6 +144,28 @@ Meguru 案件の **週次アップデート** を Gmail と Jooto から Claude 
   - 06_output 該当判定: **該当せず**（`reports/2026-05-22_weekly_update.md` は MeguruPMReport repo に commit `ff1e628 update: 0522`、origin/main へ push 済だが、内部成果物で外部公開 evidence なしの 5-19 precedent を踏襲。内部 private repo への push は schema §"06_output/ auto-detection" の「外部公開」基準には満たないと解釈）
   - 詳細: [[02_diary/2026-05-23]] run-36 entry（本ファイル更新を実行した /wiki-ingest ラン）
 
+- **2026-05-26**（session eee551a5、5-26→5-27 06:31 JST 跨ぎ、第一声「最新のレポートを作成して！」のみ）: `/jooto-backup --all-active` → `/pm-master-backup` → `/weekly-report` 実行中 NW エラー停止 → user「途中で API エラーで止まった、必要な箇所からリカバリするか、難しければもう一度最初から、最新のレポート作成を実施できる？」→ リカバリ実行で `reports/2026-05-26_weekly_update.md` 生成。前回比較元 = 5-22 版。
+  - **13 工程進捗ビューの実 user データ初回適用**: 直前 commit `b75ffb6` で実装した `add-phase-progress-view` (下記「工程軸の進捗ビュー」セクション) が初めて実データで動作。user フィードバック「**工程軸の進捗で、なんで東向島5丁目が「前提整理」になる？マスター表のどこを見てそのように判定しているのだろう。この案件は設計は終了していて、「工事着手」している状況。**」 → 辞書チューニング course-correction の最初の data point を獲得。`phase_evidence` を読み Jooto タスク名辞書または Gmail 件名辞書に「工事着手済」シグナルを 1 件以上追記する follow-up を `workspace_defaults.md` に持ち越し (specs 不変)
+  - **板橋氷川町ピンポイント追記運用**: user「Jooto で板橋氷川町の更新あり。そこだけ追記してくれない？差分対象などは比較する必要なし。前回レポート日: 2026-05-22 のママで OK.」 → 全案件再生成のコストを払わずに特定案件のみ部分更新する運用パターンを実証。粒度の柔軟性が確認できた
+  - commit `ec8b13e Add 2026-05-26 weekly update and refresh state snapshots` (3 ファイル: `reports/2026-05-26_weekly_update.md` 新規 + `state/latest_state.json` + `state/latest_summary.md`) → origin/main へ push 完了 (`b75ffb6..ec8b13e`)
+  - 06_output 該当判定: **該当せず** ([[02_diary/2026-05-23#フェーズ-5-state-同期--commit|run-36 precedent]] 踏襲、`meguruit/MeguruPMReport` は private repo、内部成果物で外部公開 evidence なし)
+  - 詳細: [[02_diary/2026-05-27]] run-42 entry
+
+### 工程軸の進捗ビュー (2026-05-26 OpenSpec change `add-phase-progress-view`、commit `b75ffb6`)
+
+週次レポートに「**工程軸の進捗**」セクションを追加し、24 案件がそれぞれ 13 工程のどこまで到達したかを per-phase で並べて可視化する機能。session `7d4100ea` で proposal/design/specs/tasks 4 アーティファクト全起票 → `openspec validate --strict` 通過 → 実装着地。
+
+- **13 工程フォーマット** (`0. 案件準備中 → 1. 前提整理 → 2. 平面検証 → 3. 施主承認 → 4. 躯体形状 → 5. 構造着手 → 6. 設備検討 → 7. 仮受付前 → 8. 整合確認 → 9. 本受付前 → 10. 施工着手 → 11. 確認交付 → 12. 引渡準備 → 13. 工事着工`): user 提示の 11 工程に対し「0. 案件準備中」を追加・「1. 前提整理」へ改名で 13 段に拡張
+- **判定ロジック (band-default + 最進工程ルール)**: 各案件について Jooto タスク名辞書 (M01-M11 完了で M フェーズ通過判定、MM1-MM6 でマイルストーン到達判定、S0X workflow 順) と Gmail 件名辞書を突合し、**最進工程 (= 一番先まで到達した工程)** を採用。辞書チューニングは `workspace_defaults.md` のみで完結し、specs (`openspec/specs/`) は不変 という分離が design.md に明文化
+- **`phase` / `phase_evidence`**: 工程判定の結果と根拠を `state/latest_state.json` の 24 案件全件に書き込み。`phase_evidence` で「どの Jooto タスク or どのメール件名がその判定を支持したか」が追跡可能 → user 想定 vs 機械判定の乖離 (例: 東向島5丁目 user=工事着手 vs 機械=前提整理、上記 5-26 entry 参照) を `phase_evidence` で診断し、辞書のみで吸収できる設計
+- **実装着地ファイル** (commit `b75ffb6 Add 「工程軸の進捗」 section to weekly report (13 phases)`、8 ファイル / +1108 / -51):
+  - `openspec/changes/add-phase-progress-view/` (proposal.md / design.md / specs/**/spec.md / tasks.md、19/23 tasks complete)
+  - `config/workspace_defaults.md` (12 → 13 工程セクション追加、Jooto + Gmail 辞書定義)
+  - `.claude/commands/weekly-report.md` (実行手順 6 として工程判定を追加)
+  - `state/latest_state.json` (24 案件全件に `phase` / `phase_evidence` 書き込み)
+- **archive 未** (`/opsx:archive` まだ実行せず): 実 user データでの判定精度検証完了後 (= eee551a5 で初回データ取得 → 辞書チューニング 1 件以上反映後) に archive 予定。19/23 tasks の残 4 件は user データ検証 + 辞書補強 + archive 手続きと想定
+- 詳細: [[02_diary/2026-05-27]] run-42 entry (7d4100ea 知識 footprint)
+
 ### 横展開できる小ネタ (2026-05 系統 2 ラン経由)
 
 - **新規ボード検出は projects.csv 反映と独立**: `/jooto-backup --all-active` は board.updated_at をシードに新ボードを発見できるが、`projects.csv` (案件マスター) に entry が無ければ per-project セクションは生成されない (5-8 ランで `FY26_27 中野区本町5丁目` と `FY26_29 きつね塚通り前` が typically 検出 → 全体サマリ末尾の 1 行注記のみで本体省略)。新ボードは「検出 → projects.csv 追記 → 翌週 per-project 化」の 3 段で取り込む運用
@@ -158,6 +180,7 @@ Meguru 案件の **週次アップデート** を Gmail と Jooto から Claude 
 - [[02_diary/2026-05-15]]
 - [[02_diary/2026-05-19]]
 - [[02_diary/2026-05-23]]
+- [[02_diary/2026-05-27]]
 - [[05_learn/ssh-agent-shortcuts]]
 - [[05_learn/gmail-mcp-reauth]]
 - [[05_learn/gmail-search-threads-message-limit]]
