@@ -2,8 +2,8 @@
 title: ToDoBot — LINE 業務会話 → 日次 ToDo レポート
 category: 03_work
 tags: [project:todobot, tech:python, tech:firebase, tech:firestore, tech:line-messaging-api, tech:anthropic-claude, tech:google-workspace, tech:gmail-api, tech:domain-wide-delegation, tech:openspec, tech:pytest, tech:mypy-strict, tech:mermaid, tech:chrome-headless-pdf, stage:dogfood, stage:proposal-ready, milestone:mvp-code-complete, milestone:repo-pushed-meguruit, milestone:e2e-validated, milestone:client-proposal-pdf, entity:meguruit-org, client:meguruit]
-sources: [2648ee43-ade1-4be4-b64a-b31c9d21bfb3, 8dc542f5-d276-4e26-b04a-6f9fe822db47, f9415d55-991f-4d85-8f11-50e87deb910b, 5905d91d-8f8f-4b6f-b8d0-06c7f97422e2, ab52fdac-54a0-4291-bdb0-c112d8f67a03, f27991f0-61ce-4c42-af2f-f6d8f794426f]
-updated: 2026-05-22
+sources: [2648ee43-ade1-4be4-b64a-b31c9d21bfb3, 8dc542f5-d276-4e26-b04a-6f9fe822db47, f9415d55-991f-4d85-8f11-50e87deb910b, 5905d91d-8f8f-4b6f-b8d0-06c7f97422e2, ab52fdac-54a0-4291-bdb0-c112d8f67a03, f27991f0-61ce-4c42-af2f-f6d8f794426f, 03d49c79-640a-479f-b7bd-a60cb8111948]
+updated: 2026-05-27
 ---
 
 # ToDoBot
@@ -15,6 +15,32 @@ LINE グループに常駐する Bot が業務会話を受信し、1 日 1 回 L
 リポ: 当初 `tatoflam/ToDoBot` (4-29 root-commit `8b98f60`) で着手していたが、2026-05-16 に user が組織アカウント側で新リポ `meguruit/ToDoBot` (private、SSH origin) を切り、`main` を push 完了 → これが canonical となった。ローカルの working tree パスは `/Users/tato/repo/github/tatoflam/ToDoBot` のまま (path はリネームせず、remote だけ差し替え)。
 
 OpenSpec workflow で proposal / design / specs / tasks 一式起票、change 名 `line-todo-bot-mvp`。設計詳細・運用コスト試算・spec 一覧は [[05_learn/todobot-line-mvp]] を参照。
+
+## ステータス (2026-05-27 時点) — `2課` プロファイル追加 + scheduler window バグ修正 + 本番 deploy + push
+
+5/27 セッションで運用追加 2 件着地、いずれも `origin/main` に push 済み:
+
+1. **`2課` プロファイル追加** (`config/profiles.yaml:29`)
+   - 新規 `line_group_id: C4a85b58...`、配信時刻 18:00 JST、宛先 `integrate@` / `thomma@`
+   - LINE Group ID 取得手順: Bot 招待 → グループでテキスト 1 通発言 → Firebase コンソール Firestore `groups/` コレクションに新規ドキュメント増 (= `line_group_id`)、または Cloud Logging で `line_webhook persisted 1 message(s)` ログ参照
+   - `config/profiles.yaml` は `.gitignore` 対象、`firebase.json` の `predeploy` フックで `functions/config/profiles.yaml` に上書きコピーされる (§採用スタック 5/21 既述)
+
+2. **scheduler window バグ修正** ([scheduler.py:118-128](https://github.com/meguruit/ToDoBot/blob/main/functions/src/todobot/scheduler.py#L118-L128)、commit `0289373`)
+   - **Before**: `since = 当日 00:00 JST` / `until = 実行時刻` → 18:00 以降〜深夜の発言が **どのレポートにも入らない** 取りこぼし
+   - **After**: `since = 前日 report_time JST` / `until = 当日 report_time JST` → 24h 完全カバー、ジッタ ±7min に左右されない (スケジューラの実行時刻ではなく **スケジュール時刻** にアンカー)
+   - 新規テスト 2 件: `test_messages_window_spans_previous_to_current_report_time` / `test_messages_window_anchored_on_report_time_not_run_time`、既存 `test_messages_window_starts_at_local_midnight` を新意味に更新
+   - **テスト**: 147 → **149 件** green、`pytest` / `mypy --strict` / `ruff` / `black` 全クリア
+   - 設計判断: `report_time` がプロファイルごと可変なので 24h ウィンドウは「直前の同時刻 〜 今回の同時刻」が自然 (= スケジューラの ±7min jitter に依存せず安定)
+
+3. **デプロイ**: `scripts/deploy.sh functions` → 4 関数 (`cleanup_scheduled` / `daily_report_scheduled` / `line_webhook` / `daily_report_trigger`) すべて `Successful update operation`
+   - **詰まりポイント**: 1 回目 deploy 時に **Firebase CLI の認証切れ** に遭遇、`firebase login --reauth` (ブラウザ認証走るので user 手動) → 再 deploy で成功
+4. **commit + push**: `0289373 fix(scheduler): anchor daily-report window on scheduled report_time` (scheduler.py + test_scheduler.py のみ)、`origin/main` に push 完了 (`2f879fb..0289373`)。`README.md` (Mermaid 図) と `docs/proposal/` (HTML/PDF + 提案 PDF) は意図的に未コミットのまま残置 (本セッションのスコープ外)
+5. **明日 18:00 JST から `2課` の初回レポート自動配信**: deploy 直後に Bot 招待 → グループ発言 → Firestore `groups/` 確認の運用手順を user に提示済。手動トリガもセット (`curl -i -H "X-Job-Token: ${JOB_SHARED_SECRET}" "https://asia-northeast1-todobot-dev.cloudfunctions.net/daily_report_trigger?profile=2課"`)
+
+### see also (5/27 セッション由来)
+
+- [[02_diary/2026-05-27#run-47]] — 本セッションの ingest entry
+- session `03d49c79-640a-479f-b7bd-a60cb8111948` (5/27 19:52 JST 開始、scheduler fix + 2課 profile + deploy)
 
 ## ステータス (2026-05-22 時点) — クライアント向け提案書 (HTML/PDF) + Mermaid 図、工数 253.5h 確定
 
@@ -232,3 +258,4 @@ dac0875 feat(webhook): LINE webhook handler with mention/reply capture (§4)  # 
 - [[02_diary/2026-05-16]] — §5-§10 完走 + 6 commits 分割 + meguruit/ToDoBot へ push
 - [[02_diary/2026-05-21]] — E2E 疎通 + Gmail API DWD 切替 + @mention 解決バグ修正 + ドッグフード開始
 - [[02_diary/2026-05-22]] — クライアント向け提案書 (HTML/PDF) + Mermaid 図 + 工数 253.5h 確定
+- [[02_diary/2026-05-27]] — `2課` プロファイル追加 + scheduler window バグ修正 (anchor on report_time) + push (commit `0289373`)

@@ -134,3 +134,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-05-27T02:02:10Z  op:ingest  S=1 I=0 pages=1 unsortable=0 deferred=11 hold=1
 - 2026-05-27T07:55:00Z  op:ingest  S=3 I=0 pages=1 unsortable=0 deferred=11 (run-45: meta drain 3 [16ee45c9 run-44 worker-self + 47fcd0db Bizuayeu title-only + 443bc910 run-40 worker-self re-fire] + 45 連続 defer 11)
 - 2026-05-27T08:11:10Z  op:ingest  S=1 I=0 pages=1 unsortable=0 deferred=11 (run-46: meta drain 1 [3cd7ae30 run-45 worker-self] + 46 連続 defer 11)
+- 2026-05-27T11:01:44Z  op:ingest  S=5 I=0 pages=2 unsortable=0
