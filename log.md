@@ -132,3 +132,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-05-26T21:41:09Z  op:ingest  S=4 I=0 pages=2 unsortable=0 deferred=11 (run-42: substantive 2 [7d4100ea 13工程進捗ビュー + eee551a5 5-26 週次レポート、いずれも meguruit/MeguruPMReport private push → 06_output 非該当 per run-36 precedent] + meta-drain 2 [8d745a75 run-41 worker-self + b50d3ddb re-enqueue +252 bytes trailing metadata] + 42 連続 defer 11 [06_output 15日 + 02_diary/5-23 4日 + 04_life 4日]; run-41 が precedent 見落としで 7d4100ea を 06_output dirty で defer していたが本ランで再評価して landing)
 - 2026-05-27T01:17:44Z  op:ingest  S=4 I=0 pages=1 unsortable=0 (run-43: 3 meta-drain + 1 hook-error + 11 deferred)
 - 2026-05-27T02:02:10Z  op:ingest  S=1 I=0 pages=1 unsortable=0 deferred=11 hold=1
+- 2026-05-27T07:55:00Z  op:ingest  S=3 I=0 pages=1 unsortable=0 deferred=11 (run-45: meta drain 3 [16ee45c9 run-44 worker-self + 47fcd0db Bizuayeu title-only + 443bc910 run-40 worker-self re-fire] + 45 連続 defer 11)
