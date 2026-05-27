@@ -2,8 +2,8 @@
 title: ThreadsPosts — 腸活スタジオ Threads 自動投稿パイプライン
 category: 03_work
 tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, tech:esim, stage:active, stage:incident-response, entity:chokatsu-studio, entity:meta-classifier, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, milestone:weekly-cycle-w19-execution, milestone:openspec-3-archive-batch, milestone:playbook-process-revamp, milestone:playbook-archive-sync, milestone:account-ban-pivot, milestone:openspec-3-change-ban-pivot, milestone:ban-pivot-explore-synthesis, milestone:publish-relocate-local-shipping, milestone:legacy-tenant-archive, milestone:ban-decision7-reframing, milestone:3-account-staged-scaling, milestone:interior-uchi-style-confirmed, milestone:account-1-phase-0-shipped, milestone:account-1-d001-draft, milestone:interior-playbook-from-K, milestone:subject-omission-style, milestone:launch-week-brand-suppression, entity:oheyamemo, genre:interior, incident:threads-ban-2026-05-04, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic, principle:capture-first-explore, principle:change-boundary-equals-commit-boundary, principle:composite-fingerprint-not-single-cause, principle:milestone-driven-scaling, principle:subject-axis-not-credential-axis, principle:two-layer-persona-profile-ok-body-ng, principle:launch-week-trust-first, topic:ceiling-light, topic:youtube-subtitle-research]
-sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8, a73c0aa2-c9a4-46e3-ab60-72b6b426901a, 8b57f7c8-b8fa-4f65-8c06-06cf6fbe87b3, 97d3f618-8d6c-40e6-8210-06549512f183, cef7a3c1-5798-4534-ab51-63c1a2279734, c02fca64-85c4-40f5-9bae-00ea56f138c1, f198b34e-7c91-4bee-8bf4-a3a532f86901, ea0b21e8-0197-4d87-a637-45d18bc759d7, 665cb2da-de7e-4b1b-93f9-2500f8d6fe95, 99902682-b840-494b-b76c-59c90854c892, c0b0dfea-a81b-4470-b2f5-07cbbaa4aae8, 1228fa25-787b-4c38-b347-3a9231d5431a, d59da658-e5d8-4292-9095-c907f18fcca8, 196a73b5-f043-46ca-a902-3a9ba3669c98, 028c145c-62e4-46ba-8c98-efc52d5d77cc, 6c99bbeb-c873-4342-bc9c-e6807882b5f3]
-updated: 2026-05-17
+sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8, a73c0aa2-c9a4-46e3-ab60-72b6b426901a, 8b57f7c8-b8fa-4f65-8c06-06cf6fbe87b3, 97d3f618-8d6c-40e6-8210-06549512f183, cef7a3c1-5798-4534-ab51-63c1a2279734, c02fca64-85c4-40f5-9bae-00ea56f138c1, f198b34e-7c91-4bee-8bf4-a3a532f86901, ea0b21e8-0197-4d87-a637-45d18bc759d7, 665cb2da-de7e-4b1b-93f9-2500f8d6fe95, 99902682-b840-494b-b76c-59c90854c892, c0b0dfea-a81b-4470-b2f5-07cbbaa4aae8, 1228fa25-787b-4c38-b347-3a9231d5431a, d59da658-e5d8-4292-9095-c907f18fcca8, 196a73b5-f043-46ca-a902-3a9ba3669c98, 028c145c-62e4-46ba-8c98-efc52d5d77cc, 6c99bbeb-c873-4342-bc9c-e6807882b5f3, 8cf2b80c-2557-43b0-849c-8aa5aea7552f, c7f92639-9af8-456a-92ef-8f770a7311e9, 86141ecc-90e4-4efe-8751-35b1fc2af063, a878e29c-097d-4107-99de-8409c30f6dff, 72d2768d-9123-4b73-bb0b-175426c509ae]
+updated: 2026-05-28
 ---
 
 # ThreadsPosts
@@ -1574,3 +1574,95 @@ D002 → 「アッパーライト独立調光がついている機種」、D003 
 - [[02_diary/2026-05-16]] — 07:52 エントリ (本セッション、3 層変更を時系列で)
 - [[05_learn/persona-driven-content-rules]] — 2026-05-16 改訂 (うち撤回 + launch 週抑制) を追記
 - [[05_learn/threads-engagement-rotation-pattern]] — 沼子。事例の 4 役割ローテが post-rotation-pattern capability の seed
+
+## 2026-05-16 〜 05-19 — post-tone-frank PR / resolve-affiliates / playbook PR / research-local-first / image-pick-web / at-scheduler (5 sessions landing, run-48)
+
+run-48 (`/wiki-ingest` 2026-05-28) で **private-repo-push 先例**を `tatoflam/ThreadsPosts` 全 PR に統一適用、5/15〜5/19 起算で 22〜38 連続 defer されていた 5 セッションを一気着地。`06_output/2026-05.md` trailing-whitespace dirty は引き続き存在するが、これらは Threads publish (post_id) を伴わず 06_output 対象外として扱う (per run-42/run-47 の MeguruPMReport / ToDoBot 先例)。Threads publish を含む 4 件 (`fdc3d957` D002、`ba2b8e66` D003、`d244f847` D005/D006、+ `e19b11f3` 公開 GitHub 初回 push) は引き続き defer。
+
+### post-tone-frank-and-format-strategy 56/56 完走 + PR #4 / PR #5 archive (8cf2b80c, 5-16 00:35-01:52 JST)
+
+spec-driven change 全 6 group 56 task ✅:
+
+- **lint severity** (errors vs warnings 分離): `dept/dev/pipeline/lint/rule_lint.js`、`lint_posts.js` で WARN プリント、`lintPostFile/Content` の戻り値 `{errors, warnings}` 化、`npm run lint:templates` script 追加
+- **banned_patterns.yaml** 新規 (`dept/content/style/banned_patterns.yaml`): 連続体言止め検知 + 脚注行 (`footnote_*`) は formal_stiffness 検査から除外
+- **frank_voice.md** 新規 (`dept/content/style/frank_voice.md`): フランク文体ガイド + 用例
+- **`tone`/`format` frontmatter 軸** 拡張: `validate_frontmatter.js` で enum 検証、`backfill_frontmatter.js` で `tone: classic` / `format: text` デフォルト埋め込み、`generate_post.js` で account_1 を `--genre interior` から推論
+- **6 monetization templates** に「フランク版例文」セクション追加 (`product_single` / `summary_set` / `summary_tree` / `room_redirect` / `shop_redirect` / `shop_search_redirect`)
+- **interior hooks に ok-frank 7 entry** 追加 (`dept/content/hooks/interior.md`)、lint:hooks pass
+- **posting_policy.yaml** `format_mix` + `format_switch_gates` キー追加、`lib/posting_policy.js` で validation + loader 統合
+
+tests: rule_lint 9 件 / validate_frontmatter 12 件 / backfill 6 件 / posting_policy 11 件 = 計 54 件 pass、`lint:templates` clean。
+
+PR #4 (`feat/post-tone-frank-and-format-strategy → feat/account-pivot-warmup-phase0`、Phase 0 PR スタック、commit `a21aa92`、23 ファイル)。Phase 0 merge 後 GitHub が自動 retarget → main merge 確認 → `/opsx:archive` で `openspec/changes/archive/2026-05-15-post-tone-frank-and-format-strategy/` へ移動、新 spec `post-tone-frank` + `post-format-strategy` capability 化 (`+10 added / ~3 modified`)、PR #5 (`chore/archive-post-tone-frank → main`、純 openspec bookkeeping、`a21aa92` の archive 差分のみ)。
+
+### resolve-affiliates 自動運用棚卸し + actions/checkout@v5 + Node 22 bump PR #6 (c7f92639, 5-16 01:52 → 5-17 08:36 JST)
+
+「今、自動で何か運用できるんだっけ？」 user 質問 → GitHub Actions の稼働 workflow を棚卸し:
+
+- `resolve_affiliates.yml` (日次、楽天 affiliate URL 解決) — Threads token 不使用
+- `weekly_report.yml` (週次、posting policy metric 集計) — Threads token 不使用
+
+Threads ban 後 (5/4) は API 投稿が止まっているため、現状動いているのはこの 2 本のみ。`workflow_dispatch` で手動実行可能、artifact (失敗ログ ZIP) のダウンロード方法を user に案内。
+
+Node 20 deprecation 警告対応: `chore/bump-actions-node22` ブランチで:
+- `actions/checkout@v3 → @v5`
+- `actions/setup-node@v3 → @v5`
+- `node-version: 20 → 22`
+
+2 workflow 一括更新、PR #6 起票 → user GitHub UI で merge → ローカル fast-forward + branch prune。
+
+### interior-playbook PR creation + research-local-first /opsx:propose 起票 (86141ecc, 5-17 08:36-09:54 JST)
+
+`/opsx:explore` で 5/16 着地済の interior-playbook-from-K change 周辺を点検。user 「先に PR を切って main を綺麗にしてから運用に入る」方針 → `feat/interior-playbook-from-K` PR 起票 → user GitHub merge → ローカル fast-forward (commit `2259e39`、main 同期)。`D002-D005` (W2 配置 4 件 draft、subjectless「うち」撤回後のリライト版) の frontmatter / lint 確認 → 全 pass。W2 (5/14-20) rotation 運用ルール (4 役割ローテ: 共感獲得 / 収益化 / 有益情報 / ファン化) を `dept/marketing/strategy/rotation_decision_log.md` に追記 (5/16 ratify 補完)。
+
+「ネタ集めも自動化したい」 user 質問 → `/opsx:propose research-local-first`: YouTube transcripts ベース + user-intake-dialogue + 楽天 API 直叩きで `account-research` (ChatGPT 依存) を再設計、6 → 56 task に展開、openspec validate strict pass。「収益化を見据えると、逆算で先にトピックに関連する商品の特徴 × `a.r10.to` や、特徴 × YouTube / X / Threads でリサーチしてマーケティング → 投稿企画」という上流回帰要望を spec 化。
+
+### research-local-first /opsx:apply 56 task 完走 + PR #9 (account-pivot-warmup phase gate + multi-tenant) + account-pivot-warmup archive (a878e29c, 5-17 09:54-11:49 JST)
+
+`/opsx:apply research-local-first` で 9 group 56 task 着地:
+
+- **`/research-youtube` skill** 新設 (`.claude/skills/research-youtube/`): yt-dlp で transcript 取得、字幕ありは Whisper skip
+- **`/research-intake` skill** 新設 (`.claude/skills/research-intake/`): weekly-cycle B-MARKETING 冒頭で起動する 5-10 分の対話、`dept/research/inbox/<ISO_week>/candidates/` に 3 file (`knowledge_seeds.md` / `products.yaml.fragment` / `hooks.md.fragment`) 振り分け、URL 推測禁止、skip 可
+- **`account-research/*` 撤去**: ChatGPT 依存の subcommand (competitors / products) を完全削除
+- staging area `dept/research/inbox/<ISO_week>/` 運用開始
+- marketing-cycle B-1 を user-intake-dialogue 主導へ書換 (`SKILL.md`)
+
+同 PR (#9 `feat/account-pivot-warmup-phase-gate → main`) 内で **account-pivot-warmup §3-§12** 全実装も着地:
+- `publish.js` phase gate (warmup_w1〜w4 の固有名詞 / 出典 / アフィリ段階解禁)
+- warmup ramp 上限 (`MAX_POSTS_PER_DAY` を phase ごと可変)
+- `lib/phase_gate.js` 新設 (env var `POSTING_PHASE_GATE_ENABLED=false` で bypass、prominent warning ログ)
+- 5 capability 連動 (`posting-strategy` / `account-warmup-protocol` / `account-isolation-hygiene` / `post-templates` / `account-config`)
+
+さらに `multi-tenant-bootstrap §1+§3+§4` も同 PR に乗った: `tenant_paths.js` + base persona + config 拡張 (commit `a5106df`)。
+
+PR #9 merge → `chore(openspec): archive account-pivot-warmup + sync main specs` (commit `87d5a8b`) で main spec 同期完了。
+
+user prompt 「現時点で運用として、一連の流れで何ができるようになっているか。変更要件(changes)の今後のプロダクト更新の方針はどうか、という観点で、一度整理してほしい」 → assistant が 5/16 着地の playbook + 5/17 着地の phase-gate / research / multi-tenant を踏まえた横断 roadmap を提示し、次の作り込み優先順位を提案。
+
+### image-pick-web + 写真確認 UI + at-scheduler 仕込み (72d2768d, 5-18 16:07 → 5-19 07:45 JST)
+
+「この投稿に合う画像って、実装済みの機能を使ってリストアップできるの？」 user 質問 → 既実装の `image-pick-web` (Unsplash API + license 取得ベース) の存在を確認、web からの自動候補抽出は未配線と判明 → 3 PR 起票で配線完成:
+
+- **PR #10**: image API 実装 (`format-image-enablement §1-§7,§9,§10`、commit `c4964da`) — `dept/dev/pipeline/image/` 配下に Unsplash adapter + license 解決 + cache
+- **PR #11**: `image-pick-web` skill 新設 (`/image-pick-web` slash command) — draft text → 英語 search query 抽出 → 候補リスト → user 選択 → `dept/content/assets/<account>/<draft_id>/` ダウンロード + frontmatter `image_paths:` + `image_license:` 反映
+- **PR #12**: D003-D008 各 draft に image_paths を反映 (merge conflict 解消後着地、本セッション内で user 委譲)
+
+写真確認 UI 経路: `dept/content/assets/account_1/D00X/index.md` で thumbnail プレビュー (Obsidian / VSCode previewer 依存)。「どこで見られるの？リンクを明示して」 user 反復質問 → README に確認手順を明示。
+
+外部ホスト検討: 「Cloudflare R2 / S3 / Cloudinary 等だとどこがいい？例えば GWS アカウントがあるから Google Drive にクレデンシャル使って接続するようにしたら？」 user 質問 → 2 案 (R2 vs Google Drive) → user 「Google Drive で簡潔な実装でよろしく」 → `/opsx:propose image-hosting-gdrive` 起票 (本セッション末で着手、続きは 5/22 d244f847 で実装、本 ingest では defer)。
+
+at-scheduler 仕込み: 「あとは自動で 1 時間後に publish しといて」 user 依頼 → Mac の `at` コマンドで scheduled publish job を仕込み (`atq` で確認、log は `~/Library/Logs/`)。`at` は launchd 経由で permission 必要 → `Update Config Skill` で `~/.claude/settings.json` の bash permission を更新 → user 「at を有効化したよ」で運用開始 (この at-scheduler は後に 5/22 d244f847 で launchd routine に置換)。
+
+### 残課題と先送り
+
+- **Threads publish 系 (4 件) は本 ingest 範囲外**: `fdc3d957` (D002 publish post_id=17930169027278345)、`ba2b8e66` (D003 publish post_id=18099291563012991)、`d244f847` (D005/D006 publish + image-hosting-gdrive 実装 + launchd routine + auto-commit on publish) は public publication (post_id) を伴うため [[06_output/2026-05]] 行追加対象、同 file dirty のため defer 継続 (累計 22-38 連続)。次ラン fix = `cd ~/repo/github/tatoflam/v && git restore 06_output/2026-05.md`
+- **format-image-enablement archive** は 5/22 d244f847 セッションで実施、本 ingest では未着地
+- **画像付き投稿の実運用**: text-first 戦略の中に「適切なものがあれば一部 image 付き投稿」を入れる方向 (5/22 ba2b8e66 で確定、本 ingest では別 change として起票のみ)
+
+### see also
+
+- [[02_diary/2026-05-16]] — 00:35 + 01:52 entry (本セッション 8cf2b80c + c7f92639)
+- [[02_diary/2026-05-17]] — 08:36 + 09:54 entry (本セッション 86141ecc + a878e29c)
+- [[02_diary/2026-05-18]] — 16:07 entry (本セッション 72d2768d、5/18→5/19 スパン)
+- [[05_learn/threads-engagement-rotation-pattern]] — 4 役割ローテと W2 ratify
+- [[05_learn/wiki-automation-pipeline]] — 18+ 日継続 06_output dirty defer の運用パターン

@@ -2,8 +2,8 @@
 title: ToDoBot — LINE 業務会話 → 日次 ToDo レポート
 category: 03_work
 tags: [project:todobot, tech:python, tech:firebase, tech:firestore, tech:line-messaging-api, tech:anthropic-claude, tech:google-workspace, tech:gmail-api, tech:domain-wide-delegation, tech:openspec, tech:pytest, tech:mypy-strict, tech:mermaid, tech:chrome-headless-pdf, stage:dogfood, stage:proposal-ready, milestone:mvp-code-complete, milestone:repo-pushed-meguruit, milestone:e2e-validated, milestone:client-proposal-pdf, entity:meguruit-org, client:meguruit]
-sources: [2648ee43-ade1-4be4-b64a-b31c9d21bfb3, 8dc542f5-d276-4e26-b04a-6f9fe822db47, f9415d55-991f-4d85-8f11-50e87deb910b, 5905d91d-8f8f-4b6f-b8d0-06c7f97422e2, ab52fdac-54a0-4291-bdb0-c112d8f67a03, f27991f0-61ce-4c42-af2f-f6d8f794426f, 03d49c79-640a-479f-b7bd-a60cb8111948]
-updated: 2026-05-27
+sources: [2648ee43-ade1-4be4-b64a-b31c9d21bfb3, 8dc542f5-d276-4e26-b04a-6f9fe822db47, f9415d55-991f-4d85-8f11-50e87deb910b, 5905d91d-8f8f-4b6f-b8d0-06c7f97422e2, ab52fdac-54a0-4291-bdb0-c112d8f67a03, f27991f0-61ce-4c42-af2f-f6d8f794426f, 03d49c79-640a-479f-b7bd-a60cb8111948, 0d2f488c-5346-40e1-b55a-dd3d80b26354]
+updated: 2026-05-28
 ---
 
 # ToDoBot
@@ -16,7 +16,46 @@ LINE グループに常駐する Bot が業務会話を受信し、1 日 1 回 L
 
 OpenSpec workflow で proposal / design / specs / tasks 一式起票、change 名 `line-todo-bot-mvp`。設計詳細・運用コスト試算・spec 一覧は [[05_learn/todobot-line-mvp]] を参照。
 
-## ステータス (2026-05-27 時点) — `2課` プロファイル追加 + scheduler window バグ修正 + 本番 deploy + push
+## ステータス (2026-05-27 夜) — multi-slot-reports-and-emphasis 23/25 着地 + push (0d2f488c)
+
+同日夜の `0d2f488c-5346-40e1-b55a-dd3d80b26354` セッション (19:55-21:04 JST) で 1 つ大物 OpenSpec change が着地、`origin/main` に push (commit `89a52bf`)。
+
+### change 名: `multi-slot-reports-and-emphasis` (spec-driven)
+
+**目的**: 1 プロファイル 1 配信時刻 → 1 プロファイル N 配信時刻 (例: 朝礼 + 夕礼) + グループごとの強調キーワード適用で、業務会話の中で軽重を反映できるレポートに。
+
+**着地範囲 (§1-§5 = 23/25 task)**:
+
+1. **§1 Config schema** ([config.py](functions/src/todobot/config.py)): `report_time: list[str]` 化、str→[str] backward-compat coercion、sort + dedup、`MIN_SLOT_INTERVAL` (60min) 検証。既存 `"20:00"` プロファイル無改修で動作継続
+2. **§2 Daily-report spec** (`specs/daily-report/spec.md` delta): slot-aware window (前回 slot 末尾〜今回 slot 末尾)、per-group `emphasis_keywords: list[str]` 追加で extraction prompt に重み付けキーワードを差し込む
+3. **§3 Scheduler** ([scheduler.py](functions/src/todobot/scheduler.py)): per-slot window 算出 (`anchored_at: 当回 slot の JST` ベース)、複数 slot 並走時の dedup (同 group は 1 回/slot)
+4. **§4 Firestore** ([firestore_repo.py](functions/src/todobot/firestore_repo.py)): per-group key 索引追加、`groups/<id>/slot_history/{slot_iso}` collection で送信履歴
+5. **§5 Report builder** ([report.py](functions/src/todobot/report.py)): Anthropic SDK prompt template に `emphasis_keywords` セクションを動的挿入、ない場合は素の prompt にフォールバック
+6. **テスト**: 142 → **179 件** green、`pytest` / `mypy --strict` / `ruff` / `black` 全クリア
+7. **docs 更新**: `docs/operations/acceptance.md` + `docs/operations/README.md` + project [README.md](README.md) (slot list 説明 + emphasis keywords セクション)
+
+**未着地 (§6)**:
+- 実機 acceptance (本番環境で 2 slot 同日配信 + emphasis_keywords 適用) — warmup 中の人ゲートとして user 判断待ち
+
+### commit + push
+
+- commit `89a52bf feat(report): multi-slot daily reports and per-group emphasis keywords` (12 ファイル、change 関連のみ)
+- `0289373..89a52bf` push 完了 (`origin/main`)
+- `docs/proposal/` (HTML/PDF + 提案 PDF) は意図的に untracked のまま (本セッションのスコープ外、5/22 提案書から残置)
+
+### 設計のキモ
+
+- **backward-compat coercion**: `report_time: "20:00"` (旧スカラ) を `["20:00"]` に自動昇格、既存プロファイル全て無改修で動作
+- **slot interval 60min lower bound**: extraction prompt 再呼び出しコスト ($0.01-0.05 / 回) と LINE push 重複防止のための保守的下限。将来要件があれば緩める方向は spec で議論
+- **per-group emphasis vs per-slot emphasis**: per-group (= LINE グループ単位) で確定。理由は「2課」のような業務単位は LINE グループに 1:1 対応する想定で、slot は時間帯違いの再配信扱い (例: 朝礼 = 7:30、夕礼 = 18:00 で同じグループ会話を 2 度配信)
+- **emphasis_keywords の prompt 戦略**: `system` ブロックに「以下キーワードに該当する発言は重み付けして拾え」と入れる。文字列リスト (空配列 = フォールバック)、強い指示ではなく soft hint
+
+### see also (0d2f488c 由来)
+
+- [[02_diary/2026-05-27#19:55  ToDoBot multi-slot]] — 本セッションの ingest entry
+- 同日早朝の `03d49c79` (scheduler window バグ修正) と本セッション `0d2f488c` (multi-slot) は両方とも scheduler 系で背景共有: 「`report_time` が可変 → window アンカーをスケジュール時刻に固定」+「`report_time` を list 化 → window 算出も per-slot 化」の連動 evolution
+
+## ステータス (2026-05-27 朝) — `2課` プロファイル追加 + scheduler window バグ修正 + 本番 deploy + push
 
 5/27 セッションで運用追加 2 件着地、いずれも `origin/main` に push 済み:
 
