@@ -1,9 +1,9 @@
 ---
 title: MeguruPMReport
 category: 03_work
-tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, stage:active]
-sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33]
-updated: 2026-05-27
+tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, tech:google-drive, tech:firebase-hosting, stage:active]
+sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf]
+updated: 2026-05-29
 ---
 
 # MeguruPMReport
@@ -172,6 +172,39 @@ Meguru 案件の **週次アップデート** を Gmail と Jooto から Claude 
 - **archive ボードの 404 は許容**: `1241349 ２課` のような archive 済ボードは `/jooto-overdue-scan` で 404 を返す。FY26 案件側は `--board <id>` で個別実行が並列で正常完了するので、404 はログに残しつつ batch を止めない方針
 - **handover_diff の現場担当変更 (「未定」→ ２課/１課)** は週次レポートで前回差分末尾に `; 申し送り: ...` 形式で吸収される。複数案件で同タイミング (= 期初の振り分け) に発生しがちで、週次レポートの主要トピックには浮上しないが、後続の overdue 検知に影響するので handover_diff だけは別途確認する習慣
 
+### sync-published-doc-before-report (2026-05-28 OpenSpec change、31/35 tasks 完走)
+
+配信済み Google Doc を Drive 上で人手編集された場合に備えて、次回 `/weekly-report` の baseline を Drive から fetch して取り込む仕組み。session `3c659039` (2026-05-28 08:07-08:28 UTC) で proposal/design/specs (3 capability) /tasks 全起票 → `openspec validate --strict` 通過 → 31/35 tasks 実装着地。残 4 task は live Drive/Firebase E2E のため次回自然な `/weekly-report-publish` + `/weekly-report` ランで自動消化予定。
+
+- **動機**: 前回 `/weekly-report-publish` で配信した Google Doc が宛先側で人手修正されると、次回レポートの差分計算が古い `latest_summary.md` ベースになり、修正が消える形でレポートが上書きされる。Drive を **canonical source** に据え直し、`/weekly-report` 起動時にまず Drive から最新を取り込む
+- **核 design (7 個の Decision)**:
+  - **Doc 解決キー**: `state/latest_state.json` の `published_doc_id`（前回 `/weekly-report-publish` 成功時に書き込まれる）
+  - **Export API**: Drive `files.export(fileId, mimeType='text/markdown')`、UTF-8 + CRLF normalize
+  - **マスキング比較**: 配信時のマスキング差分（氏名・社名等）は比較ルール側で無視（specs 不変、`workspace_defaults.md` の辞書層で吸収）
+  - **既定挙動**: `/weekly-report` 起動時に自動先行 sync、`--skip-baseline-sync` で opt-out 可、`diff_against=YYYY-MM-DD` 指定時は走らせない
+  - **書き込み**: `.bak-{YYYYMMDDTHHMMSSZ}` バックアップ → tmp+fsync+`os.replace` の atomic 上書き
+  - **失敗時**: 副作用なしで終了、user に対話的フォールバック提示
+  - **Drive 権限**: read-only export、書き込みスコープ追加なし
+- **実装着地ファイル** (commit 未確認、本セッション末で `commit, push, openspec archive` を実行する場合は次ラン以降で追跡):
+  - `plugins/drive-publisher/scripts/fetch_doc.py` (new) — `DriveClient.export_doc` + `DefaultDriveClient.export_doc`、UTF-8 + CRLF normalize、429/5xx は 1/2/4s backoff の指数バックオフ
+  - `plugins/drive-publisher/scripts/sync_baseline.py` (new) — `SyncResult` dataclass + `.bak-{ISO}` バックアップ + atomic tmp+fsync+`os.replace`
+  - `plugins/drive-publisher/scripts/test/test_fetch_doc.py` + `test_sync_baseline.py` (new)
+  - `.claude/commands/weekly-report-sync-baseline.md` (new) — `/weekly-report-sync-baseline` slash command
+  - `.claude/commands/weekly-report.md` (修正) — event 0 として auto-baseline-sync を追加、`--skip-baseline-sync` フラグ実装
+  - `config/workspace_defaults.md` (修正) — masking-before-comparison ルール追記（specs 不変、辞書層のみ）
+  - `plugins/drive-publisher/scripts/publish.py` (修正) — `_update_latest_state_meta` が全 3 step (HTML deploy + Drive upload + email notify) 成功時のみ `published_doc_id` / `published_doc_url` / `published_html_url` / `published_run_date` を `state/latest_state.json` に upsert（部分成功時は書き込みなし）
+  - `plugins/drive-publisher/scripts/test/test_publish.py` (修正) — 新規 4 test (publish-success-writes-meta / partial-failure-no-write / pre-existing-meta-preserved / meta-keys-shape)
+  - `.gitignore` (修正) — `state/*.bak-*` / `reports/*.bak-*` 除外
+  - `CLAUDE.md` (修正) — 新コマンド + flow + ファイルレイアウト反映
+- **検証**: pytest **79 passed** (前回 63 → +16 新規)、`openspec validate --strict` ✓
+- **deferred 4 tasks** (7.3-7.6) — live Drive/Firebase E2E:
+  - 7.3 `/weekly-report-publish` → `state/latest_state.json` に `published_doc_id` が書き込まれること
+  - 7.4 `/weekly-report-sync-baseline` → `.bak-*` 生成 + 内容上書き
+  - 7.5 `/weekly-report --skip-baseline-sync` → sync skip 確認
+  - 7.6 Drive 上で Doc 編集 → `/weekly-report-sync-baseline` → 編集が local に伝播
+- **archive 未** (`/opsx:archive sync-published-doc-before-report` 未実行): 4 deferred tasks 消化 = 次回自然な weekly ラン完了後に archive 予定
+- 詳細: [[02_diary/2026-05-29]] run-51 entry
+
 ## Links
 
 - [[02_diary/2026-04-24]]
@@ -181,6 +214,7 @@ Meguru 案件の **週次アップデート** を Gmail と Jooto から Claude 
 - [[02_diary/2026-05-19]]
 - [[02_diary/2026-05-23]]
 - [[02_diary/2026-05-27]]
+- [[02_diary/2026-05-29]]
 - [[05_learn/ssh-agent-shortcuts]]
 - [[05_learn/gmail-mcp-reauth]]
 - [[05_learn/gmail-search-threads-message-limit]]
