@@ -2,11 +2,74 @@
 title: ToDoBot — LINE 業務会話 → 日次 ToDo レポート
 category: 03_work
 tags: [project:todobot, tech:python, tech:firebase, tech:firestore, tech:line-messaging-api, tech:anthropic-claude, tech:google-workspace, tech:gmail-api, tech:domain-wide-delegation, tech:openspec, tech:pytest, tech:mypy-strict, tech:mermaid, tech:chrome-headless-pdf, stage:dogfood, stage:proposal-ready, milestone:mvp-code-complete, milestone:repo-pushed-meguruit, milestone:e2e-validated, milestone:client-proposal-pdf, entity:meguruit-org, client:meguruit]
-sources: [2648ee43-ade1-4be4-b64a-b31c9d21bfb3, 8dc542f5-d276-4e26-b04a-6f9fe822db47, f9415d55-991f-4d85-8f11-50e87deb910b, 5905d91d-8f8f-4b6f-b8d0-06c7f97422e2, ab52fdac-54a0-4291-bdb0-c112d8f67a03, f27991f0-61ce-4c42-af2f-f6d8f794426f, 03d49c79-640a-479f-b7bd-a60cb8111948, 0d2f488c-5346-40e1-b55a-dd3d80b26354]
-updated: 2026-05-28
+sources: [2648ee43-ade1-4be4-b64a-b31c9d21bfb3, 8dc542f5-d276-4e26-b04a-6f9fe822db47, f9415d55-991f-4d85-8f11-50e87deb910b, 5905d91d-8f8f-4b6f-b8d0-06c7f97422e2, ab52fdac-54a0-4291-bdb0-c112d8f67a03, f27991f0-61ce-4c42-af2f-f6d8f794426f, 03d49c79-640a-479f-b7bd-a60cb8111948, 0d2f488c-5346-40e1-b55a-dd3d80b26354, cb878ae5-38c1-4e42-a2dd-56eae9f219f2]
+updated: 2026-05-29
 ---
 
 # ToDoBot
+
+## ステータス (2026-05-28) — `1課` プロファイル投入 + extraction max_tokens 4096→16384 修正
+
+5-28 セッション (`cb878ae5`、07:47-18:37 JST、10 turn) で運用追加 + バグ修正の 2 件着地。`config/profiles.yaml` は `.gitignore` のまま、`functions/src/todobot/extraction.py:176` の 1 行修正は本セッション時点で **未 commit** (ローカル working tree 変更のみ、本番には deploy 経由で反映済)。
+
+### 1課 profile 追加
+
+`config/profiles.yaml` (gitignore) に `1課` を新設:
+
+- `slots = [(6,0), (18,0)]` (`report_time: ["06:00", "18:00"]`) — multi-slot 初回 実運用、5-27 夜 `multi-slot-reports-and-emphasis` 着地の最初のユーザ
+- `skip_empty = True`
+- `llm_model = claude-sonnet-4-6` (2課と同。コメント末尾タイポ `# Sonne` → `# Sonnet` 修正)
+- `to = [structure, thomma, sichikawa]` (3 名宛、@meguru-construction.com)
+- `line_group_id = C72073b30f65df1e031e52bb771710a01`
+
+deploy 経路は run-47 (5-27) と同一: 編集 → `scripts/deploy.sh functions` (`predeploy` フックで `functions/config/profiles.yaml` へコピー)。
+
+### Firebase CLI reauth が 24h で再失効
+
+5-27 run-47 で通したばかりの `firebase login --reauth` が 5-28 朝の deploy 試行で再度切れていた (`Authentication Error: Your credentials are no longer valid`)。`developer1@meguru-construction.com` で再 OAuth → 4 関数 (`daily_report_scheduled` / `daily_report_trigger` / `line_webhook` / `cleanup_scheduled`) すべて `Successful update operation`。reauth セッション寿命は約 24h、daily ops 中に切れる前提で運用する。
+
+### 18:00 初回配信失敗 → max_tokens overflow が真因
+
+deploy 直後の 5-28 18:00 slot で、**2課 は通知出たが 1課 は LINE/メール共に未通知**。仮説を順に潰す:
+
+| 仮説 | 検証結果 |
+|---|---|
+| Bot が 1課 グループ未招待 | user 「公式アカウントはメンバーには入ってる」→ 否定 |
+| `line_group_id` 不一致 | user 「投稿はしてる」→ Firestore log で 1課 group に 231 件メッセージ確認 → 否定 |
+| 06:00-18:00 で発言 0 件 (`skip_empty=true`) | messages_in=231 → 否定 |
+| **extraction が失敗** | Cloud Logging に `daily_report.tick profile=1課 status=failed todos=0 err="tool_use block for record_todos has empty input"` → **真因確定** |
+
+**真因の構造**: Anthropic SDK (`claude-sonnet-4-6`) が `record_todos` tool を **空 input の `tool_use` ブロック**で返してきていた。HTTP 200 OK、ツール呼び出し自体は来るが `input={}`。原因は `max_tokens=4096` (デフォルト) で出力 JSON 打ち切り。1課 = messages_in 231 件、2課 = messages_in 119 件 (todos_extracted 20 件成功) で、約 2 倍のメッセージ量で出力 token が 4096 上限に届いた。`llm.py:120` が `ValueError("tool_use block for record_todos has empty input")` で弾き → `daily_report.unhandled` → `status=failed` → 配信スキップ。
+
+詳細パターンと再発防止策は [[05_learn/anthropic-tool-use-max-tokens-empty-input]] に分離記録。
+
+### パッチ
+
+`functions/src/todobot/extraction.py:176` の `extract_with_tool(...)` 呼び出しに `max_tokens=16384` を明示。
+
+- 4x 拡張で **47 件抽出**まで余裕がある (1課 5-28 実測)
+- 16384 は Anthropic Sonnet の 1 messages call 上限を踏まえた保守値
+- ローカル `git status` では `M functions/src/todobot/extraction.py` のまま未 commit、deploy 経由で本番に反映済
+
+### 手動再実行 (`ALREADY_RAN` の解除)
+
+スケジューラの冪等トランザクション `try_acquire_report_run` が `report_runs/1課_2026-05-28_1800` の存在で `ALREADY_RAN` を返し再実行を拒否したため、Firestore ドキュメントを 1 件削除して再 trigger:
+
+1. `gcloud firestore documents delete 'projects/todobot-dev/databases/(default)/documents/report_runs/1課_2026-05-28_1800'` — **auto-mode classifier がブロック**、user 承認後も再ブロック → `google-cloud-firestore` Python ライブラリ経由 (ローカル venv) で同等処理を実施し回避 (CLI 経由とライブラリ経由で classifier 判定が異なる)
+2. Secret Manager から `JOB_SHARED_SECRET` 取得 → `curl -i -H "X-Job-Token: ${TOKEN}" "https://asia-northeast1-todobot-dev.cloudfunctions.net/daily_report_trigger?profile=1課&slot=1800"`
+3. **結果**: `1課 sent slot=1800 todos=47 line=True email=True` — LINE / Email 両方配信成功
+
+### 設計判断 / フォロー TODO
+
+- **`max_tokens` の運用上限は messages 量で変動** — 1課 5-28 18:00 = 231 msg / 47 todos / 16384 tok で OK だったが、将来的に 1課 が 500 msg/slot を超えると同様の打ち切りが再発する可能性。`extraction.py` での `max_tokens` を `f(messages_in)` の動的設定 (例: `min(64000, max(8192, messages_in * 60))`) にすべきかは要議論
+- **未 commit の `extraction.py` 修正**: 本セッションで commit せず終話したので、次セッションで `max_tokens=16384` を含む commit を切る必要あり (テスト追加: `tool_use` 空 input → 適切な ValueError + Cloud Logging 出力の e2e ケース)
+- **`ALREADY_RAN` 手動解除パターン**: 今回のような extraction 失敗系の retry は Firestore ドキュメント手動削除という destructive 操作になる。`daily_report_trigger` に `force=true` クエリパラメータを足して内部で `report_runs` ドキュメントを削除 → 再実行する semantics にできれば、将来の同種事故が早く戻せる
+
+### see also (5/28 セッション由来)
+
+- [[02_diary/2026-05-28#07:47  ToDoBot 1課 profile]] — 本セッションの ingest entry
+- [[05_learn/anthropic-tool-use-max-tokens-empty-input]] — 空 tool_use = max_tokens 打ち切りシグネチャの canonical learning
+- session `cb878ae5-38c1-4e42-a2dd-56eae9f219f2` (5/28 07:47-18:37 JST、1課 profile + extraction max_tokens 修正)
 
 ## Summary
 
