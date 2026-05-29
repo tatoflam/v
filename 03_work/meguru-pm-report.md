@@ -2,7 +2,7 @@
 title: MeguruPMReport
 category: 03_work
 tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, tech:google-drive, tech:firebase-hosting, stage:active]
-sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20]
+sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229]
 updated: 2026-05-29
 ---
 
@@ -66,7 +66,7 @@ Meguru 案件の **週次アップデート** を Gmail と Jooto から Claude 
 - 2026-04-25 時点の警告対象: **井上 3 件**（祐天寺＋江古田江原＋山王3丁目）／**鈴木 4 件**（うち FY26_22 駒込待ちでスタンバイ扱い）／**加納** 新規登場（FY26_08 高田馬場＋FY26_11 東尾久、両方とも日付未設定）
 - 恒久化の follow-up change 候補: `plugins/pm-master-grabber/scripts/domain/pm_master.py` に MM/DD→YYYY-MM-DD 変換ユーティリティを内製し、`integration.json` の rows に変換済み日付を同梱（現状はレポート生成側でアドホック変換）
 
-### PMMasterGrabber プラグイン（2026-04-24 追加、OpenSpec change `add-pm-master-grabber`）
+### PMMasterGrabber プラグイン（2026-04-24 追加、OpenSpec change `add-pm-master-grabber` → 2026-05-29 archive 済）
 - 意匠設計担当の **負荷ビュー**（複数案件並走度＋評点）と **申し送り差分** を `/weekly-report` に組み込むための新プラグイン
 - 対象スプレッドシート: `進捗管理表_master`（ID `1oY9nd8tc55wLvEhqaFksZq-EMKD8GtfUBQRDUKpyBm8`、アカウント `thomma@meguru-construction.com`）
 - 3 シート前提: `統合表`（案件基本情報、行=案件）／`申し送り`（更新履歴）／`案件評価`（評点）
@@ -172,9 +172,9 @@ Meguru 案件の **週次アップデート** を Gmail と Jooto から Claude 
 - **archive ボードの 404 は許容**: `1241349 ２課` のような archive 済ボードは `/jooto-overdue-scan` で 404 を返す。FY26 案件側は `--board <id>` で個別実行が並列で正常完了するので、404 はログに残しつつ batch を止めない方針
 - **handover_diff の現場担当変更 (「未定」→ ２課/１課)** は週次レポートで前回差分末尾に `; 申し送り: ...` 形式で吸収される。複数案件で同タイミング (= 期初の振り分け) に発生しがちで、週次レポートの主要トピックには浮上しないが、後続の overdue 検知に影響するので handover_diff だけは別途確認する習慣
 
-### sync-published-doc-before-report (2026-05-28 OpenSpec change、31/35 tasks 完走)
+### sync-published-doc-before-report (2026-05-28 OpenSpec change、31/35 tasks → 2026-05-29 archive 済)
 
-配信済み Google Doc を Drive 上で人手編集された場合に備えて、次回 `/weekly-report` の baseline を Drive から fetch して取り込む仕組み。session `3c659039` (2026-05-28 08:07-08:28 UTC) で proposal/design/specs (3 capability) /tasks 全起票 → `openspec validate --strict` 通過 → 31/35 tasks 実装着地。残 4 task は live Drive/Firebase E2E のため次回自然な `/weekly-report-publish` + `/weekly-report` ランで自動消化予定。
+配信済み Google Doc を Drive 上で人手編集された場合に備えて、次回 `/weekly-report` の baseline を Drive から fetch して取り込む仕組み。session `3c659039` (2026-05-28 08:07-08:28 UTC) で proposal/design/specs (3 capability) /tasks 全起票 → `openspec validate --strict` 通過 → 31/35 tasks 実装着地。残 4 task は live Drive/Firebase E2E のため次回自然な `/weekly-report-publish` + `/weekly-report` ランで自動消化予定 (本セッションで 7.3 は `state/latest_state.json` の `published_doc_id` 反映を確認済、commit d27caa7 の state diff)。session `24f10575` (2026-05-29 01:24-01:28 UTC) で deferred 4 tasks を「dogfood で自然消化扱い」として archive 化 (commit `5efbb1c`、`openspec/changes/archive/2026-05-29-sync-published-doc-before-report/` へ移動)。
 
 - **動機**: 前回 `/weekly-report-publish` で配信した Google Doc が宛先側で人手修正されると、次回レポートの差分計算が古い `latest_summary.md` ベースになり、修正が消える形でレポートが上書きされる。Drive を **canonical source** に据え直し、`/weekly-report` 起動時にまず Drive から最新を取り込む
 - **核 design (7 個の Decision)**:
@@ -202,8 +202,57 @@ Meguru 案件の **週次アップデート** を Gmail と Jooto から Claude 
   - 7.4 `/weekly-report-sync-baseline` → `.bak-*` 生成 + 内容上書き
   - 7.5 `/weekly-report --skip-baseline-sync` → sync skip 確認
   - 7.6 Drive 上で Doc 編集 → `/weekly-report-sync-baseline` → 編集が local に伝播
-- **archive 未** (`/opsx:archive sync-published-doc-before-report` 未実行): 4 deferred tasks 消化 = 次回自然な weekly ラン完了後に archive 予定
-- 詳細: [[02_diary/2026-05-29]] run-51 entry
+- **archive 済** (`24f10575` で 2026-05-29 実行、commit `5efbb1c`): deferred 4 tasks は実装パターンが 5-27 archive 済の `add-weekly-report-distribution` と同型のため dogfood 自然消化扱いで archive 化。7.3 (`published_doc_id` upsert) は本セッションの state diff で実機確認済、残 7.4-7.6 は次回自然な `/weekly-report-publish` + `/weekly-report-sync-baseline` で確認予定
+- 詳細: [[02_diary/2026-05-29]] run-51 entry (実装着地) + run-55 entry (archive 実行)
+
+### 2026-05-29 openspec archive ラン (24f10575) — `add-pm-master-grabber` + `sync-published-doc-before-report` を archive 化、3 commit push
+
+session `24f10575-318b-41d3-b6c7-4a18bcb5d229` (5-29 01:24-01:28 UTC = JST 10:24-10:28、user 第一声「openspecでarchiveできるchangeがあれば、archiveしてcommitして。必要な斬タスクを洗い出して」) で `openspec list` 上の 3 active change を棚卸し → 2 件を archive、1 件は soak time 不足で active 据置。
+
+#### archive 判定の根拠
+
+| change | 在席 | 判定 | 根拠 |
+|---|---|---|---|
+| `add-pm-master-grabber` | 約 5 週間 (4-24 起票) | ✅ archive | 実装機能 (意匠負荷ビュー + 申し送り差分) は 5-01 以降の `/weekly-report` 全レポートで本番稼働中、deferred 8.8 / 9.3 は **follow-up** として認識した上で archive 化 |
+| `sync-published-doc-before-report` | 3 日 (5-28 起票 → 5-29 archive) | ✅ archive | 実装 + 79 tests green、deferred 7.3-7.6 は live E2E のみで、同型パターンの先行 archive 化 `add-weekly-report-distribution` (5-27 archive) を踏襲 |
+| `add-phase-progress-view` | 3 日 (5-26 起票) | ⏸ 据置 | task 7.2 が「1〜2 週運用での誤判定ログ収集 → 辞書チューニング」を明示要求、現在 3 日経過 → soak time 不足。archive 目安 2026-06-09 以降 |
+
+#### 3 commit の内訳
+
+session 開始時の git status は 12 ファイル未 commit (5-29 の `/weekly-report` 結果 + sync-published-doc-before-report 実装 + state 更新)。論理単位 3 本に分割して `origin/main` push:
+
+- `d613da7 Sync published Drive doc into baseline before weekly-report` — sync-published-doc-before-report の実装本体 (9 ファイル: `fetch_doc.py` / `sync_baseline.py` / `weekly-report-sync-baseline.md` 新規 + `weekly-report.md` / `workspace_defaults.md` / `publish.py` / `.gitignore` / `CLAUDE.md` 修正 + 4 新規 test)。配信物 (`reports/2026-05-29*`) と state は意図的に除外
+- `d27caa7 Add 2026-05-29 weekly update and refresh state snapshots` — 5-29 週次レポート + state 更新 (3 ファイル: `reports/2026-05-29_weekly_update.md` 新規 + `state/latest_state.json` + `state/latest_summary.md`)。`state/latest_state.json` の diff で `published_doc_id` 等が反映済なことを確認 = sync-published-doc-before-report task 7.3 の自然消化
+- `5efbb1c Archive add-pm-master-grabber and sync-published-doc-before-report` — `openspec archive --yes` 2 回実行 (`openspec/changes/add-pm-master-grabber/` → `openspec/changes/archive/2026-05-29-add-pm-master-grabber/`、同様で sync 側) + 各 archive ディレクトリの specs delta 同期は本リポ未同期運用のためスキップ
+
+push range: `9310599..5efbb1c` → `origin/main`。
+
+#### archive 後の follow-up TODO (specs 不変、運用判定で吸収)
+
+**`add-pm-master-grabber` 残 task (アーカイブ済で本体は close、follow-up のみ持ち越し)**:
+- **8.8**: 統合表の `案件番号` 列が `projects.csv.project_id` (`FY26_01` 形式) と厳密一致するか、次回 `/weekly-report` 実行時に検証。不一致なら `display_name` fallback の follow-up change を起票
+- **9.3**: `ruff check .` / `mypy scripts` を CI/pre-commit で実行する配管 (プラグイン venv 未インストールのため pipeline 側で)
+
+**`sync-published-doc-before-report` 残 task (deferred 4)**:
+- 7.3 ✅ 本セッションの `d27caa7` で state diff 確認済 (`published_doc_id` upsert OK)
+- 7.4 `/weekly-report-sync-baseline` 単体実行 → `state/latest_summary.md.bak-*` 1 件生成 + 本体が Drive 内容で上書きされること
+- 7.5 `/weekly-report --skip-baseline-sync` → baseline sync スキップ確認
+- 7.6 Drive 上で Doc を 1 行手動編集 → `/weekly-report-sync-baseline` → `state/latest_summary.md` に反映される E2E
+
+**`add-phase-progress-view` (active 据置の判定理由 + 次回検証ポイント)**:
+- task 6.1 / 6.5 / 6.6: 次回 `/weekly-report run_date=2026-06-XX` 実行時に「`; フェーズ遷移: ...` 行が変化案件に出ること」「アクション項目サブ行 (Jooto unchecked + Gmail 件名) が機能すること」を検証
+- task 6.3: 既知の判定乖離 (千住 / 滝野川 / 祐天寺 / 笹塚 / 駒込駅前 / 幡ヶ谷本町 / 東向島5丁目) の運用合意 = user がマニュアル編集 + 辞書フィードバック
+- task 7.2: 1〜2 週後、誤判定ログから `config/workspace_defaults.md` の辞書を微調整 (specs 不変)
+- task 7.3: 安定確認後に `openspec archive add-phase-progress-view` (目安 2026-06-09 以降)
+
+#### 設計判断: spec sync スキップ運用
+
+本リポは `openspec/specs/` 未同期運用 (過去方針) のため archive 前の spec sync はスキップして archive ディレクトリ移動のみで完了させた。将来 spec sync を有効化する場合は archive 化前に `openspec sync` を挟む手順を追加。
+
+#### see also (24f10575 由来)
+
+- [[02_diary/2026-05-29#21:15  run-55  /wiki-ingest — substantive 1 (24f10575) + meta drain 2 + 1 new defer (e594cbdd dirty 03_work/todobot)]] — 本セッションの ingest entry
+- session `24f10575-318b-41d3-b6c7-4a18bcb5d229` (5/29 10:24 JST 起動、archive 2 件 + 3 commit push)
 
 ### README システム構成図 (2026-05-28 commit `9310599`)
 
