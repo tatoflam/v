@@ -2,11 +2,50 @@
 title: ToDoBot — LINE 業務会話 → 日次 ToDo レポート
 category: 03_work
 tags: [project:todobot, tech:python, tech:firebase, tech:firestore, tech:line-messaging-api, tech:anthropic-claude, tech:google-workspace, tech:gmail-api, tech:domain-wide-delegation, tech:openspec, tech:pytest, tech:mypy-strict, tech:mermaid, tech:chrome-headless-pdf, stage:dogfood, stage:proposal-ready, milestone:mvp-code-complete, milestone:repo-pushed-meguruit, milestone:e2e-validated, milestone:client-proposal-pdf, entity:meguruit-org, client:meguruit]
-sources: [2648ee43-ade1-4be4-b64a-b31c9d21bfb3, 8dc542f5-d276-4e26-b04a-6f9fe822db47, f9415d55-991f-4d85-8f11-50e87deb910b, 5905d91d-8f8f-4b6f-b8d0-06c7f97422e2, ab52fdac-54a0-4291-bdb0-c112d8f67a03, f27991f0-61ce-4c42-af2f-f6d8f794426f, 03d49c79-640a-479f-b7bd-a60cb8111948, 0d2f488c-5346-40e1-b55a-dd3d80b26354, cb878ae5-38c1-4e42-a2dd-56eae9f219f2]
+sources: [2648ee43-ade1-4be4-b64a-b31c9d21bfb3, 8dc542f5-d276-4e26-b04a-6f9fe822db47, f9415d55-991f-4d85-8f11-50e87deb910b, 5905d91d-8f8f-4b6f-b8d0-06c7f97422e2, ab52fdac-54a0-4291-bdb0-c112d8f67a03, f27991f0-61ce-4c42-af2f-f6d8f794426f, 03d49c79-640a-479f-b7bd-a60cb8111948, 0d2f488c-5346-40e1-b55a-dd3d80b26354, cb878ae5-38c1-4e42-a2dd-56eae9f219f2, 63f6aec3-527b-4be5-bda4-c60e1ee7c179]
 updated: 2026-05-29
 ---
 
 # ToDoBot
+
+## ステータス (2026-05-29) — extraction max_tokens fix + 提案資料 + multi-slot archive を 3 commit に分割して push
+
+5-29 セッション (`63f6aec3`、user 第一声「archiveとcommit, pushを整理して進めて」) で 5-28 から残っていた未 commit 群を論理単位 3 本に分割して `origin/main` に push 完了。実装作業はなく、整理 + commit + push のみ。
+
+### 3 commit の内訳と意図
+
+- `e754fe7 fix(extraction): raise max_tokens to 16384 to avoid truncated tool output` — 5-28 セッションで実装済 (`extraction.py:176` の `max_tokens=16384` 明示) だったが未 commit のままだった分。production には deploy 経由で反映済 (1課 5-28 18:00 再実行 47 todos 成功) で本 commit はソース反映のみ
+- `f25b214 docs(proposal): add ToDoBot proposal materials (HTML + PDF)` — 5-22 セッションで作成済の `docs/proposal/todobot-proposal.html` + `todobot-proposal.pdf` (Chrome ヘッドレス生成、9 ページ、ネイビー基調) + `提案資料.pdf` を含む。配布アクションは依然未実施のため [[06_output/2026-05]] には記録せず、proposal-ready 状態だけ wiki 側 (本ページ) と repo 側でロック
+- `425cf89 chore(openspec): archive multi-slot-reports-and-emphasis` — `openspec/changes/multi-slot-reports-and-emphasis/` を `openspec/changes/archive/2026-05-29-multi-slot-reports-and-emphasis/` に `git mv`。実装は 5-27 夜の `0d2f488c` セッション (commit `89a52bf`) で完結済、`§6` 実機 acceptance 2 task は dogfood 中の自然消化扱いとして archive に進めた
+
+push range: `89a52bf..425cf89` → `origin/main`。
+
+### archive 判断: `line-todo-bot-mvp` は active 据置
+
+- `multi-slot-reports-and-emphasis`: 23/25 (実装完了 commit 済、§6.1/6.2 はドッグフード視認のみ) → archive
+- `line-todo-bot-mvp`: 32/34 (残り §10.2 の **実環境** 受入チェックリスト多数、§10.1 は PASS 済) → active 継続
+
+線引きの根拠: MVP の §10.2 実環境項目は配信成功率 / コスト計測 / SLA 観測 / Gmail bounce / extraction confidence 分布など継続観測指標で、archive 化は誤って完了扱いになるリスクがあるため。multi-slot は機能スコープ限定で実環境視認のみ残る形なので archive が自然。
+
+### spec sync スキップ
+
+archive 前に `openspec/specs/` の delta 同期状況を確認したが、本リポは `openspec/specs/` 未同期運用 (過去の方針) のため spec sync はスキップして archive ディレクトリ移動のみで完了させた。将来 spec sync を有効化する場合は archive 化前に `openspec sync` を挟む手順を追加。
+
+### 5-28 残課題の解消マップ
+
+| 5-28 cb878ae5 セッションの「未着地」 | 本ラン (63f6aec3) での解消 |
+|---|---|
+| `extraction.py` の `max_tokens=16384` が未 commit | `e754fe7` で commit + push |
+| `multi-slot-reports-and-emphasis` の archive 未実施 | `425cf89` で archive + push |
+| 5-22 提案資料 (HTML/PDF) が untracked | `f25b214` で commit + push |
+| Firestore `report_runs` 手動削除を `daily_report_trigger?force=true` 化 | **未着手** (本ラン外) |
+| `max_tokens` を `f(messages_in)` の動的設定にすべきか | **要議論のまま** (本ラン外) |
+| 空 tool_use → ValueError + Cloud Logging の e2e テストケース追加 | **未着手** (本ラン外) |
+
+### see also (5/29 セッション由来)
+
+- [[02_diary/2026-05-29#10:31  ToDoBot 5-28 残課題 archive + commit + push]] — 本セッションの ingest entry (run-54)
+- session `63f6aec3-527b-4be5-bda4-c60e1ee7c179` (5/29 15:20 JST 開始、archive + 3 commit push)
 
 ## ステータス (2026-05-28) — `1課` プロファイル投入 + extraction max_tokens 4096→16384 修正
 
