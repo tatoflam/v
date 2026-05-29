@@ -2,7 +2,7 @@
 title: MeguruPMReport
 category: 03_work
 tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, tech:google-drive, tech:firebase-hosting, stage:active]
-sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229]
+sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111]
 updated: 2026-05-29
 ---
 
@@ -253,6 +253,56 @@ push range: `9310599..5efbb1c` → `origin/main`。
 
 - [[02_diary/2026-05-29#21:15  run-55  /wiki-ingest — substantive 1 (24f10575) + meta drain 2 + 1 new defer (e594cbdd dirty 03_work/todobot)]] — 本セッションの ingest entry
 - session `24f10575-318b-41d3-b6c7-4a18bcb5d229` (5/29 10:24 JST 起動、archive 2 件 + 3 commit push)
+
+### Jooto 進捗状況 → 工程軸 + Milestone シート同期 (2026-05-29 提案、3f66a79f、`/opsx:propose` 中断で artifact 未起票)
+
+session `3f66a79f-6018-47eb-83c7-d963ed362111` (5-29 22:58-23:02 JST、3 turn の `/opsx:propose` 起動直後に user interrupt) で受領した新規 feature 提案。OpenSpec change としては未起票 (proposal/design/specs/tasks まだなし)、要件文のみがセッションに残った。次に再起動するまで wiki にバックログ保管。
+
+**user 提案要件 3 点**:
+
+1. **Jooto 進捗状況タスクを工程軸の進捗ビューに優先反映**: 各案件の Jooto ボードに「**進捗状況**」というタスクが存在する場合、その中のチェックリスト「**マイルストーン**」の項目ごとのチェック内容を取得し、`/weekly-report` の「**工程軸の進捗**」セクション (`add-phase-progress-view` で実装済の 13 工程ビュー) の判定に**優先**して利用する。「進捗状況」タスクが存在しない案件はこれまで通り Jooto 他タスク + メールスレッド辞書フォールバック
+2. **Google Spreadsheet (進捗管理表_master) Milestone シートの実績チェックボックスを更新**: 上記 Jooto「進捗状況」を canonical source として、`進捗管理表_master` の `Milestone` シート (= `pm-master-grabber` と同じスプレッドシートオブジェクト) の **各案件 × 各工程の「実績」チェックボックスを更新**。Milestone シートのレイアウト想定: 案件行 (B4 から 1 行ごと) × 工程列 (M2 から 2 列ごと)、L 列が実績チェックボックス・M 列が期日。**フォーマットは変わり得るのでタイトル行・列やデータ範囲は動的検索で取得する**。本要件は **read-only 厳守の原則例外** (Milestone シートの実績列のみ write 許可) になるため、`pm-master-grabber` の OAuth スコープ拡張 (`spreadsheets.readonly` → `spreadsheets`) または書込み専用の別 grabber 切り出しを設計判断する必要あり
+3. **工程名 ↔ Jooto タスク名のマッピング config 化**: 現状の Milestone シート工程タイトル (csv 1 列目) と Jooto「進捗状況」チェックリスト項目 (csv 2 列目)、(2 列目空時の fallback として) Jooto 他タスクの完了状態 (csv 3 列目) の対応関係を `config/` 配下に json または yaml で配置する。3 列目フォールバック使用時は曖昧検索 (Jooto リスト/メール件名のワード拾い) を許容する。マッピングは今後更新予定なので config ファイル化が必須
+
+**user 提示のマッピング表 (現行・改定見込み)**:
+
+| Milestone シート工程名 (1) | Jooto 進捗状況チェック項目 (2) | Jooto 他タスク完了状態 (3) |
+|---|---|---|
+| 構造梁位置確認 | 梁位置・壁量壁長確認依頼、構造見積依頼、構造着手日・納品日送付（概算） | |
+| 平面検証 / 企画承認 | 平面検証 | |
+| 施主承認 | 施主承認 | |
+| 躯体形状 | 躯体形状 | |
+| 設備検討 | 設備検討 | |
+| 構造キックオフ | 構造キックオフ | |
+| 基本図(平立断) / 天空率 | | |
+| 実施（意匠・設備） | 意匠着手 | |
+| 実施（構造） | 構造着手 | |
+| 仮受（意匠・構造） | 仮受付 | |
+| 省エネ申請 | | S08_省エネ申請 |
+| 景観条例チェック | | S00_景観条例 |
+| 狭隘協議チェック | | S00_狭隘協議 |
+| 中高層条例チェック | | S00_中高層申請 |
+| 清掃局チェック | | S00_清掃局協議 |
+| 緑化・雨水対策チェック | | S00_緑化関連条例 |
+| パース承認 | | ♦︎ SM1_パース・仕上げ・館銘確定 |
+| 誤記・整合性確認 | 図面整合性確認 | |
+| 反映・修正図受領 | | S06_図面誤記・整合性確認 |
+| 本受（意匠・構造） | 本受付 | |
+| 施工図作成依頼 | 施工着手 | |
+| 躯体積算依頼 | | S10_躯体積算 |
+| 下付 | 済証交付 | |
+| 着工 | 工事着手 | |
+
+**設計上の論点 (artifact 起票時に解消する想定)**:
+
+- **既存 `add-phase-progress-view` (13 工程ビュー、`b75ffb6` で実装着地) との整合**: 13 工程は内製分類で「Jooto タスク名辞書 + Gmail 件名辞書」を `workspace_defaults.md` に持つ。本提案は Milestone シートの 24 工程 (上表行数) が canonical で、「進捗状況」タスクの**チェックリスト項目**が直接シグナル。13 工程ビューを廃止して 24 工程に揃えるか、両立 (13 = サマリ、24 = 詳細) するかが第 1 の論点
+- **Spreadsheet 書込み権限**: 現 `pm-master-grabber` は `spreadsheets.readonly` で AST guard (`test_readonly_guard.py`) により書込み API 呼出しは禁止。本提案を満たすには (a) write 権限を持つ別 grabber 新設 (b) `pm-master-grabber` を `spreadsheets` スコープに昇格 (c) 別 OAuth client / service account のいずれか。CLAUDE.md の「Google Spreadsheet は厳格 read-only」原則の例外運用設計が必要
+- **「進捗状況」タスクの存在前提**: Jooto 全案件ボードに「進捗状況」タスクが揃っている前提だが、現在は未整備の可能性大。整備の前提条件 (テンプレート化 / 初期化 grabber) も別 change で必要
+
+**次のアクション** (本セッションは中断のみで何も起票していない):
+
+- user 側で `/opsx:propose <change-name>` を再起動する想定 (例: `add-jooto-milestone-progress-sync`)。再起動時、本セッションで失われた CSV マッピング全文は本セクションから transcribe 可能
+- もしくは Phase 1 (Jooto 進捗状況 → 工程軸ビューへの優先反映、read-only のみ) と Phase 2 (Milestone シート書込み、write 権限が要る) で 2 change 分割が安全
 
 ### README システム構成図 (2026-05-28 commit `9310599`)
 
