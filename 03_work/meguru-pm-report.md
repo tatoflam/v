@@ -2,7 +2,7 @@
 title: MeguruPMReport
 category: 03_work
 tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, tech:google-drive, tech:firebase-hosting, stage:active]
-sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf]
+sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20]
 updated: 2026-05-29
 ---
 
@@ -205,6 +205,26 @@ Meguru 案件の **週次アップデート** を Gmail と Jooto から Claude 
 - **archive 未** (`/opsx:archive sync-published-doc-before-report` 未実行): 4 deferred tasks 消化 = 次回自然な weekly ラン完了後に archive 予定
 - 詳細: [[02_diary/2026-05-29]] run-51 entry
 
+### README システム構成図 (2026-05-28 commit `9310599`)
+
+`/weekly-report` 実行時の各コンポーネント (スラッシュコマンド、プラグイン、外部サービス) とエンティティ (入力 config / データキャッシュ / state / 出力レポート) を Mermaid 図で README.md に追加し、後発の参加者がワークフロー全体を 1 画面で把握できるようにした。session `d13623c3` (5-28 17:40→5-29 07:20 JST、4 turn) で着地。
+
+- **追加先**: `README.md` の「週次実行」と「ディレクトリ構成」の間 (現 `README.md:47` 付近、`## システム構成図（/weekly-report 実行時）`)
+- **含めた要素**:
+  - スラッシュコマンド: `/jooto-backup` / `/jooto-overdue-scan` / `/pm-master-backup` (事前)、`/weekly-report` (メイン)、`/weekly-report-sync-baseline` (自動先行)
+  - ローカルプラグイン: `jooto-grabber` / `pm-master-grabber` / `drive-publisher`
+  - 外部サービス: MCP Gmail (read-only) / Jooto API / Google Spreadsheet (案件マスタ) / Google Drive (published Doc)
+  - 入力 config: `projects.csv` / `workspace_defaults.md` / `pm_master_mapping.json`
+  - データキャッシュ: `data/jooto/` / `data/pm_master/{integration,handover,handover_diff,evaluation}.json`
+  - 状態: `state/{latest_summary.md,latest_state.json,batch_progress.json}`
+  - 出力: `reports/{run_date}_weekly_update.md`
+- **スコープ外として凡例に明記**: `/weekly-report-publish` (HTML + Firebase + Drive 配信) は別 capability のため除外
+- **Mermaid subgraph の `()` ラベル問題**: 当初 `subgraph DataCaches[データキャッシュ (.gitignore)]` のように括弧入りラベルをそのまま書いたところ VS Code Markdown プレビュー (mermaid 拡張) が parse error。**`subgraph ID["Label"]` のダブルクォート化が必須** (`(),:` などが衝突する)。全 7 subgraph を統一してクォート版に修正。ノード側 `Name["..."]` は既にクォート済みで無変更
+- **VS Code プレビュー**: 標準 Markdown プレビューは Mermaid 非対応。`code --install-extension bierner.markdown-mermaid` を入れて `Cmd+Shift+V` で描画 (`Markdown All in One` 等と共存可)。GitHub 上の README ページは Mermaid をネイティブレンダリングするので push 後にリポジトリページで「実物」確認するのが最終確認手段
+- **push**: README.md のみコミット (`9310599 Add system diagram for /weekly-report to README`、`536dddc..9310599 main -> main`)。同セッションの他作業中ファイル (sync-published-doc-before-report 系の `state/*`, `plugins/drive-publisher/scripts/*`) は意図的に含めず
+- **06_output 該当判定**: **該当せず** (`meguruit/MeguruPMReport` 内部 private repo precedent 踏襲、README ドキュメント追加は外部公開 evidence なし)
+- 詳細: [[02_diary/2026-05-28#17:40  README mermaid システム構成図 (d13623c3, 5-28 17:40→5-29 07:20 JST)]]
+
 ## Links
 
 - [[02_diary/2026-04-24]]
@@ -214,6 +234,7 @@ Meguru 案件の **週次アップデート** を Gmail と Jooto から Claude 
 - [[02_diary/2026-05-19]]
 - [[02_diary/2026-05-23]]
 - [[02_diary/2026-05-27]]
+- [[02_diary/2026-05-28]]
 - [[02_diary/2026-05-29]]
 - [[05_learn/ssh-agent-shortcuts]]
 - [[05_learn/gmail-mcp-reauth]]
