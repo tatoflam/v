@@ -147,3 +147,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-05-29T22:35:00Z  op:ingest  S=4 I=0 pages=3 unsortable=0 deferred=1
 - 2026-06-02T06:55:00Z  op:ingest  S=2 I=0 pages=3 unsortable=0 deferred=1 missing=2
 - 2026-06-02T07:00:55Z  op:ingest  S=2 I=0 pages=1 unsortable=0 deferred=1 (run-59 main; meta_drain=7c4fb5f7+26151ff9; defer=e594cbdd dirty 03_work/todobot 5 ラン目)
+- 2026-06-02T13:42:00Z  op:ingest  S=4 I=0 pages=1 unsortable=0 deferred=1 (run-60 main; meta_drain=f1a996d3 run-59-self + 3x pipeline-failure 22:38; defer=e594cbdd dirty 03_work/todobot 6 ラン目)
