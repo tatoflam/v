@@ -2,8 +2,8 @@
 title: MeguruPMReport
 category: 03_work
 tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, tech:google-drive, tech:firebase-hosting, stage:active]
-sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af]
-updated: 2026-05-30
+sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af, f3a28fae-f6aa-45c6-94cf-566dcb101b26]
+updated: 2026-06-02
 ---
 
 # MeguruPMReport
@@ -377,6 +377,108 @@ session `5d8213db-5b81-4f67-a4aa-86c85e83d3af` (5-29 23:11→5-30 07:31 JST、57
   3. 203 → 同数程度の test 再走 + `openspec validate --strict`
   4. archive (`/opsx:archive add-milestone-sync`) で **13 工程 baseline → 15 工程 baseline へ置換** (`add-phase-progress-view` で 5-29 に確定させた 13 工程要件は今回の archive で上書きされる予定)
 - 残 11 tasks (12.5-12.8 ライブ検証 + 12.9 weekly-report + 13.1-13.4 archive) のうち **12.5-12.9 はすでに本セッションで実態 PASS**、archive のみ未消化
+
+- 詳細: [[02_diary/2026-05-30]]
+- 関連: [[05_learn/jooto-checklist-items-separate-endpoint]]
+
+### 2026-05-30 add-milestone-sync v2 完成 + Milestone 中間 SoT 統一 + Report v2 構造 (5d8213db 続き、5-30 07:31→14:16 JST、~7h)
+
+session `5d8213db` の後半 (run-57 commit `49e6d1c` で記録した「v2 ピボット pause」以降の 5-30 朝〜昼)。v2 schema を確定させて dual-path writeback 実装 → ライブで 64 セル追加書き戻し成功 → 3 経路目 (PATH 1 fallback) 発見 → **Milestone シートを中間 SoT として writer / reporter を統一**、最後に 5/30 レポートを v2 構造で再生成。
+
+**v2 schema 確定 (`config/milestone_mapping.yaml`)**:
+
+- `phase_buckets` = 15 (Jooto checklist label そのもの)、`jooto_checklist_label` フィールド削除 (`phase_bucket` と統合)
+- 補助 3 フィールド復活: `phase_bucket` (判定主軸、null 可) / `jooto_task_prefixes` (Jooto **タスク名** prefix、判定にも使う方針に転換) / `fuzzy_search_terms` (将来用、現状未使用)
+- 5-30 07:39 JST user 指摘で **task_prefixes も判定に使う** に方針再設定: phase_bucket が null のセルは task_prefix で補完判定 (それまで「判定には使わない補助メタデータ」と私が誤解していた)
+
+**dual-path writeback 実装 (5-30 07:39→07:48 JST)**:
+
+| Milestone カラム | phase_bucket | 判定ソース | 方向 |
+|---|---|---|---|
+| 工程系 (例: 仮受、本受、構造着手) | 非 null | `progress_checklist.json` の checklist label | **双方向**（PATH 1 primary、巻き戻しあり） |
+| 補助系 (例: 省エネ申請、各種条例チェック、パース承認、基本図初版) | null | `tasks.json` のタスク完了状態 (`startswith(prefix)` × status ∈ `{done,completed,archived}`) | **片方向**（PATH 2、FALSE→TRUE のみ、巻き戻し無し） |
+
+- `application/collect_task_completions.py` 新設、`writeback_milestone.py` に `_path2_entries` 追加、`writeback_cli.py` で両入力を `plan_writeback` に渡す
+- 222 tests pass (108 grabber + 74 jooto + 40 writer) + `openspec validate --strict` pass
+
+**🔧 NFKC 正規化 fix (全角 / 半角ミスマッチ)**: Jooto board slug は `FY26_03_千住４丁目`（全角 ４）、projects.csv / Milestone シートは `千住4丁目`（半角 4）→ substring 検索失敗で `skipped_unknown_projects` 行きだった。`unicodedata.normalize("NFKC", ...)` を `_resolve_project_for_board` に追加で **千住 / 滝野川5丁目 / 大森西2丁目** など 10 件相当が正しく拾えるように。dry-run 計画が 54 → **64 セル**に増加
+
+**ライブ書き戻し追加 64 セル成功 (5-30 07:56 JST)**:
+
+- 全件 `FALSE_to_TRUE` / `source_kind: "task_prefix"`、巻き戻し 0、整合性保持
+- 進捗状況タスク未設定の 10 案件 (祐天寺 / 高田馬場 / 中野坂上 / 新宿山吹町 / 板橋氷川町 / 山王3丁目 / 江古田江原 / 西巣鴨駅前 / 西荻北1丁目 / 幡ヶ谷不動尊通り) も task_prefix path で書き戻し対象に
+- **累計 121 セル TRUE 化** (5-29 の path 1 = 57 セル + 5-30 の path 2 = 64 セル)
+- スキップ board: 内部運用テンプレ (バックオフィス / 1課 / 2課 / 牛山への依頼 / 蔡_タスクリスト) + FY25 終了案件 + projects.csv 未登録 (FY26_29 きつね塚通り前) + Milestone シート行と表記差 (中野1丁目) — 全て **正常な不一致**
+
+**🔁 PATH 1 fallback 発見 + Milestone 中間 SoT として writer/reporter 統一 (5-30 09:24 JST、user 追求で発覚)**:
+
+5/30 レポート v2 を生成した時点で **task_prefix で TRUE 化されたセルが工程軸の進捗ビューに反映されていない**事象を user が発見。原因: writer は Milestone を更新するが、reporter は Milestone を見ず `progress_checklist` を直接読んでいた → アーキテクチャの不整合。私の正直な説明 (transcript 引用):
+
+> 「**書き戻し（dual-path）は実装したのに、レポートの工程軸の進捗は別ロジックで progress_checklist を直接見ていて、Milestone 経由を介していない。設計の整合性が取れていません**」
+
+**統一モデルへの修正**:
+
+```
+Jooto (progress_checklist + tasks)
+    ↓ writer の 3 経路
+Milestone シート (実績=TRUE の集合)  ← 中間 SoT
+    ↓ reporter
+工程軸の進捗 / 進捗状況未設定 (Milestone TRUE 0 件の案件)
+```
+
+writer の 3 経路 (v2 完成形):
+
+1. **PATH 1 primary**: phase_bucket != null × checklist label = checked → TRUE (双方向)
+2. **PATH 1 fallback** (新規): phase_bucket != null × checklist label = unchecked × task_prefix 完了 → FALSE→TRUE (片方向)
+3. **PATH 2**: phase_bucket == null × task_prefix 完了 → FALSE→TRUE (片方向)
+
+- `_path1_fallback_entries()` + `currently_checked_labels` 引数を `plan_writeback` に追加、`source_kind = "task_prefix_fallback"` 新設
+- writer 4 tests 追加 → 全 44 test pass
+
+**Report v2 構造変更 (user 指示 5-30 08:27 JST)**:
+
+セクション順序を以下に固定:
+
+```
+全体サマリ → 工程軸の進捗 → 進捗状況未設定の案件 → (各案件) → 意匠設計担当の負荷ビュー
+```
+
+- 各案件に `- 重要な動き:` を 6 項目めとして冒頭追加 (24 案件全件出力、内容無しは「特になし」明記)
+- 旧 `重要な動き ①〜⑧` 連番節を廃止、案件単位に分散
+- **全体サマリの責務変更**: 案件単位の業務内容 → ロジック変更点・横串集計 (overdue 件数、Milestone 書き戻し概要、取得状況) のみ
+- 進捗状況未設定の案件: H3 サブセクション → 独立 H2 に格上げ
+- 条例集約: `- 遅延: 条例 N 件（中高層/景観/清掃局/狭隘/緑化、期日 YYYY-MM-DD）` 形式で 1 行化
+- 差分元: `state/latest_*` 既定 → **`reports/2026-05-26_weekly_update.md`** (4 日ウィンドウ)
+- 仕様反映先: `config/workspace_defaults.md` / `.claude/commands/weekly-report.md` / `openspec/changes/add-milestone-sync/specs/weekly-report/spec.md`
+
+**🐛 意匠設計担当の負荷ビュー — 機能落ち修正 (5-30 08:13 JST、user 指摘)**:
+
+- 旧 (誤): projects.csv の `key_contact` (本間 / 石田 / 大神 / 蔡 / 比江島 = **社内設計 PM**) を担当扱い
+- 新 (正): PM Master Grabber **統合表の `意匠担当` 列** (鈴木 / 中村 / 井上 / 品田 / 小川 / 加納 / 八田 / 中辻 / 功能 / 角田 / 山口 / 坂口 / 森田 / 廣川 = **外部意匠設計士**) を担当扱い、15 担当別の並行案件表示
+- ⚠️ 井上: 並行 3 件 (祐天寺 / 江古田江原 / 山王3丁目)、鈴木 / 中村 / 品田 / 小川 / 加納 / 八田: 並行 2 件
+
+**🐛 `/jooto-overdue-scan` 実行漏れ修正 (同上 user 指摘)**:
+
+24 FY26 ボード全件 scan、per-board 実行で 404 回避。FY26 期日超過 5 件:
+
+- 高円寺南5丁目 2 件 (案内図・道路使用 4/30、サッシ・UB 見積 4/24)
+- 笹塚方南1丁目 2 件 (♦︎ MM4_本受け 3/31、♦︎ MM6_済証交付 4/27、隣地土地権利関係で PJ 休止中)
+- 東日暮里6丁目 1 件 (♦︎ MM2_意匠仮受 5/12、住所表記齟齬で青木氏確認中)
+
+**5/30 レポート v2 構造で再生成 (5-30 14:16 JST、vs 2026-05-26 ベースライン)**:
+
+- 308 行、5 H2 セクション、24 案件全件 `- 重要な動き:` 出力 (28 H2 = 全体サマリ 1 + 工程軸 1 + 未設定 1 + 案件 24 + 意匠 1)
+- Milestone-based 工程軸結果: 施主承認 1 / 構造着手 2 / 仮受付 3 / 本受付 1 / 工事着手 2、進捗状況未設定 15 案件
+- 期日超過 5/26 比同数 5 件 (継続 4 + 新規 1 東日暮里 + 解消 1 幡ヶ谷本町)
+- API Error (socket closed / rate limit) で 2 度中断、再開して着地
+- 出力: [reports/2026-05-30_weekly_update.md](reports/2026-05-30_weekly_update.md) (308 行) + `state/latest_*` 反映
+
+**残課題 (次セッション)**:
+
+- `/opsx:archive add-milestone-sync` で 15 工程 baseline 確定 (5-30 朝の archive は v1 ピボット前で停止)
+- `workspace_defaults.md` の旧フォールバックロジック (PM master 帯確定 / Jooto タスク名 / Gmail 件名) 説明残存 → 未到達コードなので機能影響無いが将来削除可能
+- 「中野1丁目」が Milestone シート行と display_name 不一致でスキップ続行 → PM 確認推奨
+- `state/latest_state.json` の旧 13-bucket 名 `phase` フィールド (例: `工事着工`→新 `工事着手`) — 次回 /weekly-report で正される想定
 
 - 詳細: [[02_diary/2026-05-30]]
 - 関連: [[05_learn/jooto-checklist-items-separate-endpoint]]

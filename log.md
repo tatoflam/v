@@ -145,3 +145,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-05-29T13:12:43Z  op:ingest  S=3 I=0 pages=2 unsortable=0 deferred=1
 - 2026-05-29T14:02:30Z  op:ingest  S=2 I=0 pages=2 unsortable=0 (substantive=3f66a79f Jooto-milestone-proposal; meta_drain=5ad6ed57 run-55-worker-self; defer=e594cbdd 03_work/todobot)
 - 2026-05-29T22:35:00Z  op:ingest  S=4 I=0 pages=3 unsortable=0 deferred=1
+- 2026-06-02T06:55:00Z  op:ingest  S=2 I=0 pages=3 unsortable=0 deferred=1 missing=2
