@@ -2,7 +2,7 @@
 title: MeguruPMReport
 category: 03_work
 tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, tech:google-drive, tech:firebase-hosting, stage:active]
-sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af, f3a28fae-f6aa-45c6-94cf-566dcb101b26]
+sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af, f3a28fae-f6aa-45c6-94cf-566dcb101b26, fe1f5fac-3230-4199-912e-bdda570463c1, 2e4721dd-2285-4f3d-97ff-7e5e88c37b52, 8c7aa96d-0845-4a70-84e2-dc8bf17ffea7, 821f682c-145f-460a-9214-effb01b8a849, f1336766-5705-4d8b-a7bc-559494e807e1]
 updated: 2026-06-02
 ---
 
@@ -502,6 +502,35 @@ writer の 3 経路 (v2 完成形):
 - **push**: README.md のみコミット (`9310599 Add system diagram for /weekly-report to README`、`536dddc..9310599 main -> main`)。同セッションの他作業中ファイル (sync-published-doc-before-report 系の `state/*`, `plugins/drive-publisher/scripts/*`) は意図的に含めず
 - **06_output 該当判定**: **該当せず** (`meguruit/MeguruPMReport` 内部 private repo precedent 踏襲、README ドキュメント追加は外部公開 evidence なし)
 - 詳細: [[02_diary/2026-05-28#17:40  README mermaid システム構成図 (d13623c3, 5-28 17:40→5-29 07:20 JST)]]
+
+### 2026-06-02 22:38 JST: 日次パイプラインがプラグイン短縮形コマンドで「Unknown command」連発 (fe1f5fac / 2e4721dd / 8c7aa96d)
+
+`scripts/daily_pipeline.sh` を 22:38 JST 起動した際、最初の 3 ステップ (`/jooto-backup --all-active` / `/jooto-overdue-scan` / `/pm-master-backup`) が **すべて `Unknown command:` で失敗** し、続けて SessionEnd hook (`/Users/tato/.claude/wiki/hooks/auto-ingest-push.sh`) も `Hook cancelled` で連続失敗。`~/Library/Logs/MeguruPM/2026-06-02.log` の `claude -p '/jooto-backup --all-active'` 行直後に `Unknown command: /jooto-backup` を確認 (`daily_pipeline.sh:113-119`)。
+
+- **原因の有力候補**: 短縮形 (`/jooto-backup` 等) を `claude -p` ヘッドレスで叩いている。対話モードでは短縮形がプラグイン解決される一方、`claude -p` 起動では plugin が hot-load されず namespace 付きでないと解決されない可能性。**2026-04-24 の `2157bb7 Rename plugin to JootoGrabber` リネーム時に観測した症状** ([[05_learn/claude-code-plugin-namespace]]) と同一カテゴリの failure mode
+- **本リポの現状** (`scripts/daily_pipeline.sh:113-119`): `claude_p "/jooto-backup --all-active"` 等を **短縮形のまま** 直叩き。`.claude-plugin/marketplace.json` の plugin name は PascalCase (`JootoGrabber` / `PMMasterGrabber` / `PMMasterWriter` / `DrivePublisher` / `MilestoneAlert`) で、namespace 付きなら `/JootoGrabber:jooto-backup` 等
+- **観測結果**: 22:38 起動の 3 セッション (`fe1f5fac` / `2e4721dd` / `8c7aa96d`) は **いずれも 1.6-2.1 KB の空転 transcript** (queue-operation 2 件 + local-command-caveat + `Unknown command:` ユーザログ + system message のみ、assistant 応答ゼロ、tool 呼び出しゼロ)。後段の `/weekly-report run_date=2026-06-02` も同パイプラインで起動された (ログ末尾 `→ claude -p "/weekly-report run_date=2026-06-02"`)、本ラン処理時点で session 完了済みかは未確認
+- **推奨復旧手順** (本ランでは実施せず、user 判断):
+  1. `scripts/daily_pipeline.sh` の 3 行 (`L113-119`) を namespace 付きに置換 — `/JootoGrabber:jooto-backup --all-active` / `/JootoGrabber:jooto-overdue-scan` / `/PMMasterGrabber:pm-master-backup`
+  2. 同じく `L125-126` の `/weekly-report` / `/weekly-report-publish` は **プロジェクト固有 slash command** (`.claude/commands/*.md`) なので namespace 不要、現状維持で OK
+  3. `claude -p '/JootoGrabber:jooto-backup --all-active'` を手動で 1 回実行して短縮 vs namespace の挙動差を再確認 ([[05_learn/claude-code-plugin-namespace]] に頭書き追加候補)
+  4. `~/Library/Logs/MeguruPM/2026-06-02.log` の `weekly-report` 起動行以降を確認して、4-5 ステップ目 (報告書生成 + Milestone alert) が走れたか検証
+- **02-06-02 22:38 が定刻起動ではない件**: 当初の LaunchAgent は 9:00 JST 起動の想定だが今回は 22:38。**user が手動で `daily_pipeline.sh` を叩いたか、`com.meguru.pm.daily` の StartCalendarInterval が再設定されたか**は本ラン時点で未確認 (LaunchAgent plist を git 管理外のため、`launchctl print user/$(id -u)/com.meguru.pm.daily` で確認推奨)
+
+> [!warning] auto-ingest-push.sh も連続失敗
+> SessionEnd hook も 3 ステップすべてで `Hook cancelled` を吐いている (`Hook cancelled` は hook 内部の `set -e` の早期 abort か、claude 本体側の hook 実行抑止)。`/wiki-ingest` の queue enqueue は別の hook (`~/.claude/plugins-tatoflam/.../enqueue-session.sh`) が担当しているため今回 3 セッションは queue に入った (本ランで処理) が、`auto-ingest-push.sh` 側の連続失敗は別途確認すべき
+
+#### 4-5 ステップ目 (`/weekly-report` + `/weekly-report-publish`) はパーミッション拒否で停止 (821f682c / f1336766)
+
+3 ステップの plugin command 失敗の後、daily_pipeline は **プロジェクト固有 slash command** (`/weekly-report` / `/weekly-report-publish`、`.claude/commands/*.md` で定義のため plugin namespace 不要) で続けたが、別の理由で停止:
+
+- **`821f682c`** (252 KB、31+56 turn、6-02T13:38:46→13:42:57Z): `/weekly-report run_date=2026-06-02` をヘッドレス起動。assistant が backup_cli 系の Bash 呼び出し (`cd plugins/jooto-grabber && PYTHONPATH=scripts python -m interfaces.backup_cli --all-active --force` 等) を試みるが **複数バリエーションが Bash 承認拒否**。途中で「2026-06-02 のレポートは既に 18:25 に生成済み + Milestone writeback 済み + publish 済み (`b1d3925`/`a434093`/`39252eb`)、再実行スコープを 1/2/3 で確認」と user に `AskUserQuestion` し、ヘッドレスで答が無いまま session 終話
+- **`f1336766`** (89 KB、21+31 turn、6-02T13:42:57→13:44:48Z): `/weekly-report-publish` をヘッドレス起動。`cd plugins/drive-publisher && PYTHONPATH=scripts .venv/bin/python -m publish --run-date 2026-06-02` を 15 通り近いバリエーション (`source .venv/bin/activate` / `env PYTHONPATH=` / `sh -c '...'` / 絶対パス / `import sys; sys.path.insert(0, ...)` 等) で迂回試行するも **全て Bash 承認で拒否**。「publish コマンドの承認が必要です」で user に approval 要求して session 終話
+- **本日の重要観察**: **2026-06-02 のレポート + writeback + publish はすでに今日 18:17-18:25 JST に完了済み** (commit `b1d3925` Add 2026-06-02 weekly update + Milestone writeback 109 cells / `a434093` Refresh 2026-06-02 report after user fixes + writer catch-up / `39252eb` Implement add-writer-catchup-sync)。22:38 起動の daily_pipeline は **冪等性チェック無しで 1〜5 ステップを再実行** しようとして失敗 — 「すでに今日実行済みなら no-op で抜ける」ガードが daily_pipeline.sh または各 slash command 側で必要
+- **headless `claude -p` の Bash 承認問題**: `.claude/settings.json` の permission allow-list に存在しない Bash パターンは、headless モードでも user prompt が出るが TTY が無いため即拒否扱いとなる。`cd plugins/drive-publisher && ...` のような複合コマンドは普段 user が対話で承認するパターンなので allow-list 未登録の可能性が高い。修復候補: `.claude/settings.json` の `permissions.allow` に `Bash(cd plugins/drive-publisher:*)` 系を追加する or daily_pipeline.sh 側で `--dangerously-skip-permissions` 付きの `claude` 呼び出しに統一する (現状 22:38 のは標準モード)
+
+- 詳細: [[02_diary/2026-06-02#run-60]]、[[02_diary/2026-06-02#22:55  run-61]]
+- 関連: [[05_learn/claude-code-plugin-namespace]]、[[05_learn/wiki-automation-pipeline]]
 
 ## Links
 
