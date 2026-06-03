@@ -153,3 +153,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-06-03T00:20:06Z  op:ingest  S=4 I=0 pages=1 unsortable=0 deferred=1  run-63  (meta_drain=7fe990ff run-62-self + cb03e9f4 noop + c0cdf6ff/29e2ffc7 /jooto-list-boards unknown; defer=e594cbdd 9th)
 - 2026-06-03T09:30:00Z  op:ingest  S=2 I=0 pages=1 unsortable=0  run-63b  (meta_drain=4a041881 run-63-worker-self; missing_transcript=0d4ee829; defer=e594cbdd dirty 03_work/todobot 9th maintained from run-63)
 - 2026-06-03T03:29:18Z  op:ingest  S=2 I=0 pages=3 unsortable=0  (run-64 fbb058f2 substantive landing + cdd93242 meta drain + e594cbdd 10th defer)
+- 2026-06-03T15:12:27Z  op:ingest  S=3 I=0 pages=3 unsortable=0  (defer:1 e594cbdd 11ラン連続)

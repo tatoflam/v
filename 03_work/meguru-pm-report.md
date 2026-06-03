@@ -2,8 +2,8 @@
 title: MeguruPMReport
 category: 03_work
 tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, tech:google-drive, tech:firebase-hosting, tech:firebase-functions, tech:launchd, tech:mermaid, stage:active]
-sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af, f3a28fae-f6aa-45c6-94cf-566dcb101b26, fe1f5fac-3230-4199-912e-bdda570463c1, 2e4721dd-2285-4f3d-97ff-7e5e88c37b52, 8c7aa96d-0845-4a70-84e2-dc8bf17ffea7, 821f682c-145f-460a-9214-effb01b8a849, f1336766-5705-4d8b-a7bc-559494e807e1, fbb058f2-6e1d-4ae1-9460-f4e54099fbc0, cdd93242-ab74-40ad-a85e-4635b815f09d]
-updated: 2026-06-03
+sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af, f3a28fae-f6aa-45c6-94cf-566dcb101b26, fe1f5fac-3230-4199-912e-bdda570463c1, 2e4721dd-2285-4f3d-97ff-7e5e88c37b52, 8c7aa96d-0845-4a70-84e2-dc8bf17ffea7, 821f682c-145f-460a-9214-effb01b8a849, f1336766-5705-4d8b-a7bc-559494e807e1, fbb058f2-6e1d-4ae1-9460-f4e54099fbc0, cdd93242-ab74-40ad-a85e-4635b815f09d, 1fca49c1-8c3b-4a77-b6a4-0c4dcdbc0f81, 66be2df6-aeed-483f-804d-ca033fc1cf6a, 0ef2475c-8995-476b-aebc-f8856a937bed]
+updated: 2026-06-04
 ---
 
 # MeguruPMReport
@@ -574,6 +574,84 @@ writer の 3 経路 (v2 完成形):
 - **06_output 該当判定**: **該当する** (`https://meguru-pm-report.web.app/r/2026-06-02` が GWS ドメイン制限ありの **外部公開 URL** として配信、ただし社外公開ではないため `06_output/2026-06.md` にリンクのみ catalog)
 - 詳細: [[02_diary/2026-06-03#12:21  run-64]]、[[06_output/2026-06]]
 
+### 2026-06-02 add-milestone-sync archive + add-writer-catchup-sync 実装 + 2026-06-02 週次 publish (1fca49c1、~3h)
+
+> 時系列メモ: 本セッション (1fca49c1、6-02 15:57→19:00 JST) は **fbb058f2 (6-02 19:03→6-03 11:28 JST) の直前**。順序は 1fca49c1 → fbb058f2 → 66be2df6 で、上記 fbb058f2 entry の冒頭で言及される `b1d3925` / `a434093` / `39252eb` 系列が本セッション由来。
+
+「最新の実装状況を確認して報告して。各種ドキュメントに追いついていなかったら、その旨を報告して、ドキュメントをアップデートして」のドキュメント追従指示で起動し、`add-phase-progress-view` archive 完了 → `add-milestone-sync` archive 化 → 2026-06-02 週次レポートのフルセット実行 → publish 着地 → 「工程軸の進捗」が反映されない件のユーザフィードバックから writer の catch-up logic 不在を顕在化 → 新 OpenSpec change `add-writer-catchup-sync` を起票 + 実装着地まで一気通貫で完了 (commit 系列 `fb643f1` → `ae1fa14` → `887eaf2` → `ccac106` → `45f239f` → `b1d3925` → `a434093` → `5072473` → `39252eb`、約 3h)。
+
+- **archive run 1** (`fb643f1 Finalize archive of add-phase-progress-view`):
+  - 既存 archive 状態のファイナライズ。フェーズ遷移 / `phase_evidence` の **MODIFIED Requirements** を `openspec/specs/weekly-report/spec.md` に fold (ADDED Requirements は前ラン `5efbb1c` で merge 済、本ランは MODIFIED の取りこぼし分)
+  - change folder を `openspec/changes/add-phase-progress-view` → `openspec/changes/archive/2026-05-29-add-phase-progress-view/` に rename
+- **add-milestone-sync 本着地 + archive** (`ae1fa14` 78 files、続けて `ccac106` archive):
+  - `ae1fa14 Add add-milestone-sync: Milestone shared layer + progress_checklist + writer plugin` — bulk commit。新規 `pm-master-writer` plugin (Milestone 実績列のみ書き戻し、spreadsheets スコープ、grabber と OAuth トークン分離)、shared layer (`pm-master-grabber/scripts/shared/` の Sheets/OAuth/mapping/Milestone layout 検出)、`config/milestone_mapping.yaml` 24 マイルストーン × phase_bucket / Jooto 信号源
+  - `ccac106 Archive add-milestone-sync` — 4 added + 6 modified weekly-report Requirements、3 changed pm-master-grabber Requirements、新 specs `milestone-mapping` (4 reqs) + `pm-master-writer` (合計 12 reqs)。`openspec/changes/add-milestone-sync` → `openspec/changes/archive/2026-06-02-add-milestone-sync/`
+  - 本セッション開始時点で実装と spec.md は 5-29/5-30 ランで概ね揃っており、本ランは「最後の archive 化と spec sync」を完遂した
+- **2026-05-30 weekly + 状態 補修** (`887eaf2 Add 2026-05-30 weekly update and refresh state snapshots`):
+  - `reports/2026-05-30_weekly_update.md` 新規追加 + `state/latest_state.json` / `state/latest_summary.md` を 2026-05-30 に揃え
+  - `config/projects.csv` から `FY26_01 高円寺南5丁目` と `FY26_05 渋谷区本町5丁目` を drop (案件終了)
+- **設定の現実合わせ** (`45f239f Fill 前提整理 milestone gap and rename FY26_29 to 滝野川きつね塚通り前`):
+  - `config/milestone_mapping.yaml` に **「前提整理」** マイルストーン追加 (`phase_bucket = 前提整理`)。これにより Jooto 進捗状況チェックリストのラベル「前提整理」が writer の未マッピング warning を吐かなくなる
+  - `config/projects.csv` の `FY26_29` を **「滝野川きつね塚通り前」** にリネーム (Milestone シート側の案件名とのマッチ確保のため)
+- **フルセット実行 + 2026-06-02 publish 着地** (`b1d3925 Add 2026-06-02 weekly update + Milestone writeback (109 cells)`):
+  - 実行系列: `/jooto-backup --force` → `/jooto-overdue-scan` → `/pm-master-backup` → `/weekly-report run_date=2026-06-02` → `/weekly-report-publish run_date=2026-06-02`
+  - 配信物: **Firebase Hosting** `https://meguru-pm-report.web.app/r/2026-06-02/` + **Drive Doc** `https://docs.google.com/document/d/1DwpQTuc1dhvqJcCk8gpbk3_aAEp-yQhIXx4Tw7L4IOM/edit?usp=drivesdk`。両者とも `sanitize.py` で契約金額・個人メールアドレスをマスキング済
+  - Milestone writeback **109 セル** (Jooto 進捗状況 → Milestone シート実績列の双方向同期、`a434093` で catch-up 修正前のラウンド)
+  - 初回 publish 時点で run-64 の fbb058f2 が後段に SSR Internal Server Error を修正する経緯あり (`[[02_diary/2026-06-03#12:21  run-64]]` 参照)
+- **ユーザフィードバック — 「工程軸の進捗」が仕様通り更新されない**:
+  - user 発言: 「Jooto の各案件の『進捗状況』タスクのチェックリストのチェック状況を拾う → 工程軸の進捗をレポート上にサマリ + 進捗管理表_master の Milestone シートの各タスクの実績のチェックを書き戻す。Milestone シートのチェックは人手で更新されている場合があるのでチェック済みであればチェックは外さない。としたいんだけど、工程軸の進捗も Milestone シートも更新されていない。なぜ？」
+  - 原因究明: writer の PATH 1 は `progress_checklist.json` (curr) と `progress_checklist.prev.json` (prev) の **差分のみを書き戻し** する設計。**前回 backup が無い案件 + 既に Jooto 側でチェック済みの案件は curr=TRUE / prev (空) = 差分なし → 書き戻し対象から漏れる**。これは catch-up logic 不在による仕様バグ
+- **「進捗状況未設定の案件」の謎**:
+  - user 発言: 「以下は Jooto に進捗状況を追加したつもりだが取得できない: 中野1丁目 / 西巣鴨駅前 / 西荻北1丁目 / 中野区本町5丁目 / 滝野川きつね塚通り前」
+  - 原因: (a) `projects.csv` の `滝野川きつね塚通り前` vs `きつね塚通り前` の **case mismatch** (Milestone シート側は「きつね塚通り前」)、(b) Milestone シート側で **「前提整理」列が無い** (user が後段で追加し 25 列化、`a434093` で対応)
+- **ユーザ修正後の再実行** (`a434093 Refresh 2026-06-02 report after user fixes + writer catch-up`):
+  - user 側の修正: 「前提整理」列を Milestone シートに追加 (24→25 列)、案件名を `きつね塚通り前` に統一
+  - report 側: `projects.csv` の名前を `きつね塚通り前` に揃え、`/weekly-report` 再実行で 2026-06-02 report を再生成、writer の catch-up を一旦 PATH 1 で寄せた緊急対応 (後段の `add-writer-catchup-sync` 本実装の前段)
+- **新 OpenSpec change 起票** (`5072473 Propose add-writer-catchup-sync`):
+  - 提案: writer の PATH 1 を「prev→curr 差分のみ」から「**Milestone 状態 × Jooto curr 状態の状態ジョイン**」に書き換え
+  - 書き戻しルール: Milestone FALSE && Jooto curr TRUE のセルを **常に catch-up で TRUE 化**、Milestone TRUE && Jooto curr FALSE は **手動 TRUE 化セル保護** (Jooto 側が curr で意図的に FALSE に戻していない限り巻き戻さない、prev→curr で TRUE→FALSE 遷移したセルのみ FALSE 巻き戻し)
+  - PATH 2 (`task_prefix` 経由、`phase_bucket: null` の Milestone カラム) は片方向 FALSE→TRUE のみで不変
+- **実装着地** (`39252eb Implement add-writer-catchup-sync: PATH 1 state-join with catch-up`):
+  - `plugins/pm-master-writer/scripts/application/writeback_milestone.py` を状態ジョインに書き換え
+  - test 追加: `test_writeback_milestone.py` で catch-up + 手動 TRUE 保護 + prev→curr 遷移 TRUE→FALSE 巻き戻しの 3 シナリオを網羅
+  - 本 change は本ラン内で propose → apply → 実装 → push の最短ループで決着 (5072473 → 39252eb 直結)
+- **MEMORY 追加** (`feedback_weekly_report_full_set.md`、本 wiki vault ではなく `~/.claude/projects/.../memory/`):
+  - user 発言: 「今度から、デフォルトでレポート作成して、って言ったら、フルセットで実施するようにしてほしい」
+  - 「レポート作成して」のデフォルトを 1〜9 全ステップ (事前 backup / writeback / 再 publish 含む) に変更
+  - `MEMORY.md` への索引追加もこのラン内
+- **commit 系列**: `fb643f1` (archive 1) → `ae1fa14` (78 files bulk) → `887eaf2` (2026-05-30 + projects drop 2) → `ccac106` (archive 2) → `45f239f` (前提整理 + きつね塚通り前) → `b1d3925` (2026-06-02 weekly + 109 cells writeback) → `a434093` (refresh after user fixes) → `5072473` (propose) → `39252eb` (implement catch-up)、計 **9 commit + 2 push** (`ccac106..45f239f`、`5072473..39252eb`)
+- **06_output 該当判定**: **該当する** — 2026-06-02 週次レポートが初回 publish された session。Firebase URL は後段 `fbb058f2` で SSR 修正されたが、**publish 元は本 session (1fca49c1)**。詳細: [[06_output/2026-06]]
+- 詳細: [[02_diary/2026-06-04#00:03  run-65]]
+
+### 2026-06-03 PM Report 提案書 HTML 作成 (66be2df6、~50min)
+
+> 時系列メモ: 本セッション (66be2df6、6-03 12:26→13:14 JST) は **fbb058f2 (6-02 19:03→6-03 11:28 JST) の直後**。順序は 1fca49c1 → fbb058f2 → 66be2df6 で、fbb058f2 の commit `cbb967d` で再構築された README システム構成図 (`flowchart TB` 縦 2 枚) を本セッションが提案書 HTML 内に流用。
+
+「Meguru PM Report システムについて、ここまでの構築の内容を初期構築として、提案書を HTML で作成して。ToDoBot システム提案書の目次構成を参考に」で起動。**3 user turn / ~50 min** の短期セッションで初期構築フェーズの提案書を HTML + PDF で生成。
+
+- **出力物 (リポジトリ内、本ラン記述時点では未コミット `?? docs/`)**:
+  - `docs/proposal/meguru-pm-report-proposal.html` (43 KB)
+  - `docs/proposal/meguru-pm-report-proposal.pdf` (7.5 MB、HTML を Playwright 経由で印刷化)
+  - `docs/proposal/img/` (mermaid SVG 同梱、`flowchart TB` 縦 2 枚 = 日次 / 週次パイプライン)
+- **構成 (目次、ToDoBot 提案書の骨格を踏襲)**:
+  1. エグゼクティブサマリ
+  2. 目次
+  3. 背景と課題 — なぜ案件情報は分散するのか
+  4. ソリューション概要 — Meguru PM Report ができること (システムダイアグラム 2 枚を埋め込み)
+  5. 主要機能・要件 — 週次レポート / 期日アラート / Milestone 双方向同期 / 配信 (Firebase + Drive)
+  6. システム仕様 — アーキテクチャと技術スタック (Python 3.10 / Claude Code plugin / OAuth / Firebase Functions 1st Gen / LaunchAgent / Healthchecks.io)
+  7. セキュリティ・プライバシー — Gmail read-only / Spreadsheet 読み書き分離 (grabber readonly + writer Milestone 実績列のみ) / 配信物のマスキング / GWS ドメイン制限
+  8. 開発工数見積 — 時間単位の明細 (本セッション内で **1.2 倍に increase**)
+  9. 運用コスト試算 — Claude Code (Opus 1M) + Firebase + GCP (Sheets/Drive/Gmail API)
+  10. 想定スケジュールと前提条件
+  11. リスクと対策／次のステップ
+- **iteration 3 段**:
+  1. 初稿生成 (HTML 単体 + PDF)
+  2. user 要望「初期構築の開発工数を 1.2 倍程度に明細から増やせる？」→ 明細レベルで全項目の工数係数を再計算
+  3. user 要望「README.md のシステムダイアグラムを提案書のソリューション概要あたりに、テーブルのレコード内改行が文字重なるので要修正」→ `flowchart TB` 縦 2 枚 mermaid を HTML 内に埋め込み、`<td>` 内 `<br>` の line-height / padding を増やして重なり解消
+- **06_output 該当判定**: **該当しない** — `docs/proposal/` は **未コミット状態** (`?? docs/`、ローカル成果物)、外部 URL 配信なし。コミット + 配信 (社内 PDF メール送信 or Drive 共有) が行われたら [[06_output/2026-06]] への catalog 追加候補
+- 詳細: [[02_diary/2026-06-04#00:03  run-65]]
+
 ## Links
 
 - [[02_diary/2026-04-24]]
@@ -588,6 +666,7 @@ writer の 3 経路 (v2 完成形):
 - [[02_diary/2026-05-30]]
 - [[02_diary/2026-06-02]]
 - [[02_diary/2026-06-03]]
+- [[02_diary/2026-06-04]]
 - [[05_learn/jooto-checklist-items-separate-endpoint]]
 - [[05_learn/ssh-agent-shortcuts]]
 - [[05_learn/gmail-mcp-reauth]]
