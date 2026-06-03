@@ -150,3 +150,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-06-02T13:42:00Z  op:ingest  S=4 I=0 pages=1 unsortable=0 deferred=1 (run-60 main; meta_drain=f1a996d3 run-59-self + 3x pipeline-failure 22:38; defer=e594cbdd dirty 03_work/todobot 6 ラン目)
 - 2026-06-02T13:50:37Z  op:ingest  S=5 I=0 pages=2 unsortable=0 deferred=1 (run-61 main; substantive_landing=worker uncommitted から 03_work/meguru-pm-report 2026-06-02 22:38 H3 救出 commit; meta_drain=821f682c+daf0d296+f1336766+b1009deb worker chain; defer=e594cbdd dirty 03_work/todobot 7 ラン目)
 - 2026-06-02T15:23:07Z  op:ingest  S=2 I=0 pages=1 unsortable=0  deferred=1 errored=1  run-62
+- 2026-06-03T00:20:06Z  op:ingest  S=4 I=0 pages=1 unsortable=0 deferred=1  run-63  (meta_drain=7fe990ff run-62-self + cb03e9f4 noop + c0cdf6ff/29e2ffc7 /jooto-list-boards unknown; defer=e594cbdd 9th)
