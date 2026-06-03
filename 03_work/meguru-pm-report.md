@@ -1,9 +1,9 @@
 ---
 title: MeguruPMReport
 category: 03_work
-tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, tech:google-drive, tech:firebase-hosting, stage:active]
-sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af, f3a28fae-f6aa-45c6-94cf-566dcb101b26, fe1f5fac-3230-4199-912e-bdda570463c1, 2e4721dd-2285-4f3d-97ff-7e5e88c37b52, 8c7aa96d-0845-4a70-84e2-dc8bf17ffea7, 821f682c-145f-460a-9214-effb01b8a849, f1336766-5705-4d8b-a7bc-559494e807e1]
-updated: 2026-06-02
+tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, tech:google-drive, tech:firebase-hosting, tech:firebase-functions, tech:launchd, tech:mermaid, stage:active]
+sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af, f3a28fae-f6aa-45c6-94cf-566dcb101b26, fe1f5fac-3230-4199-912e-bdda570463c1, 2e4721dd-2285-4f3d-97ff-7e5e88c37b52, 8c7aa96d-0845-4a70-84e2-dc8bf17ffea7, 821f682c-145f-460a-9214-effb01b8a849, f1336766-5705-4d8b-a7bc-559494e807e1, fbb058f2-6e1d-4ae1-9460-f4e54099fbc0, cdd93242-ab74-40ad-a85e-4635b815f09d]
+updated: 2026-06-03
 ---
 
 # MeguruPMReport
@@ -532,6 +532,48 @@ writer の 3 経路 (v2 完成形):
 - 詳細: [[02_diary/2026-06-02#run-60]]、[[02_diary/2026-06-02#22:55  run-61]]
 - 関連: [[05_learn/claude-code-plugin-namespace]]、[[05_learn/wiki-automation-pipeline]]
 
+### 2026-06-02→03 add-daily-milestone-alert + Firebase Functions HTML viewer + LaunchAgent + README diagram split (fbb058f2、~16h)
+
+`/opsx:propose` → `/opsx:apply` で `add-daily-milestone-alert` OpenSpec change を起票・実装し、Milestone シート期日列の日次背景色塗布 + 各案件サマリの Gmail 通知を新規プラグイン `plugins/milestone-alert/` として導入。同セッションで Firebase Functions の HTML viewer 復旧、`daily_pipeline.sh` の 5 ステップ化、LaunchAgent 登録、README システム構成図の縦 2 枚化までを一気通貫で完了 (commit 系列 `5072473` → `39252eb` → `ffab08d` → `47883b5` → `0d373d9` → `cbb967d`、約 16h 散発)。
+
+- **add-daily-milestone-alert** (commit `ffab08d`):
+  - `plugins/milestone-alert/` を新規追加 (`pyproject.toml` + Clean Architecture 4 層: domain / application / infrastructure / interfaces)
+  - 期日列背景色: 朱 (期日超過) / 橙 (近日中 = `near_threshold_days` 以内) / 白 (正常)。`spreadsheets.batchUpdate` で `updateCells` を発行できるのは milestone-alert のみ、`fields` は `userEnteredFormat.backgroundColor` 単独に限定、`range_guard.py` で `userEnteredValue` 拒絶 (期日テキスト・実績チェックボックス・他シート・ヘッダ行・案件名列は物理的に触らない)
+  - Gmail 送信: OAuth User (デフォルト) または DWD (Workspace Service Account 経由) で `users.messages.send`。`/milestone-alert` 以外から `users.messages.send` を呼ぶことは CLAUDE.md で禁則化、MCP Gmail は read-only `search_threads` / `get_thread` のみ
+  - 設定: `config/milestone_alert.yaml` (実体は git 管理外、`.example` のみ追跡) で送信元・受信者・閾値・URL テンプレートを定義
+  - 監査: `state/milestone_alert_{run_date}.json` に全 Milestone セルの status / before-after color / メール metadata + body 本文 (dry-run 時) / SHA256 (通常実行時) を保存
+  - shared 再利用: Sheets/OAuth/マッピング/レイアウト検出は `plugins/pm-master-grabber/scripts/shared/` から import (copy 禁止、`Simplify shared modules` フィードバック踏襲)
+- **daily_pipeline.sh の 5 ステップ化** (commit `47883b5`):
+  - `1. /jooto-backup --all-active` → `2. /jooto-overdue-scan` → `3. /pm-master-backup` → `4. (条件付き) /weekly-report + /weekly-report-publish` → `5. python -m interfaces.alert_cli --run-date YYYY-MM-DD` (期日色塗り + Gmail 通知)
+  - `weekly_report_frequency` を `config/daily_pipeline.yaml` で `daily` / `tuesday_only` / `weekdays_only` / `manual` の 4 モードに切替可能化。コスト最適化したくなったら設定変更のみでコード不要
+  - 排他制御は `flock` または macOS フォールバックの `mkdir`-lock。死活監視は Healthchecks.io URL (`healthcheck_urls.base`) で `start` / 成功 / `/fail` の 3 種 ping
+- **LaunchAgent** (`com.meguru.pm.daily`):
+  - `scripts/install_launchagent.sh` で `~/Library/LaunchAgents/com.meguru.pm.daily.plist` を実体パス展開して登録、`launchctl bootstrap` 経由
+  - 起動時刻は当初 user 指示で 8:00 JST、その後 README システム構成図に反映する時に 9:00 JST に変更 (cbb967d 図内に明記)
+  - AC 接続のクラムシェル Mac で毎朝発火想定。ログは `~/Library/Logs/MeguruPM/{run_date}.log` に 30 日 rotate (`log_retention_days` で上書き可)
+  - テンプレートは `scripts/launchagent.plist.example` のみ追跡 (実体は machine 依存パス展開)
+- **Firebase Functions HTML viewer の Internal Server Error 復旧**:
+  - `https://meguru-pm-report.web.app/r/2026-06-02` の初回アクセスで 500 → 認証フォールバック (`__session` Cookie + email-domain) と CSS path を修正してデプロイ ([[memory:firebase_auth_pattern]] / [[memory:firebase_first_deploy_iam]] の前提踏襲)
+  - 1st Gen Functions の初回デプロイ IAM 3 点はすでに前段で解決済 (memory 参照)、本セッションは Functions コード側の auth path 修正
+  - Google Document リンクは初回から正常配信、配信物は `plugins/drive-publisher/scripts/sanitize.py` で契約金額・個人メールアドレスをマスキング済
+- **alert メールフォーマット iteration**:
+  - 初回出力はフルテーブル → user 要望で **テキストベース + 太字/色/絵文字で要所のみ強調**、スマホ閲覧前提に空白・インデント抑制、文字サイズ・行間は据え置き
+  - 条例 5 種 (景観条例チェック / 狭隘協議チェック / 中高層条例チェック / 清掃局チェック / 緑化・雨水対策チェック) を **1 行** に圧縮、`条例チェック(景観/狭隘/中高層/清掃局/緑化・雨水)` 形式、該当のみカッコ内に列挙
+  - alert メール末尾に **PM master Sheet URL + 各案件の Jooto board URL** を追記 (commit `0d373d9`)
+- **README システム構成図の縦 2 枚化** (commit `cbb967d`):
+  - 旧 `flowchart LR` 横長 1 枚 → 新 `flowchart TB` 縦 2 枚 (日次 / 週次に分割) で可読性向上
+  - 新コンポーネント (milestone-alert / pm-master-writer / LaunchAgent / Healthchecks.io) を反映、stale な `add-milestone-sync` を `add-daily-milestone-alert` に差し替え
+  - 凡例: 「**fbb058f2 (手動)**」: 事前バックアップは日次が朝に済ませる前提で省略可と明記
+  - mermaid-cli `v11.15.0` で両図 SVG レンダリング成功確認
+- **Gmail API enable の経路ハマり**:
+  - 当初 `meguru-pm-report` GCP プロジェクトで Gmail API enable → 403、**`meguru-pm-master` プロジェクト側**で enable し直して通った
+  - `/milestone-alert-auth` は milestone-alert 専用の OAuth 同意フロー (spreadsheets + gmail.send の 2 スコープ)、送信元として認証したい user でログイン
+- **既知の未解決**: フルセット実行時、Jooto 進捗状況の **「前提整理」** チェックリストが checked なのに Milestone 列にチェックが付かない
+  - 当該マイルストーンは `config/milestone_mapping.yaml` で `phase_bucket=null` + `jooto_task_prefixes` 補完経路 (task_prefix path、片方向 FALSE→TRUE のみ) を想定
+  - 本セッションでは深掘り未完了、次回フルセット実行時に再現確認 + `state/milestone_writeback_*.json` の dry-run スナップショットで `intended_writes` の有無を見るのが最短
+- **06_output 該当判定**: **該当する** (`https://meguru-pm-report.web.app/r/2026-06-02` が GWS ドメイン制限ありの **外部公開 URL** として配信、ただし社外公開ではないため `06_output/2026-06.md` にリンクのみ catalog)
+- 詳細: [[02_diary/2026-06-03#12:21  run-64]]、[[06_output/2026-06]]
+
 ## Links
 
 - [[02_diary/2026-04-24]]
@@ -544,6 +586,8 @@ writer の 3 経路 (v2 完成形):
 - [[02_diary/2026-05-28]]
 - [[02_diary/2026-05-29]]
 - [[02_diary/2026-05-30]]
+- [[02_diary/2026-06-02]]
+- [[02_diary/2026-06-03]]
 - [[05_learn/jooto-checklist-items-separate-endpoint]]
 - [[05_learn/ssh-agent-shortcuts]]
 - [[05_learn/gmail-mcp-reauth]]
@@ -552,3 +596,4 @@ writer の 3 経路 (v2 完成形):
 - [[05_learn/claude-code-plugin-namespace]]
 - [[05_learn/fy-cycle-mmdd-year-inference]]
 - [[06_output/2026-04]]
+- [[06_output/2026-06]]
