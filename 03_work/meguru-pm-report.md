@@ -2,7 +2,7 @@
 title: MeguruPMReport
 category: 03_work
 tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, tech:google-drive, tech:firebase-hosting, tech:firebase-functions, tech:launchd, tech:mermaid, stage:active]
-sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af, f3a28fae-f6aa-45c6-94cf-566dcb101b26, fe1f5fac-3230-4199-912e-bdda570463c1, 2e4721dd-2285-4f3d-97ff-7e5e88c37b52, 8c7aa96d-0845-4a70-84e2-dc8bf17ffea7, 821f682c-145f-460a-9214-effb01b8a849, f1336766-5705-4d8b-a7bc-559494e807e1, fbb058f2-6e1d-4ae1-9460-f4e54099fbc0, cdd93242-ab74-40ad-a85e-4635b815f09d, 1fca49c1-8c3b-4a77-b6a4-0c4dcdbc0f81, 66be2df6-aeed-483f-804d-ca033fc1cf6a, 0ef2475c-8995-476b-aebc-f8856a937bed, d56dc1c3-34eb-4a4e-95d6-40cbe8f6da58]
+sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af, f3a28fae-f6aa-45c6-94cf-566dcb101b26, fe1f5fac-3230-4199-912e-bdda570463c1, 2e4721dd-2285-4f3d-97ff-7e5e88c37b52, 8c7aa96d-0845-4a70-84e2-dc8bf17ffea7, 821f682c-145f-460a-9214-effb01b8a849, f1336766-5705-4d8b-a7bc-559494e807e1, fbb058f2-6e1d-4ae1-9460-f4e54099fbc0, cdd93242-ab74-40ad-a85e-4635b815f09d, 1fca49c1-8c3b-4a77-b6a4-0c4dcdbc0f81, 66be2df6-aeed-483f-804d-ca033fc1cf6a, 0ef2475c-8995-476b-aebc-f8856a937bed, d56dc1c3-34eb-4a4e-95d6-40cbe8f6da58, 00db3a35-a07a-43bf-913e-97f2d41c1041]
 updated: 2026-06-05
 ---
 
@@ -713,6 +713,77 @@ scripts/test/test_launchagent_template.sh |   8 +--
 - 本セッションは 1 turn の短いタスクで [[memory:feedback_long_running_commands]] (フル `/weekly-report` は次回の自然な実行で検証) には抵触しない、`launchctl kickstart` で即時テスト可能
 - 詳細: [[02_diary/2026-06-04#23:58  run-66]]
 
+### 2026-06-05 milestone_mapping yaml cleanup 整合性検証 + daily_pipeline.sh data dir bug 修正 + LaunchAgent 8→9 / yaml cleanup の 2 commit push (00db3a35、~30min)
+
+> 直前の d56dc1c3 (run-66 entry) では LaunchAgent 8→9 反映 5 ファイルが **未コミット** で残っていた。本セッション末尾で **`b7f5097` LaunchAgent: bump daily fire time from 08:00 to 09:00 JST** として 1 commit に切り出し + push。実体は run-66 で配置済 / 本セッションで git 反映、の 2 段構え。
+
+user 起動: 「milestone_mapping.yaml について、スプシに列は残っているけど、一部の process をコメントアウトした。このようにしても、backup, 実績チェック付、遅延/期日近いチェック、工程軸の進捗状況レポート、メールレポート、それぞれ整合性をとって動く・・？」
+
+#### Phase A: yaml comment-out 整合性の机上回答
+
+5 サブシステム (backup / writeback / alert / weekly-report / メール) について、`detect_layout()` の完全一致スキャンを起点に「コメントアウト列は素通り、エラーにはならない」と回答。**唯一手動クリーンアップ必須なのは alert の背景色** — alert が触らなくなるので、コメントアウト時点で朱/橙のセルは永久に塗り替わらない → 一度白に戻す必要あり。詳細は [[05_learn/milestone-yaml-comment-out-behavior]]。
+
+`仮受（意匠・構造）` → `仮受（意匠）` のリネームは別問題で、スプシ側のヘッダ文字列もリネーム後に揃える作業が必須 (`detect_layout()` 完全一致のため)。
+
+#### Phase B: クリーンアップ後フルセット 1 周 (メール除く)
+
+user「クリーンアップは実施したので、メール通知を除くフルセットを一度回してテストしてみて」
+
+実行: `/jooto-backup --all-active --force` → `/pm-master-backup` → writeback dry-run → alert (`--skip-email`)
+
+検証 OK:
+- layout detection: 15 process columns 検出、`仮受（意匠）` も検出
+- commented-out リーク: writeback / alert snapshot ともゼロ
+- writeback PATH 1: `cells_planned: 0` (prev==curr 同期済)
+- writeback PATH 2: コメントアウトで該当エントリ消滅 → 元から no-work
+- alert color: 360 セル走査 / 360 更新 / `hash_drift: []` / 20 overdue + 9 upcoming
+- 色分布: done 195 / future 72 / not_applicable 64 / overdue 20 / upcoming 9
+
+#### Phase C: テスト中に **`daily_pipeline.sh` data dir bug** 発見
+
+実行途中で「データの出力先がズレている」ことに気付き、リカバリ実行。
+
+**root cause** ([scripts/daily_pipeline.sh:122-125](scripts/daily_pipeline.sh#L122-L125)):
+Step 1 (`/jooto-backup`) が `cd plugins/jooto-grabber` 後に `--output` 未指定で `backup_cli` を呼んでいたため、デフォルト相対パス `data/jooto` が **`plugins/jooto-grabber/data/jooto/`** に解決。一方 downstream (`pm-master-writer` / `milestone-alert`) は `shared/repo_paths.py` 経由で `$REPO_ROOT/data/jooto/` を読む → **書き込み先と読み込み先が食い違い**。
+
+影響:
+- repo root の `data/jooto/` 最終更新が **2026-05-30** で固定 (LaunchAgent は 06-02/03/04 と 9:00 に正常起動していたが、書き込み先は plugin 内ディレクトリだった)
+- 本セッションでは `--output data/jooto` 明示指定で再実行してリカバリ
+
+修正 ([scripts/daily_pipeline.sh:121-152](scripts/daily_pipeline.sh#L121-L152)):
+```bash
+# Step 1: jooto-backup
+PYTHONPATH=scripts .venv/bin/python -m interfaces.backup_cli \
+  --all-active --force --output "$REPO_ROOT/data/jooto"
+
+# Step 2: overdue_cli per-board ループ
+... --output "$REPO_ROOT/data/jooto"
+```
+
+検証:
+- `bash -n` syntax OK
+- `scripts/test/test_daily_pipeline_dry.sh` 20/20 pass (既存 substring match は `--all-active --force` / `--board <id>` を残したので壊れない)
+- 実 LaunchAgent の回帰確認は、**2026-06-05 09:00 JST** の自動実行翌朝に `data/jooto/{board}/progress_checklist.json` の `fetched_at` が当日分かで確認
+
+メール送信込みのフル実行は `--skip-email` フラグが daily_pipeline.sh に無いため避けた (LaunchAgent 待ち)。
+
+#### Phase D: 2 commit に分割して push
+
+user「OK. ここまでの変更を commit, push しておいて」 → 2 つの論理コミットに分割:
+
+- **`b7f5097`** `LaunchAgent: bump daily fire time from 08:00 to 09:00 JST` (run-66 で配置した 5 ファイル分の git 反映)
+- **`5b07ca6`** `milestone_mapping: prune unused processes; daily_pipeline: pin --output to repo-root data/jooto` (yaml cleanup + data dir fix)
+
+`docs/` untracked (66be2df6 由来の proposal PDF/HTML + img) はセッション範囲外として除外。
+
+#### MEMORY 追加
+
+- `project_daily_pipeline_data_dir_bug.md` — 本バグの memory 化 (MEMORY.md の `- [daily_pipeline data dir bug]` 行に対応)
+
+#### `06_output` 該当判定
+
+**該当しない** — GitHub push (2 commits) は内部リポジトリへの反映で、本ファイルが追跡している「外部 URL 配信」(Firebase Hosting + Google Drive Doc) には該当しない。次回 9:00 発火で alert メール送信が成功すれば [[06_output/2026-06]] catalog 追加候補。
+
 ## Links
 
 - [[02_diary/2026-04-24]]
@@ -728,7 +799,9 @@ scripts/test/test_launchagent_template.sh |   8 +--
 - [[02_diary/2026-06-02]]
 - [[02_diary/2026-06-03]]
 - [[02_diary/2026-06-04]]
+- [[02_diary/2026-06-05]]
 - [[05_learn/jooto-checklist-items-separate-endpoint]]
+- [[05_learn/milestone-yaml-comment-out-behavior]]
 - [[05_learn/ssh-agent-shortcuts]]
 - [[05_learn/gmail-mcp-reauth]]
 - [[05_learn/gmail-search-threads-message-limit]]
