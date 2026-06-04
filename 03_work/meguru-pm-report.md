@@ -2,8 +2,8 @@
 title: MeguruPMReport
 category: 03_work
 tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, tech:google-drive, tech:firebase-hosting, tech:firebase-functions, tech:launchd, tech:mermaid, stage:active]
-sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af, f3a28fae-f6aa-45c6-94cf-566dcb101b26, fe1f5fac-3230-4199-912e-bdda570463c1, 2e4721dd-2285-4f3d-97ff-7e5e88c37b52, 8c7aa96d-0845-4a70-84e2-dc8bf17ffea7, 821f682c-145f-460a-9214-effb01b8a849, f1336766-5705-4d8b-a7bc-559494e807e1, fbb058f2-6e1d-4ae1-9460-f4e54099fbc0, cdd93242-ab74-40ad-a85e-4635b815f09d, 1fca49c1-8c3b-4a77-b6a4-0c4dcdbc0f81, 66be2df6-aeed-483f-804d-ca033fc1cf6a, 0ef2475c-8995-476b-aebc-f8856a937bed]
-updated: 2026-06-04
+sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af, f3a28fae-f6aa-45c6-94cf-566dcb101b26, fe1f5fac-3230-4199-912e-bdda570463c1, 2e4721dd-2285-4f3d-97ff-7e5e88c37b52, 8c7aa96d-0845-4a70-84e2-dc8bf17ffea7, 821f682c-145f-460a-9214-effb01b8a849, f1336766-5705-4d8b-a7bc-559494e807e1, fbb058f2-6e1d-4ae1-9460-f4e54099fbc0, cdd93242-ab74-40ad-a85e-4635b815f09d, 1fca49c1-8c3b-4a77-b6a4-0c4dcdbc0f81, 66be2df6-aeed-483f-804d-ca033fc1cf6a, 0ef2475c-8995-476b-aebc-f8856a937bed, d56dc1c3-34eb-4a4e-95d6-40cbe8f6da58]
+updated: 2026-06-05
 ---
 
 # MeguruPMReport
@@ -651,6 +651,67 @@ writer の 3 経路 (v2 完成形):
   3. user 要望「README.md のシステムダイアグラムを提案書のソリューション概要あたりに、テーブルのレコード内改行が文字重なるので要修正」→ `flowchart TB` 縦 2 枚 mermaid を HTML 内に埋め込み、`<td>` 内 `<br>` の line-height / padding を増やして重なり解消
 - **06_output 該当判定**: **該当しない** — `docs/proposal/` は **未コミット状態** (`?? docs/`、ローカル成果物)、外部 URL 配信なし。コミット + 配信 (社内 PDF メール送信 or Drive 共有) が行われたら [[06_output/2026-06]] への catalog 追加候補
 - 詳細: [[02_diary/2026-06-04#00:03  run-65]]
+
+### 2026-06-04 milestone-alert 起動時刻 8:00→9:00 JST + 受信者 4 名 + 本番デプロイ (d56dc1c3、~2min)
+
+> 時系列メモ: 本セッション (d56dc1c3、6-04 23:56→23:58 JST) は **fbb058f2 / 66be2df6 系列の後**。fbb058f2 entry で「起動時刻は当初 user 指示で 8:00 JST、その後 README システム構成図に反映する時に 9:00 JST に変更 (cbb967d 図内に明記)」とあるが、実体は **本セッション (d56dc1c3) で改めて user 明示指示** → コード 5 ファイル + LaunchAgent 実体を 9:00 にデプロイ、という流れ。cbb967d は 6-03 11:28 JST のコミットで diagram 内の表記だけが先行 9:00 化していて、LaunchAgent 実体は本セッションまで 8:00 のままだった。
+
+user 1 turn のみ: 「メール通知の時間を8:00から9:00にしてほしい。あと、メールの宛先をyamlファイルに追加したので、本番デプロイしてもらっていい？」で起動。**2 つの要求を 1 セッションで完結**:
+
+- **要求 1**: 起動時刻 8:00 → 9:00 JST (`milestone-alert` の Gmail 通知時刻 = `daily_pipeline.sh` 全体の発火時刻)
+- **要求 2**: `config/milestone_alert.yaml` 受信者追加 → 本番デプロイ
+
+#### 反映 5 ファイル (8:00 → 9:00)
+
+| ファイル | 行 | 変更 |
+|---|---|---|
+| [scripts/launchagent.plist.example](scripts/launchagent.plist.example) | 32-37 | `<key>Hour</key><integer>9</integer>` |
+| [scripts/daily_pipeline.sh](scripts/daily_pipeline.sh) | 2 | ヘッダコメント |
+| [scripts/install_launchagent.sh](scripts/install_launchagent.sh) | 55 | 完了メッセージ |
+| [scripts/test/test_launchagent_template.sh](scripts/test/test_launchagent_template.sh) | 67-72 | `Hour == 9` アサーション |
+| [README.md](README.md) | 5 箇所 | 概要 / セットアップ / 自動実行 / 構成図 / ファイル一覧 |
+
+`git diff --stat HEAD` (本ラン書き込み時点で **未コミット**):
+```
+README.md                                 |  12 ++--
+config/milestone_mapping.yaml             | 106 +++++++++++++-----------------  (別件)
+scripts/daily_pipeline.sh                 |   2 +-
+scripts/install_launchagent.sh            |   2 +-
+scripts/launchagent.plist.example         |   4 +-
+scripts/test/test_launchagent_template.sh |   8 +--
+```
+
+#### デプロイ手順 (本セッションで実行済)
+
+1. `scripts/test/test_launchagent_template.sh` → **11/11 pass** (`Hour == 9` 新アサーション 1 件含む)
+2. `scripts/install_launchagent.sh` で `~/Library/LaunchAgents/com.meguru.pm.daily.plist` を再 render (Hour=9 で展開) + `launchctl bootout/bootstrap` で再ロード
+3. `launchctl print gui/$(id -u)/com.meguru.pm.daily` で `"Hour" => 9 / state = not running` (次回発火待ち) を確認
+
+#### `config/milestone_alert.yaml` 受信者追加 (gitignored、デプロイ不要)
+
+- ファイル実体は **git 管理外** (`.example` のみ追跡)、`interfaces/alert_cli` が起動毎に再読込する設計のため **別途デプロイ不要**
+- スキーマ検証 (本セッション内で実行) — `plugins/milestone-alert/.venv` の pydantic loader を直接 invoke:
+  - `email_from` = developer1 (= ログイン中の OAuth ユーザ)
+  - **受信者 4 名**: togami-log / design / tkasuya / mashikaya
+  - `max_recipients=10` 以下 (4 ≤ 10)、`gmail_oauth_mode=oauth`
+
+#### 次回発火と挙動確認
+
+- **明日 2026-06-05 09:00 JST** に LaunchAgent 自動発火 → `daily_pipeline.sh` 5 ステップ → step 5 で `interfaces.alert_cli` が 4 名へ Gmail 送信
+- **即時挙動確認**: `launchctl kickstart -k gui/$(id -u)/com.meguru.pm.daily`
+
+#### 未コミットの 5 ファイル (追跡)
+
+本セッション末尾時点で、user 明示の `commit/push` 指示がないため commit は走らせていない。`scripts/launchagent.plist.example` / `scripts/daily_pipeline.sh` / `scripts/install_launchagent.sh` / `scripts/test/test_launchagent_template.sh` / `README.md` の 5 ファイルが **本番ファイルは 9:00 化済だが git は 8:00 のまま**。次の commit (`feat: switch LaunchAgent schedule 8:00→9:00 JST` 相当) で reconcile される想定。`docs/proposal/` (66be2df6 由来) も同じく未コミット状態のまま。
+
+#### `06_output` 該当判定
+
+**該当しない** — 起動時刻変更は内部 LaunchAgent 設定の変更で、外部 URL 配信なし。社内 Gmail 送信は明日 9:00 の発火結果待ちで、メール送信が実際に走ったら [[06_output/2026-06]] に catalog 追加候補
+
+#### 関連 memory フィードバック
+
+- 本セッションは 1 turn の短いタスクで [[memory:feedback_long_running_commands]] (フル `/weekly-report` は次回の自然な実行で検証) には抵触しない、`launchctl kickstart` で即時テスト可能
+- 詳細: [[02_diary/2026-06-04#23:58  run-66]]
 
 ## Links
 
