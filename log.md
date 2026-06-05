@@ -157,3 +157,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-06-03T15:11:30Z  op:ingest  S=3 I=0 pages=3 unsortable=0 deferred=1 (run-65 main; substantive_landing=1fca49c1 add-milestone-sync archive + add-writer-catchup-sync 実装 + 2026-06-02 publish, 66be2df6 PM Report 提案書 HTML; meta_drain=0ef2475c run-64 self; defer=e594cbdd dirty 03_work/todobot 11 ラン目)
 - 2026-06-04T15:02:30Z  op:ingest  run-66 S=3 (d56dc1c3 substantive + 60d8fe19/2f2371e8 meta drain = run-65 自己 2 連発) I=0 pages=3 unsortable=0 deferred=1 (e594cbdd 12 ラン連続 dirty 03_work/todobot.md)
 - 2026-06-04T15:35:16Z  op:ingest  run-67 S=2 (00db3a35 substantive + f84ccf86 meta drain = run-66 self) I=0 pages=3 unsortable=0 deferred=1 (e594cbdd 13 ラン連続 dirty 03_work/todobot.md)
+- 2026-06-05T00:18:59Z  op:ingest  run-68 S=2 (19921cfa substantive + cf5023f0 meta drain = run-67 self) I=0 pages=3 unsortable=0 deferred=1 (e594cbdd 14 ラン連続 dirty 03_work/todobot.md + 06_output/2026-05.md)

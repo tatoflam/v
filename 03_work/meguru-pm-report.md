@@ -2,7 +2,7 @@
 title: MeguruPMReport
 category: 03_work
 tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, tech:google-drive, tech:firebase-hosting, tech:firebase-functions, tech:launchd, tech:mermaid, stage:active]
-sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af, f3a28fae-f6aa-45c6-94cf-566dcb101b26, fe1f5fac-3230-4199-912e-bdda570463c1, 2e4721dd-2285-4f3d-97ff-7e5e88c37b52, 8c7aa96d-0845-4a70-84e2-dc8bf17ffea7, 821f682c-145f-460a-9214-effb01b8a849, f1336766-5705-4d8b-a7bc-559494e807e1, fbb058f2-6e1d-4ae1-9460-f4e54099fbc0, cdd93242-ab74-40ad-a85e-4635b815f09d, 1fca49c1-8c3b-4a77-b6a4-0c4dcdbc0f81, 66be2df6-aeed-483f-804d-ca033fc1cf6a, 0ef2475c-8995-476b-aebc-f8856a937bed, d56dc1c3-34eb-4a4e-95d6-40cbe8f6da58, 00db3a35-a07a-43bf-913e-97f2d41c1041]
+sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af, f3a28fae-f6aa-45c6-94cf-566dcb101b26, fe1f5fac-3230-4199-912e-bdda570463c1, 2e4721dd-2285-4f3d-97ff-7e5e88c37b52, 8c7aa96d-0845-4a70-84e2-dc8bf17ffea7, 821f682c-145f-460a-9214-effb01b8a849, f1336766-5705-4d8b-a7bc-559494e807e1, fbb058f2-6e1d-4ae1-9460-f4e54099fbc0, cdd93242-ab74-40ad-a85e-4635b815f09d, 1fca49c1-8c3b-4a77-b6a4-0c4dcdbc0f81, 66be2df6-aeed-483f-804d-ca033fc1cf6a, 0ef2475c-8995-476b-aebc-f8856a937bed, d56dc1c3-34eb-4a4e-95d6-40cbe8f6da58, 00db3a35-a07a-43bf-913e-97f2d41c1041, 19921cfa-1d09-4c76-b029-edeec9f12618]
 updated: 2026-06-05
 ---
 
@@ -783,6 +783,68 @@ user「OK. ここまでの変更を commit, push しておいて」 → 2 つの
 #### `06_output` 該当判定
 
 **該当しない** — GitHub push (2 commits) は内部リポジトリへの反映で、本ファイルが追跡している「外部 URL 配信」(Firebase Hosting + Google Drive Doc) には該当しない。次回 9:00 発火で alert メール送信が成功すれば [[06_output/2026-06]] catalog 追加候補。
+
+### 2026-06-05 週次レポート 2026-06-05 フルセット publish + 幡ヶ谷本町追補 + 認証チェック Step 0 追加 (19921cfa、~38min)
+
+「レポート作って」(フルセット 1〜9、[[memory:feedback_weekly_report_full_set]]) で起動。HTML + Drive Doc の **両配信先 publish 成功**、配信物は [[06_output/2026-06#Firebase Hosting — 週次レポート HTML viewer (2026-06-05 号)]] / [[06_output/2026-06#Google Drive Doc — 週次レポート Google ドキュメント (2026-06-05 号)]] にカタログ化。Markdown 原本: [reports/2026-06-05_weekly_update.md](https://github.com/meguruit/MeguruPMReport/blob/main/reports/2026-06-05_weekly_update.md)。
+
+#### Phase A: フルセット初回ラン (5 ステップ、~25min)
+
+| # | step | 結果 |
+|---|---|---|
+| 1 | `/jooto-backup --all-active --force` | 41 boards |
+| 2 | `/jooto-overdue-scan` | FY26 25 boards、超過 5 件 (前回 6/2 と同数) |
+| 3 | `/pm-master-backup` | 4 sheets + Milestone |
+| 4 | `/weekly-report-sync-baseline` | 6/2 Drive Doc から baseline 同期 |
+| 5 | `/weekly-report run_date=2026-06-05` | reports/2026-06-05_weekly_update.md 生成 |
+| 6 | `/pm-master-milestone-writeback 2026-06-05` | 初回 `cells_planned: 0` (6/2→6/5 でフェーズ遷移なし) |
+| 7 | pm-master-backup 再取得 | no-op |
+| 8 | `/weekly-report-publish` | **Firebase deploy 認証期限切れで失敗、Drive Doc upload 成功** |
+
+#### Phase B: 意匠負荷ビュー初稿バグ修正 (井上 1 件 → 3 件、user 指摘)
+
+初稿で井上=並行 1 件 (FY26_06 祐天寺のみ) と判定 → user「井上先生は 3 案件担当」 → Workload 集計が **設計開始空欄の案件をスキップしていた** バグが露呈。FY26_21 江古田江原 + FY26_23 山王3丁目 (両方 `設計開始 = ''`) が並行扱いから漏れていた。
+
+- **ルール確立**: 統合表で `設計開始` 空欄の案件でも、Milestone シートで進捗フェーズが TRUE なら **並行扱い**。空欄=未開始ではなく「キックオフ前で着手日未確定」のパターン。Milestone TRUE は「Jooto 進捗状況チェックリストでチェック済 → writeback で書き戻された」事実なので、業務は進行中
+- 修正後の負荷ビュー: 鈴木 2 件 / 八田 2 件 / 品田 2 件 / 中辻 1 件 / 中村 1 件 / 井上 **3 件** / 加納 0 件
+- **MEMORY 追加**: `project_workload_active_no_start.md` (MeguruPMReport scoped、MEMORY.md の `Workload active no-start` 行に対応)
+
+#### Phase C: 幡ヶ谷本町 FY26_19 追補 (user 指摘、~5min)
+
+user「幡ヶ谷本町の jooto の進捗状況タスクのチェックリスト更新漏れがあったので、そこだけチェックして、レポートを更新できる？」
+
+- 単一 board 再 backup → progress_checklist diff:
+  - **仮受付**: prev=False → current=True (`checked_at` = 2026-06-04T15:53Z = 6/5 00:53 JST)
+- writeback 再実行: `cells_planned: 1` で Milestone 「仮受（意匠）」 FALSE → TRUE 書き戻し
+- pm-master-backup 再取得で `→ 最終フェーズ: 仮受付` (構造着手 → 仮受付 に遷移) 確認
+- レポート更新: 全体サマリ書き戻し件数 0→1 / 工程軸ビューで 9. 構造着手 → 10. 仮受付 に移動 / 案件セクション 6/4 仮受付チェック化追記 + 6/3 遅延サブ行削除 + フェーズ遷移末尾追記
+
+#### Phase D: 認証期限切れリトライ → 配信完了
+
+Phase A step 8 が `Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth` で失敗。user が手動 `firebase login --reauth` 後、Claude Code 側で `cd plugins/drive-publisher && PYTHONPATH=scripts python -m publish --run-date 2026-06-05` を再実行 → 両配信先成功:
+
+- HTML: `https://meguru-pm-report.web.app/r/2026-06-05/`
+- Doc: `https://docs.google.com/document/d/14pmmvfVxzcPefCq7hP820Q--xpkNJXpUQygmU1Gw_Uc/edit?usp=drivesdk`
+
+#### Phase E: フルセット運用フローに Step 0 認証チェック追加
+
+user「毎回、firebase か google workspace のログイン認証で一度は落ちてる気がするから、一連の手順の中に加えて、最初にそのチェックと必要に応じて依頼をしてもらった方がいいね」
+
+`feedback_weekly_report_full_set.md` (MEMORY.md `Weekly report full-set default` 行) の先頭に **Step 0 認証チェック** を追加:
+
+```
+0. 認証チェック（最初に必ず実施）
+   - firebase login:list で Firebase CLI ログイン有効性確認
+   - plugins/drive-publisher/token.json の valid 性確認
+   - plugins/pm-master-writer/token.json の valid 性確認
+   - どれか1つでも失効 → ユーザに firebase login --reauth / python -m auth 依頼
+```
+
+**狙い**: Step 1〜7 (5-10 分) を済ませてから Step 8 publish で詰む手戻りを防止。本ラン (~38min) のうち手戻り分は概ね 8 分。
+
+#### 検証残し
+
+- daily_pipeline.sh data dir bug fix の検証: 本 ingest ラン (09:18 JST) は **2026-06-05 09:00 JST の LaunchAgent 自動発火後**。run-67 で fix した `--output "$REPO_ROOT/data/jooto"` の初回反映回。`data/jooto/{board}/progress_checklist.json` の `fetched_at` が当日分かは次の手動ラン or 次回 9:00 発火時に [[02_diary/2026-06-05]] entry を更新で確認
 
 ## Links
 
