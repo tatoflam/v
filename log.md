@@ -161,3 +161,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-06-07T08:05:24Z  op:ingest  S=4 I=0 pages=3 unsortable=0 (run-69: 0c5ca024 substantive [affiliate-first PR #14 + W23 A REVIEW] + 40295886 noop [FailedToOpenSocket] + 4912a241 meta drain [run-68 self] + 8490f1a9 meta drain [habi-bff cwd, cursor near-tail]; e594cbdd 15th defer)
 - 2026-06-07T14:08:01Z  op:ingest  S=4 I=0 pages=1 unsortable=0  (run-70: 8dd0da7a meta drain [run-69 self, 11th in chain]; e594cbdd ×2 + 87c832cd defer for dirty 03_work/todobot.md)
 - 2026-06-07T14:36:28Z  op:ingest  S=1 I=0 pages=3 unsortable=0 deferred=6 (run-71)
+- 2026-06-07T14:56:00Z  op:ingest  S=2 I=0 D=6 pages=1 unsortable=0  (run-72 meta-drain 4f910466+b5ed37c8; defer 5×ToDoBot + a1f12954 maintained; current d9cefe7e skipped)
