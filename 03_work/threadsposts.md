@@ -1,8 +1,8 @@
 ---
 title: ThreadsPosts — 腸活スタジオ Threads 自動投稿パイプライン
 category: 03_work
-tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, tech:esim, stage:active, stage:incident-response, entity:chokatsu-studio, entity:meta-classifier, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, milestone:weekly-cycle-w19-execution, milestone:openspec-3-archive-batch, milestone:playbook-process-revamp, milestone:playbook-archive-sync, milestone:account-ban-pivot, milestone:openspec-3-change-ban-pivot, milestone:ban-pivot-explore-synthesis, milestone:publish-relocate-local-shipping, milestone:legacy-tenant-archive, milestone:ban-decision7-reframing, milestone:3-account-staged-scaling, milestone:interior-uchi-style-confirmed, milestone:account-1-phase-0-shipped, milestone:account-1-d001-draft, milestone:interior-playbook-from-K, milestone:subject-omission-style, milestone:launch-week-brand-suppression, milestone:affiliate-first-research, milestone:weekly-cycle-w23-normal-phase, entity:oheyamemo, genre:interior, incident:threads-ban-2026-05-04, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic, principle:capture-first-explore, principle:change-boundary-equals-commit-boundary, principle:composite-fingerprint-not-single-cause, principle:milestone-driven-scaling, principle:subject-axis-not-credential-axis, principle:two-layer-persona-profile-ok-body-ng, principle:launch-week-trust-first, principle:affiliate-first-over-youtube-seed, principle:reply-chain-default-monetization, topic:ceiling-light, topic:youtube-subtitle-research, topic:affiliate-driven-research]
-sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8, a73c0aa2-c9a4-46e3-ab60-72b6b426901a, 8b57f7c8-b8fa-4f65-8c06-06cf6fbe87b3, 97d3f618-8d6c-40e6-8210-06549512f183, cef7a3c1-5798-4534-ab51-63c1a2279734, c02fca64-85c4-40f5-9bae-00ea56f138c1, f198b34e-7c91-4bee-8bf4-a3a532f86901, ea0b21e8-0197-4d87-a637-45d18bc759d7, 665cb2da-de7e-4b1b-93f9-2500f8d6fe95, 99902682-b840-494b-b76c-59c90854c892, c0b0dfea-a81b-4470-b2f5-07cbbaa4aae8, 1228fa25-787b-4c38-b347-3a9231d5431a, d59da658-e5d8-4292-9095-c907f18fcca8, 196a73b5-f043-46ca-a902-3a9ba3669c98, 028c145c-62e4-46ba-8c98-efc52d5d77cc, 6c99bbeb-c873-4342-bc9c-e6807882b5f3, 8cf2b80c-2557-43b0-849c-8aa5aea7552f, c7f92639-9af8-456a-92ef-8f770a7311e9, 86141ecc-90e4-4efe-8751-35b1fc2af063, a878e29c-097d-4107-99de-8409c30f6dff, 72d2768d-9123-4b73-bb0b-175426c509ae, 0c5ca024-b170-475a-b15c-f05e11bfddce]
+tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, tech:esim, tech:tampermonkey, tech:userscript, stage:active, stage:incident-response, entity:chokatsu-studio, entity:meta-classifier, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, milestone:weekly-cycle-w19-execution, milestone:openspec-3-archive-batch, milestone:playbook-process-revamp, milestone:playbook-archive-sync, milestone:account-ban-pivot, milestone:openspec-3-change-ban-pivot, milestone:ban-pivot-explore-synthesis, milestone:publish-relocate-local-shipping, milestone:legacy-tenant-archive, milestone:ban-decision7-reframing, milestone:3-account-staged-scaling, milestone:interior-uchi-style-confirmed, milestone:account-1-phase-0-shipped, milestone:account-1-d001-draft, milestone:interior-playbook-from-K, milestone:subject-omission-style, milestone:launch-week-brand-suppression, milestone:affiliate-first-research, milestone:weekly-cycle-w23-normal-phase, milestone:affiliate-buzz-mining-loop, milestone:threads-observation-tools, milestone:pr-14-merged, entity:oheyamemo, genre:interior, incident:threads-ban-2026-05-04, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic, principle:capture-first-explore, principle:change-boundary-equals-commit-boundary, principle:composite-fingerprint-not-single-cause, principle:milestone-driven-scaling, principle:subject-axis-not-credential-axis, principle:two-layer-persona-profile-ok-body-ng, principle:launch-week-trust-first, principle:affiliate-first-over-youtube-seed, principle:reply-chain-default-monetization, principle:dont-scrape-third-party-posts, principle:dont-automate-products-yaml-edit, principle:source-buzz-id-provenance, topic:ceiling-light, topic:youtube-subtitle-research, topic:affiliate-driven-research, topic:buzz-mining-loop, topic:userscript-1-click-capture]
+sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8, a73c0aa2-c9a4-46e3-ab60-72b6b426901a, 8b57f7c8-b8fa-4f65-8c06-06cf6fbe87b3, 97d3f618-8d6c-40e6-8210-06549512f183, cef7a3c1-5798-4534-ab51-63c1a2279734, c02fca64-85c4-40f5-9bae-00ea56f138c1, f198b34e-7c91-4bee-8bf4-a3a532f86901, ea0b21e8-0197-4d87-a637-45d18bc759d7, 665cb2da-de7e-4b1b-93f9-2500f8d6fe95, 99902682-b840-494b-b76c-59c90854c892, c0b0dfea-a81b-4470-b2f5-07cbbaa4aae8, 1228fa25-787b-4c38-b347-3a9231d5431a, d59da658-e5d8-4292-9095-c907f18fcca8, 196a73b5-f043-46ca-a902-3a9ba3669c98, 028c145c-62e4-46ba-8c98-efc52d5d77cc, 6c99bbeb-c873-4342-bc9c-e6807882b5f3, 8cf2b80c-2557-43b0-849c-8aa5aea7552f, c7f92639-9af8-456a-92ef-8f770a7311e9, 86141ecc-90e4-4efe-8751-35b1fc2af063, a878e29c-097d-4107-99de-8409c30f6dff, 72d2768d-9123-4b73-bb0b-175426c509ae, 0c5ca024-b170-475a-b15c-f05e11bfddce, de58f560-dbab-49d6-be74-45d84d58c99f]
 updated: 2026-06-07
 ---
 
@@ -1773,3 +1773,97 @@ account_1 が **normal phase 初週** (W23 = 2026-06-01〜06-07)。Step 0 状態
 - [[05_learn/openspec-retroactive-flow]] — propose → apply → archive 一気通貫の標準サイクル例
 - [[05_learn/threads-engagement-rotation-pattern]] — rotation 経路の整理 (本セッションで違和感 #4 が flag された)
 - [[05_learn/wiki-automation-pipeline]] — 長期スパン session の ingest 取り扱い
+
+## 2026-06-07 — affiliate-buzz-mining-loop + threads-observation-tools 連続実装 + PR #14 を 3 change umbrella 化 + main merge (session de58f560、13:51-23:18 JST)
+
+朝の 0c5ca024 (affiliate-first-research 完走 + PR #14 オープン + W23 A REVIEW done) を出発点に、**user の phase pivot 宣言**「もうガッツリ、アフィリエイトありきで運用を進めるフェーズ」を受けて **同 day 内に 2 change を連続消化** → PR #14 を 3 change の umbrella に拡張 → main merge (= 14:09:03Z)。合計 **157 tasks** (28 + 54 + 75)、106 files / +8,649 / -78、test 680/680 pass、spec 38/38 valid、merge 後 branch delete 済。
+
+memory: [[project_affiliate_first_phase]] (= 「アフィリエイトありき」phase pivot の起源宣言) と [[project_session_2026-06-07]] (= 本セッションの session-level snapshot)。
+
+### change #1: `affiliate-buzz-mining-loop` (`/opsx:propose` → `/opsx:apply` → `/opsx:archive`、54 tasks、commit `5d253e8`)
+
+閉ループの provenance pattern: **scout → promote → research → content → inject → publish → metrics → 再 scout** を `source_buzz_id` で因果連鎖。
+
+| 新 CLI | 役割 |
+|---|---|
+| `npm run buzz:ingest` | `dept/research/buzz_inbox/<ISO_week>/` (gitignored、user が手投入する .md/.url/.png) を `dept/research/buzz/<ISO_week>/buzz_candidates.yaml` に正規化 (= staging YAML) |
+| `npm run buzz:promote` | staging → `products.yaml` 候補を stdout に paste-ready YAML で出力 (= a.r10.to 解決済)。**書き込みは user 手動 paste** (= AI が products.yaml を書き換えない設計境界) |
+
+A REVIEW segmentation: metrics 行に `source_buzz_id` が乗っていれば **buzz 起点 vs YouTube-seed 起点 vs intuition** で源泉別に CPM/CTR を切れる (= 3 ヶ月後の data-driven 振り返りが可能になる)。
+
+設計境界 (= 自動化しない判断):
+
+- **第三者投稿の自動 scrape はしない**: user-assisted ingest を入口にする (= ToS / rate-limit / 法的リスクを user 判断に集約)
+- **`products.yaml` は AI に書き込みさせない**: 1 line でも勝手に書くと楽天 URL 改竄事故の確率が上がる → stdout paste-ready で止める
+
+### change #2: `threads-observation-tools` (`/opsx:propose` → `/opsx:apply` → `/opsx:archive`、75 tasks、commit `0e89ef1`)
+
+user 問い「buzz 観察ってどうやるのがいい? Threads API でダッシュボード表示、人がクリックしたら自動化サイクル開始、できる?」への構造化応答。
+
+**Threads Graph API は own post しか触れない** (= 他人の post を listing するエンドポイント無い) + WebView scrape は ToS 抵触 → 結果として「browser native の scroll + 1-click 📥」が摩擦最小解。
+
+| 新 CLI / artifact | 役割 |
+|---|---|
+| `dept/dev/userscript/buzz-capture.user.js` | Tampermonkey install。Threads.net で post に hover した時に 📥 ボタン表示 → 1 クリックで .md dump → `~/.config/threads-posts/buzz_inbox_outbox/` |
+| `npm run buzz:adopt` | userscript outbox → 当週 inbox に一括 mv (= 既存 buzz:ingest に繋がる) |
+| `npm run own:monitor` | own post 初動 engagement + mention/reply + follower delta を Graph API から取得 → `dept/analytics/data/own_monitor_<ISO_week>.md` に dump (= A REVIEW で gate 表示) |
+| `npm run buzz:style` | rolling 4 週の buzz_candidates から hook 形式 / 文長 / emoji / 句読点 / hashtag を集計 → `dept/content/hooks/<genre>_buzz_observed.md` に `compliance: ok-buzz` の staging entry を append。**literal copy 禁止** (`overlap > 50%` で reject)、user が `ok-buzz → ok` 手 promote で本流入り |
+| `npm run loop:check` | 4 fault (publish gap / stagnant drafts / monetization gap / metrics staleness) を A REVIEW 冒頭 gate 表示 |
+
+### PR #14 を 3 change umbrella に拡張 + main merge
+
+- **新 title**: `feat: affiliate-first phase pivot — 3 OpenSpec changes (affiliate-first-research + affiliate-buzz-mining-loop + threads-observation-tools)`
+- **新 body**: 3 change の役割 + tasks 数 (28 + 54 + 75 = **157 tasks**) + commit hash + 新 capability 8 + 変更 capability 5 + 新 CLI 6 + userscript + 設計境界 (= 自動化しない理由) + Test plan
+- **self-review**: 106 files / +8,649 / -78 (3 commits = 46ffcb9 + 5d253e8 + 0e89ef1)、credential 値漏れなし、`buzz_inbox/` 未 commit (gitignored)、`buzz/` には README のみ、test 680/680 pass、lint 全 pass、spec 38/38 valid
+- **明示的承認 gate** を踏み、user 承認後に `gh pr merge 14` で **merge-commit** (= repo convention) → `d5f5339 Merge pull request #14 from tatoflam/feat/affiliate-first-research` (2026-06-07T14:09:03Z)
+- branch `feat/affiliate-first-research` は remote + local 両方 delete 済
+
+### 最小 e2e 試走 (user: 「inbox って何を入れる、どこ笑?」→ 「最小例で試してみて」)
+
+**inbox は 2 つ**:
+- **L1** = `~/.config/threads-posts/buzz_inbox_outbox/` (userscript dump 先)
+- **L2** = `dept/research/buzz_inbox/<ISO_week>/` (= 今は **2026-W23**、実 ingest 対象)
+
+**様式 3 種**:
+- `.md` 1 ファイル (= 推奨、frontmatter に `url:` `likes:` `comments:`、body は楽天 URL 含めて自由テキスト)
+- `.url` + `.md` ペア (= URL コピー + 別ファイルで本文)
+- `.png` / `.jpg` (= screenshot) + 同 stem `.md` annotation 必須 (OCR しない、v1 では人が本文起こす)
+
+**必須 field**: `url`、`body` か `likes/comments` のどちらか (= 無いと skip + stderr log)
+
+**実行結果**: `dept/research/buzz_inbox/2026-W23/test_lamp.md` (架空 minimal post) を投入 →
+
+| step | 結果 | 出力 |
+|---|---|---|
+| `npm run buzz:ingest` | added=1 | `dept/research/buzz/2026-W23/buzz_candidates.yaml` |
+| `npm run buzz:promote -- --no-resolve` | promoted=1 | stdout に paste-ready YAML、`source_buzz_id: buzz-2026-W23-001` 付き |
+| `npm run buzz:style` | patterns=1, **appended=0, skipped_overlap=1** | digest 書き出し、hooks staging への append は **plagiarism guard で reject** |
+
+`skipped_overlap=1` は設計通り — 1 件 sample では skeleton が source body と literal にほぼ一致 → spec の `overlap > 50%` reject が発火。本物の運用 (rolling 4 週で 20-40 件) ならクラスタリングが効いて placeholder 化された skeleton が生まれる。**少ない sample でもガードが効いた**ことが収穫。
+
+掃除: 生成物 2 (staging YAML + style digest) 削除、`test_lamp.md` のみ gitignored エリアに残置 (= 形式参考用)。
+
+### 構造的意義 (本セッション)
+
+- **「buzz 観察ダッシュボード」問いの解像度上げ**: user が当初イメージしていたのは「Threads API でダッシュボード」 → API 制約 (= own post しか触れない) + ToS 制約 (= 他人 post 自動 scrape NG) で素直な実装が無理だと分かり、結果として **「browser native の scroll + 1-click 📥」** が摩擦最小解になった。user の自然行動 (scroll) に 1 button 足す pattern は capture-first 原則と整合
+- **provenance chain (`source_buzz_id`) が A REVIEW の data 質を変える**: 今までは metrics CSV を見ても「なぜ伸びた / 伸びなかった」が intuition でしか言えなかった → buzz 起点 / YouTube 起点 / その他 に segment 可能になる
+- **「自動化しない」の明文化 3 箇条**:
+  1. 第三者投稿の自動 scrape をしない (= user-assisted ingest が事実上の入口)
+  2. `products.yaml` を AI に書き込みさせない (= stdout paste-ready で止める)
+  3. `ok-buzz → ok` の hooks 自動 promote をしない (= 文体借用には user 判断必須)
+  これらを **PR #14 body の「設計境界」section に spec として明示**。「自動化目標が暴走しないための boundary」を spec レベルで pin したのは珍しい例
+
+### 次回再開時の最短手順
+
+1. `git fetch && git pull origin main` (= merge 後の同期)
+2. 新 branch を切る (= 作業 scope 確定後に命名)
+3. `/weekly-cycle` 起動 → A REVIEW に `loop:check` + `own:monitor` の新 gate が自動表示される (= 初回試走)
+4. B-MARKETING の B-6 (buzz mining digest) は inbox 空なら silent skip
+5. userscript install + 実 buzz 1-click capture + 実 own:monitor は /weekly-cycle 内で実機 e2e
+
+### 残課題 (= 朝 0c5ca024 から継承、本セッションで構造的に半解消)
+
+- 違和感 #1 (9 日 publish gap) / #2 (3 stagnant drafts) / #3 (monetization 0) は **次の /weekly-cycle で実 publish を回して解消**
+- 違和感 #4 (rotation 宙ぶらりん) / #5 (metrics 不在) は本セッションで構造的に解消済 (= loop:check + Source segmentation report)
+
+see also: [[02_diary/2026-06-07#13:51-23:18 ThreadsPosts]] / [[06_output/2026-06]] (= PR #14 MERGED + 2 commit 追記)
