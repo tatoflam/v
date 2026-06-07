@@ -158,3 +158,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-06-04T15:02:30Z  op:ingest  run-66 S=3 (d56dc1c3 substantive + 60d8fe19/2f2371e8 meta drain = run-65 自己 2 連発) I=0 pages=3 unsortable=0 deferred=1 (e594cbdd 12 ラン連続 dirty 03_work/todobot.md)
 - 2026-06-04T15:35:16Z  op:ingest  run-67 S=2 (00db3a35 substantive + f84ccf86 meta drain = run-66 self) I=0 pages=3 unsortable=0 deferred=1 (e594cbdd 13 ラン連続 dirty 03_work/todobot.md)
 - 2026-06-05T00:18:59Z  op:ingest  run-68 S=2 (19921cfa substantive + cf5023f0 meta drain = run-67 self) I=0 pages=3 unsortable=0 deferred=1 (e594cbdd 14 ラン連続 dirty 03_work/todobot.md + 06_output/2026-05.md)
+- 2026-06-07T08:05:24Z  op:ingest  S=4 I=0 pages=3 unsortable=0 (run-69: 0c5ca024 substantive [affiliate-first PR #14 + W23 A REVIEW] + 40295886 noop [FailedToOpenSocket] + 4912a241 meta drain [run-68 self] + 8490f1a9 meta drain [habi-bff cwd, cursor near-tail]; e594cbdd 15th defer)
