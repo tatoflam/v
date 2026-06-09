@@ -1,12 +1,66 @@
 ---
 title: MeguruPMReport
 category: 03_work
-tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, tech:google-drive, tech:firebase-hosting, tech:firebase-functions, tech:launchd, tech:mermaid, stage:active]
-sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af, f3a28fae-f6aa-45c6-94cf-566dcb101b26, fe1f5fac-3230-4199-912e-bdda570463c1, 2e4721dd-2285-4f3d-97ff-7e5e88c37b52, 8c7aa96d-0845-4a70-84e2-dc8bf17ffea7, 821f682c-145f-460a-9214-effb01b8a849, f1336766-5705-4d8b-a7bc-559494e807e1, fbb058f2-6e1d-4ae1-9460-f4e54099fbc0, cdd93242-ab74-40ad-a85e-4635b815f09d, 1fca49c1-8c3b-4a77-b6a4-0c4dcdbc0f81, 66be2df6-aeed-483f-804d-ca033fc1cf6a, 0ef2475c-8995-476b-aebc-f8856a937bed, d56dc1c3-34eb-4a4e-95d6-40cbe8f6da58, 00db3a35-a07a-43bf-913e-97f2d41c1041, 19921cfa-1d09-4c76-b029-edeec9f12618]
-updated: 2026-06-05
+tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, tech:google-drive, tech:firebase-hosting, tech:firebase-functions, tech:launchd, tech:mermaid, stage:active, milestone:milestone-alert-single-send, milestone:milestone-alert-email-schedule, topic:openspec]
+sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af, f3a28fae-f6aa-45c6-94cf-566dcb101b26, fe1f5fac-3230-4199-912e-bdda570463c1, 2e4721dd-2285-4f3d-97ff-7e5e88c37b52, 8c7aa96d-0845-4a70-84e2-dc8bf17ffea7, 821f682c-145f-460a-9214-effb01b8a849, f1336766-5705-4d8b-a7bc-559494e807e1, fbb058f2-6e1d-4ae1-9460-f4e54099fbc0, cdd93242-ab74-40ad-a85e-4635b815f09d, 1fca49c1-8c3b-4a77-b6a4-0c4dcdbc0f81, 66be2df6-aeed-483f-804d-ca033fc1cf6a, 0ef2475c-8995-476b-aebc-f8856a937bed, d56dc1c3-34eb-4a4e-95d6-40cbe8f6da58, 00db3a35-a07a-43bf-913e-97f2d41c1041, 19921cfa-1d09-4c76-b029-edeec9f12618, 1a5c6b2a-38fa-41e0-9818-cb874d49efbd]
+updated: 2026-06-09
 ---
 
 # MeguruPMReport
+
+## 2026-06-05→07 milestone-alert 2 change (single-send-to-many + email-schedule mon_to_sat) + LaunchAgent PATH fix + 5 commit push (session 1a5c6b2a、3 日跨ぎ)
+
+3 日跨ぎ大型セッション (`1a5c6b2a-38fa-41e0-9818-cb874d49efbd`、JST 6/5 09:16 → 6/7 23:08、598 turn) で daily 通知に関する 3 課題を **OpenSpec 仕様駆動** で解消し `origin/main` に 5 commit push 完了。
+
+### 出発点 (= 6/5 09:16 JST、user 第一声「dailyで動くはずのメール通知が飛んでないのは、なぜ？」)
+
+| # | 課題 | 真因 | 解 | 着地 commit |
+|---|---|---|---|---|
+| 1 | daily メール飛ばない | LaunchAgent PATH に `~/.volta/bin` 不在 → Step 4 publish が `FileNotFoundError: firebase` → `set -e` で Step 5 alert に到達せず | (a) plist の PATH 先頭に `~/.volta/bin` 追加 (b) `daily_pipeline.sh` Step 4 を `set +e` で非致命化、`publish_failed` を末尾で評価 | `1e95394` LaunchAgent: add ~/.volta/bin to PATH; daily_pipeline: make Step 4 non-fatal |
+| 2 | 1 人に同じメールが 2 通来る | `gmail_sender.py` が **recipient ごとに 1 通 send 呼び出し**、転送設定で個人 inbox に集約される人が複数回受信 | `recipients: list[str]` 化 → **単一 send + `To:` カンマ結合** → Gmail 側がメールボックス到達時点で dedupe (= **change `milestone-alert-single-send-to-many`**、proposal/design/specs/tasks → apply → archive) | `080378f` milestone-alert: one message with all recipients in To: (Gmail dedupes inboxes) |
+| 3 | 日曜の業務外メールがノイズ | 既存 `weekly_report_frequency` に倣う config 駆動ポイント無し | `config/daily_pipeline.yaml` に `alert_email_schedule: daily / weekdays_only / mon_to_sat / manual` 追加 + `scripts/should_run_alert_email.sh` 新規 + `daily_pipeline.sh` Step 5 に `--skip-email` 動的付与 (= **change `milestone-alert-email-schedule`**、同フロー) | `9b3e6eb` milestone-alert: gate email send by config-driven alert_email_schedule |
+
+加えて archive 連動の 2 commit (= main specs sync + weekly-report 副作用) で **5 commit を 1 push**:
+
+```
+396a93b reports + state: weekly-report 06-05 publish + baseline sync of 06-02
+9b3e6eb milestone-alert: gate email send by config-driven alert_email_schedule
+080378f milestone-alert: one message with all recipients in To: (Gmail dedupes inboxes)
+1e95394 LaunchAgent: add ~/.volta/bin to PATH; daily_pipeline: make Step 4 non-fatal
+4c77ac7 openspec: archive add-daily-milestone-alert + sync main specs
+```
+
+### Phase 構成
+
+- **Phase A (6/5 09:16-09:34)**: LaunchAgent PATH + Step 4 非致命化 → 手動 kickstart `09:33:57` 成功 (= Step 4 publish OK、Step 5 alert `sent: true` 4 名宛、HC success ping)
+- **Phase B (6/5 09:42-)**: 「9:33 に 2 件来た」観察 → 転送設定 + per-recipient 送信の組合せが真因と同定 → user 提案「`recipients` 1 メール To: カンマで Gmail dedupe」採用
+- **Phase C (6/5 09:51-10:27)**: `/opsx:propose milestone-alert-single-send-to-many` → ブロッカ「`add-daily-milestone-alert` 未 archive で `openspec/specs/milestone-alert/spec.md` 不在 → MODIFIED 参照先なし」発見 → 先に `add-daily-milestone-alert` を archive (= 3 capability ADDED: `milestone-alert` + `daily-pipeline` + `plugin-composition` 既存追記) → 改めて apply (26/28 tasks、`message_ids` snapshot field 含む、test 全 pass)
+- **Phase D (6/5 10:39-11:07)**: user「メール通知は月曜から土曜まで」→ 3 案 (LaunchAgent / pipeline / config 駆動) → user「次の一手で」(= 推奨 3 案) → `/opsx:propose milestone-alert-email-schedule` → apply (25/28 tasks、`should_run_alert_email.sh` の Mon-Sun × 4 値 = 22 ケース matrix)
+- **Phase E (6/5 15:35)**: `config/daily_pipeline.yaml` 実体 (gitignored) に `alert_email_schedule: mon_to_sat` 追記 + smoke pass (06-07 日 → exit 1 skip / 06-06 土 → exit 0 send)
+- **Phase F (6/7 16:54-16:58)**: 本番観測 OK (= 06-06 単一 send `message_ids: ["19e9a3b7a248ac59"]` / 06-07 日曜 `sent: false` + snapshot/色塗りは継続) → 両 change `/opsx:archive` → 10 main specs `--strict` validate pass、重複ヘッダなし
+- **Phase G (6/7 22:47-23:08)**: 22 modified + 9 untracked を **論理 5 グループに分割** → hunk 分割 (`daily_pipeline.sh` + `test_daily_pipeline_dry.sh` がグループ 2 と 4 にまたがる) で「commit 2 だけの state → commit、commit 4 差分再適用」方式 → 5 commit 順次 push → `origin/main` 5b07ca6 → 396a93b
+
+### 設計のキモ
+
+- **`To:` カンマ結合 vs `Bcc:`**: 4 名は社内 PM で互いの宛先見える状態は許容 (= 「他誰に飛んでるか」のメタ情報自体に運用価値あり) → `To:` 採用、`Bcc:` 不採用は test で明示確認
+- **`alert_email_schedule` の 4 値**: `weekly_report_frequency` パターンをそのまま踏襲。`mon_to_sat` 命名理由は「営業日」概念 (= 祝日含む / 含まない) の曖昧さを避けるため曜日基準で素直に表記
+- **`mon_to_sat` で日曜実行を止めるのは email step **だけ****: 色塗り + snapshot + writeback dry-run + Jooto/PM master backup は日曜も実行 → **月曜朝の前回比較データが温まっている** 状態を維持
+- **hunk 分割の必然性**: 5 commit を **論理的に分離可能な単位**でまとめる方針が、push 後に各 commit を独立に revert/cherry-pick できる状態を作る (= 後追い fix で「Phase A だけ巻き戻す」が容易) → 散発的混在の commit を避ける CI ハイジニーン
+
+### MEMORY 化された運用ポリシー
+
+- `project_alert_email_schedule.md` 新規 — `alert_email_schedule: mon_to_sat` で日曜のみ `--skip-email`、色塗りと snapshot は毎日継続
+- `project_launchd_path_volta.md` (既存) — LaunchAgent plist の PATH に `~/.volta/bin` を含める根拠 (= Step 4 publish の firebase バイナリ参照)
+
+### 残課題 (本セクション時点)
+
+- なし — Phase A-G で 3 課題すべて解消 + archive + push 完了 + 仕様確定 (`openspec/specs/milestone-alert/spec.md` + `openspec/specs/daily-pipeline/spec.md`)。`add-writer-catchup-sync` は別件の進行中 change として残置 (= 本作業範囲外)
+
+### see also (本セクション)
+
+- [[02_diary/2026-06-05#09:16-15:38 daily 通知 3 件の根本対応]] — Phase A-E (= 6/5 当日分の起点)
+- [[02_diary/2026-06-07#16:48-23:08 1a5c6b2a finalize]] — Phase F-G (= 6/7 archive + 5 commit push)
+- [[memory:project_alert_email_schedule]] / [[memory:project_launchd_path_volta]] — 運用ポリシー 2 件
 
 ## Summary
 
