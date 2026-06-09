@@ -1,9 +1,9 @@
 ---
 title: habi-bff — HABI BFF / インフラ層
 category: 03_work
-tags: [project:habi-bff, client:hlab, entity:habi, tech:typescript, tech:aws-lambda, tech:dynamodb, tech:openai, tech:openspec, tech:sqs, capability:async-chat-pipeline, capability:attunement-policy, capability:bff-guard, milestone:pm-inquiry-260508, stage:active]
-sources: [c2dd2c85-7cc6-45d2-8df6-ebd5f5358bc4, e6de9be8-7152-4213-b913-f501d258dafe, 6a2f552b-d79a-4c1e-93ca-5b6b3bc4a045, c5c0230b-b3e6-43ae-ba7f-ea585ad01a6e, c6b59a1d-11af-4eb4-8f38-5910c5644ab3, 8694d4d3-0a31-40a3-8cf9-f711376af20b]
-updated: 2026-05-11
+tags: [project:habi-bff, client:hlab, entity:habi, tech:typescript, tech:aws-lambda, tech:dynamodb, tech:openai, tech:openspec, tech:sqs, capability:async-chat-pipeline, capability:attunement-policy, capability:bff-guard, capability:quality-always-on, milestone:pm-inquiry-260508, milestone:add-quality-always-on-m1-m2, stage:active]
+sources: [c2dd2c85-7cc6-45d2-8df6-ebd5f5358bc4, e6de9be8-7152-4213-b913-f501d258dafe, 6a2f552b-d79a-4c1e-93ca-5b6b3bc4a045, c5c0230b-b3e6-43ae-ba7f-ea585ad01a6e, c6b59a1d-11af-4eb4-8f38-5910c5644ab3, 8694d4d3-0a31-40a3-8cf9-f711376af20b, a1f12954-3832-48ce-8f5c-92c23f413365]
+updated: 2026-06-09
 ---
 
 # habi-bff
@@ -346,3 +346,36 @@ see also: [[02_diary/2026-05-08]], [[06_output/2026-05]]
 - **GPT エージェントを介した質疑応答は Word + Markdown の双方向**: docx 入力 → Markdown インライン回答 → PM が再 docx 化、というフローを前提に章立てを保つ重要性
 
 see also: [[02_diary/2026-05-09]], [[06_output/2026-05]]
+
+## 2026-05-16 add-quality-always-on M1-M2 着手 — Quality Always-On CI gate 配管 + Habi 関係 DO/DON'T を AI 共通則化 (session a1f12954、~75 min)
+
+### 入口
+
+PM Seed 30 本待ちの「意味のある待機」を `/opsx:explore` で棚卸し → CTO 側で前進できる手数として:
+
+1. **add-quality-always-on の足場作り**: PM Seed 投入前でも、runner / A/B / Core 再チェック の CI 配管を先に通しておけば、Seed が来た瞬間に `QUALITY_SEED_MIN_COUNT=30` でデフォルト gate が立ち上がる
+2. **Word の DO NOT リストを CLAUDE.md / openspec/project.md に常駐化**: 既に「Inquiry batch」回答で次アクション #1 として宣言済の項目を、Word 上の単発 docs から AI エージェント全員が常時参照する共通則 (= 多層防御の 1 層) に格上げ
+
+= CTO 単独で着手可能、PM 動線をブロックしない、M3 着手前の足場固め。
+
+### 成果物 (= 2 commit、push 未実施で main ahead 2)
+
+| commit | message | role |
+|---|---|---|
+| [`5cc63bd`](https://github.com/hlab-it-sys/habi-bff/commit/5cc63bd) | `feat: Add Quality Always-On CI gate (runner + A/B + Core re-check)` | quality runner + A/B (Core on/off) + Founder 逸脱 + Core 再チェック CI 配管。`QUALITY_SEED_MIN_COUNT` env で seed 数 gate 制御、PM Seed 30 本投入待ち |
+| [`a6fd2a1`](https://github.com/hlab-it-sys/habi-bff/commit/a6fd2a1) | `docs: Pin Habi relational DO/DON'T as AI-common rules` | Word の DO NOT リストを `CLAUDE.md` + `openspec/project.md` に常駐化、AI エージェント共通則化。多層防御 (CLAUDE.md + project.md + OpenSpec workflow + Quality Always-On) を spec で pin |
+
+(参考: 安全プロトコル「2 commits ahead of origin/main — no push attempted per the safety protocol」で main push は user 判断保留。後の `/git push` で main に上げる前提。)
+
+### 状態 (本セッション終了時)
+
+- `add-quality-always-on` change: タスク 0/26 → 一部完了 (= runner + A/B + DO/DON'T = §1-§7 概ね完了、§8 validate + archive と §9 PR テンプレート + 既定値昇格は Seed 30 本投入後に back-fill)
+- M2 = PM Seed 30 本オーサリング: PM Seed 待ち (= CTO 側で can do nothing more)
+- M3 = `add-narrative-memory` 提案: 文末次アクション #3、本セッションでは proposal 起票せず「PM 動きが見えるまで休む」を選択
+
+### 副産物・学び
+
+- **「意味のある待機」 = 単独着手可 × ブロック前進可** の交差点: PM Seed 待ちで止まる時間を、PM 着手後に効果が出る足場 (= CI gate + AI 共通則) に転換する選択は openspec workflow と相性が良い。proposal-only の change を貯めるより、apply 段で足場を打っておく方が後から効く
+- **DO NOT リストを「Word docs」から「AI が常時参照する config」に上げる効果**: ガード規則は CLAUDE.md / project.md のいずれにあっても AI が無意識に従う設計 — 「多層防御」の言葉どおり 1 つでも引っかかれば止まる
+
+see also: [[02_diary/2026-05-16#00:36-01:50 JST]]
