@@ -1,8 +1,8 @@
 ---
 title: ThreadsPosts — 腸活スタジオ Threads 自動投稿パイプライン
 category: 03_work
-tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, tech:esim, tech:tampermonkey, tech:userscript, stage:active, stage:incident-response, entity:chokatsu-studio, entity:meta-classifier, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, milestone:weekly-cycle-w19-execution, milestone:openspec-3-archive-batch, milestone:playbook-process-revamp, milestone:playbook-archive-sync, milestone:account-ban-pivot, milestone:openspec-3-change-ban-pivot, milestone:ban-pivot-explore-synthesis, milestone:publish-relocate-local-shipping, milestone:legacy-tenant-archive, milestone:ban-decision7-reframing, milestone:3-account-staged-scaling, milestone:interior-uchi-style-confirmed, milestone:account-1-phase-0-shipped, milestone:account-1-d001-draft, milestone:interior-playbook-from-K, milestone:subject-omission-style, milestone:launch-week-brand-suppression, milestone:affiliate-first-research, milestone:weekly-cycle-w23-normal-phase, milestone:affiliate-buzz-mining-loop, milestone:threads-observation-tools, milestone:pr-14-merged, entity:oheyamemo, genre:interior, incident:threads-ban-2026-05-04, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic, principle:capture-first-explore, principle:change-boundary-equals-commit-boundary, principle:composite-fingerprint-not-single-cause, principle:milestone-driven-scaling, principle:subject-axis-not-credential-axis, principle:two-layer-persona-profile-ok-body-ng, principle:launch-week-trust-first, principle:affiliate-first-over-youtube-seed, principle:reply-chain-default-monetization, principle:dont-scrape-third-party-posts, principle:dont-automate-products-yaml-edit, principle:source-buzz-id-provenance, topic:ceiling-light, topic:youtube-subtitle-research, topic:affiliate-driven-research, topic:buzz-mining-loop, topic:userscript-1-click-capture]
-sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8, a73c0aa2-c9a4-46e3-ab60-72b6b426901a, 8b57f7c8-b8fa-4f65-8c06-06cf6fbe87b3, 97d3f618-8d6c-40e6-8210-06549512f183, cef7a3c1-5798-4534-ab51-63c1a2279734, c02fca64-85c4-40f5-9bae-00ea56f138c1, f198b34e-7c91-4bee-8bf4-a3a532f86901, ea0b21e8-0197-4d87-a637-45d18bc759d7, 665cb2da-de7e-4b1b-93f9-2500f8d6fe95, 99902682-b840-494b-b76c-59c90854c892, c0b0dfea-a81b-4470-b2f5-07cbbaa4aae8, 1228fa25-787b-4c38-b347-3a9231d5431a, d59da658-e5d8-4292-9095-c907f18fcca8, 196a73b5-f043-46ca-a902-3a9ba3669c98, 028c145c-62e4-46ba-8c98-efc52d5d77cc, 6c99bbeb-c873-4342-bc9c-e6807882b5f3, 8cf2b80c-2557-43b0-849c-8aa5aea7552f, c7f92639-9af8-456a-92ef-8f770a7311e9, 86141ecc-90e4-4efe-8751-35b1fc2af063, a878e29c-097d-4107-99de-8409c30f6dff, 72d2768d-9123-4b73-bb0b-175426c509ae, 0c5ca024-b170-475a-b15c-f05e11bfddce, de58f560-dbab-49d6-be74-45d84d58c99f, 23ea12c6-2b05-41be-8917-67d9e620323d, a1953a4b-693a-4c2c-83e9-2f8ba1f0ca4c]
+tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, tech:esim, tech:tampermonkey, tech:userscript, stage:active, stage:incident-response, entity:chokatsu-studio, entity:meta-classifier, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, milestone:weekly-cycle-w19-execution, milestone:openspec-3-archive-batch, milestone:playbook-process-revamp, milestone:playbook-archive-sync, milestone:account-ban-pivot, milestone:openspec-3-change-ban-pivot, milestone:ban-pivot-explore-synthesis, milestone:publish-relocate-local-shipping, milestone:legacy-tenant-archive, milestone:ban-decision7-reframing, milestone:3-account-staged-scaling, milestone:interior-uchi-style-confirmed, milestone:account-1-phase-0-shipped, milestone:account-1-d001-draft, milestone:interior-playbook-from-K, milestone:subject-omission-style, milestone:launch-week-brand-suppression, milestone:affiliate-first-research, milestone:weekly-cycle-w23-normal-phase, milestone:affiliate-buzz-mining-loop, milestone:threads-observation-tools, milestone:pr-14-merged, entity:oheyamemo, genre:interior, incident:threads-ban-2026-05-04, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic, principle:capture-first-explore, principle:change-boundary-equals-commit-boundary, principle:composite-fingerprint-not-single-cause, principle:milestone-driven-scaling, principle:subject-axis-not-credential-axis, principle:two-layer-persona-profile-ok-body-ng, principle:launch-week-trust-first, principle:affiliate-first-over-youtube-seed, principle:reply-chain-default-monetization, principle:dont-scrape-third-party-posts, principle:dont-automate-products-yaml-edit, principle:source-buzz-id-provenance, topic:ceiling-light, topic:youtube-subtitle-research, topic:affiliate-driven-research, topic:buzz-mining-loop, topic:userscript-1-click-capture, milestone:fan-formation-principles-2026-06-09, topic:fan-formation, topic:mission-manifesto]
+sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8, a73c0aa2-c9a4-46e3-ab60-72b6b426901a, 8b57f7c8-b8fa-4f65-8c06-06cf6fbe87b3, 97d3f618-8d6c-40e6-8210-06549512f183, cef7a3c1-5798-4534-ab51-63c1a2279734, c02fca64-85c4-40f5-9bae-00ea56f138c1, f198b34e-7c91-4bee-8bf4-a3a532f86901, ea0b21e8-0197-4d87-a637-45d18bc759d7, 665cb2da-de7e-4b1b-93f9-2500f8d6fe95, 99902682-b840-494b-b76c-59c90854c892, c0b0dfea-a81b-4470-b2f5-07cbbaa4aae8, 1228fa25-787b-4c38-b347-3a9231d5431a, d59da658-e5d8-4292-9095-c907f18fcca8, 196a73b5-f043-46ca-a902-3a9ba3669c98, 028c145c-62e4-46ba-8c98-efc52d5d77cc, 6c99bbeb-c873-4342-bc9c-e6807882b5f3, 8cf2b80c-2557-43b0-849c-8aa5aea7552f, c7f92639-9af8-456a-92ef-8f770a7311e9, 86141ecc-90e4-4efe-8751-35b1fc2af063, a878e29c-097d-4107-99de-8409c30f6dff, 72d2768d-9123-4b73-bb0b-175426c509ae, 0c5ca024-b170-475a-b15c-f05e11bfddce, de58f560-dbab-49d6-be74-45d84d58c99f, 23ea12c6-2b05-41be-8917-67d9e620323d, a1953a4b-693a-4c2c-83e9-2f8ba1f0ca4c, f735097b-d93b-4b83-ad46-d2614d7d1cd3]
 updated: 2026-06-09
 ---
 
@@ -1937,3 +1937,55 @@ see also: [[02_diary/2026-06-07#23:31-翌朝]] / [[02_diary/2026-06-08#11:38 23e
 - **Threads API reply-chain flakiness の累計確認**: D015 (前 session) + D016 (本 session) の 2 連続で同じ失敗パターン = 既存 publish.js 側に retry / fallback ロジックを足す価値が出てきた
 
 see also: [[02_diary/2026-06-08#11:39-15:04 a1953a4b]] / [[06_output/2026-06]]
+
+## 2026-06-09 — ファン化 10 原則を strategy + 文体 + hooks + 配信に展開 (session f735097b)
+
+### 起点
+
+User input: 10 原則 (① 共通の敵, ② 失敗を素直に語る, ③ 投稿で自信があるように見せる, ④ 目標と志の社会的意味, ⑤ 本音感情 + 体験, ⑥ 読者が聞き慣れた言葉, ⑦ 言いにくい話の代弁, ⑧ 万人受けを捨て 1 人に深く刺さる, ⑨ 共感, ⑩ 1 秒で情景イメージ)。「役立つ post だけでなく自分の活動・想い・志を見せる post も出す → 味方視 → ファン化 → 商品紹介時の成果」が user の意図。strategy を立て `dept/content/` に反映指示。
+
+### 4 階層反映
+
+**戦略 (canonical 新規)**
+- [dept/marketing/strategy/fan_formation_principles.md](dept/marketing/strategy/fan_formation_principles.md) — 10 原則本体 + 各原則がどの file で担保されるかの mapping 表 + mission slot 運用ルール + 「1 投稿 1 ペルソナ」 + 「1 秒情景チェック」
+
+**文体 craft (frank_voice.md 拡張)**
+- `dept/content/style/frank_voice.md` に 4 section 追加:
+  - 1 秒情景 (原則 #10) — 物・場所・時刻・色・音を line 1〜3 に置く
+  - 本音と感情語ライブラリ (原則 #5) — 静かめ palette / 避ける語 (「最高」「神」など)
+  - 業界語 → 生活語 言い換え (原則 #6) — ファブリック / アンビエント / QOL 等の翻訳表
+  - 自信 vs 上から目線の境界 (原則 #3) — 主語が「自分」なら自信、「あなた」なら指示 → 書き直し
+
+**Hook ライブラリ (interior.md 拡張)**
+- `dept/content/hooks/interior.md` に 2 カテゴリ追加 (各 7 entry、全 `ok-frank`):
+  - 共通の敵 (原則 #1) — 敵は **状況 / 業界慣習 / 思い込み** に限定、対人・競合 NG
+  - 代弁 (原則 #7) — 失敗認知 / 同調圧力への反逆 / お金の話 / ライフステージ素直さ
+- カテゴリ数 14 → 16、`ok-frank` 35 → 42
+
+**構造 (新 purpose + lint extension)**
+- `dept/content/templates/purposes/mission_manifesto.md` 新規 — 「自分の活動・志・想い」voice、affiliate なし / 出典なし / 固有名詞抑制、300〜500 字
+- `dept/dev/pipeline/lint/rule_lint.js` に mission_manifesto 用 ruleset 追加
+
+### lint 戦
+- 初版で template lint が mission_manifesto の例文を 1 投稿として読んで 500 字超 fail。extractor は `## フランク版例文 N` を 2 つ並べると両方 `inSection=true` で merge する既存 bug を踏んだ → convention に合わせて **1 example 1 section** に再構成して回避
+- `lint:posts` / `lint:templates` / `lint:hooks` 全 pass。test suite 678 pass / 2 fail (`image_license` 系で this PR 前から fail、regression なし)
+
+### 構造的意義
+
+- **canonical = strategy layer に置く決定**: 10 原則を style/hooks/template に **直接** 落とすのではなく、`dept/marketing/strategy/fan_formation_principles.md` に置いて mapping 表で各 file に紐付ける形にした。= 原則の解釈が変わったとき strategy を 1 箇所更新するだけで派生 file に伝播できる構造
+- **「自信 vs 上から目線」の主語ルール明文化**: 原則 #3 「投稿で自信があるように見せる」が、これまで「上から目線になりがち」で書き難かった盲点を解消。主語が「自分」なら自信、「あなた」なら指示 → 書き直し、という rule で安全に書ける
+- **mission_manifesto purpose = 「志を見せる post」スロット**: 既存の affiliate / empathy / informational に並ぶ独立 purpose として lint / template で扱える形に昇格。配信ローテーションで mission slot を組み込める
+
+### 着地
+
+| 場所 | 内容 |
+|---|---|
+| `dept/marketing/strategy/fan_formation_principles.md` | 新規 — 10 原則 canonical |
+| `dept/content/style/frank_voice.md` | +4 section (1 秒情景 / 感情語 / 言い換え / 主語境界) |
+| `dept/content/hooks/interior.md` | +2 category (共通の敵 / 代弁、各 7 entry) |
+| `dept/content/templates/purposes/mission_manifesto.md` | 新規 — mission purpose |
+| `dept/dev/pipeline/lint/rule_lint.js` | mission_manifesto ruleset 追加 |
+
+push / PR 化は本セッション内では実施せず (= 06_output 該当なし、local commit のみ)。
+
+see also: [[05_learn/persona-driven-content-rules]] / [[02_diary/2026-06-09#run-74]]
