@@ -2,11 +2,69 @@
 title: MeguruPMReport
 category: 03_work
 tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, tech:google-drive, tech:firebase-hosting, tech:firebase-functions, tech:launchd, tech:mermaid, stage:active, milestone:milestone-alert-single-send, milestone:milestone-alert-email-schedule, topic:openspec]
-sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af, f3a28fae-f6aa-45c6-94cf-566dcb101b26, fe1f5fac-3230-4199-912e-bdda570463c1, 2e4721dd-2285-4f3d-97ff-7e5e88c37b52, 8c7aa96d-0845-4a70-84e2-dc8bf17ffea7, 821f682c-145f-460a-9214-effb01b8a849, f1336766-5705-4d8b-a7bc-559494e807e1, fbb058f2-6e1d-4ae1-9460-f4e54099fbc0, cdd93242-ab74-40ad-a85e-4635b815f09d, 1fca49c1-8c3b-4a77-b6a4-0c4dcdbc0f81, 66be2df6-aeed-483f-804d-ca033fc1cf6a, 0ef2475c-8995-476b-aebc-f8856a937bed, d56dc1c3-34eb-4a4e-95d6-40cbe8f6da58, 00db3a35-a07a-43bf-913e-97f2d41c1041, 19921cfa-1d09-4c76-b029-edeec9f12618, 1a5c6b2a-38fa-41e0-9818-cb874d49efbd, b7134930-f6b2-44d5-b0e5-28a5b65fcb71]
-updated: 2026-06-10
+sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af, f3a28fae-f6aa-45c6-94cf-566dcb101b26, fe1f5fac-3230-4199-912e-bdda570463c1, 2e4721dd-2285-4f3d-97ff-7e5e88c37b52, 8c7aa96d-0845-4a70-84e2-dc8bf17ffea7, 821f682c-145f-460a-9214-effb01b8a849, f1336766-5705-4d8b-a7bc-559494e807e1, fbb058f2-6e1d-4ae1-9460-f4e54099fbc0, cdd93242-ab74-40ad-a85e-4635b815f09d, 1fca49c1-8c3b-4a77-b6a4-0c4dcdbc0f81, 66be2df6-aeed-483f-804d-ca033fc1cf6a, 0ef2475c-8995-476b-aebc-f8856a937bed, d56dc1c3-34eb-4a4e-95d6-40cbe8f6da58, 00db3a35-a07a-43bf-913e-97f2d41c1041, 19921cfa-1d09-4c76-b029-edeec9f12618, 1a5c6b2a-38fa-41e0-9818-cb874d49efbd, b7134930-f6b2-44d5-b0e5-28a5b65fcb71, cc512662-ef94-49eb-88ea-16f6b1448c3c]
+updated: 2026-06-12
 ---
 
 # MeguruPMReport
+
+## 2026-06-09→10 weekly-report 0〜9 フルセット publish (FY26_22 西巣鴨駅前「前提整理」→「意匠着手」、期日超過 3→0 件、session cc512662、JST 23:26→翌 07:53)
+
+夜サイクル単発セッション (`cc512662-ef94-49eb-88ea-16f6b1448c3c`、JST 6/9 23:26 → 6/10 07:53、278 turn) で **memory `feedback_weekly_report_full_set` の 0〜9 ステップを通し実行** → `2026-06-09` 号レポートを Firebase + Drive の二系統に publish 完了。user 第一声「dailyのサイクルを回した上で(その時点ではメールを通知せず)最新のレポートを作成して、その上でメール通知できる？」に対し、**運用順序の整理** = (a) `--skip-email` 付き daily を先に回して state を温める (b) その上で weekly-report 0〜9 を実行 (c) 翌朝 09:00 の通常 daily が新 state を踏まえて email 配信、という三段で合意。
+
+### 配信物 (= 06_output 着地対象)
+
+- **Firebase HTML viewer**: `https://meguru-pm-report.web.app/r/2026-06-09/` (= GWS ドメイン制限あり)
+- **Google Drive Doc**: `https://docs.google.com/document/d/1isvWiu0QKju2oXSb3TCI-_zhxH4CW1-idgVtBEWAheg/edit?usp=drivesdk` (= doc_id `1isvWiu0QKju2oXSb3TCI-_zhxH4CW1-idgVtBEWAheg`)
+- ローカル: `reports/2026-06-09_weekly_update.md`
+
+### 実行内容のサマリ
+
+| 観点 | 内容 |
+|---|---|
+| 期日超過 | **3 件 (FY26_02 / 14 / 19) → 0 件**、すべて 6/5→6/9 で解消 (projects.csv 内全 24 案件で overdue zero) |
+| Milestone 書き戻し | **5 セル全件 FY26_22 西巣鴨駅前** (`progress_checklist` x4 + `task_prefix_fallback` x1)、いずれも FALSE→TRUE の catchup |
+| フェーズ遷移 | **FY26_22 西巣鴨駅前 「前提整理」→「意匠着手」** (= 本サイクルの最大イベント) |
+| Jooto 進捗状況タスク取得 | **21/24 案件** (= projects.csv 24 件中 21 件)。未設定 3 件: 東尾久4丁目 / 中野区本町5丁目 / きつね塚通り前 |
+| overdue 全体 (projects.csv 外含む) | 25 件 (= `FY26_01` のみ projects.csv 外で残存) |
+
+### Phase 構成
+
+- **Phase 0-3 (JST 23:26-23:54)**: user 確認 → memory full-set 0〜9 起動 → Step 1 `/jooto-backup --all-active --force` ✅ → Step 2 `/jooto-overdue-scan` 25 件 ✅ → Step 3 `/pm-master-backup` (Milestone + integration + handover + evaluation) ✅
+- **Phase 4-5 (JST 23:54-)**: Gmail 24 案件並列取得 (バッチ 1: 8 案件) → 構造データ整理 → レポート本文ドラフティング
+- **Phase 6-7 publish 中断 (JST 6/10 01:13-01:17)**: Step 8 publish が **Firebase 認証期限切れで停止** (= Step 0 で OK だったが約 1.5h 経過で失効)。`firebase login --reauth` がインタラクティブのため **user に手動 reauth 依頼** → user 再ログイン後、publish 再実行で deploy 成功
+- **Phase 8-9 (JST 6/10 07:50-07:53)**: latest_state.json 更新 (FY26_22 = 意匠着手) + Milestone シート catchup 5 セル書き戻し完了 → `state/latest_summary.md` 更新 → 朝 9:00 の通常 daily が新 state を踏まえて email 配信する前提で終了
+
+### user 第一声の前提整理 (= 運用ルール明確化)
+
+dailyのサイクル (= color塗り + snapshot + state 更新) を **email skip 付き**で先に回し、その後 weekly-report を作るのが運用上正しい — 理由:
+1. weekly-report は最新の Milestone シート / Jooto 進捗状況 / state/latest_state.json を「直前の通常運用ライン」が回した状態で参照したい (= データの単一ソース化)
+2. 通知メールは weekly-report 着地後の最新 state を踏まえて朝 09:00 daily が出す方が一貫性が保たれる (= 夜に飛ばすと「朝の daily で発覚した差分」が翌朝の通知に重複する)
+
+→ 本ラン以降の運用フロー = **夜 daily (skip-email) → 夜 weekly-report 0〜9 publish → 翌朝 daily (normal、email)** が canonical。
+
+### 設計のキモ
+
+- **Firebase reauth 中断は publish の予期される失敗モード**: Step 0 (= 認証チェック) を通った直後でも 1〜2h 経過で session expire しうる。Step 8 publish 直前にも軽量 reauth check を入れる余地あり (= 本セッションでは手動 reauth で回避、change 化はしていない)
+- **5 セル全件 FY26_22 への集中**: 西巣鴨駅前 1 件で `progress_checklist` 4 + `task_prefix_fallback` 1 = 5 セル → 1 案件単体の catchup が大きく、`writeback` の **per-project ダイジェストを report 末尾に追加**する余地あり (= 本ランでは個別出力なし、ログのみで完結)
+- **gmail-grabber は `/weekly-report` の入力ではない**: user の混乱 (= 事前に gmail-grabber を回す必要ありますか?) に対し、Gmail MCP `search_threads` + `get_thread` が直接読むため不要と明示。gmail-grabber は `.eml`/`.mbox` バックアップ別系
+
+### MEMORY 化された / 関連する運用ポリシー
+
+- **既存 `feedback_weekly_report_full_set.md`** (= 本ランで初の 0〜9 通し実行) — `/jooto-backup --force` + `/jooto-overdue-scan` + `/pm-master-backup` + Gmail 取得 + report 生成 + publish + writeback + summary 更新の 10 ステップ
+- **新運用ルール (= 本ランで確立)**: 夜 weekly-report の前に「`alert_email_schedule: manual` 相当の日次サイクル」を先に回す。実態は `--skip-email` 付きの daily kickstart + `/jooto-backup` の組合せ
+
+### 残課題
+
+- **Jooto 進捗状況未設定 3 案件**: 東尾久4丁目 / 中野区本町5丁目 / きつね塚通り前。Milestone catchup のソース不在 = 次サイクルでも `progress_checklist` 経由の書き戻し対象外。PM 側に「進捗状況」タスク作成依頼を検討
+- **Firebase reauth の半自動化**: Step 0 認証チェックを Step 8 直前にも入れるか、`firebase login:ci` 化を検討 (= 本セッションでは手動で回避)
+
+### see also (本セクション)
+
+- [[02_diary/2026-06-09#23:26 cc512662]] — 本セッションの diary 着地
+- [[06_output/2026-06#Firebase Hosting — 週次レポート HTML viewer (2026-06-09 号)]] — Firebase URL カタログ
+- [[06_output/2026-06#Google Drive Doc — 週次レポート Google ドキュメント (2026-06-09 号)]] — Drive doc URL カタログ
+- [[03_work/meguru-pm-report#2026-06-05→07 milestone-alert 2 change]] — 直前の milestone-alert change 完了から続く運用線
 
 ## 2026-06-05→07 milestone-alert 2 change (single-send-to-many + email-schedule mon_to_sat) + LaunchAgent PATH fix + 5 commit push (session 1a5c6b2a、3 日跨ぎ)
 
