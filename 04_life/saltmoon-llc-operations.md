@@ -1,9 +1,9 @@
 ---
 title: 合同会社ソルトムーン 法人運営計画
 category: 04_life
-tags: [saltmoon, llc, real-estate-investment, tax, finance, sayama]
-sources: []
-updated: 2026-04-29
+tags: [saltmoon, llc, real-estate-investment, tax, finance, sayama, capital:juuyaku-kashitsuke, milestone:1450man-funding-2026-06]
+sources: [e6494c72-fdb9-4395-b79b-65de4e11a879]
+updated: 2026-06-12
 ---
 
 # 合同会社ソルトムーン 法人運営計画
@@ -353,6 +353,49 @@ Take Off 佐藤様
 5. **【スルガ本審査前】** Dの書類のうち個人側書類を先行取得（住民票・印鑑証明・課税証明）
 6. **【スルガ本審査前】** 健康診断受診
 
+## 2026-06-12 1450万円調達シナリオ v3 (NVDA温存・投信穴埋め) (session e6494c72)
+
+### 入口
+
+`01_inbox/finance/ソルトムーン入金plan.txt` を起点に、SBI 新NISA を温存しつつ Monex 側から **役員借入金 1450万円** を調達する売却プランの設計。inbox の finance/ 配下 7 ファイル (Monex 投信残高 / 米国株 / 個別株 / SBI NISA / ソルトムーン入金 plan) のスナップショットを解析。
+
+### 売却ロジックの 3 ラウンド洗練
+
+| 版 | 方針 | 税負担 (見積) |
+|---|---|---|
+| v1 | 全銘柄売却 | ¥787,000 (旧 NISA 非課税で大半相殺) |
+| v2 | 全銘柄 10株保有残売却 (= 「分散投資で残っているものは 10株は確保」 user 指示) | ¥1,080,000 (NVDA 90株売却で税負担増) |
+| **v3** (採用) | NVDA + ホットランドHD 完全温存 + AAPL / TSLA / 三菱UFJ 等 10株残売却 + 投信 (旧 NISA + 特定 S&P500) 全売 で穴埋め | **¥766,000 (税負担最小)** |
+
+### v3 ベストプラクティス 詳細
+
+| 銘柄 / 投信 | 株数・残高 | v3 処置 | 理由 |
+|---|---|---|---|
+| NVDA | 100株 (益率 93%) | **温存** | 益率 93% で売却時税負担最大、温存が税効率上もベスト + user 指示 |
+| ホットランドHD | 100株 | **温存** | user 指示 (分散投資コア) |
+| MRK / MSFT | 各 10株 | 温存 | 分散維持 |
+| AAPL | 20株 → 10株残売却 | 10株売却 | 益率中、税負担許容 |
+| TSLA | 30株 → 10株残売却 | 20株売却 | 弱気・売シグナル既存 |
+| 三菱UFJ 等他個別株 | 各 10株保有残以外 | 売却 | 分散維持で残し |
+| 旧 NISA 投信 (4 本) | 357万円 | **全売却** | 非課税 (旧 NISA 5 年経過済)、税効率最大 |
+| 特定 S&P500 (Monex) | 残高大 | 全売却 | 税効率良好、投信穴埋めの主力 |
+
+→ 合計 **1450万円達成、税負担 ¥766,000**。役員借入金として法人口座 (GMOあおぞら) に入金、第 1 期決算 (2026-08-31) までに金銭消費貸借契約書を整備。
+
+### 配信物
+
+- `01_inbox/finance/ソルトムーン1450万円調達_検討レポート.html` (v3 確定版、22KB) — vault inbox 内 artifact、**外部公開なし** (= 06_output 該当なし)。user 参照用ローカル HTML
+- 表形式 + 売却順序 + 税効率コメント + 取引手数料込みのキャッシュフロー
+
+### Open issue
+
+- 売却の実行タイミング (= 一括 vs. 数日分散) は user が市況を見て判断
+- 投信売却分の特定口座源泉徴収 vs. 申告分離の選択は確定申告時に佐藤氏と相談
+- v3 確定後、SBI 新 NISA 側は **触らず温存** (= 旧 NISA からの移管枠を生かす)
+
+see also: [[04_life/sayama-land-contract]] / [[03_work/yahatayama-rokujizo]] / [[memory:project_emil_operating_lease]] (= 700 万円帯 オペレーティングリースは [[04_life/emil-corp-operations]] 側で別建て)
+
 ## Links
 - [[04_life/sayama-land-contract]]
+- [[04_life/emil-corp-operations]]
 - [[02_diary/2026-04-29]]
