@@ -2,7 +2,7 @@
 title: habi-bff — HABI BFF / インフラ層
 category: 03_work
 tags: [project:habi-bff, client:hlab, entity:habi, tech:typescript, tech:aws-lambda, tech:dynamodb, tech:openai, tech:openspec, tech:sqs, capability:async-chat-pipeline, capability:attunement-policy, capability:bff-guard, capability:quality-always-on, milestone:pm-inquiry-260508, milestone:add-quality-always-on-m1-m2, stage:active]
-sources: [c2dd2c85-7cc6-45d2-8df6-ebd5f5358bc4, e6de9be8-7152-4213-b913-f501d258dafe, 6a2f552b-d79a-4c1e-93ca-5b6b3bc4a045, c5c0230b-b3e6-43ae-ba7f-ea585ad01a6e, c6b59a1d-11af-4eb4-8f38-5910c5644ab3, 8694d4d3-0a31-40a3-8cf9-f711376af20b, a1f12954-3832-48ce-8f5c-92c23f413365, 5b553af9-8076-45d0-8a8c-05e809a7fdc0]
+sources: [c2dd2c85-7cc6-45d2-8df6-ebd5f5358bc4, e6de9be8-7152-4213-b913-f501d258dafe, 6a2f552b-d79a-4c1e-93ca-5b6b3bc4a045, c5c0230b-b3e6-43ae-ba7f-ea585ad01a6e, c6b59a1d-11af-4eb4-8f38-5910c5644ab3, 8694d4d3-0a31-40a3-8cf9-f711376af20b, a1f12954-3832-48ce-8f5c-92c23f413365, 5b553af9-8076-45d0-8a8c-05e809a7fdc0, 1889f8ec-b67c-482b-a0aa-3301f546e04c]
 updated: 2026-06-12
 ---
 
@@ -426,3 +426,45 @@ see also: [[02_diary/2026-05-16#00:36-01:50 JST]]
 - **HTML レポートはローカル限定でも価値がある**: 配信せず `/tmp/` で開いて user に見せるだけでも、Mermaid 図のインタラクティブ感 (= ズーム + 整形) が Markdown より圧倒的に高い。レビューの密度に差が出る
 
 see also: [[02_diary/2026-06-12]], [[05_learn/mermaid-dotted-edge-label-syntax]]
+
+## 2026-06-12 — add-narrative-memory 提案 + 実装 + push (M3 BFF-side、archive 見送り) (session 1889f8ec)
+
+### 入口
+
+「PM のフィードバックを待ってるだけだと止まってしまうため、`add-narrative-memory` で進めようかな」起点で `/opsx:propose` を投入。Narrative Memory は M3 の本命 change (= 既存 Summarize/Attunement の Layer 2 = 意味記憶層)、habi-os 側の **Deep Summarize 分離出力 PR** が出るまで Processing Flow への配線は保留する設計。M3 の **BFF-side インフラ層 (= リポジトリ + DynamoDB スキーマ + Section 5 wiring 以外)** を先行起票・実装するのが本セッションのスコープ。
+
+### 提案 → 実装 → push のフルセット
+
+- `/opsx:propose add-narrative-memory` → 4 artifact 生成 (proposal.md / design.md / specs/narrative-memory/spec.md / tasks.md)
+- 設計の核 (proposal 抜粋):
+  - DynamoDB テーブル新設: `pk=user_id`, `sk=memory_id`, attributes (kind / version / payload / source_turn_id / created_at)
+  - リポジトリ層: `NarrativeMemoryRepository.append / list / get` (3 メソッド) + 単体テスト
+  - 1 BFF turn = 1 メモリ書き込み単位 (= turn 完了時に append、midway 中断時は no-op)
+  - **Pre-write Core compliance gate** (= 書き込み前に Core ルール = 禁止カテゴリ / 個人情報 / 法的リスク を検証) を要件として spec に書く → 実装は wiring 待ち (Section 5)
+  - **Processing Flow 配線** (= Deep Summarize → Repository) も要件として spec に書く → 実装は habi-os M2.2 Deep Summarize 分離出力 PR 待ち
+- `/opsx:apply` で Section 1〜4 連続着地 = DynamoDB スキーマ + リポジトリ + 単体テスト + design docs (= Section 5 = Pre-write Core gate 配線 + Processing Flow 配線 = 2 requirement は意図的に未着手)
+
+### commit + push
+
+| commit | range | 内容 |
+|---|---|---|
+| `de15bd4` | `5cc63bd..de15bd4` | `feat: Propose and implement narrative-memory infra (M3 BFF-side)` — 19 files (+1808 / -7) |
+
+- push: `hlab-it-sys/habi-bff` `main` ← `de15bd4` (= GitHub 反映)
+- 配信物 (channel:github): `https://github.com/hlab-it-sys/habi-bff/commit/de15bd4` (= web 上でも diff 表示可)
+
+### Archive を見送った理由 (= 重要)
+
+[`openspec/changes/add-narrative-memory/specs/narrative-memory/spec.md`](https://github.com/hlab-it-sys/habi-bff/blob/main/openspec/changes/add-narrative-memory/specs/narrative-memory/spec.md) に **未実装の 2 Requirement** が残存:
+
+1. **Pre-write Core compliance gate discards violating payloads** = Section 5 wiring (= Core ルール検証 → 失格時 append 中止) が必要
+2. **Processing Flow wires Deep Summarize output to the repository** = habi-os M2.2 Deep Summarize **分離出力 PR** 待ち (= 現行 `SummarizeService.emotionalContext` がスペック違反になるため強引繋ぎ不可)
+
+→ Archive (= `openspec/specs/narrative-memory/spec.md` への昇格) は **両 requirement が実装着地するまで保留**。本 PR は **インフラ層 (Section 1〜4) 先出し** + Section 5 設計だけ確定の中間状態。次の進行は habi-os 側の PR を起こす方が先決。
+
+### 副産物 (= 本セッション中の派生気づき)
+
+- `/opsx:propose` の自動 4 artifact 生成は、**未実装 requirement を spec に書く** ことで「設計の方向性は固めたが実装は依存待ち」状態を正規に表現できる。これは M3 のような **疎結合な change** で価値が高い (= 後続 PR で wiring だけ追加すれば spec を一切触らずに済む)
+- archive 見送り判断は `openspec validate` だけでは検出できない (= spec の文章上は valid)。**「実装ファイル grep で requirement キーワードがヒットしないなら archive 見送り」** という運用則を [[05_learn/openspec-retroactive-flow]] に追記候補
+
+see also: [[02_diary/2026-06-12#14:50 JST  run-82b]] / [[06_output/2026-06#GitHub commits — hlab-it-sys/habi-bff add-narrative-memory M3 BFF-side (2026-06-12)]] / [[05_learn/openspec-retroactive-flow]]
