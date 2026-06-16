@@ -2,7 +2,7 @@
 title: BusinessCurator — Bizuayeu 内サブプラグイン (ビジネスメール分類 + Jooto 連携)
 category: 03_work
 tags: [project:businesscurator, client:meguru, tech:claude-code-plugin, tech:claude-haiku, tech:jooto-api, stage:active]
-sources: [058e8848-56aa-4282-a2bb-bd0d0b5dc7d2, ca3a5ff9-dd61-4cbe-b4ab-b36d6386bc7a, a82cc1b4-b04e-40ea-9eec-5526be8c0427, 58f9d0af-6091-4b1c-b4ec-d1f2c8300d55, 74fc50a0-62eb-40e0-9f3f-554c6f7f8925, 4e8bad14-1db8-409c-9698-deea96288d16, d4906d57-fd4c-4e33-abbb-1124556194f6, 37bb2fd3-3936-4e72-9976-3b93fdcaf998, c08eb6b9-9091-48d0-a77e-fa8b2693ef87, bbf488b5-2ce3-40ed-b80e-e1cbabd1f8f8, 72c4e690-0e3b-402e-8341-c92fbc0b66d8, 65586b9e-09a5-4518-b3d6-2fa43c542b34, 6e93de69-9d16-4d8c-8e6f-3759e7750972, 880c3f39-714e-47c7-988a-9cf79ee66087, 974373ab-840d-41cb-b3cb-9ae4d5ea5d8e, fd984dc7-6563-457a-8981-6df4cef1f115, 06e3b108-1081-44b6-9a40-7c8bd1e71a13, ea84cf74-4e4e-4454-a108-cc39e7d6c09b, b364b8d8-0983-4da9-8292-53c0171ac66f, 5eae1ddb-cd7e-4291-b964-d92bd0eff9d0, dd27bc9b-c444-4b40-bcf3-0914e5c51760, 40974924-d66c-4f0b-808c-f04991063b1a, 39d1cb69-ed21-41c0-b7f8-2d17150c2150, 011bc332-3010-490f-9122-8f58e7c37118]
+sources: [058e8848-56aa-4282-a2bb-bd0d0b5dc7d2, ca3a5ff9-dd61-4cbe-b4ab-b36d6386bc7a, a82cc1b4-b04e-40ea-9eec-5526be8c0427, 58f9d0af-6091-4b1c-b4ec-d1f2c8300d55, 74fc50a0-62eb-40e0-9f3f-554c6f7f8925, 4e8bad14-1db8-409c-9698-deea96288d16, d4906d57-fd4c-4e33-abbb-1124556194f6, 37bb2fd3-3936-4e72-9976-3b93fdcaf998, c08eb6b9-9091-48d0-a77e-fa8b2693ef87, bbf488b5-2ce3-40ed-b80e-e1cbabd1f8f8, 72c4e690-0e3b-402e-8341-c92fbc0b66d8, 65586b9e-09a5-4518-b3d6-2fa43c542b34, 6e93de69-9d16-4d8c-8e6f-3759e7750972, 880c3f39-714e-47c7-988a-9cf79ee66087, 974373ab-840d-41cb-b3cb-9ae4d5ea5d8e, fd984dc7-6563-457a-8981-6df4cef1f115, 06e3b108-1081-44b6-9a40-7c8bd1e71a13, ea84cf74-4e4e-4454-a108-cc39e7d6c09b, b364b8d8-0983-4da9-8292-53c0171ac66f, 5eae1ddb-cd7e-4291-b964-d92bd0eff9d0, dd27bc9b-c444-4b40-bcf3-0914e5c51760, 40974924-d66c-4f0b-808c-f04991063b1a, 39d1cb69-ed21-41c0-b7f8-2d17150c2150, 011bc332-3010-490f-9122-8f58e7c37118, 729fe121-ab65-49ea-9d56-d878664a9e69, c5dba373-64a7-4e4c-86bf-fdf45340f004, 0803e68e-bdbe-4ec3-93a1-a26e7b0370d7, 4499d03b-e039-4215-8008-02d5248ddcfd, c48f50c0-ab15-4d48-a547-b02084d49a24, 1cdc0882-4779-49dd-b450-92fd703b5d9a, c86b8167-1e96-456b-a179-c65f3cede96d, 8f6d8fb9-2108-4358-a8bb-f1e9e31264b4, 648f5d13-61ab-4306-9bfb-95c36a9b2537, 9ac351ac-8ed3-4400-bb56-33eef1ef5a44, 667253d4-09b4-423c-b494-8711b11690cc, 41802c05-47fd-4ae9-a4d6-5f069edcd71a]
 updated: 2026-06-16
 ---
 
@@ -95,6 +95,30 @@ run-89 直後 (UTC 06:46-06:52 = JST 15:46-15:52) に Claude Code SessionEnd
 > 各 enqueue session の本文 (差出人・本文・添付) は wiki に転記しない。
 > 1 メール = 1 業務イベントだが、長期 PKM の観点では「テーマ × 頻度」が
 > あれば十分。詳細 audit は `~/.claude/wiki/state/ingest-log.jsonl` を参照。
+
+### 2026-06-16 run-93 追加バッチ (= 12 件処理、累積本日 36+ 件)
+
+run-92 後の queue 88 件先頭 12 件を本ラン (= run-93、18:16 JST、user 手動) で
+drain。内訳 = 1 wiki-ingest-meta noop + 11 classifier:
+
+| 分類 | 件数 | 主なテーマ |
+|----|----|----|
+| `projects` | 6 | 滝野川5 同意書 (蜷川様 継続)、西荻北１丁目 議事録/設備図面、中野新橋 B-3 ボリューム検討、東日暮里 見積、上北沢№２ 速報、中野一丁目 建主様情報 |
+| `vendors` | 4 | YG381 Projectors Proforma Invoice (250 Units、4 件連続スレッド継続) |
+| `knowledge` | 1 | 建設資材物価動向 定期レポート 2026年5月 (invoice@meguru、社内配信) |
+| `wiki-ingest-meta` | 1 | `729fe121` (= run-92 直前の auto-worker noop "Both inputs are empty") |
+
+本ランで新規可視化された案件:
+- **西荻北１丁目** (jdw05072@nifty.com → 議事録 + 設備図面共有、新規案件 enqueue)
+- **中野新橋 B-3** (hishida、ボリューム検討依頼、初期検討フェーズ)
+- **東日暮里 お見積り** (thomma 発、見積もり進行)
+- **上北沢№２** (thomma 発、速報共有)
+- **中野一丁目 建主様情報** (mhiejima、施主情報フォロー)
+
+継続中の業務ライン:
+- **滝野川5 同意書 (蜷川様)** = run-91 で `b364b8d8` 観測済、本ランで `0803e68e` 追加 (=eaoki 返信)
+- **YG381 Projectors Proforma Invoice** = run-89/90/91 で `72c4e690` / `39d1cb69` 観測済、本ランで `4499d03b` / `c48f50c0` / `9ac351ac` / `667253d4` の 4 件 = 海外調達ラインの集中ラリー
+- **建設資材物価動向定期レポート 2026年5月** = `invoice@meguru-construction.com` 自動配信、knowledge 系の社内定期物 (初観測)
 
 ### 関連スキル / 連携
 
