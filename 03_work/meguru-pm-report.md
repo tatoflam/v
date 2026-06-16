@@ -1,12 +1,73 @@
 ---
 title: MeguruPMReport
 category: 03_work
-tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, tech:google-drive, tech:firebase-hosting, tech:firebase-functions, tech:launchd, tech:mermaid, stage:active, milestone:milestone-alert-single-send, milestone:milestone-alert-email-schedule, milestone:writer-catchup-sync-archived, topic:openspec]
-sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af, f3a28fae-f6aa-45c6-94cf-566dcb101b26, fe1f5fac-3230-4199-912e-bdda570463c1, 2e4721dd-2285-4f3d-97ff-7e5e88c37b52, 8c7aa96d-0845-4a70-84e2-dc8bf17ffea7, 821f682c-145f-460a-9214-effb01b8a849, f1336766-5705-4d8b-a7bc-559494e807e1, fbb058f2-6e1d-4ae1-9460-f4e54099fbc0, cdd93242-ab74-40ad-a85e-4635b815f09d, 1fca49c1-8c3b-4a77-b6a4-0c4dcdbc0f81, 66be2df6-aeed-483f-804d-ca033fc1cf6a, 0ef2475c-8995-476b-aebc-f8856a937bed, d56dc1c3-34eb-4a4e-95d6-40cbe8f6da58, 00db3a35-a07a-43bf-913e-97f2d41c1041, 19921cfa-1d09-4c76-b029-edeec9f12618, 1a5c6b2a-38fa-41e0-9818-cb874d49efbd, b7134930-f6b2-44d5-b0e5-28a5b65fcb71, cc512662-ef94-49eb-88ea-16f6b1448c3c, 1bd39308-a1f1-4971-a78f-d1a645d9f8c6, 2378c86f-f18b-4f77-a3ec-51b1b2e23b82, ca23a43a-f3f1-40ea-af7f-d0802db887ea]
+tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, tech:google-drive, tech:firebase-hosting, tech:firebase-functions, tech:launchd, tech:mermaid, stage:active, milestone:milestone-alert-single-send, milestone:milestone-alert-email-schedule, milestone:writer-catchup-sync-archived, milestone:jooto-writer-plugin, milestone:pr-1-merged, topic:openspec]
+sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af, f3a28fae-f6aa-45c6-94cf-566dcb101b26, fe1f5fac-3230-4199-912e-bdda570463c1, 2e4721dd-2285-4f3d-97ff-7e5e88c37b52, 8c7aa96d-0845-4a70-84e2-dc8bf17ffea7, 821f682c-145f-460a-9214-effb01b8a849, f1336766-5705-4d8b-a7bc-559494e807e1, fbb058f2-6e1d-4ae1-9460-f4e54099fbc0, cdd93242-ab74-40ad-a85e-4635b815f09d, 1fca49c1-8c3b-4a77-b6a4-0c4dcdbc0f81, 66be2df6-aeed-483f-804d-ca033fc1cf6a, 0ef2475c-8995-476b-aebc-f8856a937bed, d56dc1c3-34eb-4a4e-95d6-40cbe8f6da58, 00db3a35-a07a-43bf-913e-97f2d41c1041, 19921cfa-1d09-4c76-b029-edeec9f12618, 1a5c6b2a-38fa-41e0-9818-cb874d49efbd, b7134930-f6b2-44d5-b0e5-28a5b65fcb71, cc512662-ef94-49eb-88ea-16f6b1448c3c, 1bd39308-a1f1-4971-a78f-d1a645d9f8c6, 2378c86f-f18b-4f77-a3ec-51b1b2e23b82, ca23a43a-f3f1-40ea-af7f-d0802db887ea, 2de8fa6b-1e60-4d30-988f-f7f069f18ea9]
 updated: 2026-06-16
 ---
 
 # MeguruPMReport
+
+## 2026-06-16 jooto-writer プラグイン新設 + /jooto-template-broadcast skill + PR #1 MERGED (session 2de8fa6b、~1h42min)
+
+User 第一声「**JootoのAPIで、「設計PMテンプレート」のタスクチケット（チェックリスト付き）：「条例・協議・申請関連」について、チェックリスト付きで、各プロジェクトの「申し送り」リストに複製して登録して欲しい。コピー先のプロジェクトは、「FY26_」で始まる名前の全プロジェクト**」を受け、**OpenSpec フル 3 段 (= `/opsx:propose add-jooto-template-broadcast` → `/opsx:apply` → `/opsx:archive`)** + commit / push / **PR #1 作成 / GUI MERGE / ローカル同期** まで 1 session で完走。MeguruPMReport で初めて **Jooto への書き込み経路**を導入した記念回。
+
+### 確定した成果物
+
+| 種別 | 内容 |
+|---|---|
+| 新規プラグイン | `plugins/jooto-writer/` (Jooto への唯一の書き込み経路) |
+| 新規 skill | `/jooto-template-broadcast` (`.claude/commands/jooto-template-broadcast.md`) |
+| OpenSpec change | `add-jooto-template-broadcast` (proposal / design / specs ADDED / tasks 全部完了 → archive 済) |
+| commit | [`a2134d0`](https://github.com/meguruit/MeguruPMReport/commit/a2134d0) `feat(jooto-writer): broadcast template task + checklist to FY26_ boards` |
+| PR | [PR #1](https://github.com/meguruit/MeguruPMReport/pull/1) `feat/jooto-template-broadcast` → `main` (= **リポジトリ初の PR**、本 session で feature branch + PR 運用に初移行) |
+| merge | [`001fca0`](https://github.com/meguruit/MeguruPMReport/commit/001fca0) (= GUI 経由 merge commit、user 操作) |
+| 本番反映 | **26/26 ボード完了** (= 全 `FY26_` ボードに「条例・協議・申請関係」task + checklist + 全 item をミラー作成) |
+
+### `jooto-writer` プラグイン設計の要点 (= CLAUDE.md 反映済)
+
+- **コピー元**: `設計PMテンプレート` (board id `1282427`) のタスク「条例・協議・申請関係」(task id `36833597`)、チェックリストごと
+- **コピー先**: `FY26_` 前方一致で動的検出した全ボード × 各ボードの「申し送り」リスト
+- **read 側コード**: `plugins/jooto-grabber/scripts/` を **import 再利用** (= [[memory:feedback_simplify_shared_modules]] パターン踏襲)、writer 固有コードは `writer` パッケージに隔離して grabber 側 `infrastructure`/`application` を shadow しない
+- **Write Guard**: 動的検出した対象 board_id 集合 × `{create_task, create_checklist, create_checklist_item}` の 3 操作 **以外** (= 対象外ボード / 更新・削除系 / 非 POST メソッド) は `ForbiddenWriteError` で物理拒絶
+- **冪等性**: 対象「申し送り」リストに同名タスクが既存ならスキップ (`--force` で上書き可)、再実行安全。checklist item 単位でも既存ならスキップ
+- **認証**: grabber の `JOOTO_API_KEY` を共用 (= Jooto は read/write でスコープが分かれない単一鍵設計のため、書き込み封じ込めは **コードガードで担保**)
+- **dry-run スナップショット**: `state/jooto_broadcast_{run_date}.json` に書き込み前に必ず保存。作成項目は全て未チェック
+- **デフォルト OFF + `--dry-run` 推奨**: skill 起動時オプトイン必須
+
+### 既知の挙動 (= 次回 broadcast 時に改修予定、PR 本文に明記)
+
+- `auto_task_status: done` 引数を渡したため、新規作成タスクが Jooto 上で status=done として扱われ、一部ボードで「完了」リストに自動移動する挙動が発生
+- 本来は「申し送り」リスト内に置きたいので、次回 broadcast 時は `auto_task_status` を省略するか `none` 指定で改修
+- 本 PR ではあえて修正せず、PR 本文に「既知の挙動」として明記 → 後段 separate PR or 次回 broadcast 機会で扱う判断
+
+### OpenSpec フル 3 段 1 session 完走パターン (= 本 session が初)
+
+- これまでは `/opsx:propose` → 別 session で `/opsx:apply` → さらに別 session で `/opsx:archive` と複数 session に跨いで段階反映するパターンが多かった
+- 本 session は **スコープ明確** (= 1 機能・1 plugin・26 ボード固定対象) + **`--dry-run` 検証が短時間で済む** ため、1 session 内で `propose` → `apply` → `archive` を完走できた
+- 47+ pytest pass + `openspec validate --strict add-jooto-template-broadcast` green を確認してから `archive` 実行
+
+### commit / push / PR / merge / 同期の流れ
+
+1. user 「**可能なものについては commit, push しておいてね**」 → feature branch `feat/jooto-template-broadcast` 作成 + commit `a2134d0` + push (`refs/heads/feat/jooto-template-broadcast` 新規作成)
+2. user 「**PR はどこに送るの？origin/main に push したんじゃなくて？**」 → main に直 push したわけではないことを明示、PR 作成提案
+3. user 「**PR 作って！**」 → `gh pr create` で **PR #1** 作成 (`feat/jooto-template-broadcast` → `main`)
+4. user 「**Github サイドでマージしておいた。ローカルに pull して同期し直しておいて**」 → `git pull` で merge commit `001fca0` 取り込み、ローカル merged feature ブランチ削除
+5. **承認境界**: リモートブランチ `origin/feat/jooto-template-broadcast` の削除はリモート破壊操作のため Claude 側で **自動承認せず明示確認** (= 「pull して同期」指示にはリモート破壊まで含まれない、妥当な判断)
+6. user 「**リモートブランチは、github GUI で削除済だよ！**」 → `git fetch --prune` で `origin/feat/jooto-template-broadcast` の追跡参照 prune まで完了
+
+### 未追跡 `docs/` 保持
+
+- セッション開始前から存在する未追跡の既存物 (= proposal の PDF/HTML/SVG 等) はリポジトリ含めるかは別途判断、本 session スコープ外として放置
+- 最終状態: `main = origin/main = 001fca0`、ローカルブランチは `main` のみ、未追跡 `docs/` のみ残
+
+### 学び / Note
+
+- **read-only 原則を破る初の書き込み経路**を、最初から **OpenSpec → Write Guard → 冪等 → dry-run** の 4 段で慎重に追加。**「Jooto API は read/write でスコープが分かれない単一鍵設計」というリスクをコードガードで吸収する判断**を `design.md` に明記し、specs にも反映
+- **`shared` モジュール再利用 = grabber 側を shadow しない** ルールを最初から踏襲 (= [[memory:feedback_simplify_shared_modules]] 既習)
+- **PR 運用への初移行**: user 主導の「PR どこに送るの？」発言が起点。今後 MeguruPMReport も feature branch + PR + GUI merge のフローが標準になる見込み
+
+see also: [[02_diary/2026-06-16#12:25 JST  run-88]] / [[06_output/2026-06#GitHub PR — MeguruPMReport PR #1 jooto-writer broadcast]] / [[memory:feedback_simplify_shared_modules]]
 
 ## 2026-06-16 add-writer-catchup-sync archive + reports 06-09/06-12 commit + 2 commit push (session ca23a43a、10:10-10:14 JST)
 
