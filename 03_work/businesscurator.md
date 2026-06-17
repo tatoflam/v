@@ -2,8 +2,8 @@
 title: BusinessCurator — Bizuayeu 内サブプラグイン (ビジネスメール分類 + Jooto 連携)
 category: 03_work
 tags: [project:businesscurator, client:meguru, tech:claude-code-plugin, tech:claude-haiku, tech:jooto-api, stage:active]
-sources: [058e8848-56aa-4282-a2bb-bd0d0b5dc7d2, ca3a5ff9-dd61-4cbe-b4ab-b36d6386bc7a, a82cc1b4-b04e-40ea-9eec-5526be8c0427, 58f9d0af-6091-4b1c-b4ec-d1f2c8300d55, 74fc50a0-62eb-40e0-9f3f-554c6f7f8925, 4e8bad14-1db8-409c-9698-deea96288d16, d4906d57-fd4c-4e33-abbb-1124556194f6, 37bb2fd3-3936-4e72-9976-3b93fdcaf998, c08eb6b9-9091-48d0-a77e-fa8b2693ef87, bbf488b5-2ce3-40ed-b80e-e1cbabd1f8f8, 72c4e690-0e3b-402e-8341-c92fbc0b66d8, 65586b9e-09a5-4518-b3d6-2fa43c542b34, 6e93de69-9d16-4d8c-8e6f-3759e7750972, 880c3f39-714e-47c7-988a-9cf79ee66087, 974373ab-840d-41cb-b3cb-9ae4d5ea5d8e, fd984dc7-6563-457a-8981-6df4cef1f115, 06e3b108-1081-44b6-9a40-7c8bd1e71a13, ea84cf74-4e4e-4454-a108-cc39e7d6c09b, b364b8d8-0983-4da9-8292-53c0171ac66f, 5eae1ddb-cd7e-4291-b964-d92bd0eff9d0, dd27bc9b-c444-4b40-bcf3-0914e5c51760, 40974924-d66c-4f0b-808c-f04991063b1a, 39d1cb69-ed21-41c0-b7f8-2d17150c2150, 011bc332-3010-490f-9122-8f58e7c37118, 729fe121-ab65-49ea-9d56-d878664a9e69, c5dba373-64a7-4e4c-86bf-fdf45340f004, 0803e68e-bdbe-4ec3-93a1-a26e7b0370d7, 4499d03b-e039-4215-8008-02d5248ddcfd, c48f50c0-ab15-4d48-a547-b02084d49a24, 1cdc0882-4779-49dd-b450-92fd703b5d9a, c86b8167-1e96-456b-a179-c65f3cede96d, 8f6d8fb9-2108-4358-a8bb-f1e9e31264b4, 648f5d13-61ab-4306-9bfb-95c36a9b2537, 9ac351ac-8ed3-4400-bb56-33eef1ef5a44, 667253d4-09b4-423c-b494-8711b11690cc, 41802c05-47fd-4ae9-a4d6-5f069edcd71a, c280f2d6-6a37-4949-bb09-56d8cf5c5ac7, 14ad7061-ccb9-465a-a086-0dfbc3d04302, 46797fb0-c74f-4336-ac69-42ecc282264e, c822b1ac-71a5-419d-aa11-eb13969ec640, bf62dcf6-22c2-452f-af70-02ea7751a413, dbbb6604-8bde-41b2-b166-59ea66846352, 09bd811a-c976-457b-8b6d-1fe4d3cb1a58, f5137167-7504-4bbb-a266-cf6c7bab142f, b175f6b0-2fde-4aa7-bcac-de7b05e63ead, 1960877f-499b-4ee2-8fc4-220384314830, 139bb9bb-84c0-4af6-8314-d9bfed84c838, 94b63a5c-8b75-4202-a72e-4bbda25b684b]
-updated: 2026-06-16
+sources: [058e8848-56aa-4282-a2bb-bd0d0b5dc7d2, ca3a5ff9-dd61-4cbe-b4ab-b36d6386bc7a, a82cc1b4-b04e-40ea-9eec-5526be8c0427, 58f9d0af-6091-4b1c-b4ec-d1f2c8300d55, 74fc50a0-62eb-40e0-9f3f-554c6f7f8925, 4e8bad14-1db8-409c-9698-deea96288d16, d4906d57-fd4c-4e33-abbb-1124556194f6, 37bb2fd3-3936-4e72-9976-3b93fdcaf998, c08eb6b9-9091-48d0-a77e-fa8b2693ef87, bbf488b5-2ce3-40ed-b80e-e1cbabd1f8f8, 72c4e690-0e3b-402e-8341-c92fbc0b66d8, 65586b9e-09a5-4518-b3d6-2fa43c542b34, 6e93de69-9d16-4d8c-8e6f-3759e7750972, 880c3f39-714e-47c7-988a-9cf79ee66087, 974373ab-840d-41cb-b3cb-9ae4d5ea5d8e, fd984dc7-6563-457a-8981-6df4cef1f115, 06e3b108-1081-44b6-9a40-7c8bd1e71a13, ea84cf74-4e4e-4454-a108-cc39e7d6c09b, b364b8d8-0983-4da9-8292-53c0171ac66f, 5eae1ddb-cd7e-4291-b964-d92bd0eff9d0, dd27bc9b-c444-4b40-bcf3-0914e5c51760, 40974924-d66c-4f0b-808c-f04991063b1a, 39d1cb69-ed21-41c0-b7f8-2d17150c2150, 011bc332-3010-490f-9122-8f58e7c37118, 729fe121-ab65-49ea-9d56-d878664a9e69, c5dba373-64a7-4e4c-86bf-fdf45340f004, 0803e68e-bdbe-4ec3-93a1-a26e7b0370d7, 4499d03b-e039-4215-8008-02d5248ddcfd, c48f50c0-ab15-4d48-a547-b02084d49a24, 1cdc0882-4779-49dd-b450-92fd703b5d9a, c86b8167-1e96-456b-a179-c65f3cede96d, 8f6d8fb9-2108-4358-a8bb-f1e9e31264b4, 648f5d13-61ab-4306-9bfb-95c36a9b2537, 9ac351ac-8ed3-4400-bb56-33eef1ef5a44, 667253d4-09b4-423c-b494-8711b11690cc, 41802c05-47fd-4ae9-a4d6-5f069edcd71a, c280f2d6-6a37-4949-bb09-56d8cf5c5ac7, 14ad7061-ccb9-465a-a086-0dfbc3d04302, 46797fb0-c74f-4336-ac69-42ecc282264e, c822b1ac-71a5-419d-aa11-eb13969ec640, bf62dcf6-22c2-452f-af70-02ea7751a413, dbbb6604-8bde-41b2-b166-59ea66846352, 09bd811a-c976-457b-8b6d-1fe4d3cb1a58, f5137167-7504-4bbb-a266-cf6c7bab142f, b175f6b0-2fde-4aa7-bcac-de7b05e63ead, 1960877f-499b-4ee2-8fc4-220384314830, 139bb9bb-84c0-4af6-8314-d9bfed84c838, 94b63a5c-8b75-4202-a72e-4bbda25b684b, 8bd54ac5-8253-4e89-a30e-379d273eaf58, c79b85cc-46e9-40b3-9704-6996402654d6, 8ce7c561-18ed-46be-b8db-2373dbfbecd1, d3a47fdf-d321-4c72-a7ac-7f9788aab1ca, fad288bf-7801-4310-83f2-9b2ed3f95411, 637dd424-df69-41e5-b611-cf634e23fa21, c6330593-0ed4-4fa2-a031-7596bcf7394b, c9f4a2f8-6931-4e81-bae8-ef8efa1b277f, edb2f4bb-0ef1-4a1d-9339-5f803e82daa6, 5a1452f3-7982-45be-aade-5bc522dc1860, 7b8f2663-c909-4dde-9d4e-b14b30f56322, 11a24ded-9c88-4f5c-98cc-0738a9ff0133]
+updated: 2026-06-17
 ---
 
 # BusinessCurator
@@ -143,6 +143,32 @@ run-93 後の queue 98 件先頭から BusinessCurator 12 件を本ラン (= run
 > [!note] wiki-ingest-meta の自己停止例 (`94b63a5c`)
 > 本セッションは `/wiki-ingest` skill が自身で「書き込み拒否」を選択した珍しい meta セッション。当時 queue 44 件 + diary dirty + **concurrent workers 39 件 (PID 82847-92829)** を検知し、`hook-errors.log` に 3 件 `git push failed` (03:32/06:47/06:48 UTC) も観測されていた状態で "Stopping before any writes" と判断。`auto-ingest-push.sh → claude → SessionEnd → auto-ingest-push.sh` の再帰チェーンで `WIKI_INGEST_WORKER=1` 防御が伝播しない問題が初めて明示的に診断された (run-90 の "rate-limit ループ" の真因)。**lockfile (flock) 化が hook 側の対処候補** = 別件で起票候補。
 
+### 2026-06-17 run-96 追加バッチ (= 12 件処理、8 classifier + 4 wiki-ingest-meta、累積本日分は新規日付)
+
+run-95 (= 6/16 18:46 JST) 後の queue 88 件先頭から BusinessCurator 12 件を本ラン (= run-96、6/17 09:00 JST、user 手動、cwd=`meguru-manuals`) で drain。
+
+| 分類 | 件数 | テーマ |
+|----|----|----|
+| `projects` | 7 | 【B-3】中野新橋 ボリューム検討 (hishida 依頼 → yarima 受領 → hishida フォロー、3 ターンラリー)、【B-3】練馬３丁目 ボリューム検討 (hishida、新規)、Re: Fwd: 近隣概要書 (eaoki)、中野一丁目 建主様情報 (mhiejima)、LeTech 確認事項 (r-sawahata、揺らぎ事例) |
+| `vendors` | 1 | LeTech 確認事項 (r-sawahata、同一メール race 重複側、`projects` 判定とゆらぎ) |
+| `wiki-ingest-meta` | 4 | `c6330593` / `5a1452f3` / `fad288bf` / `7b8f2663` — 6/16 朝の自己 `/wiki-ingest` defer 系判断ラン (内容は run-92〜95 で既反映、bookkeeping のみ) |
+
+本ランで新規可視化された案件:
+- **【B-3】練馬３丁目** (`projects`) = `hishida@meguru-construction.com` 発のボリューム検討依頼、新規案件
+- **Re: Fwd: 近隣概要書** (`projects`) = `eaoki@meguru-construction.com` 発、Fwd 連鎖型の社外資料社内転送 (案件名は subject だけからは未特定)
+
+継続中の業務ライン:
+- **【B-3】中野新橋 ボリューム検討依頼** = run-93 で `0803e68e` 初出、本ランで `d3a47fdf` (hishida 依頼) + `c9f4a2f8` (yarima 受領) + `edb2f4bb` (hishida フォロー) の 3 メールラリー。**`B-3` プレフィクスが「初期検討フェーズ」の社内タグ運用らしい挙動 (run-93 中野新橋 + 本ラン 練馬３丁目)** を初観測
+- **中野一丁目 建主様情報** = run-93 `mhiejima` 初出、本ラン `Re:` 1 件、施主情報フォロー継続
+
+> [!warning] Classifier nondeterminism (初観測)
+> 同一メール (件名 `RE: 確認事項になります／株式会社めぐるの石田です`、差出人 r-sawahata@letech-corp.net、内容 = ALSOK 様の件 + フェンス YL1 ナチュラルシルバー選定) が 6 秒差で **2 セッション enqueue** され、**異なる分類結果** を返した:
+> - `8bd54ac5` (06:51:38Z) → `projects`
+> - `c79b85cc` (06:51:44Z) → `vendors`
+> LeTech = 元請パートナー業者でかつ案件文脈ありの典型エッジ。run-94 の「Proforma Invoice → projects (本来 vendors)」と同系統。**enqueue 二重化** + **LLM 出力の非決定性** の合わせ技でゆらぎが顕在化。BusinessCurator 側で session_id ベースの dedup を入れる候補だが、wiki 側は両方記録して残しておく方針が安全 (LLM 出力の非決定性は受容)。
+
+= **本ラン直後 queue 残 76 件** (= 88 − 12)。BusinessCurator burst 残 ~54 件は次ラン (run-97) で継続消化。
+
 ### 関連スキル / 連携
 
 - `/wiki-jooto-absorb` (Plugin-Bizuayeu 側で公開) — Jooto から吸い上げた JSON を BusinessCurator の
@@ -158,3 +184,4 @@ run-93 後の queue 98 件先頭から BusinessCurator 12 件を本ラン (= run
 - [[05_learn/gmail-search-threads-message-limit]]
 - [[05_learn/gmail-mcp-reauth]]
 - [[02_diary/2026-06-16]]
+- [[02_diary/2026-06-17]]
