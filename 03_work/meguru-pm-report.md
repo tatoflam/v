@@ -1,12 +1,118 @@
 ---
 title: MeguruPMReport
 category: 03_work
-tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, tech:google-drive, tech:firebase-hosting, tech:firebase-functions, tech:launchd, tech:mermaid, stage:active, milestone:milestone-alert-single-send, milestone:milestone-alert-email-schedule, milestone:writer-catchup-sync-archived, milestone:jooto-writer-plugin, milestone:pr-1-merged, topic:openspec]
-sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af, f3a28fae-f6aa-45c6-94cf-566dcb101b26, fe1f5fac-3230-4199-912e-bdda570463c1, 2e4721dd-2285-4f3d-97ff-7e5e88c37b52, 8c7aa96d-0845-4a70-84e2-dc8bf17ffea7, 821f682c-145f-460a-9214-effb01b8a849, f1336766-5705-4d8b-a7bc-559494e807e1, fbb058f2-6e1d-4ae1-9460-f4e54099fbc0, cdd93242-ab74-40ad-a85e-4635b815f09d, 1fca49c1-8c3b-4a77-b6a4-0c4dcdbc0f81, 66be2df6-aeed-483f-804d-ca033fc1cf6a, 0ef2475c-8995-476b-aebc-f8856a937bed, d56dc1c3-34eb-4a4e-95d6-40cbe8f6da58, 00db3a35-a07a-43bf-913e-97f2d41c1041, 19921cfa-1d09-4c76-b029-edeec9f12618, 1a5c6b2a-38fa-41e0-9818-cb874d49efbd, b7134930-f6b2-44d5-b0e5-28a5b65fcb71, cc512662-ef94-49eb-88ea-16f6b1448c3c, 1bd39308-a1f1-4971-a78f-d1a645d9f8c6, 2378c86f-f18b-4f77-a3ec-51b1b2e23b82, ca23a43a-f3f1-40ea-af7f-d0802db887ea, 2de8fa6b-1e60-4d30-988f-f7f069f18ea9, 9b169945-6ca1-4412-9b5d-6255708d0b9a]
-updated: 2026-06-16
+sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af, f3a28fae-f6aa-45c6-94cf-566dcb101b26, fe1f5fac-3230-4199-912e-bdda570463c1, 2e4721dd-2285-4f3d-97ff-7e5e88c37b52, 8c7aa96d-0845-4a70-84e2-dc8bf17ffea7, 821f682c-145f-460a-9214-effb01b8a849, f1336766-5705-4d8b-a7bc-559494e807e1, fbb058f2-6e1d-4ae1-9460-f4e54099fbc0, cdd93242-ab74-40ad-a85e-4635b815f09d, 1fca49c1-8c3b-4a77-b6a4-0c4dcdbc0f81, 66be2df6-aeed-483f-804d-ca033fc1cf6a, 0ef2475c-8995-476b-aebc-f8856a937bed, d56dc1c3-34eb-4a4e-95d6-40cbe8f6da58, 00db3a35-a07a-43bf-913e-97f2d41c1041, 19921cfa-1d09-4c76-b029-edeec9f12618, 1a5c6b2a-38fa-41e0-9818-cb874d49efbd, b7134930-f6b2-44d5-b0e5-28a5b65fcb71, cc512662-ef94-49eb-88ea-16f6b1448c3c, 1bd39308-a1f1-4971-a78f-d1a645d9f8c6, 2378c86f-f18b-4f77-a3ec-51b1b2e23b82, ca23a43a-f3f1-40ea-af7f-d0802db887ea, 2de8fa6b-1e60-4d30-988f-f7f069f18ea9, 9b169945-6ca1-4412-9b5d-6255708d0b9a, ef4291c0-aa2b-4b6c-9d8e-d4e96389a1c5, 212f0ea0-0f60-4f4c-a4b5-3f0f4c9a8e7b, 5f676a3a-1c2d-4e8f-9a6b-7d3e8c5f4a2b]
+tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, tech:google-drive, tech:firebase-hosting, tech:firebase-functions, tech:launchd, tech:mermaid, stage:active, milestone:milestone-alert-single-send, milestone:milestone-alert-email-schedule, milestone:writer-catchup-sync-archived, milestone:jooto-writer-plugin, milestone:pr-1-merged, milestone:designer-load-end-at-kafu, topic:openspec, topic:designer-load-view, topic:milestone-alert-exclusion, topic:report-header-consistency]
+updated: 2026-06-24
 ---
 
 # MeguruPMReport
+
+## 2026-06-18→23 designer-load-end-at-kafu OpenSpec 完走 + 6/19 weekly-report 初適用 (session 5f676a3a、5 日跨ぎ)
+
+User 発意「**意匠設計の負荷ビューについて、下付までを意匠設計の作業エンドとして、以降は空きとなるように計算して欲しい。必要であれば opsx:proposeを起票して進める**」を受け、`/opsx:propose` → `/opsx:apply` → `/opsx:archive` → `/weekly-report 2026-06-19` 再生成 → `/weekly-report-publish` まで完走。3 本目の OpenSpec 1-change 完走 (= PR #1 jooto-writer、PR #2 add-ordinance-status-tracking に続く)。
+
+### 仕様変更の要点
+
+**意匠設計担当の「並行中 (load)」判定の上限を 実着工予定日 / 引渡日 → 下付予定日 に変更**:
+
+| 観点 | 旧 | 新 |
+|---|---|---|
+| 並行中の下限 | `設計開始 ≤ run_date` (空欄時は Milestone TRUE 列で代替、井上 3 件問題の解、[[memory:project_workload_active_no_start]]) | 同左 |
+| 並行中の上限 | `run_date < 実着工予定日` (空欄なら `引渡日` 代替) | `run_date < 下付予定日` (空欄時は従来 fallback 維持) |
+
+「下付」(= 確認申請の下付) は設計の実質完了サイン、以降は施工側に主導が移るので意匠設計担当は「空き」とカウントしたい、というドメイン解釈。
+
+### M/D-only な日付の年推定 (= 副次成果)
+
+工程グリッド (`schedule_master.csv`) は `M/D` フォーマット (年なし) で書かれており、FY26 は 2025-10→2026-09 を跨ぐので素朴に解釈すると `設計開始=10/21` が 2026 と誤判定される。今回の実装で揃えた方式:
+
+1. **設計開始を anchor**: 月 ≥10 → 2025、else 2026
+2. **プロジェクトごとに単調増加で walk**: 各マイルストーンが前段以上の日付になるよう年を inc-only で埋める
+
+⚠ FY26_02 設計開始=10/21 + 下付=4/27 のようなケースで素朴解釈だと「下付が設計開始より過去」になりバグる。anchor + monotonic walk で除去。see [[05_learn/fy-cycle-mmdd-year-inference]]。
+
+### 完走の内訳
+
+- `/opsx:propose designer-load-end-at-kafu` → proposal.md / design.md / specs/_/spec.md (MODIFIED requirement, 工程軸グリッド table は Non-Goal で untouched) / tasks.md
+- `/opsx:apply` で `config/workspace_defaults.md` の rule edit + spec delta validate
+- `/opsx:archive` 後、`/weekly-report 2026-06-19` 再生成 (= **6/19 レポート初出、新ロジック適用**) + `/weekly-report-publish` で HTML + Doc 配信
+- commit: `4119983 feat(designer-load): 負荷ビューの作業エンドを下付予定に変更` + `0ddfe8b reports: weekly-report 2026-06-19 生成 + publish（下付エンド初適用）`
+- main マージ + push 済み
+
+### 学び
+
+- **「下付」というドメイン用語を仕様の境界として明示できた**: 旧ロジックは設計フェーズの外側 (= 実着工/引渡) を fallback 連鎖していたため、意匠担当の実質完了タイミングと一致していなかった。今回の change で **設計フェーズ内側で完結する境界** に揃った
+- **OpenSpec の MODIFIED requirement 運用**: 工程軸グリッド table (Non-Goal) を意図的に外せたのは spec delta の文脈定義が明確だったから。`grep -n` で関係箇所を確認しつつ proposal を書く運用が定着
+- **M/D-only 日付 + FY 跨ぎ + 単調増加 walk** の組み合わせは MeguruPMReport で再利用パターン化 (= 既に [[05_learn/fy-cycle-mmdd-year-inference]] に独立記載)
+
+see also: [[02_diary/2026-06-24]] / [[memory:project_workload_active_no_start]] / [[05_learn/fy-cycle-mmdd-year-inference]]
+
+## 2026-06-18 milestone-alert 日次メールから条例・協議・申請関係 8 列を除外 (session 212f0ea0)
+
+User 発意「**PMReportについて、日次のメール送付のアラートに、条例・協議・申請関連のチェックが入ってしまっているが、これらの項目は週次のテーブル(HTML)の描画は必要だが、メールでの期日アラートに含めるのは不要**」を受け、`milestone-alert` プラグイン側で **メール本文の build_project_summaries のみ exclusion を効かせる** 修正。**Milestone シートの色塗り + 週次 HTML テーブル描画は無変更で維持** という非対称な責務分離を実装。
+
+### 修正の境界
+
+| 観点 | before | after |
+|---|---|---|
+| 期日列 背景色塗布 (朱/橙/白) | 全工程 + 条例 8 列も色塗り | **無変更** (= 視認は維持) |
+| 週次 HTML「条例・協議・申請関係の状況」テーブル | 状態変化案件をマトリクス描画 | **無変更** |
+| 日次メール期日アラート本文 | 条例関係の overdue/soon-due 含む | **条例 8 列を exclusion set で除外** |
+
+設計の肝: 条例 8 列はチェックリストごとに人手で時期が動くため、毎朝メールに出ると **シグナル/ノイズ比が悪い** という user 直感。一方シート上の色は俯瞰で必要なので維持、週次レポート (=人間が能動的に開く) には乗せる。受動チャネル (メール) と能動チャネル (シート/HTML) を分離した。
+
+### 実装
+
+- `render_email.py` の `build_project_summaries` に `excluded_milestones: set[str]` 引数を追加、ordinance グルーピングコードと `name_override` plumbing を削除 (= simplification)
+- `alert_cli.py` で wiring (`config.ordinance_milestone_names` 由来の集合を渡す)
+- 既存テスト 2 件 (grouping 期待値) を exclusion assertion に書き換え、122 tests pass
+- commit `5767480 fix(milestone-alert): 条例・協議・申請関係カラムを日次期日アラートから除外` (= **ローカルのみ、push せず**)
+
+### 学び
+
+- **「色塗りは維持 / メールから除外」という非対称責務**: 同じデータ源 (Milestone シート) に対して、視認チャネルと通知チャネルで含む/含まないを分けるのは PM ワークフローでよくあるパターン。最初から両方一律に出すと user が読み飛ばすようになる
+- **既存テストを exclusion assertion に書き換える** のがコスト最小: assertion 前提を反転させるだけで grouping コードを物理削除できた
+
+see also: [[02_diary/2026-06-24]]
+
+## 2026-06-16 weekly-report セクションヘッダ統一 + drive-publisher テンプレ修正 + 意匠担当負荷ビュー前方一致バグ 2 件修正 + 再配信 (session ef4291c0、6:00 JST 起動)
+
+User 発意「**Markdown, HTMLのレポートだけど、各セクションのタイトルヘッダのレベルを揃えて見やすくしたい**」から始まり、**4 つの相互独立な不具合** を 1 セッションで連続修正:
+
+### 不具合 1: セクションヘッダのレベル不揃い
+
+Markdown 原本のセクションが `#`(タイトル) / `##`(一部のみ) / 案件は番号付きリストの中で深い `####` 等、ヘッダ階層が一貫しておらず読みにくかった。**4 つの主要セクション (全体サマリ / 工程軸の進捗 / 条例・協議・申請関係の状況 / 案件別アップデート) を H2 で統一、案件カードは H3 に統一**。新規 H2 「案件別アップデート」を見出しとして追加。
+
+### 不具合 2: HTML 側にヘッダ更新が反映されない (= キャッシュではなくテンプレ起因)
+
+User の鋭い質問「**HTMLにタイトルへっだが反映されてない。キャッシュとかの問題？**」に対する真因は **`render_html.py` がセクション名を hardcoded list で照合していて、unknown な `##` 見出しは visible にされなかった**。`_linkify_sections` ヘルパを追加、template macro 化、trailing sections も section parser 経由で render するよう refactor。
+
+### 不具合 3: 意匠設計担当の負荷ビューが案件カードに飲み込まれる
+
+「案件カード」の集約ロジックが project section の終了境界を見ておらず、後続の **`##` 意匠設計担当の負荷ビュー** をきつね塚通り (FY16_30) の補足省略セクション内側に格納してしまっていた。**parse_report で非案件の `##` heading で project section を close、trailing 側に振る**ように修正。
+
+### 不具合 4: 負荷ビューの前方一致誤判定 2 件
+
+User の質的指摘で 2 件の独立バグが連続発覚:
+
+- **FY16_12 中野1丁目** → 山口設計士に誤カウント: 案件名前方一致のロジックが「山口町XX」 prefix と衝突。**前方一致を厳密化**
+- **鈴木先生の駒込駅前 + 西巣鴨駅前 が 1 件扱い**: 担当→案件マッピングが set 化されておらず後段の dedup が走っていた。修正後に正しく 2 件扱い
+
+### 完走
+
+- commit `74b8df9 fix(drive-publisher): weekly report HTML section layout + designer-load attribution`
+- 同一 6/16 レポートを **メール送信なしで再 publish**、Drive Doc + Firebase HTML の両方を上書き (= **冪等 publish** の安全性が活きたケース)
+- 案件目次を「**担当者別インデックス**」にリネーム (= chip nav が担当でグルーピングされている実態に合わせた)
+- 24 案件の anchor 全件 resolve 確認、PR 経由でマージ済み
+
+### 学び
+
+- **「妙にコンテンツが少ない」「右肩のラベルがついてない」は user の優れた spot check**: 数値や surface 上の OK ではなく、見た目の希薄さ・違和感を質的に指摘してもらえると root cause が掘り当てやすい (= [[memory:feedback_weekly_report_full_set]] の「見た目の違和感を信号扱い」と同根)
+- **前方一致による属人マッチングは集合化までセットで運用すべき**: 案件 → 担当のマッピングは早期に `set()` 化、長い案件名 prefix とぶつかる短い prefix から優先するのが安全
+- **冪等 publish は再配信の運用負荷を物理的に下げる**: Doc URL / Firebase URL が変わらないので user 側のブックマーク維持 + 再配信ためらいの解消
+
+see also: [[02_diary/2026-06-24]] / [[memory:feedback_weekly_report_full_set]] / [[memory:project_workload_active_no_start]]
 
 ## 2026-06-16 add-ordinance-status-tracking 条例・協議・申請関係トラッキング新設 + PR #2 MERGED (session 9b169945、17:48 JST 起動の OpenSpec フル完走)
 
