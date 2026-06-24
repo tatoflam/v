@@ -194,3 +194,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-06-18T21:51:26Z  op:ingest  run-97  S=13 I=0 pages=2 unsortable=0 deferred=7 (BC burst 13 [3 classifier: knowledge 1 = 審査機関の情報 + projects 1 = B-3中野新橋 + vendors 1 = 審査機関の情報 Re + 10 wiki-ingest-meta self-stop 6/16 朝の runaway loop 生き残り] → 02_diary/2026-06-19 + 03_work/businesscurator; defer 7 [5 ToDoBot 40+ 連続 + 2 gakudo 21 ラン目]、ToDoBot/gakudo 2 ファイル 2 日以上 dirty 放置; 65 queue 残)
 - 2026-06-23T21:49:17Z  op:ingest  S=20 I=0 pages=2 unsortable=0
 - 2026-06-24T13:35:53Z  op:ingest  S=19 I=0 pages=1 unsortable=0 deferred=7 (run-99: 12 BC bookkeeping [11 wiki-ingest-meta + 1 classifier dup 443aacd3 = vendors 審査機関の情報 重複 of 02920010 run-97]、7 chronic defer [5 ToDoBot 41 連続 + 2 gakudo 22 ラン目]、34 queue 残)
+- 2026-06-24T14:26:18Z  op:ingest  S=12 I=0 pages=1 unsortable=0 deferred=7
