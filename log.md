@@ -91,3 +91,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-06-22T01:17:05Z  op:lint    contradictions=0 orphans=0 stale=0 broken=4 stuck-inbox=0
 - 2026-06-23T01:03:27Z  op:lint    contradictions=0 orphans=0 stale=0 broken=4 stuck-inbox=0
 - 2026-06-24T01:01:45Z  op:lint    contradictions=0 orphans=0 stale=0 broken=4 stuck-inbox=0
+- 2026-06-25T01:06:02Z  op:lint    contradictions=0 orphans=0 stale=0 broken=4 stuck-inbox=0
