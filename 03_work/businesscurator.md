@@ -3,7 +3,7 @@ title: BusinessCurator — Bizuayeu 内サブプラグイン (ビジネスメー
 category: 03_work
 tags: [project:businesscurator, client:meguru, tech:claude-code-plugin, tech:claude-haiku, tech:jooto-api, stage:active]
 sources: [058e8848-56aa-4282-a2bb-bd0d0b5dc7d2, ca3a5ff9-dd61-4cbe-b4ab-b36d6386bc7a, a82cc1b4-b04e-40ea-9eec-5526be8c0427, 58f9d0af-6091-4b1c-b4ec-d1f2c8300d55, 74fc50a0-62eb-40e0-9f3f-554c6f7f8925, 4e8bad14-1db8-409c-9698-deea96288d16, d4906d57-fd4c-4e33-abbb-1124556194f6, 37bb2fd3-3936-4e72-9976-3b93fdcaf998, c08eb6b9-9091-48d0-a77e-fa8b2693ef87, bbf488b5-2ce3-40ed-b80e-e1cbabd1f8f8, 72c4e690-0e3b-402e-8341-c92fbc0b66d8, 65586b9e-09a5-4518-b3d6-2fa43c542b34, 6e93de69-9d16-4d8c-8e6f-3759e7750972, 880c3f39-714e-47c7-988a-9cf79ee66087, 974373ab-840d-41cb-b3cb-9ae4d5ea5d8e, fd984dc7-6563-457a-8981-6df4cef1f115, 06e3b108-1081-44b6-9a40-7c8bd1e71a13, ea84cf74-4e4e-4454-a108-cc39e7d6c09b, b364b8d8-0983-4da9-8292-53c0171ac66f, 5eae1ddb-cd7e-4291-b964-d92bd0eff9d0, dd27bc9b-c444-4b40-bcf3-0914e5c51760, 40974924-d66c-4f0b-808c-f04991063b1a, 39d1cb69-ed21-41c0-b7f8-2d17150c2150, 011bc332-3010-490f-9122-8f58e7c37118, 729fe121-ab65-49ea-9d56-d878664a9e69, c5dba373-64a7-4e4c-86bf-fdf45340f004, 0803e68e-bdbe-4ec3-93a1-a26e7b0370d7, 4499d03b-e039-4215-8008-02d5248ddcfd, c48f50c0-ab15-4d48-a547-b02084d49a24, 1cdc0882-4779-49dd-b450-92fd703b5d9a, c86b8167-1e96-456b-a179-c65f3cede96d, 8f6d8fb9-2108-4358-a8bb-f1e9e31264b4, 648f5d13-61ab-4306-9bfb-95c36a9b2537, 9ac351ac-8ed3-4400-bb56-33eef1ef5a44, 667253d4-09b4-423c-b494-8711b11690cc, 41802c05-47fd-4ae9-a4d6-5f069edcd71a, c280f2d6-6a37-4949-bb09-56d8cf5c5ac7, 14ad7061-ccb9-465a-a086-0dfbc3d04302, 46797fb0-c74f-4336-ac69-42ecc282264e, c822b1ac-71a5-419d-aa11-eb13969ec640, bf62dcf6-22c2-452f-af70-02ea7751a413, dbbb6604-8bde-41b2-b166-59ea66846352, 09bd811a-c976-457b-8b6d-1fe4d3cb1a58, f5137167-7504-4bbb-a266-cf6c7bab142f, b175f6b0-2fde-4aa7-bcac-de7b05e63ead, 1960877f-499b-4ee2-8fc4-220384314830, 139bb9bb-84c0-4af6-8314-d9bfed84c838, 94b63a5c-8b75-4202-a72e-4bbda25b684b, 8bd54ac5-8253-4e89-a30e-379d273eaf58, c79b85cc-46e9-40b3-9704-6996402654d6, 8ce7c561-18ed-46be-b8db-2373dbfbecd1, d3a47fdf-d321-4c72-a7ac-7f9788aab1ca, fad288bf-7801-4310-83f2-9b2ed3f95411, 637dd424-df69-41e5-b611-cf634e23fa21, c6330593-0ed4-4fa2-a031-7596bcf7394b, c9f4a2f8-6931-4e81-bae8-ef8efa1b277f, edb2f4bb-0ef1-4a1d-9339-5f803e82daa6, 5a1452f3-7982-45be-aade-5bc522dc1860, 7b8f2663-c909-4dde-9d4e-b14b30f56322, 11a24ded-9c88-4f5c-98cc-0738a9ff0133, 8629a697-e0e7-4ca1-a0b4-dba517ac1d02, a39ae501-27e8-433e-91c7-d642cce231fa, fdcc6666-3f83-4da5-92e3-02c687568ef8, ffc70e99-e249-4759-aa82-0eb6a20b87bc, 496b5ab1-98d1-4c95-b4c5-8e301a6e3783, 02920010-16c8-497d-8842-8531b9f2604f, dfbf3f77-958b-45e1-853c-4d6c9df52ac7, 2833b848-8f04-4e71-b467-c91d66c7df52, b32aab6d-96ca-4c42-af81-74645827d926, a13157d0-9150-41d5-9d6a-abc617b8df70, e2868200-0973-4476-9b4c-048513a5e6fc, 2662dc8e-75c1-4077-8dba-005178abe044, 1a5b6d20-e701-4f9f-8727-50f93d8f16f8]
-updated: 2026-06-19
+updated: 2026-06-25
 ---
 
 # BusinessCurator
@@ -197,6 +197,14 @@ run-96 (= 6/17 09:00 JST) 後の queue 76 件先頭から BusinessCurator 13 件
 - [[03_work/meguru-pm-report]] — Jooto 26 ボード本番、本プラグインは「読み取り」専担
 - [[05_learn/jooto-checklist-items-separate-endpoint]] — Jooto API のチェックリスト要素は別エンドポイントの gotcha
 
+### BC ↔ MeguruWiki の役割境界
+
+BusinessCurator (本リポ) は受信メール → 4 カテゴリ分類 + Jooto 連携 + 案件メタデータ整備を担当。
+absorb 済み案件・vendor・知見ナレッジの canonical shard は別 vault [[03_work/meguru-wiki]]
+(`~/repo/github/Bizuayeu/MeguruWiki`) に集約される。BC の SessionEnd フックで enqueue される
+サブセッション群は `/wiki-ingest` 経由で本 vault (tatoflam/v) に観測されるが、業務ナレッジ本体は
+MeguruWiki 側に蓄積される (= 2026-06-16 大規模吸収で実証、詳細 [[03_work/meguru-wiki#2026-06-16 大規模 wiki 最新化 + gmail 統合 + openspec 引き継ぎ-session-0d974a46-1-日跨ぎ9-commits]])。
+
 ## Links
 
 - [[03_work/meguru-pm-report]] — 親業務 (Jooto 上の 26 ボード = めぐる組 PM 業務本体)
@@ -206,3 +214,4 @@ run-96 (= 6/17 09:00 JST) 後の queue 76 件先頭から BusinessCurator 13 件
 - [[02_diary/2026-06-16]]
 - [[02_diary/2026-06-17]]
 - [[02_diary/2026-06-19]]
+- [[02_diary/2026-06-25]]
