@@ -1,9 +1,9 @@
 ---
 title: ThreadsPosts — 腸活スタジオ Threads 自動投稿パイプライン
 category: 03_work
-tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, tech:esim, tech:tampermonkey, tech:userscript, stage:active, stage:incident-response, entity:chokatsu-studio, entity:meta-classifier, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, milestone:weekly-cycle-w19-execution, milestone:openspec-3-archive-batch, milestone:playbook-process-revamp, milestone:playbook-archive-sync, milestone:account-ban-pivot, milestone:openspec-3-change-ban-pivot, milestone:ban-pivot-explore-synthesis, milestone:publish-relocate-local-shipping, milestone:legacy-tenant-archive, milestone:ban-decision7-reframing, milestone:3-account-staged-scaling, milestone:interior-uchi-style-confirmed, milestone:account-1-phase-0-shipped, milestone:account-1-d001-draft, milestone:interior-playbook-from-K, milestone:subject-omission-style, milestone:launch-week-brand-suppression, milestone:affiliate-first-research, milestone:weekly-cycle-w23-normal-phase, milestone:affiliate-buzz-mining-loop, milestone:threads-observation-tools, milestone:pr-14-merged, entity:oheyamemo, genre:interior, incident:threads-ban-2026-05-04, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic, principle:capture-first-explore, principle:change-boundary-equals-commit-boundary, principle:composite-fingerprint-not-single-cause, principle:milestone-driven-scaling, principle:subject-axis-not-credential-axis, principle:two-layer-persona-profile-ok-body-ng, principle:launch-week-trust-first, principle:affiliate-first-over-youtube-seed, principle:reply-chain-default-monetization, principle:dont-scrape-third-party-posts, principle:dont-automate-products-yaml-edit, principle:source-buzz-id-provenance, topic:ceiling-light, topic:youtube-subtitle-research, topic:affiliate-driven-research, topic:buzz-mining-loop, topic:userscript-1-click-capture, milestone:fan-formation-principles-2026-06-09, topic:fan-formation, topic:mission-manifesto, milestone:publish-due-greedy-reorder, milestone:publish-pipeline-self-sustaining, milestone:pr-15-merged, topic:pairing-invariant, topic:publish-stall-fault, topic:reply-chain-flaky-fix, principle:pairing-non-aff-precedes-monetization]
-sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8, a73c0aa2-c9a4-46e3-ab60-72b6b426901a, 8b57f7c8-b8fa-4f65-8c06-06cf6fbe87b3, 97d3f618-8d6c-40e6-8210-06549512f183, cef7a3c1-5798-4534-ab51-63c1a2279734, c02fca64-85c4-40f5-9bae-00ea56f138c1, f198b34e-7c91-4bee-8bf4-a3a532f86901, ea0b21e8-0197-4d87-a637-45d18bc759d7, 665cb2da-de7e-4b1b-93f9-2500f8d6fe95, 99902682-b840-494b-b76c-59c90854c892, c0b0dfea-a81b-4470-b2f5-07cbbaa4aae8, 1228fa25-787b-4c38-b347-3a9231d5431a, d59da658-e5d8-4292-9095-c907f18fcca8, 196a73b5-f043-46ca-a902-3a9ba3669c98, 028c145c-62e4-46ba-8c98-efc52d5d77cc, 6c99bbeb-c873-4342-bc9c-e6807882b5f3, 8cf2b80c-2557-43b0-849c-8aa5aea7552f, c7f92639-9af8-456a-92ef-8f770a7311e9, 86141ecc-90e4-4efe-8751-35b1fc2af063, a878e29c-097d-4107-99de-8409c30f6dff, 72d2768d-9123-4b73-bb0b-175426c509ae, 0c5ca024-b170-475a-b15c-f05e11bfddce, de58f560-dbab-49d6-be74-45d84d58c99f, 23ea12c6-2b05-41be-8917-67d9e620323d, a1953a4b-693a-4c2c-83e9-2f8ba1f0ca4c, f735097b-d93b-4b83-ad46-d2614d7d1cd3, 8b819182-df49-4d5f-b4ad-6ba093c2231f, 51140742-646c-4c61-9c65-b46330f0eca5]
-updated: 2026-06-16
+tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, tech:esim, tech:tampermonkey, tech:userscript, tech:gemini-image, stage:active, stage:incident-response, entity:chokatsu-studio, entity:meta-classifier, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, milestone:weekly-cycle-w19-execution, milestone:openspec-3-archive-batch, milestone:playbook-process-revamp, milestone:playbook-archive-sync, milestone:account-ban-pivot, milestone:openspec-3-change-ban-pivot, milestone:ban-pivot-explore-synthesis, milestone:publish-relocate-local-shipping, milestone:legacy-tenant-archive, milestone:ban-decision7-reframing, milestone:3-account-staged-scaling, milestone:interior-uchi-style-confirmed, milestone:account-1-phase-0-shipped, milestone:account-1-d001-draft, milestone:interior-playbook-from-K, milestone:subject-omission-style, milestone:launch-week-brand-suppression, milestone:affiliate-first-research, milestone:weekly-cycle-w23-normal-phase, milestone:affiliate-buzz-mining-loop, milestone:threads-observation-tools, milestone:pr-14-merged, entity:oheyamemo, genre:interior, incident:threads-ban-2026-05-04, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic, principle:capture-first-explore, principle:change-boundary-equals-commit-boundary, principle:composite-fingerprint-not-single-cause, principle:milestone-driven-scaling, principle:subject-axis-not-credential-axis, principle:two-layer-persona-profile-ok-body-ng, principle:launch-week-trust-first, principle:affiliate-first-over-youtube-seed, principle:reply-chain-default-monetization, principle:dont-scrape-third-party-posts, principle:dont-automate-products-yaml-edit, principle:source-buzz-id-provenance, topic:ceiling-light, topic:youtube-subtitle-research, topic:affiliate-driven-research, topic:buzz-mining-loop, topic:userscript-1-click-capture, milestone:fan-formation-principles-2026-06-09, topic:fan-formation, topic:mission-manifesto, milestone:publish-due-greedy-reorder, milestone:publish-pipeline-self-sustaining, milestone:pr-15-merged, topic:pairing-invariant, topic:publish-stall-fault, topic:reply-chain-flaky-fix, principle:pairing-non-aff-precedes-monetization, milestone:image-generate-source, milestone:pr-16-merged, milestone:buzz-voice-rootcause-fix, topic:image-l4-gemini, topic:buzz-voice-from-real-data, topic:affiliate-first-workflow, principle:no-narrative-drift-write-into-repo, principle:visual-verified-manual-not-webfetch]
+sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8, a73c0aa2-c9a4-46e3-ab60-72b6b426901a, 8b57f7c8-b8fa-4f65-8c06-06cf6fbe87b3, 97d3f618-8d6c-40e6-8210-06549512f183, cef7a3c1-5798-4534-ab51-63c1a2279734, c02fca64-85c4-40f5-9bae-00ea56f138c1, f198b34e-7c91-4bee-8bf4-a3a532f86901, ea0b21e8-0197-4d87-a637-45d18bc759d7, 665cb2da-de7e-4b1b-93f9-2500f8d6fe95, 99902682-b840-494b-b76c-59c90854c892, c0b0dfea-a81b-4470-b2f5-07cbbaa4aae8, 1228fa25-787b-4c38-b347-3a9231d5431a, d59da658-e5d8-4292-9095-c907f18fcca8, 196a73b5-f043-46ca-a902-3a9ba3669c98, 028c145c-62e4-46ba-8c98-efc52d5d77cc, 6c99bbeb-c873-4342-bc9c-e6807882b5f3, 8cf2b80c-2557-43b0-849c-8aa5aea7552f, c7f92639-9af8-456a-92ef-8f770a7311e9, 86141ecc-90e4-4efe-8751-35b1fc2af063, a878e29c-097d-4107-99de-8409c30f6dff, 72d2768d-9123-4b73-bb0b-175426c509ae, 0c5ca024-b170-475a-b15c-f05e11bfddce, de58f560-dbab-49d6-be74-45d84d58c99f, 23ea12c6-2b05-41be-8917-67d9e620323d, a1953a4b-693a-4c2c-83e9-2f8ba1f0ca4c, f735097b-d93b-4b83-ad46-d2614d7d1cd3, 8b819182-df49-4d5f-b4ad-6ba093c2231f, 51140742-646c-4c61-9c65-b46330f0eca5, 542cf004-82dc-4003-979d-f9fc5873e4d4]
+updated: 2026-06-25
 ---
 
 # ThreadsPosts
@@ -2182,3 +2182,176 @@ main 最新: `485e355` ← `a7e58c9` (PR #15 merge)。
 - **flaky の累積観察 → 根治の判断境界**: D016/D015 で 2 連続 fail した時点で memory 化したが、本セッションで 5 incident 累積 = 「retry/fallback ロジックを足す価値が出てきた」基準を実装で reify。container-not-ready を分離 detector + backoff retry にすることで、後段の `media not found` 偽陽性も合わせて潰した
 
 see also: [[02_diary/2026-06-16#11:55 JST  run-87]] / [[06_output/2026-06#GitHub PR — ThreadsPosts PR #15 publish-pipeline-self-sustaining]] / [[reference_threads_api_reply_chain_failure_2026-06-08]] (= 同 flakiness が本 session で根治) / `memory:project_publish_pipeline_self_sustaining` (= 本 change のメモリ化要点)
+
+## 2026-06-22→25 image-generate-source (L4 AI 画像) + W25 アフィリエイト・ループ完走 + バズ voice 根治 (session 542cf004、複数日跨ぎ ~1120 line)
+
+ThreadsPosts 史上で最も「コード変更 + 編集ワークフロー + voice 方針改訂」を 1 セッションに
+詰め込んだラン。3 フェーズが並列に進行 → 6/25 夜に **PR #16 merge + D026/D027
+schedule** 完了で着地。
+
+### フェーズ 1: 画像 sourcing の L4 (AI 生成) 経路の制度化 — PR #16 (= `92c2e3d`)
+
+**動機**: user 提案「NanobananaとかClaudeでも、画像作れるわけだから、自分で生成する
+パスも考えてもいい」。L1 (撮影) + L2 (Unsplash) + L3 未実装 (楽天実商品) に加えて
+L4 (AI mood) を制度化したい。
+
+`/opsx:propose image-generate-source` → `/opsx:apply` → `/opsx:archive` を 1 セッション
+内で完走。実装の要点:
+
+- **provider**: 既定 = Google Gemini 画像 ("Nano Banana"、`GEMINI_API_KEY` 経由)。
+  Claude は画像生成不可なので **外部モデルを HTTP で叩く** 経路を採用
+- **CLI**: `npm run image:gen -- <draft-id>` (preview = cache 書き込み) →
+  `npm run image:gen -- <draft-id> --adopt` (assets コピー + frontmatter 更新)。
+  skill = `/image-gen <draft-id>` が CLI を wrap
+- **gen cache**: `~/.config/threads-posts/image_library/gen_cache/<draft-id>/`
+  (TTL 30 分、preview と adopt の identity を確保)
+- **provenance**: 採用時 frontmatter に `image_paths` + `image_generation:`
+  (provider / model / prompt / seed) を機械可読で記録
+- **方針 invariant**:
+  - **mood 挿絵限定** = 「我が家・実体験の現物」騙り禁止 (= 信用毀損の防止)
+  - **商品実物には使わない** = L3 楽天 (実商品画像) の領分。本 change は L3 を実装しない
+  - Unsplash が interior mood を外す時の補完が当面の運用
+
+実走テスト: D024 (リビング照明 1 灯じゃ足りない) と D021 (夜は灯りだけ眺める時間) で
+SEMPRE 系の mood 画像を生成 → user 採用。stale test 対応・archive・push まで一気通貫。
+
+> [!note] Gemini 画像は課金必須 (無料枠 0)
+> セットアップで 429 が出た時の原因切り分け: `GEMINI_API_KEY` 有効でも **画像生成だけ
+> 429** なら Google 側 billing 未設定を疑う ([[reference_gemini_image_billing.md|memory: gemini-image-billing]] でメモリ化済)。
+> Gemini text API は無料枠が残るが、画像 API は別カテゴリ。
+
+### フェーズ 2: アフィリエイト発信の "リンク → リサーチ → 記事 → schedule" 完全フロー実走
+
+**user 起点**: `https://a.r10.to/hRXZPU`「↑をアフィリエイトで発信するためのthreads
+投稿づくりよろしく。リンク→リサーチ→記事のコンテンツ制作フローってあったっけ？」
+
+→ canonical フローを通しで実装する初例として完走:
+
+| step | 内容 | 着地 |
+|---|---|---|
+| 1. リンク解決 | `a.r10.to/hRXZPU` = EXCEPTION 本店 **LED シーリングライト 8 畳** (調光・調色・リモコン・北欧、楽天ランキング 1 位 ★4.42/2,869 件) | — |
+| 2. products.yaml 登録 | `r10-hrxzpu` を `organic` source で登録、buzz 由来でないので `source_buzz_id` 無し | `97f1cd2` |
+| 3. `research:affiliate` route | keyword 抽出は通すが深掘り research は既存 K003 で足りる **proportionate 判断** で省略 | — |
+| 4. monetization draft 生成 | D026 (シーリングは色も変えられるやつ、product_single / frank / 実商品画像) | `97f1cd2` |
+| 5. 実商品画像 visual_verified | 楽天画像ギャラリー (`image.rakuten.co.jp/exception5251/cabinet/.../b-00032_<N>.jpg`、N=1〜20) から user に **テキスト/spec overlay なしの単体写真**を選択させて `_7` を採用、`visual_verified: true` 注記 | `54d98ea` |
+| 6. ペア生成 | D027 (照明は色で印象が変わる、empathy 非 aff、6/25 12:00) を D026 (6/25 19:00) の trust 先行ペアとして新規 | `c6bddf6`, `bd5a7c9` |
+| 7. schedule | 6/25 12:00 D027 → 19:00 D026、affiliate_ratio 0.5 ≤ 0.80、pairing 不変条件成立 | `c6bddf6` |
+
+> [!info] visual_verified は WebFetch の clean 判定を信用しない
+> 過去 wltech で WebFetch がランキングバナーを誤判定した前例 = 「目視検証必須」が
+> プロジェクト方針。実商品画像の clean/non-clean 判定は user 目視 + frontmatter
+> `visual_verified` 注記が canonical で、自動判定は補助情報扱い。
+
+`affiliate-buzz-mining-loop` で予告した「buzz から始めない、リンクから始める」
+ルートが初めて end-to-end で回ったセッション。**buzz mining loop は供給源の 1 つ**で
+あり、user 起点の生 affiliate link からの逆順研究も対称に支えられる構造を実証。
+
+### フェーズ 3: バズ voice の根本治療 (= `frank_voice.md` + memory への二重焼き込み)
+
+**user 強い feedback** (msg 16):
+> voice, 何度見ても、全然ダメだ。やめよう、この言い方。もっとバズってる、
+> シンプルなやつを分析して適用するように、根本的に見直して。
+> (中略) 何回も同じような修正してるわけだし、バズってるアフィ系投稿のボイスを、
+> もう少し勉強した方がいいんじゃないかなあ,,, どう思う？
+
+**過去の累積 voice 指摘** (= memory 3 件):
+- [[reference_image_library_config.md|feedback_voice_taigen_dome_ban_2026-06-08]] —
+  体言止め多用禁止 + "〜なんだよね" 推奨
+- `feedback_voice_aa_bb_nandayone_pattern_overuse_2026-06-08` — 「AA、BB なんだよね」
+  一辺倒も NG
+- これらを守ろうとして別 formula に drift する pathology を user が **AI エッセイ調
+  (体言止め鼻につく / 説明くどい / 恣意的すぎる / 内省締め)** と命名
+
+**根本原因の同定** = 「私が **実際にバズってる投稿を分析せず** 自分のデフォルトに戻ってる」
+ことを assistant 側が認め、口先の再修正ではなく **手元の buzz corpus 実データから
+逆算するアプローチに転換**。
+
+**buzz corpus 実数字** (= `dept/research/buzz/<ISO_week>/buzz_candidates.yaml`):
+| ♡ | hook | パンチ要素 |
+|---:|---|---|
+| 781 | 「無印良品のマグネットも好きだけど、これはもう"雰囲気勝ち"してる」 | 無印比較 + 言い切り |
+| 641 | 「スリコごめん。…すりガラス、反則」 | スリコ比較 + 「ごめん」「反則」 |
+| 1163 | 「ええ、、、可愛すぎでは、、、？インテリアとしてつけたい🥹」 | 感情先行 + 短文 |
+| 850 | 「悩んだ末これにした…3 回買い直して 4 個目でようやく当たり」 | 失敗談からの punch |
+| 230 | 「無印泣かせのフィット感。…『ちょうどいい』が最強」 | 無印比較 + 「最強」 |
+
+**蒸留したルール** (= ⭐バズ voice、最優先):
+1. 1〜2 行で刺す (説明しない)
+2. 感情・リアクション先行 (反則。たまらん。最強。)
+3. **既知ブランド比較パンチ** (無印/スリコ/ニトリ「ごめん・泣かせ・勝ち」= アフィ最強形)
+4. 言い切り ("〜かもしれない" "〜なんだよね" を使わない)
+5. リンクは末尾あっさり (説明過多 reply chain を撤廃)
+6. 体言止めは「キメ 1 発」見出しだけ (連発しない)
+
+**KILL list** (= 即 reject):
+- 説明連結 (くどい)
+- 体言止めからの「ね」 (「〜なんだよね」)
+- 内省締め (「〜のかもしれない」「〜って大事」)
+- 問い締め (アフィ/短文では punch 締めが優先 = CLAUDE.md ルールを **上書き**)
+- "〜なんだよね" 定型
+- 体言止め三連
+
+**D026 / D027 の作り直し**:
+
+| draft | 型 | 本文 |
+|---|---|---|
+| **D026** (monetization) | 情景変身型 | 「リモコンひとつで、夜の部屋がバーになる。」+ reply ①「8 畳まで対応で調光調色＋リモコン↓pr」② `https://a.r10.to/hRXZPU` |
+| **D027** (empathy 非 aff) | たまらん型 | 「白い光のままだと、夜なのに目が冴える。夜は電球色に落とすのがたまらん。」 |
+
+**根本対策の焼き込み** (= 口頭再修正に終わらせない):
+
+1. **`dept/content/style/frank_voice.md` に「⭐バズ voice (最優先)」section を新設**
+   - 実例 (上記 5 件) + 型 (6 ルール) + KILL list + D026 の before/after を網羅
+   - 既存 frank_voice.md の他 section より **最優先で読む** 順序を明示
+2. **memory `feedback_buzz_voice_use_real_data_2026-06-24.md` を新設**
+   - 既存 voice 指摘 3 件 (体言止め禁止 / "〜なんだよね" 推奨 / "AA、BB" 一辺倒 NG) を
+     統合・上書き
+   - 「自分の頭で書くと AI エッセイ調に drift」「実バズ投稿の型をなぞる」原則を明文化
+3. **MEMORY.md index も更新** — 「上の voice memory 群を統合」と明記
+
+着地 commit (= 本 session 全体):
+```
+28ce5bc feat(image-gen): add L4 AI image generation source (image-generate-source)
+41dfd23 content(W25): リビング照明 buzz → drafts + D024 mood画像 (L4)
+4b215c0 content(W25): D021 に L4 AI 生成 mood画像を採用
+3c49a28 schedule(D024): 6/20 19:00 JST に monetization をペア配置
+92c2e3d Merge pull request #16 from tatoflam/w25-lighting-content-and-l4-image-gen
+12edfa9 schedule: D024 stall 解消 — D025 (非aff empathy) とペアで 6/23 に再配置
+e92bc8a chore(content): scheduled publish D025 / D024
+97f1cd2 content(wip): affiliate-first — r10-hrxzpu 登録 + D026 monetization draft
+54d98ea content(D026): 実商品画像を採用 (affiliate-first, r10-hrxzpu)
+c6bddf6 schedule(D026): 6/25 に D027(非aff empathy)とペアで配置
+695b72d voice(buzz): D026/D027 をバズ実例の型で書き直し + frank_voice.md に焼き込み
+bd5a7c9 chore(content): scheduled publish D027_照明は色で印象が変わる.md
+```
+
+### 最終状態 (6/25 夜)
+
+| 項目 | 状態 |
+|---|---|
+| L4 (AI 画像生成 mood) 経路 | ✅ PR #16 merge、CLI/skill/cache/provenance すべて実装、D024+D021 で実走採用 |
+| アフィリエイト完全フロー | ✅ link → research → article → image (visual_verified) → schedule を D026 で初の通し実走 |
+| バズ voice 根治 | ✅ frank_voice.md + memory に二重焼き込み、D026/D027 をバズ実例型で書き直し |
+| 6/25 schedule | ✅ 12:00 D027 (empathy) → 19:00 D026 (monetization)、pairing 成立 |
+| loop:check | 🟡 `metrics_staleness` 1 件のみ (= metrics.csv 6/16 から 8 日未更新、`npm run metrics:sync` で解消可) |
+| products.yaml `r10-hrxzpu` | ✅ visual_verified 注記入り、organic source |
+
+### 構造的意義
+
+- **画像 sourcing 4 階層 (L1 撮影 / L2 Unsplash / L3 楽天実商品 [未実装] / L4 AI mood)
+  のうち L4 が制度化**: 画像が確保できないために monetization が止まる事態の補完経路が
+  確立。**L3 (楽天実商品) は実装されていない**まま今回 D026 で「user が手動でギャラリーを
+  目視 → 保存」運用で代替したが、これは別 change の起票理由としてストックされる
+- **「buzz から始めない、リンクから始める」逆順研究の初実走**: affiliate-buzz-mining-loop は
+  **方向 1 つ**でしかなく、生 affiliate link からの逆順 (= D026 の通しフロー) も同等に
+  サポートされる構造を本セッションで実証。両方向のフローが揃った
+- **「同じ voice ミスを 4 回繰り返す」を構造で止める**: 6/8 以降の voice 指摘 3 件を
+  守ろうとして別 formula に drift する反復を、**実データ分析 → frank_voice.md (= 次回
+  生成時に必ず読まされる場所) + memory (= 次回 conversation で必ず recall される場所)
+  への二重焼き込み**で根本停止。「口頭で謝って直す」を構造的に禁止
+- **CLAUDE.md ルールの voice 別 override**: CLAUDE.md の「問い締めルール」(= empathy
+  系で読者検証を促す問い) を、**アフィ/短文では punch 締めが優先**と memory 経由で
+  上書き。voice ルールが draft purpose (monetization vs empathy) で context-sensitive に
+  変化する構造を初めて明示化
+
+see also: [[02_diary/2026-06-25#run-103 追加分 (= /wiki-ingest 再ラン、6/25 夜)]] / [[06_output/2026-06]] (= PR #16 + D024/D021 mood + D026/D027 entries) / `memory:feedback_buzz_voice_use_real_data_2026-06-24` (= 本 voice 根治の memory canonical)
