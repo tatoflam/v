@@ -1,12 +1,28 @@
 ---
 title: MeguruPMReport
 category: 03_work
-sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af, f3a28fae-f6aa-45c6-94cf-566dcb101b26, fe1f5fac-3230-4199-912e-bdda570463c1, 2e4721dd-2285-4f3d-97ff-7e5e88c37b52, 8c7aa96d-0845-4a70-84e2-dc8bf17ffea7, 821f682c-145f-460a-9214-effb01b8a849, f1336766-5705-4d8b-a7bc-559494e807e1, fbb058f2-6e1d-4ae1-9460-f4e54099fbc0, cdd93242-ab74-40ad-a85e-4635b815f09d, 1fca49c1-8c3b-4a77-b6a4-0c4dcdbc0f81, 66be2df6-aeed-483f-804d-ca033fc1cf6a, 0ef2475c-8995-476b-aebc-f8856a937bed, d56dc1c3-34eb-4a4e-95d6-40cbe8f6da58, 00db3a35-a07a-43bf-913e-97f2d41c1041, 19921cfa-1d09-4c76-b029-edeec9f12618, 1a5c6b2a-38fa-41e0-9818-cb874d49efbd, b7134930-f6b2-44d5-b0e5-28a5b65fcb71, cc512662-ef94-49eb-88ea-16f6b1448c3c, 1bd39308-a1f1-4971-a78f-d1a645d9f8c6, 2378c86f-f18b-4f77-a3ec-51b1b2e23b82, ca23a43a-f3f1-40ea-af7f-d0802db887ea, 2de8fa6b-1e60-4d30-988f-f7f069f18ea9, 9b169945-6ca1-4412-9b5d-6255708d0b9a, ef4291c0-aa2b-4b6c-9d8e-d4e96389a1c5, 212f0ea0-0f60-4f4c-a4b5-3f0f4c9a8e7b, 5f676a3a-1c2d-4e8f-9a6b-7d3e8c5f4a2b]
-tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, tech:google-drive, tech:firebase-hosting, tech:firebase-functions, tech:launchd, tech:mermaid, stage:active, milestone:milestone-alert-single-send, milestone:milestone-alert-email-schedule, milestone:writer-catchup-sync-archived, milestone:jooto-writer-plugin, milestone:pr-1-merged, milestone:designer-load-end-at-kafu, topic:openspec, topic:designer-load-view, topic:milestone-alert-exclusion, topic:report-header-consistency]
-updated: 2026-06-24
+sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af, f3a28fae-f6aa-45c6-94cf-566dcb101b26, fe1f5fac-3230-4199-912e-bdda570463c1, 2e4721dd-2285-4f3d-97ff-7e5e88c37b52, 8c7aa96d-0845-4a70-84e2-dc8bf17ffea7, 821f682c-145f-460a-9214-effb01b8a849, f1336766-5705-4d8b-a7bc-559494e807e1, fbb058f2-6e1d-4ae1-9460-f4e54099fbc0, cdd93242-ab74-40ad-a85e-4635b815f09d, 1fca49c1-8c3b-4a77-b6a4-0c4dcdbc0f81, 66be2df6-aeed-483f-804d-ca033fc1cf6a, 0ef2475c-8995-476b-aebc-f8856a937bed, d56dc1c3-34eb-4a4e-95d6-40cbe8f6da58, 00db3a35-a07a-43bf-913e-97f2d41c1041, 19921cfa-1d09-4c76-b029-edeec9f12618, 1a5c6b2a-38fa-41e0-9818-cb874d49efbd, b7134930-f6b2-44d5-b0e5-28a5b65fcb71, cc512662-ef94-49eb-88ea-16f6b1448c3c, 1bd39308-a1f1-4971-a78f-d1a645d9f8c6, 2378c86f-f18b-4f77-a3ec-51b1b2e23b82, ca23a43a-f3f1-40ea-af7f-d0802db887ea, 2de8fa6b-1e60-4d30-988f-f7f069f18ea9, 9b169945-6ca1-4412-9b5d-6255708d0b9a, ef4291c0-aa2b-4b6c-9d8e-d4e96389a1c5, 212f0ea0-0f60-4f4c-a4b5-3f0f4c9a8e7b, 5f676a3a-1c2d-4e8f-9a6b-7d3e8c5f4a2b, 0d974a46-909d-4bee-83e2-8885c1196a89]
+tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, tech:google-drive, tech:firebase-hosting, tech:firebase-functions, tech:launchd, tech:mermaid, stage:active, milestone:milestone-alert-single-send, milestone:milestone-alert-email-schedule, milestone:writer-catchup-sync-archived, milestone:jooto-writer-plugin, milestone:pr-1-merged, milestone:designer-load-end-at-kafu, topic:openspec, topic:designer-load-view, topic:milestone-alert-exclusion, topic:report-header-consistency, topic:wiki-integration]
+updated: 2026-06-25
 ---
 
 # MeguruPMReport
+
+## 2026-06-16 MeguruWiki 統合運用 OpenSpec 3 change 引き継ぎ (session 0d974a46、MeguruWiki cwd から)
+
+[[03_work/meguru-wiki]] 側で大規模 Wiki 最新化 + Gmail 認証統合を実行した上で、user 提案「**PMReport の更新と MeguruWiki の更新を一体化した運用を行いたい**」を受け、4 案 (I 統合せず / II Wiki 主導 / III PMReport 主導 / IV ハイブリッド) のうち **IV (主導 = MeguruPMReport、OpenSpec で 3 phase)** を選択。本 repo の `openspec/changes/` 配下に 3 つの change を新規追加 + `openspec validate --strict` 全 ✅ + commit `a113f3b` (origin より 1 ahead、push 未):
+
+| Change | パス | 役割 |
+|---|---|---|
+| Phase 1 | `openspec/changes/add-triage-routing-enrichment/` | rule_match 後の unclassified を Wiki の `_alias_resolver` に LLM-driven で fold |
+| Phase 2 | `openspec/changes/consolidate-grabber-plugins/` | Jooto/Gmail grabber を MeguruPMReport 側へ統合 (重複実装解消) |
+| Phase 3 | `openspec/changes/add-wiki-absorb-orchestration/` | weekly-report run の延長として Wiki 吸収を orchestration |
+
+各 Requirement に **RFC 2119 規約 (SHALL/MUST)** が必要だった点が今回の OpenSpec 流儀での新たな注意。本 repo には既に別作業 uncommitted change が存在したため、3 change のみ切り出して commit (他 uncommitted には触れず)。
+
+詳細は [[03_work/meguru-wiki#phase-6-pmreport-↔-meguruwiki-統合運用の-openspec-引き継ぎ-commit-a113f3b-on-meguruPMReport]] に集約。
+
+see also: [[02_diary/2026-06-16]] / [[03_work/meguru-wiki]] / [[03_work/businesscurator]]
 
 ## 2026-06-18→23 designer-load-end-at-kafu OpenSpec 完走 + 6/19 weekly-report 初適用 (session 5f676a3a、5 日跨ぎ)
 
