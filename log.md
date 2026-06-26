@@ -199,3 +199,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-06-25T14:30:00Z  op:ingest  run-101-addendum  pages=3 (= 並行 run-101 (06:30Z commit b7603f2) は MW substantive `0d974a46` のうち、新規 [[03_work/meguru-wiki]] + [[03_work/meguru-pm-report]] OpenSpec 統合運用 section + [[02_diary/2026-06-16]] 末尾追記までは未着手。本 addendum で補完: 03_work/meguru-wiki.md 新規 + 03_work/meguru-pm-report.md (M = 6/16 OpenSpec 3 change 引き継ぎ section + sources/tags 拡張) + 02_diary/2026-06-16.md (M = MW substantive 末尾追加)。queue/cursors/ingest-log の 16 件 bookkeeping は本 addendum で flip (parallel run は file ingest のみで bookkeeping 未実施だった)。残 queue 19 [8 older BC + 8 older ToDoBot/gakudo + 1 new 93d92ed0 enqueue mid-run])
 - 2026-06-25T07:18:31Z  op:ingest  S=11 I=0 pages=4 unsortable=1
 - 2026-06-25T08:39:49Z  op:ingest  S=3 I=0 pages=3 unsortable=0 defer=10 (run-103)
+- 2026-06-26T04:56:05Z  op:ingest  S=3 I=0 pages=2 unsortable=0 deferred=9

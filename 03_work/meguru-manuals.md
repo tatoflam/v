@@ -1,16 +1,16 @@
 ---
 title: meguru-manuals — 建築設計業務マニュアル PPTX 生成パイプライン
 category: 03_work
-tags: [project:meguru-manuals, client:meguru, tech:nodejs, tech:pptxgenjs, tech:react-icons, tech:libreoffice, tech:poppler, stage:active, milestone:5-part-standard-structure-2026-04]
-sources: [aa4f1029-a4cd-4adc-8c2c-c83a8c36438f, 8b1f8490-fd1e-4fe0-b971-108e4d2e3f7c]
-updated: 2026-05-22
+tags: [project:meguru-manuals, client:meguru, tech:nodejs, tech:pptxgenjs, tech:react-icons, tech:libreoffice, tech:poppler, stage:active, milestone:5-part-standard-structure-2026-04, topic:demolition, topic:house-survey]
+sources: [aa4f1029-a4cd-4adc-8c2c-c83a8c36438f, 8b1f8490-fd1e-4fe0-b971-108e4d2e3f7c, d9595f4e-5269-418c-9099-d7775eb81aa8]
+updated: 2026-06-26
 ---
 
 # meguru-manuals
 
 ## Summary
 
-株式会社めぐる向けの建築設計業務マニュアル（PPTX）を Claude Code + pptxgenjs で自動生成するパイプライン。現状の対象マニュアルは **建築測量 / 地盤調査 / 地盤改良 / 自火報** の 4 件、`manuals/<分野>/generate.js` 1 ファイル＋ `assets/` 配下の元資料（Excel / PDF / Markdown / PPTX）から PPTX を 1 コマンドで生成し、`scripts/qa.sh` で PDF → JPG 経由の目視 QA を回す。テーマは `themes/ocean.js` / `themes/yellow.js` を 1 行差し替え可能、コアの slide-builders 関数群はテーマ非依存。
+株式会社めぐる向けの建築設計業務マニュアル（PPTX）を Claude Code + pptxgenjs で自動生成するパイプライン。現状の対象マニュアルは **建築測量 / 地盤調査 / 地盤改良 / 自火報 / 解体・家屋調査** の 5 件、`manuals/<分野>/generate.js` 1 ファイル＋ `assets/` 配下の元資料（Excel / PDF / Markdown / PPTX）から PPTX を 1 コマンドで生成し、`scripts/qa.sh` で PDF → JPG 経由の目視 QA を回す。テーマは `themes/ocean.js` / `themes/yellow.js` を 1 行差し替え可能、コアの slide-builders 関数群はテーマ非依存。
 
 ## 標準マニュアル構成（2026-04〜、aa4f1029 で確立）
 
@@ -119,7 +119,7 @@ meguru-manuals/
 
 - Node.js 18+
 - npm: `pptxgenjs` / `react` / `react-dom` / `react-icons` / `sharp`
-- LibreOffice (`soffice`) — PDF 変換用（**aa4f1029 時点で aa4f1029 環境には未インストール、PDF QA は実施不可だった**）
+- LibreOffice (`soffice`) — PDF 変換用（aa4f1029 / 8b1f8490 環境では未インストールで PDF QA 不可だった。**d9595f4e (2026-06-26) で `brew install --cask libreoffice` で 26.2 を導入、PATH に soffice を追加。以後 `scripts/qa.sh` は無加工で動く**）
 - poppler-utils (`pdftoppm`) — 画像化用
 
 ## よく使うコマンド
@@ -143,6 +143,7 @@ for d in manuals/*/; do bash scripts/build.sh "$d"; done
 | 地盤調査 | ocean | — | aa4f1029（2026-05-19） | 5-part 構成の初実装、用語集 + 5 案件ケーススタディ反映 |
 | 地盤改良 | ocean | 42 | 8b1f8490（2026-05-22） | 標準 3 部構成、8 案件ケーススタディ、Excel 4 ファイル + 事例フォルダから抽出 |
 | 自火報 | yellow | — | （未確認） | |
+| 解体・家屋調査 | ocean | 31 | d9595f4e（2026-06-26） | 標準 3 部構成、解体＋近隣家屋調査の 2 業務、対象範囲 (隣接家屋) 選定基準を 3 か所で重点記載、用語整理 (家屋調査 ≠ 土地家屋調査士業務) |
 
 ## 地盤改良マニュアル（8b1f8490、2026-05-22）
 
@@ -160,11 +161,40 @@ for d in manuals/*/; do bash scripts/build.sh "$d"; done
 - Sec.4 ケーススタディ — 実案件 8 件（佃 / 不動前 ×2 / 高円寺大和町 / 田端東尾久 / 下目黒 ×3 / 田端駒込 / 中野区本町 / 西大井 ×6）＋業者連絡先
 
 > [!warning] QA 画像化スキップ
-> 本ランの実行環境に `soffice`/`libreoffice` 未インストールで `bash scripts/qa.sh` が動かず、目視 QA は未実施。PPTX 自体は 42 スライドで正常生成・構造は地盤調査マニュアルと同型を確認済。次回 LibreOffice 入った環境で `qa.sh` を回すか、PowerPoint で直接目視チェック必要。
+> 本ランの実行環境に `soffice`/`libreoffice` 未インストールで `bash scripts/qa.sh` が動かず、目視 QA は未実施。PPTX 自体は 42 スライドで正常生成・構造は地盤調査マニュアルと同型を確認済。次回 LibreOffice 入った環境で `qa.sh` を回すか、PowerPoint で直接目視チェック必要。**→ 2026-06-26 (d9595f4e) で LibreOffice 26.2 を導入したため、再生成すれば PDF QA 可能。**
+
+## 解体・家屋調査マニュアル（d9595f4e、2026-06-26）
+
+ユーザ依頼「解体・土地家屋調査のマニュアルを作って！土地家屋調査については、どの範囲（隣接する家屋）を対象とするかについても記載すること」に対し、`manuals/解体・家屋調査/generate.js` を新規作成 → **31 スライド** (ocean) を生成。
+
+**重要な用語整理**: ユーザの「土地家屋調査」は **土地家屋調査士の登記業務ではなく**、解体に伴う **近隣家屋の事前事後調査** (振動・沈下クレーム対策) を指す。Sec.1 に「ここでの家屋調査 ≠ 土地家屋調査士の登記業務」スライドを明示追加して取り違え防止。
+
+**構成（標準 3 部構成、ocean テーマ）:**
+
+- Sec.1 文書の定義 — 2 業務 (解体＋近隣家屋調査) の位置づけ + 用語整理スライド
+- Sec.2 目的 — 解体／家屋調査それぞれの目的、両者の関係
+- Sec.3 業務マニュアル
+  - 3-1 業務フロー (解体／家屋調査の 2 本＋接続)
+  - 3-2 資料と成果物
+  - 3-3 手順 (解体 Step 0〜3 + 家屋調査 Step A〜D)
+  - 3-4 ルールと注意事項
+- Sec.4 ケーススタディ — 対象選定の迷い／不在対応／内部調査の判断
+
+**「対象範囲（隣接家屋）」要件への対応 (3 か所で重点記載):**
+1. Sec.3-3 Step A「家屋調査の対象範囲を決めよう」— 近接家屋・古くて心配な所有者・クレームリスク家屋を抽出、地盤緩い／掘削深い場合は範囲拡大、内部調査の対象判断
+2. Sec.3-4 ルールと注意事項 — 範囲判断基準
+3. Sec.4 ケーススタディ — 対象選定の実例
+
+**元資料 (2 点) を漏れなく反映:** `家屋調査メモ.txt` (発注先 3 社・見積メール案・添付ファイル・注意事項 4 項目) + Excel `設計PM_作業詳細_202508_解体.xlsx`
+
+**QA で発見・修正した不具合 (再発防止メモ):**
+- `buildEndSlide` の **事実上の上限は 5 行**。6 行 (近隣窓口＋社内相談を別行) でも下端からはみ出すことを確認。今回は両者を 1 行に統合して 5 行に収めた。
+- 7 行 → 6 行 → 5 行 と 2 回トリムが必要だった。次回 End Slide を組むときは最初から 5 行以内で設計するのが安全。
 
 ## Links
 
 - [[02_diary/2026-05-19]] — aa4f1029（5-part 構成の確立 + Claude Design 調査 + slide-builders 拡張 + 地盤調査マニュアル再生成）
 - [[02_diary/2026-05-22]] — 8b1f8490（地盤改良マニュアル新規 42 スライド生成）
+- [[02_diary/2026-06-26]] — d9595f4e（解体・家屋調査マニュアル新規 31 スライド + LibreOffice 26.2 導入）
 - [[03_work/yahatayama-rokujizo]] — 八幡山六地蔵案件、地盤調査マニュアルのケーススタディ 5 件のうち 1 件
 - [[03_work/meguru-pm-report]] — めぐる関連、同じ client:meguru タグ
