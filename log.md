@@ -200,3 +200,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-06-25T07:18:31Z  op:ingest  S=11 I=0 pages=4 unsortable=1
 - 2026-06-25T08:39:49Z  op:ingest  S=3 I=0 pages=3 unsortable=0 defer=10 (run-103)
 - 2026-06-26T04:56:05Z  op:ingest  S=3 I=0 pages=2 unsortable=0 deferred=9
+- 2026-06-26T05:22:40Z  op:ingest  S=4 I=0 pages=3 unsortable=0 deferred=9 missing=1
