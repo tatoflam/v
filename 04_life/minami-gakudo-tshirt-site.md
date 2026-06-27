@@ -1,8 +1,8 @@
 ---
 title: みなみ学童 Tシャツ申し込みサイト (Google Form 置換)
 category: 04_life
-tags: [domain:minami-gakudo, entity:minami-gakudo, tech:cloudflare-pages, tech:github-pages, tech:google-apps-script, tech:google-sheets, tech:openspec, tech:github-actions, tech:clasp, stage:live, milestone:tshirt-form-live]
-sources: [572df4d1-cf1f-491c-bfe8-c608cb79ab67, c30a13e1-06cb-47b7-a1db-fd47e70dedb1]
+tags: [domain:minami-gakudo, entity:minami-gakudo, tech:cloudflare-pages, tech:github-pages, tech:google-apps-script, tech:google-sheets, tech:openspec, tech:github-actions, tech:clasp, stage:live, milestone:tshirt-form-live, milestone:item-level-fulfillment, milestone:pr-1-merged]
+sources: [572df4d1-cf1f-491c-bfe8-c608cb79ab67, c30a13e1-06cb-47b7-a1db-fd47e70dedb1, 2fbcae5b-54ac-42db-83bf-2afb5359bd66]
 updated: 2026-06-27
 ---
 
@@ -148,10 +148,72 @@ Cloudflare Pages 自動デプロイ + clasp による GAS 再デプロイ まで
   寄せる方針。
 - Node.js 20+ on GitHub Actions (= Cloudflare Pages action の現行要件)
 
+## 入庫＝明細単位 + 発注便で運用モデル再設計 (2026-06-27、session 2fbcae5b、PR #1 MERGED)
+
+本番公開 (`c30a13e1`) の同日午後、運用モデルを **申込(人)単位 → 明細(種類×サイズ)
+単位** へ再設計。`発注便` (= 便1, 便2…) を導入し、フォームを継続開放したまま区切って
+発注確定する形に変更。[PR #1](https://github.com/tatoflam/minami-gakudo-tshirt/pull/1)
+で `4a62021` を merge (`9b6efef`)、GAS Web App `@3` で本番反映。
+
+### なぜ申込単位を捨てたか
+
+旧モデルは `入庫ステータス` `受渡日` `一斉連絡済` を `申込` シート (= 人単位) に
+持っていた。実務では:
+
+- **発注はサイズ別バッチ**で出すので「同一人物の T シャツ 3 種類」が同時に揃わない
+- **入荷もサイズ別**にバラバラに来る → 入庫済の分から先に渡したい (= 部分受渡)
+- 募集を切らずに継続開放しつつ、ある時点までの未手配だけ便発注したい
+
+→ 状態を **明細(種類×サイズ)単位** に移し、`発注便` で論理的に区切るのが業務粒度と
+一致する。`申込` シートのステータスは「入荷確定 2/3」のような **派生サマリ** で十分。
+
+### 採用した運用モデル
+
+- `明細` シートに `入庫ステータス` `発注便` `受渡日` `一斉連絡済` の 4 列を持つ
+- 1 申込 = 1 行 + N 明細行 (= 種類×サイズ×枚数の組ごと)。明細 ID は採番で安定参照
+- **発注便**: 提案時点では `便N` (連番) を既定、日付式 (`2026-07-04 便`) も可
+  (= 体裁は運用で確定予定)
+- **部分受渡**: 明細ごとに「入庫確定」「受渡済」を立てる、対応する申込は派生サマリで集計
+- **一斉連絡**: 「入庫確定 AND 未連絡」の **明細** を人ごとに 1 通へ束ねて送る。
+  連絡済フラグも明細単位 → 後便で同じ人に別 T シャツが入っても、初回連絡済アイテムは
+  再連絡対象から自動的に外れる (= 重複連絡の構造的防止)
+
+### 主要コード変更 (PR #1、11 files / +763 / -104)
+
+| ファイル | 変更内容 |
+|---|---|
+| `apps-script/Storage.gs` | 明細ヘッダ拡張 (4 列追加)、明細 ID 採番、`getItems_()` 系の絞り込み引数 |
+| `apps-script/Admin.gs` | 便発注フロー (便番号採番 + 対象明細マーキング)、集計絞り込み (便/サイズ/未連絡)、`/broadcast-pending` を明細単位化 |
+| `apps-script/Config.gs` | `ADMIN_EMAILS = ['ataken01@gmail.com', 'tatsuroh.319@gmail.com']` を集約 (= 全送信メールの CC 既定) |
+| `apps-script/Mailer.gs` | 明細粒度の broadcast 関数 (1 人 1 通に束ねる + 連絡済フラグ更新を明細側に書く) |
+| `apps-script/Migrate.gs` (新規) | `migrateToItemStatus_()` ヘルパ — 既存 `申込` シートの 3 列を明細側に転記 + 申込側の該当列を派生サマリへ縮退 |
+| `README.md` | 運用モデル + ライフサイクル図 + メニュー一覧 + 移行手順を追記 |
+
+### OpenSpec change `item-level-fulfillment` の同期
+
+- 同セッション内で `/opsx:propose` → `/opsx:apply` → `/opsx:archive` を完走
+- ADDED/MODIFIED 要件を本体 `openspec/specs/order-fulfillment/spec.md` に反映
+- 全 3 spec (`order-form` / `order-intake` / `order-fulfillment`) で `openspec validate` ✅
+
+### 設計上の学び
+
+- **状態の置き場は業務粒度に合わせる** — 発注・入荷・受渡・連絡が種類×サイズで起きる
+  運用なら、状態も最初から明細単位に。後付けで申込→明細にバラすより、最初から
+  「申込はサマリ」と決め切るほうが補助フラグが増えない
+- **継続開放 × 区切り発注を成立させる装置 = 発注便**: 締切と発注を分離。締切は周知
+  UI 上の目印に格下げし、発注は便番号で論理的に区切る
+- **送信宛先の単一集約**: `ADMIN_EMAILS` を `Config.gs` 1 か所に集約。名簿変更時の
+  漏れリスクを構造的に消す
+
+### 関連 memory
+
+- `item-level-fulfillment-model` — 運用方針固定 (= 申込単位を捨てて明細＋便で持つ
+  根拠と適用箇所)
+
 ## Links
 
 - [[04_life/minami-gakudo-fubokai-2026]] (親活動 = 父母会本体)
 - [[06_output/2026-06]] (= GitHub repo push + Cloudflare Pages live URL + GAS Web
-  App 記録)
+  App 記録 + PR #1 merge)
 - [[02_diary/2026-06-25]] — 初期 design + repo push
-- [[02_diary/2026-06-27]] — 実装着地 + 本番公開記録 (run-107 ingest)
+- [[02_diary/2026-06-27]] — 実装着地 + 本番公開 (run-107) + 入庫=明細単位再設計 + PR #1 merge (run-108)
