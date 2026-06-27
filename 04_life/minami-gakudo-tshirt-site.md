@@ -1,9 +1,9 @@
 ---
 title: みなみ学童 Tシャツ申し込みサイト (Google Form 置換)
 category: 04_life
-tags: [domain:minami-gakudo, entity:minami-gakudo, tech:cloudflare-pages, tech:github-pages, tech:google-apps-script, tech:google-sheets, tech:openspec, stage:design]
-sources: [572df4d1-cf1f-491c-bfe8-c608cb79ab67]
-updated: 2026-06-25
+tags: [domain:minami-gakudo, entity:minami-gakudo, tech:cloudflare-pages, tech:github-pages, tech:google-apps-script, tech:google-sheets, tech:openspec, tech:github-actions, tech:clasp, stage:live, milestone:tshirt-form-live]
+sources: [572df4d1-cf1f-491c-bfe8-c608cb79ab67, c30a13e1-06cb-47b7-a1db-fd47e70dedb1]
+updated: 2026-06-27
 ---
 
 # みなみ学童 Tシャツ申し込みサイト
@@ -92,8 +92,66 @@ updated: 2026-06-25
   `gh repo edit tatoflam/minami-gakudo-tshirt --visibility public` で公開化候補
   (`config.js` は `.gitignore` 済のため連絡先・GAS URL は漏れない)
 
+## 実装着地 + 本番公開 (2026-06-25→27, session c30a13e1)
+
+6/25 初期コミット直後を引き取り、フロント実装 + GAS バックエンド + GitHub Actions →
+Cloudflare Pages 自動デプロイ + clasp による GAS 再デプロイ までを一気通貫で着地。
+2026-06-27 段階で **公開フォームが live**、締切 (2026-07-03) まで募集中。
+
+### 公開 URL
+
+- **公開フォーム**: https://minami-gakudo-tshirt.pages.dev (Cloudflare Pages)
+- **GAS Web App (バックエンド)**:
+  `https://script.google.com/macros/s/AKfycbzFSQWRznHf5e4Lr4RwvLqiqPsjnVp4RL9aODobECbdXATeTJHk4oiroWdDo1WybowQ/exec`
+  (deployment ID `AKfycbzFSQWRznHf5e4Lr4RwvLqiqPsjnVp4RL9aODobECbdXATeTJHk4oiroWdDo1WybowQ`)
+
+### CI/CD
+
+- GitHub Actions `main` push 連動で Cloudflare Pages へ自動 build/deploy
+  (`839e6ee ci: GitHub Actions で main push 時に Cloudflare Pages 自動デプロイ` +
+  `61ea88f ci: push 連動デプロイの動作確認`)。デプロイ URL は `*.pages.dev` で固定、
+  preview には別 hash の suffix が付く。
+- GAS 側は `clasp push && clasp deploy` で同一 Web App ID を保ったまま再デプロイ
+  (= URL 不変、版だけ更新)。最新版 `@2` は電話 validation 反映済。
+
+### 公開フォーム機能 (実装着地)
+
+- **動的明細**: 種類 × サイズ × 枚数 を 1 セットとして N 件追加可能 (旧 Form の固定枠
+  問題を解消)
+- **学年プルダウン化**: テキスト入力 → 1年/2年/3年 のセレクト (`1d1846a`)
+- **電話/メール簡易検証**: 数字+ハイフンのみ・最低 10 桁 (client + server 両方)、
+  メールは `@` 必須形式チェック (`1d1846a`)
+- **プライバシー文言**: 「いただいた個人情報は、Tシャツのお申し込み対応以外の用途では
+  使用いたしません。」(押し付けがましくないトーン、`1d1846a`)
+- **迷惑メール注記**: メール送信者は迷惑メールフォルダも要確認の旨を完了画面と
+  フォーム下部に淡く併記
+- **読みやすさ整備** (`94a5eab`): 段落分け、「学童関係者はどなたでも購入できます」
+  「目印」を太字、「1枚 800円」を青強調
+- **締切後も受付明記** (`94a5eab`): 「締切以降もお申し込みを受け付けます」
+  (締切は GitHub Secrets 経由で build 時注入、`config.js` に外部化済)
+
+### OpenSpec change の archive
+
+- `2c34104 spec: tshirt-order-site をアーカイブ＋本体specsへsync` — 当初の OpenSpec
+  change `tshirt-order-site` を本体 specs に同期 + archive 移動
+
+### 学び (Cloudflare Pages × GAS Web App)
+
+- Cloudflare Pages の **デプロイ URL は固定** (`<project>.pages.dev`)、production
+  ブランチが変わっても URL は維持。preview だけ別 hash。
+- GAS Web App の **再デプロイは Web App ID 不変** (=URL 不変)。`clasp deploy
+  --deploymentId <id>` で同一エンドポイントの版だけ進める運用が安定。
+- バリデーションは **二重持ち** (client = 即時 UX フィードバック、server = 検証
+  権威)。電話は表示は「数字とハイフンのみ」、保存はハイフンを strip した数字のみで
+  正規化。
+- Cloudflare Pages の 25MB アセット制限を意識して、ビルド成果物は `dist/` 限定に
+  寄せる方針。
+- Node.js 20+ on GitHub Actions (= Cloudflare Pages action の現行要件)
+
 ## Links
 
 - [[04_life/minami-gakudo-fubokai-2026]] (親活動 = 父母会本体)
-- [[06_output/2026-06]] (= GitHub repo push 記録)
-- [[02_diary/2026-06-25]]
+- [[06_output/2026-06]] (= GitHub repo push + Cloudflare Pages live URL + GAS Web
+  App 記録)
+- [[02_diary/2026-06-25]] — 初期 design + repo push
+- [[02_diary/2026-06-27]] — 実装着地 + 本番公開記録 (run-107 ingest)

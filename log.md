@@ -202,3 +202,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-06-26T04:56:05Z  op:ingest  S=3 I=0 pages=2 unsortable=0 deferred=9
 - 2026-06-26T05:22:40Z  op:ingest  S=4 I=0 pages=3 unsortable=0 deferred=9 missing=1
 - 2026-06-26T10:36:36Z  op:ingest  S=4 I=0 pages=1 unsortable=0  run-106 (3 meta-ack + 1 missing transcript; 9 chronic defer)
+- 2026-06-27T02:54:11Z  op:ingest  S=2 I=0 pages=5 unsortable=0 (deferred=10)
