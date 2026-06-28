@@ -204,3 +204,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-06-26T10:36:36Z  op:ingest  S=4 I=0 pages=1 unsortable=0  run-106 (3 meta-ack + 1 missing transcript; 9 chronic defer)
 - 2026-06-27T02:54:11Z  op:ingest  S=2 I=0 pages=5 unsortable=0 (deferred=10)
 - 2026-06-27T13:30:00Z  op:ingest  S=2 I=0 pages=3 unsortable=0  run=run-108  deferred=10
+- 2026-06-28T11:55:00Z  op:ingest  S=2 I=0 pages=1 unsortable=0  run=run-109  deferred=10 (= 2 meta-ack [cc27d240 run-108 self + 973fd2f3 run-109 self] + 10 chronic defer [8 ToDoBot + 2 gakudo-assingment, 15日連続])
