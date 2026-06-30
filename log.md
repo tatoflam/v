@@ -206,3 +206,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-06-27T13:30:00Z  op:ingest  S=2 I=0 pages=3 unsortable=0  run=run-108  deferred=10
 - 2026-06-28T11:55:00Z  op:ingest  S=2 I=0 pages=1 unsortable=0  run=run-109  deferred=10 (= 2 meta-ack [cc27d240 run-108 self + 973fd2f3 run-109 self] + 10 chronic defer [8 ToDoBot + 2 gakudo-assingment, 15日連続])
 - 2026-06-30T13:33:18Z  op:ingest  S=1 I=0 pages=1 unsortable=0 deferred=9 skipped=1
+- 2026-06-30T13:35:09Z  op:ingest  S=5 I=0 pages=2 unsortable=0 deferred=10 skipped=1  run-112 (finalize run-111 ドラフト: d89/5a6/62b MPM 3 セッション + bc80a4b9 run-110 meta-ack + e58 skipped; ToDoBot ×8 + gakudo ×2 chronic defer)

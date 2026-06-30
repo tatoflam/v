@@ -1,12 +1,92 @@
 ---
 title: MeguruPMReport
 category: 03_work
-sources: [3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af, f3a28fae-f6aa-45c6-94cf-566dcb101b26, fe1f5fac-3230-4199-912e-bdda570463c1, 2e4721dd-2285-4f3d-97ff-7e5e88c37b52, 8c7aa96d-0845-4a70-84e2-dc8bf17ffea7, 821f682c-145f-460a-9214-effb01b8a849, f1336766-5705-4d8b-a7bc-559494e807e1, fbb058f2-6e1d-4ae1-9460-f4e54099fbc0, cdd93242-ab74-40ad-a85e-4635b815f09d, 1fca49c1-8c3b-4a77-b6a4-0c4dcdbc0f81, 66be2df6-aeed-483f-804d-ca033fc1cf6a, 0ef2475c-8995-476b-aebc-f8856a937bed, d56dc1c3-34eb-4a4e-95d6-40cbe8f6da58, 00db3a35-a07a-43bf-913e-97f2d41c1041, 19921cfa-1d09-4c76-b029-edeec9f12618, 1a5c6b2a-38fa-41e0-9818-cb874d49efbd, b7134930-f6b2-44d5-b0e5-28a5b65fcb71, cc512662-ef94-49eb-88ea-16f6b1448c3c, 1bd39308-a1f1-4971-a78f-d1a645d9f8c6, 2378c86f-f18b-4f77-a3ec-51b1b2e23b82, ca23a43a-f3f1-40ea-af7f-d0802db887ea, 2de8fa6b-1e60-4d30-988f-f7f069f18ea9, 9b169945-6ca1-4412-9b5d-6255708d0b9a, ef4291c0-aa2b-4b6c-9d8e-d4e96389a1c5, 212f0ea0-0f60-4f4c-a4b5-3f0f4c9a8e7b, 5f676a3a-1c2d-4e8f-9a6b-7d3e8c5f4a2b, 0d974a46-909d-4bee-83e2-8885c1196a89]
-tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, tech:google-drive, tech:firebase-hosting, tech:firebase-functions, tech:launchd, tech:mermaid, stage:active, milestone:milestone-alert-single-send, milestone:milestone-alert-email-schedule, milestone:writer-catchup-sync-archived, milestone:jooto-writer-plugin, milestone:pr-1-merged, milestone:designer-load-end-at-kafu, topic:openspec, topic:designer-load-view, topic:milestone-alert-exclusion, topic:report-header-consistency, topic:wiki-integration]
-updated: 2026-06-25
+sources: [d89e2db0-b4c7-4381-a946-4af9b382ed56, 5a66216a-4267-423b-a323-e6e8c1747109, 62b7500a-0d94-4800-baf5-0ce73661acde, 3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af, f3a28fae-f6aa-45c6-94cf-566dcb101b26, fe1f5fac-3230-4199-912e-bdda570463c1, 2e4721dd-2285-4f3d-97ff-7e5e88c37b52, 8c7aa96d-0845-4a70-84e2-dc8bf17ffea7, 821f682c-145f-460a-9214-effb01b8a849, f1336766-5705-4d8b-a7bc-559494e807e1, fbb058f2-6e1d-4ae1-9460-f4e54099fbc0, cdd93242-ab74-40ad-a85e-4635b815f09d, 1fca49c1-8c3b-4a77-b6a4-0c4dcdbc0f81, 66be2df6-aeed-483f-804d-ca033fc1cf6a, 0ef2475c-8995-476b-aebc-f8856a937bed, d56dc1c3-34eb-4a4e-95d6-40cbe8f6da58, 00db3a35-a07a-43bf-913e-97f2d41c1041, 19921cfa-1d09-4c76-b029-edeec9f12618, 1a5c6b2a-38fa-41e0-9818-cb874d49efbd, b7134930-f6b2-44d5-b0e5-28a5b65fcb71, cc512662-ef94-49eb-88ea-16f6b1448c3c, 1bd39308-a1f1-4971-a78f-d1a645d9f8c6, 2378c86f-f18b-4f77-a3ec-51b1b2e23b82, ca23a43a-f3f1-40ea-af7f-d0802db887ea, 2de8fa6b-1e60-4d30-988f-f7f069f18ea9, 9b169945-6ca1-4412-9b5d-6255708d0b9a, ef4291c0-aa2b-4b6c-9d8e-d4e96389a1c5, 212f0ea0-0f60-4f4c-a4b5-3f0f4c9a8e7b, 5f676a3a-1c2d-4e8f-9a6b-7d3e8c5f4a2b, 0d974a46-909d-4bee-83e2-8885c1196a89]
+tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, tech:google-drive, tech:firebase-hosting, tech:firebase-functions, tech:launchd, tech:mermaid, stage:active, milestone:milestone-alert-single-send, milestone:milestone-alert-email-schedule, milestone:writer-catchup-sync-archived, milestone:jooto-writer-plugin, milestone:pr-1-merged, milestone:designer-load-end-at-kafu, milestone:manual-memo-carryforward-archived, topic:openspec, topic:designer-load-view, topic:milestone-alert-exclusion, topic:report-header-consistency, topic:wiki-integration, topic:manual-memo-carryforward, topic:ordinance-exclusion, topic:jooto-checklist-backfill]
+updated: 2026-06-30
 ---
 
 # MeguruPMReport
+
+## 2026-06-30 weekly-report 2026-06-26 フルセット publish + 3 republish + add-manual-memo-carryforward archive + 2 起票 (session d89e2db0/5a66216a/62b7500a、3 直列)
+
+本日は MeguruPMReport repo で **`/weekly-report 2026-06-26` のフルセット生成 + 3 ラウンド publish** と、**OpenSpec 1 change archive + 2 change 起票（うち 1 つは実装まで完了して dry-run）** を実施。3 セッションが直列で走った形だが、扱った変更は相互独立。
+
+### セッション 1: d89e2db0 〜 weekly-report 6-26 フル + add-manual-memo-carryforward archive
+
+User 発意「**最新のレポートを作成して。mail, jooto, spreadsheet 等、全て入力データを取り込むこと**」+「**publish して！**」を受け、`/weekly-report 2026-06-26` フルセット 0〜9 生成 → `/weekly-report-publish run_date=2026-06-26` でデプロイ。commit `dac6d8f reports: weekly-report 2026-06-26 生成 + publish（フルセット）`。
+
+その後 2 つの追補:
+
+1. **工程ラベルを案件タイトル左に表示**: 案件別アップデートのタイトル「期日超過なし」等のステータスの **左側** に、その案件が今いる工程のラベルを並置。drive-publisher 側の `report.html.j2` テンプレ修正で対応（markdown 原本側は触らず、[[memory:project_drive_publisher_renderer_coupling]] のとおり HTML レベルでの体裁修正）。
+2. **東長崎4丁目 担当変更 本間 → 加納**: 進捗管理表マスター（スプレッドシート）は既に user が更新済み。週次レポートの `.md` / `.html` 両方の担当列も `加納` に揃えて republish。
+
+#### add-manual-memo-carryforward OpenSpec 完走
+
+User 発意「**Google Document に手動で追記した内容を、一度 Markdown で latest として取り込んだ上で、次の weekly-report を作る仕様を入れたと思うけど、動いてない。実情を確認して、必ず手動の追記内容を取り込んで、それも踏まえたレポートを行うようにもう一度仕様を整理し、設計できる？必要であれば openspec:proposal を発動して**」を受け、`/opsx:propose add-manual-memo-carryforward` → `/opsx:apply` → `/opsx:archive` まで完遂。
+
+| 項目 | 内容 |
+|---|---|
+| 仕様の場 | 各案件セクション末尾に optional な手動編集専用 `- メモ:` 欄を追加 |
+| Carry-forward | 次回 `/weekly-report` が **前回比較元（published Google Doc の Markdown 化版）から当該案件の `- メモ:` を抽出**し、新レポートの同一案件へ verbatim で転記（人が Doc から消すまで sticky 保持） |
+| 機械生成との分離 | 機械生成（重要な動き／前回差分 等）は **このメモ欄を上書きしない**。手動メモは人が編集権を握る |
+| HTML 表現 | accent 色の「メモ」バッジで表示（テンプレート + CSS 修正、[[memory:project_drive_publisher_renderer_coupling]] のとおり renderer 側の責務） |
+| Specs 反映 | `weekly-report`（7 項目化 + carry-forward 要件）+ `weekly-report-distribution`（メモ描画要件）。spec 検証 12 passed、実装テスト 90 passed |
+| メモリ化 | [[memory:project_manual_memo_carryforward]] に恒久仕様として保存（MEMORY.md 索引にも追加） |
+
+**初回の効力タイミング**: メモを書いた **次の週** から有効。例: 6/24 レポートの Doc に今メモを書けば、次の 7/1 レポート世代から carry-forward が走る。
+
+### セッション 2: 5a66216a 〜 東長崎4丁目 republish + exclude-ordinance-tasks-from-overdue 起票
+
+User 発意「**全入力データを最新化して、最新のレポートを作成して！**」→ エラーリカバリ → commit という流れで 6/26 republish。続いて user 発意「**東長崎4丁目について、条例・申請・協議の Jooto チェックリストを更新したので、その件を踏まえて 6-26 版を update, publish して欲しい**」で東長崎 4 丁目のチェックリスト反映 → republish。commit `388fe73 reports: weekly-report 2026-06-26 update（東長崎4丁目 条例チェックリスト反映）+ republish`。
+
+#### 残った課題 → exclude-ordinance-tasks-from-overdue OpenSpec 起票
+
+republish 後も「案件別状況サマリのヘッダの遅延ラベル」「案件別インデックスのラベル（赤）」が **東長崎 4 で解消しない** という観測。原因は **期日超過判定に申請系（条例・協議・申請関係）の 8 列が混ざっているため**で、これらは性質上 人手で時期が動くため `has_overdue` トリガに乗ってしまうと常時赤になる。
+
+`/opsx:propose exclude-ordinance-tasks-from-overdue` で正式に起票:
+
+| 観点 | 内容 |
+|---|---|
+| 識別キー | `config/milestone_mapping.yaml` の `ordinance_checklist_label` 8 項目 の **部分一致**（プレフィックス辞書ではない） |
+| 影響範囲 | `weekly-report` capability の MODIFIED requirement 2 件 + シナリオ 5 本 ADD |
+| 実装方針 | **レンダラ非改修**で、`has_overdue` 安全値 + ボード未設定の文言を統一する形でレポート文言を寄せる |
+| Strict | `npx openspec validate --strict exclude-ordinance-tasks-from-overdue` ✅ |
+
+republish 後の commit `bab4f53 reports: weekly-report 2026-06-26 期日超過判定の申請系除外 + republish` は、実装側の差分を 6-26 号に再投入した republish の記録。
+
+### セッション 3: 62b7500a 〜 add-jooto-checklist-item-backfill 起票 + 実装 + 33/33 pass (dry-run 停止)
+
+User 発意「**JootoWriter を使って、Jooto の各案件プロジェクトの中で、`◆ MM4_本受け` タスクが存在し、所属するチェックリストまたはタスクそのものがアーカイブされておらず、かつステータスが完了になっていない場合に、チェックリスト項目『工事部秘書課へ、中継槽・増圧ポンプの発注依頼を行う ※使用する中継槽のサイズ、層数、住戸数も伝える』を追加してほしい**」を受け、OpenSpec change `add-jooto-checklist-item-backfill` 起票 + 実装。
+
+#### 設計の肝: 既存ガードを再利用、新 write op / 新 guard ゼロ
+
+| 観点 | 内容 |
+|---|---|
+| 新コマンド | `/jooto-checklist-backfill`（既存 `jooto-writer` プラグインに追加） |
+| 既存資産の再利用 | `WriteGuard` + `JootoWriter.create_checklist_item` + `ResilientTransport` をそのまま流用。**新 write op を増やさず、新 guard も増やさない** |
+| Read 側 | grabber の `list_boards` / `fetch_task_checklists_with_items` を **import 再利用**（コピー禁止、shared 集約原則、[[memory:feedback_simplify_shared_modules]]） |
+| 対象スコープ | `FY26_` 全ボードの既存タスク `MM4_本受け` 部分一致 配下の既存チェックリスト `完了条件`（既定）。未アーカイブ + 未完了（status != done）+ チェックリスト存在のものだけ。それ以外はスキップ理由付きで除外 |
+| 冪等 | 同一内容（空白正規化一致）項目が既存なら `skipped_exists` |
+| Write Guard | 計画で `create` になった board_id 集合 **だけ** に限定（動的に絞り込み） |
+| dry-run スナップショット | `state/jooto_checklist_backfill_{run_date}.json` |
+| Tests | 15 新規追加 + 既存合計 **33/33 pass**（planner 分類 / force / limit / whitespace-normalized 冪等 / executor / guard block） |
+
+**停止ポイント**: dry-run プランが pass まで作れた段階で **本書き込みせず user レビュー待ちで停止**。eligibility 解析と dry-run 計画が exact match。
+
+### 全体まとめ
+
+- **publish 3 ラウンド**: dac6d8f（フルセット）→ 388fe73（東長崎4 反映）→ bab4f53（申請系除外実装の republish）。published doc は `1x7Mi5bP6pEm2sKIFntpDR12_gNfPBlcZ_LHWqhK4wLQ`。Firebase URL `https://meguru-pm-report.web.app/r/2026-06-26/`
+- **OpenSpec 動き**: archive 1 件（`add-manual-memo-carryforward`） + 起票 2 件（`exclude-ordinance-tasks-from-overdue` strict 通過、`add-jooto-checklist-item-backfill` 実装まで完走 + dry-run 停止）
+- **手動メモ carry-forward が次週から効く**: 6/24 レポート Doc に `- メモ:` を書き始めるオペレーション開始 → 7/1 以降のレポートで自動転記
+
+### 学び
+
+- **「手動の編集権を握る欄」と「機械生成」の分離**: 同じ Markdown ファイル内で人と機械の書き込み権を行で分離する。Doc 上で sticky にする仕組み（前回比較元から抽出 → verbatim 転記）は意外と素直に実装できた。重要なのは **機械生成が手動メモを上書きしない** 制約を spec レベルで宣言したこと。
+- **OpenSpec の MODIFIED requirement で「申請系除外」を表現**: 期日超過の判定そのものを変えず、`has_overdue` 安全値とボード未設定文言の統一でレポート文言を寄せる、というレンダラ非改修のアプローチ。spec delta だけで挙動が定義できた。
+- **既存ガード × 新 op 追加なしの backfill**: writer の責務は `create_checklist_item` という最小単位の write op に集約されていた。新 op を増やさないと宣言できれば、Write Guard も既存スコープの再利用だけで済む。**「最小単位の write op」の良さ** が再認識された設計（[[03_work/meguru-pm-report#2026-06-16 jooto-writer プラグイン新設 + /jooto-template-broadcast skill + PR #1 MERGED]] の延長線）。
+
+see also: [[02_diary/2026-06-30]] / [[06_output/2026-06]] / [[memory:project_manual_memo_carryforward]] / [[memory:project_drive_publisher_renderer_coupling]] / [[memory:feedback_simplify_shared_modules]]
 
 ## 2026-06-16 MeguruWiki 統合運用 OpenSpec 3 change 引き継ぎ (session 0d974a46、MeguruWiki cwd から)
 
