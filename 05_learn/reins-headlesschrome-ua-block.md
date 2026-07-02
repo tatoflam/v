@@ -2,8 +2,8 @@
 title: REINS WAF が HeadlessChrome UA を 503 で弾く
 category: 05_learn
 tags: [topic:waf, topic:user-agent-spoofing, topic:scraping, tech:selenium, tech:headless-chrome, tech:python, entity:reins]
-sources: [e702af57-704f-45d2-b1c7-5545a1990670]
-updated: 2026-06-27
+sources: [e702af57-704f-45d2-b1c7-5545a1990670, 8c19b6ca-f61c-41d2-8c1c-0e5643f22140]
+updated: 2026-07-02
 ---
 
 # REINS WAF が HeadlessChrome UA を 503 で弾く
@@ -64,4 +64,10 @@ matching** が原因。IP block や cookie 不足ではない。
 - session `e702af57` (`meguruit/land-searcher`, 2026-06-26→27): REINS WAF 503
   根治。commit `7bdc449` で UA 上書き、`b13cca1` / `30cc344` で UA matrix probe を
   仮設 → 確認後 `c79bf69` で revert。
+- session `8c19b6ca` (`meguruit/land-searcher`, 2026-06-26→07-02): 上記と並行の
+  原因追跡セッション。GCP 東京 VM (asia-northeast1-a) から curl 200 が返ることを
+  一度確認して "IP block ではない" を証明した後、GitHub Runner 上での UA matrix
+  probe に切り替えて **`HeadlessChrome` UA だけ 503、通常 Chrome UA なら 200** を
+  同一 IP で観測し真因確定。GCP 移行は不要という判断で GitHub Actions 運用のまま
+  close。
 - [[03_work/land-searcher]]
