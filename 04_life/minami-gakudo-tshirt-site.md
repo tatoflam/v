@@ -2,8 +2,8 @@
 title: みなみ学童 Tシャツ申し込みサイト (Google Form 置換)
 category: 04_life
 tags: [domain:minami-gakudo, entity:minami-gakudo, tech:cloudflare-pages, tech:github-pages, tech:google-apps-script, tech:google-sheets, tech:openspec, tech:github-actions, tech:clasp, stage:live, milestone:tshirt-form-live, milestone:item-level-fulfillment, milestone:pr-1-merged]
-sources: [572df4d1-cf1f-491c-bfe8-c608cb79ab67, c30a13e1-06cb-47b7-a1db-fd47e70dedb1, 2fbcae5b-54ac-42db-83bf-2afb5359bd66]
-updated: 2026-06-27
+sources: [572df4d1-cf1f-491c-bfe8-c608cb79ab67, c30a13e1-06cb-47b7-a1db-fd47e70dedb1, 2fbcae5b-54ac-42db-83bf-2afb5359bd66, dd13e6ac-719c-47ef-9063-6077e615ab5f]
+updated: 2026-07-02
 ---
 
 # みなみ学童 Tシャツ申し込みサイト
@@ -210,10 +210,48 @@ Cloudflare Pages 自動デプロイ + clasp による GAS 再デプロイ まで
 - `item-level-fulfillment-model` — 運用方針固定 (= 申込単位を捨てて明細＋便で持つ
   根拠と適用箇所)
 
+## ハニーポット誤爆修正 (2026-06-27, session dd13e6ac, commit `167d4de`)
+
+本番公開後の運用中に「フォーム送信して完了画面が出たのに、実際にはメール/シートに
+記録が残らない」サイレント失敗が発生。ハニーポット (`company` 欄) が
+**パスワード管理ツール / ブラウザ自動入力に拾われて誤作動**していた。
+
+### 症状 (silent failure)
+
+- 正規ユーザーが送信 → 「申込を受け付けました」の完了風表示は出る
+- 実際は GAS 側で bot 判定して drop → メール送らず、シートにも書かない
+- 送信者は成功したと信じ込む = 苦情経路にも乗らない (最悪の UX)
+
+### 原因
+
+- 欄名 `company` は Autofill / 1Password / Chrome 保存に **拾われやすい典型名**
+- CSS が `position:absolute; left:-9999px` (画面外に押し出す) だったため、
+  ブラウザから見れば **DOM 上は存在する input** → 自動入力対象に含まれる
+
+### 修正 (commit `167d4de`)
+
+- 欄名 `company` → **`nickname2`** (自動入力ヒューリスティックにマッチしにくい)
+- CSS を `display:none` に変更 (= DOM から実質除外、自動入力ロジックの走査対象外)
+- 誤爆時の応答を **"完了風のサイレント成功" → "送信失敗 + 連絡先案内"** に変更
+  (自動入力を止めるか / 直接連絡してくれの救済導線)
+- GAS 側 `Code.gs:13` のバックエンド検証はそのまま (二重防御は維持)
+- 3 files: `index.html` (欄名) / `styles.css` (CSS) / `app.js` (誤爆時挙動)
+
+### 学び
+
+- **ハニーポット誤爆の 3 原則** — 詳細は
+  [[05_learn/honeypot-autofill-antipattern]] へ
+  - 「拾われにくい欄名」を選ぶ (`nickname2` / ランダム suffix 等)
+  - CSS は `display:none` (DOM 除外)、`left:-9999px` は NG (自動入力に見える)
+  - 誤爆時は **必ずエラーを返す**。「完了風のサイレント成功」は debug 不能な UX
+
 ## Links
 
 - [[04_life/minami-gakudo-fubokai-2026]] (親活動 = 父母会本体)
+- [[05_learn/honeypot-autofill-antipattern]] — dd13e6ac で学んだ generic 知識
 - [[06_output/2026-06]] (= GitHub repo push + Cloudflare Pages live URL + GAS Web
   App 記録 + PR #1 merge)
+- [[06_output/2026-07]] — dd13e6ac の `167d4de` commit + Cloudflare Pages 再デプロイ
 - [[02_diary/2026-06-25]] — 初期 design + repo push
 - [[02_diary/2026-06-27]] — 実装着地 + 本番公開 (run-107) + 入庫=明細単位再設計 + PR #1 merge (run-108)
+- [[02_diary/2026-07-02]] — dd13e6ac ハニーポット誤爆修正 ingest (run-115)
