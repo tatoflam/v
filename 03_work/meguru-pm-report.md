@@ -1,12 +1,154 @@
 ---
 title: MeguruPMReport
 category: 03_work
-sources: [d89e2db0-b4c7-4381-a946-4af9b382ed56, 5a66216a-4267-423b-a323-e6e8c1747109, 62b7500a-0d94-4800-baf5-0ce73661acde, 3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af, f3a28fae-f6aa-45c6-94cf-566dcb101b26, fe1f5fac-3230-4199-912e-bdda570463c1, 2e4721dd-2285-4f3d-97ff-7e5e88c37b52, 8c7aa96d-0845-4a70-84e2-dc8bf17ffea7, 821f682c-145f-460a-9214-effb01b8a849, f1336766-5705-4d8b-a7bc-559494e807e1, fbb058f2-6e1d-4ae1-9460-f4e54099fbc0, cdd93242-ab74-40ad-a85e-4635b815f09d, 1fca49c1-8c3b-4a77-b6a4-0c4dcdbc0f81, 66be2df6-aeed-483f-804d-ca033fc1cf6a, 0ef2475c-8995-476b-aebc-f8856a937bed, d56dc1c3-34eb-4a4e-95d6-40cbe8f6da58, 00db3a35-a07a-43bf-913e-97f2d41c1041, 19921cfa-1d09-4c76-b029-edeec9f12618, 1a5c6b2a-38fa-41e0-9818-cb874d49efbd, b7134930-f6b2-44d5-b0e5-28a5b65fcb71, cc512662-ef94-49eb-88ea-16f6b1448c3c, 1bd39308-a1f1-4971-a78f-d1a645d9f8c6, 2378c86f-f18b-4f77-a3ec-51b1b2e23b82, ca23a43a-f3f1-40ea-af7f-d0802db887ea, 2de8fa6b-1e60-4d30-988f-f7f069f18ea9, 9b169945-6ca1-4412-9b5d-6255708d0b9a, ef4291c0-aa2b-4b6c-9d8e-d4e96389a1c5, 212f0ea0-0f60-4f4c-a4b5-3f0f4c9a8e7b, 5f676a3a-1c2d-4e8f-9a6b-7d3e8c5f4a2b, 0d974a46-909d-4bee-83e2-8885c1196a89]
-tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, tech:google-drive, tech:firebase-hosting, tech:firebase-functions, tech:launchd, tech:mermaid, stage:active, milestone:milestone-alert-single-send, milestone:milestone-alert-email-schedule, milestone:writer-catchup-sync-archived, milestone:jooto-writer-plugin, milestone:pr-1-merged, milestone:designer-load-end-at-kafu, milestone:manual-memo-carryforward-archived, topic:openspec, topic:designer-load-view, topic:milestone-alert-exclusion, topic:report-header-consistency, topic:wiki-integration, topic:manual-memo-carryforward, topic:ordinance-exclusion, topic:jooto-checklist-backfill]
-updated: 2026-06-30
+sources: [e890279a-c5ba-4e99-ac91-42532a75dc57, d89e2db0-b4c7-4381-a946-4af9b382ed56, 5a66216a-4267-423b-a323-e6e8c1747109, 62b7500a-0d94-4800-baf5-0ce73661acde, 3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af, f3a28fae-f6aa-45c6-94cf-566dcb101b26, fe1f5fac-3230-4199-912e-bdda570463c1, 2e4721dd-2285-4f3d-97ff-7e5e88c37b52, 8c7aa96d-0845-4a70-84e2-dc8bf17ffea7, 821f682c-145f-460a-9214-effb01b8a849, f1336766-5705-4d8b-a7bc-559494e807e1, fbb058f2-6e1d-4ae1-9460-f4e54099fbc0, cdd93242-ab74-40ad-a85e-4635b815f09d, 1fca49c1-8c3b-4a77-b6a4-0c4dcdbc0f81, 66be2df6-aeed-483f-804d-ca033fc1cf6a, 0ef2475c-8995-476b-aebc-f8856a937bed, d56dc1c3-34eb-4a4e-95d6-40cbe8f6da58, 00db3a35-a07a-43bf-913e-97f2d41c1041, 19921cfa-1d09-4c76-b029-edeec9f12618, 1a5c6b2a-38fa-41e0-9818-cb874d49efbd, b7134930-f6b2-44d5-b0e5-28a5b65fcb71, cc512662-ef94-49eb-88ea-16f6b1448c3c, 1bd39308-a1f1-4971-a78f-d1a645d9f8c6, 2378c86f-f18b-4f77-a3ec-51b1b2e23b82, ca23a43a-f3f1-40ea-af7f-d0802db887ea, 2de8fa6b-1e60-4d30-988f-f7f069f18ea9, 9b169945-6ca1-4412-9b5d-6255708d0b9a, ef4291c0-aa2b-4b6c-9d8e-d4e96389a1c5, 212f0ea0-0f60-4f4c-a4b5-3f0f4c9a8e7b, 5f676a3a-1c2d-4e8f-9a6b-7d3e8c5f4a2b, 0d974a46-909d-4bee-83e2-8885c1196a89]
+tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, tech:google-drive, tech:firebase-hosting, tech:firebase-functions, tech:launchd, tech:mermaid, stage:active, milestone:milestone-alert-single-send, milestone:milestone-alert-email-schedule, milestone:writer-catchup-sync-archived, milestone:jooto-writer-plugin, milestone:pr-1-merged, milestone:designer-load-end-at-kafu, milestone:manual-memo-carryforward-archived, milestone:doc-diff-carryforward-archived, milestone:jooto-checklist-backfill-archived, milestone:exclude-ordinance-from-overdue-archived, topic:openspec, topic:designer-load-view, topic:milestone-alert-exclusion, topic:report-header-consistency, topic:wiki-integration, topic:manual-memo-carryforward, topic:ordinance-exclusion, topic:jooto-checklist-backfill, topic:doc-diff-carryforward, topic:phase-progress-render-degradation, topic:projects-csv-roster-refresh, topic:integration-h-design-supervision]
+updated: 2026-07-03
 ---
 
 # MeguruPMReport
+
+## 2026-07-03 weekly-report 2026-06-30 フルセット + 工程チャート renderer 修正 + replace-memo-with-doc-diff-carryforward 完走 + archive 2 件 (session e890279a、単発長時間)
+
+セッション `e890279a` は 2026-07-02 22:38 JST に開始、23:xx 頃に本日 07-03 の午前へ跨いだ 1 セッションで、下記を一気通貫で片付けた:
+
+1. `/weekly-report 2026-06-30` **フルセット生成 + 2 回 publish**（1 回目の HTML で工程チャートがフォールバック → renderer 修正 → 同一 Doc へ冪等 update）
+2. **`replace-memo-with-doc-diff-carryforward` change の propose → apply → archive 一気通貫**（旧 `- メモ:` 固定欄を廃止、Doc の任意箇所への追記を差分検出して sticky 保持する運用へ移行）
+3. **未 archive 5 changes のトリアージ** → 実装済み A グループ 2 件（`add-jooto-checklist-item-backfill` / `exclude-ordinance-tasks-from-overdue`）を archive、未実装 B グループ 3 件は据え置き
+4. **projects.csv ロスター刷新 27 案件**（削除 5 = 後期案件、追加 8 = 新規 4 案件を含む、担当変更 3）
+5. **統合表 H 列「デザイン監修」追加の齟齬チェック → 齟齬なし**
+6. **未 commit 分の解消 + push**（`0ddfe8b..d2b3986` の 3 コミット + `9e51203` + `436c577`、計 5 push、3 ラウンド）
+
+外部公開履歴（5 commits + 2 publish Doc / HTML）は [[06_output/2026-07]] に転記。以下、案件ごとに要点。
+
+### weekly-report 2026-06-30 フルセット
+
+日次パイプラインが朝 9:00 に grabbers（Jooto/overdue/PMマスタ/Milestone）を全更新済みだったため、22:38 起動時は grabber 再実行を省いて **朝のスナップショットを再利用**（Gmail はレポート生成時にライブ読み）。
+
+**projects.csv ロスター刷新（生成前に user 確認）**:
+
+- 削除 5: FY26_02 笹塚方南1丁目 / FY26_06 祐天寺 / FY26_07 中野坂上 / FY26_09 新宿山吹町 / FY26_13 板橋氷川町（いずれも済証交付 〜 工事着手の後期案件）
+- 追加 8: FY26_30 堀ノ内2丁目 / FY26_31 大久保2丁目 / FY26_32 業平3丁目 / **FY26_33 西永福（新規）** / FY26_34 東十条3丁目 / **FY26_35 東大附属中前（新規）** / **FY26_36 南馬込1丁目（新規）** / **FY26_37 中野区本町6丁目※（新規）**
+- 担当変更 3: FY26_18 東長崎4丁目 本間→加納 / FY26_27 中野区本町5丁目 大神→市川 / FY26_29 きつね塚通り前 石田→加納
+
+除外 5 件は **意図的除外運用**（[[memory:project_projects_csv_intentional_exclusions]] と同種）として扱い、全体サマリに記述。除外内訳は writeback / 週次レポートで skip されて正常。
+
+**今週の主なハイライト**:
+
+- **下付直前**: 世田谷大原（意匠・設備・構造の決済完了、残る省エネ適判が 7/1-2 に降りれば下付）。期日超過の報告対象は本件（♦︎MM6_済証交付、社内周知未了）の 1 件のみ
+- **フェーズ前進**: 中野1丁目（地盤調査速報→ベタ基礎確定）、東長崎4丁目（仕上げ整合確認完了・全パース校了）、幡ヶ谷本町（図面整合チェック完了 → **仮受付→図面整合性確認**へ遷移）、江古田江原（さくら構造の納品図書一式が納品）
+- **新規・契約動き**: 西永福（7/1 請負契約・井上先生へ意匠戻し）、東大附属中前（7/2 押印・7/3 覚書）、南馬込1丁目（請負契約準備）、中野区本町6丁目（6/29 本契約締結・手付金振込）
+- **Milestone 書き戻し**（`--scope all`、10 セル、巻き戻し 0、integrity 保持）: 中野区本町5丁目が 6/26 の Jooto 進捗チェック反映で **進捗状況未設定 → 「設備検討」へ昇格**、ほか八幡山（清掃局 ✓）・東日暮里（パース ✓）・駒込（構造 KO）を同期
+- **負荷ビュー**: 並行最大 2 件、⚠️ 警告なし。新ロスターで中辻・山野辺が新規計上
+
+### 工程チャート renderer デグレの発見と修正
+
+初回 publish 後 user 発意「**工程軸の進捗のフォーマットがデグレして分かりづらい。6/26 版と同じフォーマットに戻して**」を受けて調査。
+
+| 観点 | 内容 |
+|---|---|
+| 症状 | HTML 側の工程ブロックチャート（1 ブロック = 1 案件）が消え、生 Markdown が羅列される |
+| 原因 | `plugins/drive-publisher/scripts/render_html.py` の `parse_phase_progress` は `_PHASE_HEADER_RE = ^-\s+\d+\.…` で各工程行が **ダッシュ箇条書き** であることを要求。今回の初回版は `- ` を付けない番号リストで書いたためパターン不一致 → **フォールバックで生 Markdown 表示** |
+| 修正 | 各工程行を `- {N}. {工程名}: {内容}` のダッシュ箇条書きに戻し、前提行を `> 判定: …` の blockquote に変更（`section-quote` として描画） |
+| 検証 | ローカルでパーサが 15 工程を正しく認識 → 再配信後の `dist/site/2026-06-30/index.html` の `phase-row` 数 = 15 件（修正前 0 件） |
+| 学び | [[memory:project_drive_publisher_renderer_coupling]] のとおり **HTML レンダラは markdown の見出しレベル・箇条書き形式に強依存**。markdown を変えるときは renderer の regex を必ず先に見る |
+
+Google Doc は同一 Doc へ冪等 update で内容維持、HTML は最新版でデプロイ。
+
+### replace-memo-with-doc-diff-carryforward — 「Doc のどこに書いても翌週残る」への移行
+
+**ユーザ発意の原文**（重要なので verbatim 記録）:
+
+> メモ欄を追うよりも、Google Document をチェックして、追記されている箇所ごと全文を Markdown 形式でダウンロードして、それを Markdown の前回分として扱う方が運用しやすいんだけど、それ無理かな？
+
+**回答の要点**: 「無理じゃない、半分はもう動いている」。`/weekly-report-sync-baseline` は既に Doc 全文を MD 化して前回比較元にしているが、`/weekly-report` は毎回機械再生成するので **機械生成部と人の追記部を区別するルール** が別途要る。従来は `- メモ:` 固定欄で聖域を作っていた。今回は Doc のどこに書いても残るよう、**差分検出方式** で置換。
+
+#### 中核アイデア（誤検出の構造的対策）
+
+素朴に「機械版クリーン MD ↔ Docs エクスポート」を差分すると、Docs 側の整形（`\_` エスケープ・番号リスト再インデント・表再整形）で **ほぼ全行が変更扱い** になり破綻する。回避策:
+
+1. **publish 直後に Doc を 1 度エクスポート**して `state/doc_snapshot/{run_date}.md`（= 人が触る前の機械版 Doc）を保存
+2. 翌週、それと **人編集後 Doc** を差分 → 両辺が同じ Docs 整形を経ているので **整形差が相殺され、真の人編集（追加行）だけが残る**
+3. 人が **追加** した行を「保持ブロック」として、機械 6 項目の後に verbatim 転記（sticky）
+
+#### 実装 & spec 反映
+
+| 項目 | 内容 |
+|---|---|
+| 差分検出モジュール | 新規 [`plugins/drive-publisher/scripts/carryforward_diff.py`](../MeguruPMReport/plugins/drive-publisher/scripts/carryforward_diff.py) — 案件セクション単位で diff、整形差相殺、真の追加行を保持ブロック化。衝突 = 機械優先、削除 = 無視、いずれも `state/carryforward_{run_date}.json` に監査記録 |
+| publish スナップショット | [`publish.py`](../MeguruPMReport/plugins/drive-publisher/scripts/publish.py) — アップロード直後に自 Doc を 1 回だけ export して `state/doc_snapshot/{run_date}.md` 保存（非致命） |
+| レンダラ | `- 手動追記:` を独立 bullet（memo スタイル）として in-card 描画、複数行継続対応 |
+| Docs / コマンド | weekly-report / weekly-report-publish コマンド、workspace_defaults を差分方式へ全面更新、`.gitignore` に snapshot / 監査を追加 |
+| Tests | 新規 7 件（整形差相殺 / 追加抽出 / 衝突記録 / 案件突合 / unescape）+ publish スナップショット + レンダラ手動追記、**全 100 テストパス** |
+| Specs 反映 | `weekly-report` capability から旧「手動メモ欄 carry-forward」要件を **削除**、「前回 Doc の人編集を差分検出して carry-forward」を **追加**、案件セクションを 6 項目構造へ **戻す**。`weekly-report-distribution` capability に「人編集前 Doc スナップショット保存」を **追加**、「fetch 禁止」を自己スナップショット 1 回許可へ **緩和**、HTML メモ bullet 要件を保持ブロック描画へ **一般化**。`openspec validate --specs --strict` **12 specs 全通過** |
+| Archive | `openspec/changes/archive/2026-07-03-replace-memo-with-doc-diff-carryforward/` に移動 |
+
+#### 衝突ルール + fetch 禁止緩和（レビュー時に決めた 2 点）
+
+- **衝突**（人が機械フィールド行そのものを書き換えた場合）: 既定 = **機械優先**（最新データを保ち、消えた人編集は `state/carryforward_{run_date}.json` に記録）。純粋な追加は常に保持なので、多くの申し送りは既定で問題なし
+- **fetch 禁止要件の緩和**: distribution spec の「配信中は fetch を呼ばない」に抵触するため、「アップロードした **自分の Doc を 1 回だけ** export する自己スナップショット」に限り許可、と MODIFIED（他 Doc・前回 Doc の取得は引き続き禁止）
+
+#### 移行時の一時的な挙動（重要な運用メモ）
+
+今セッションの **2026-06-30 publish は本機能導入前** に走ったため `doc_snapshot/2026-06-30.md` がない。よって **次回の週次レポートは carry-forward を 1 回だけ skip（警告 1 行）**、その次回 publish で snapshot が保存され、**その次から** 通常運用（Doc のどこに書いても翌週残る）に入る。tasks.md の 6.1「実 Doc 1 サイクル検証」は次の週次実行で自然に確認されるため未完のまま archive。
+
+memory への恒久化は [[memory:project_manual_memo_carryforward]] を **本方式で置換** する形で更新予定（前運用の memo carry-forward はもう存在しないので、memory 内容は差分方式の説明に書き換え）。
+
+### 未 archive 5 changes のトリアージ + A グループ 2 件 archive
+
+User 発意「**archive できてない change が 5 つあるけど、どういうステータスだっけ？**」→ 5 件を 2 グループに分けて回答:
+
+**A グループ = 実装完了 archive 待ち（2 件、A グループはこの日 archive）**:
+
+| change | 実態 | Specs 反映結果 |
+|---|---|---|
+| `add-jooto-checklist-item-backfill` | ✅ 実装済み（`backfill_targets.py` 等 + `/jooto-checklist-backfill` コマンド + テスト、既にコミット済み） | 新 capability `jooto-checklist-item-backfill` 作成（+5 requirements） |
+| `exclude-ordinance-tasks-from-overdue` | ✅ 実装済み（プロンプト / ドキュメント層のみ、`weekly-report.md` / `workspace_defaults.md` / specs、申請系除外は今回の週次でも稼働中） | `weekly-report` spec に申請系タスク除外の要件（+2） |
+
+`openspec/changes/archive/2026-07-03-add-jooto-checklist-item-backfill/` と `2026-07-03-exclude-ordinance-tasks-from-overdue/` に移動、`openspec validate --specs --strict` **13 specs 全通過**。tasks.md のチェックが全て `- [ ]` のまま archive されていた（= 実装済みだが tasks 更新漏れ）ため、archive 時にチェックを付けて反映。
+
+**B グループ = 未実装（3 件、据え置き）**:
+
+| change | 実態 | 注意点 |
+|---|---|---|
+| `add-triage-routing-enrichment` | ⛔ 未実装 | 標的が **別プロジェクト** `Bizuayeu/MeguruWiki` + `Plugins-Bizuayeu/BusinessCurator`。このリポジトリのコードではない |
+| `add-wiki-absorb-orchestration` | ⛔ 未着手 | tasks 0.1 が「triage-routing が archive 済」を前提 = **#1 にブロックされている**。`daily_pipeline.sh` に wiki ステップは 0 |
+| `consolidate-grabber-plugins` | ⛔ 未着手 | `plugins/` を `Bizuayeu/Plugins-Bizuayeu/` へ移す **大規模移行** + `~/Bizuayeu-data/` 新設。`scripts/init_data_root.sh` も未作成 |
+
+B グループの `#1` と `#3` は **このリポジトリ外（Bizuayeu 側）を主に触る** 設計なので、実装・archive の主体は別ワークスペースになる可能性あり。整理方針は未定（次回着手時に決める）。
+
+### 統合表 H 列「デザイン監修」追加の齟齬チェック
+
+User 発意「**統合表 H 列を追加した。齟齬がないかチェックして**」→ **齟齬なし** を確認:
+
+- `integration.json` の rows は **ヘッダ名でキー化** された辞書のため、H 列追加は位置ズレを起こさず `デザイン監修` キーが各行に増えるだけ。負荷ビューが読む `意匠担当` 等の名前参照は不変
+- `milestone.json` は別シート（layout は座標ベースだが統合表とは独立）なので影響なし
+- 負荷ビューは `意匠担当` を参照し `デザイン監修` は読まないため、二重計上や担当混同は発生しない
+- 実値は大半が `ー`、唯一 **FY26_34 東十条3丁目 = ⚫️**（デザイン監修あり）。同案件は進捗状況未設定（Milestone 行・Jooto ボード無し）案件のため負荷計算には影響しない
+- レポート仕様に `デザイン監修` 列は無いので新フィールドは追加せず、整合性のみ担保
+
+### commit / push 未整理分の解消（5 commits × 3 push）
+
+作業ツリーに蓄積していた 2 系統を **論理分割で 2 コミット** に整理してから、その日の別作業も別コミットへ:
+
+1. `d35f7b9` feat: jooto-checklist-backfill + report HTML レイアウト改善 + openspec/docs — 蓄積分（jooto-writer バックフィル一式、drive-publisher HTML レイアウト改善、openspec change 2 件 + memo-carryforward archive 確定、specs/CLAUDE/workspace_defaults 更新、docs/proposal 追跡開始）
+2. `d2b3986` reports: weekly-report 2026-06-30 生成 + publish（フルセット）— 今回のレポート作業（projects.csv ロスター刷新、writeback、工程軸チャート修正、state 更新）
+
+続いて replace-memo change の完走 → 単独コミット + push:
+
+3. `9e51203` feat(weekly-report): メモ欄を Doc 人編集の差分 carry-forward に置換（`d2b3986..9e51203`、20 ファイル）
+
+最後に A グループ archive → 単独コミット + push:
+
+4. `436c577` chore(openspec): 実装済み 2 change を archive + specs 反映（`9e51203..436c577`）
+
+**副次整理**: `plugins/jooto-writer/state/`（backfill 監査スナップショット）を `.gitignore` に追加し、root `state/` の監査スナップショットと同方針で除外。`docs/.DS_Store` は既存 gitignore で自動除外。機微ファイル（`data/`、認証情報、`state/milestone_writeback_*` 等）は既存どおり未コミット。
+
+### 学び / 恒久メモ候補
+
+- **Doc 差分 carry-forward は移行時に 1 回 skip**: publish 直後の snapshot が存在しない世代は差分の基準が無いため carry-forward は skip される。切替後最初の週の Doc 追記が「消える」ように見える可能性があるので運用者へ周知
+- **renderer 依存箇条書きは markdown 側で崩さない**: `parse_phase_progress` の `^-\s+\d+\.` regex に噛ませるため、工程行は必ず `- {N}. {phase}: ...` 形式で書く（[[memory:project_drive_publisher_renderer_coupling]]）
+- **tasks.md のチェック未更新でも archive 可能だが乖離のもと**: A グループ 2 件はチェック `- [ ]` のまま archive されようとしていた。今後は archive 前に tasks を更新するか、archive スクリプトで自動チェックする運用にしたい
 
 ## 2026-06-30 weekly-report 2026-06-26 フルセット publish + 3 republish + add-manual-memo-carryforward archive + 2 起票 (session d89e2db0/5a66216a/62b7500a、3 直列)
 
