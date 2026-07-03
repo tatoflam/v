@@ -1,9 +1,9 @@
 ---
 title: habi-bff — HABI BFF / インフラ層
 category: 03_work
-tags: [project:habi-bff, client:hlab, entity:habi, tech:typescript, tech:aws-lambda, tech:dynamodb, tech:openai, tech:openspec, tech:sqs, capability:async-chat-pipeline, capability:attunement-policy, capability:bff-guard, capability:quality-always-on, milestone:pm-inquiry-260508, milestone:add-quality-always-on-m1-m2, stage:active]
-sources: [c2dd2c85-7cc6-45d2-8df6-ebd5f5358bc4, e6de9be8-7152-4213-b913-f501d258dafe, 6a2f552b-d79a-4c1e-93ca-5b6b3bc4a045, c5c0230b-b3e6-43ae-ba7f-ea585ad01a6e, c6b59a1d-11af-4eb4-8f38-5910c5644ab3, 8694d4d3-0a31-40a3-8cf9-f711376af20b, a1f12954-3832-48ce-8f5c-92c23f413365, 5b553af9-8076-45d0-8a8c-05e809a7fdc0, 1889f8ec-b67c-482b-a0aa-3301f546e04c]
-updated: 2026-06-12
+tags: [project:habi-bff, client:hlab, entity:habi, tech:typescript, tech:aws-lambda, tech:dynamodb, tech:openai, tech:openspec, tech:sqs, capability:async-chat-pipeline, capability:attunement-policy, capability:bff-guard, capability:quality-always-on, milestone:pm-inquiry-260508, milestone:add-quality-always-on-m1-m2, milestone:pm-260613-integration, milestone:founder-master-260618, stage:active]
+sources: [c2dd2c85-7cc6-45d2-8df6-ebd5f5358bc4, e6de9be8-7152-4213-b913-f501d258dafe, 6a2f552b-d79a-4c1e-93ca-5b6b3bc4a045, c5c0230b-b3e6-43ae-ba7f-ea585ad01a6e, c6b59a1d-11af-4eb4-8f38-5910c5644ab3, 8694d4d3-0a31-40a3-8cf9-f711376af20b, a1f12954-3832-48ce-8f5c-92c23f413365, 5b553af9-8076-45d0-8a8c-05e809a7fdc0, 1889f8ec-b67c-482b-a0aa-3301f546e04c, 6d328a3b-7b3e-44e1-bfd7-29bc66f889a7]
+updated: 2026-07-04
 ---
 
 # habi-bff
@@ -468,3 +468,146 @@ see also: [[02_diary/2026-06-12]], [[05_learn/mermaid-dotted-edge-label-syntax]]
 - archive 見送り判断は `openspec validate` だけでは検出できない (= spec の文章上は valid)。**「実装ファイル grep で requirement キーワードがヒットしないなら archive 見送り」** という運用則を [[05_learn/openspec-retroactive-flow]] に追記候補
 
 see also: [[02_diary/2026-06-12#14:50 JST  run-82b]] / [[06_output/2026-06#GitHub commits — hlab-it-sys/habi-bff add-narrative-memory M3 BFF-side (2026-06-12)]] / [[05_learn/openspec-retroactive-flow]]
+
+## 2026-06-16 → 2026-07-03 — PM 260613 統合 + 前倒し (2026-09中旬目標) + Founder Master 260618 canonical 化 (session 6d328a3b)
+
+長期セッション。開始 2026-06-16 09:38、最後の user turn 2026-07-03 13:14。
+PM サイドから届いた PM 260613 指示書パック (26 文書) を吸収 → Founder 260618
+マスター (13 文書 + Seed core/tuning) を canonical に採用 → HABI_DEVELOPMENT.md
+を Month×12 から ステップ制へリファクタ、リリース目標を 2027-01 → **2026-09
+中旬** に前倒し。
+
+### 入口
+
+`/opsx:propose "docs/plans/UPDATED_PLAN_JUNE2026 配下に、PM サイドからの 6/13
+時点の最新指示書が届いた。プロジェクト憲章の元データ、責務分担とコミュニ
+ケーション定義、CTO 報告内容や CTO/PM 共有 gate 定義、ルール、実装レベル
+規約、設計思想、API 規約など多岐にわたる情報が入っている。CTO 向けの 3 文書
+(1) Founder PM への確認・連絡タイミング 260613 (2) Habi Ver1.0 AI コーディング
+実装方針 260613 (3) …を先に読むべき" ...` から着手。
+
+### 意思決定 (要点)
+
+- **リリース目標を 2027-01 → 2026-09中旬 に前倒し**。数ヶ月圧縮を明言 (「早く進め
+  られるなら数ヶ月でリリースまでこぎつけたい。そのタイム観でスケジュール」)。
+  ただし外部向け表現は Habi 側 GPT レビュー起点で「機能数の完了ではなく
+  Founder/PM が Habi 品質を観測・判断・調律できる状態」と補正
+  ([[05_learn/external-planning-docs-observability-framing]])
+- **`docs/plans/UPDATED_PLAN_JUNE2026` (PM 260613 26 文書)** を PM 最新指示書として
+  吸収。CTO タスクへの分解と関連 change 起票
+- **`docs/plans/UPDATED_MASTER_TEXT_JUNE2026` (Founder 260618 パック)** を
+  **Product Charter / Policy / 要件 / 設計指針の canonical マスター**に採用。
+  優先順位: **01→07→05→04→02→03→06→08→seeds→12→13**
+  (Founder Deliverables Index が入口、Type Enum → Prompt Contract → Review/Guard
+  Verdicts → Attunement 5 Levels の順で意味を積む)。**Status: Draft / Gate 1 未
+  ロック**、Holdout (11) は非公開・repo 非搭載
+- **CTO / Founder-PM の責務境界を明文化** — CTO = 器 (Schema / Trace / Step
+  Debug / Guard / A-B / Runner)、Founder/PM = Policy 確定と Seed 作成
+  (Attunement 5 段の意味 / Output Type / Review verdict / Prompt Contract /
+  Narrative Memory boundary は CTO が推測で固めない)。Habi 側 GPT のレビュー
+  でも「CTO が Habi の意味を推測で固めない」「器は先行・調律は Founder 依存」
+  の切り分けを高評価
+- **`HABI_DEVELOPMENT.md` を Month×12 モデル → ステップ制へリファクタ**。
+  ステップ／設計・実装・統合・テスト状況／対応 OpenSpec change ／要件・
+  アーキテクチャ・コンポーネントが 1 表で見える簡潔な体裁に統一。CHANGELOG
+  にリファクタエントリ追加
+- **`docs/plans` 秘匿性の repository 分離戦略** を実装計画に追加 (今すぐ除外は
+  しないが、開発時に共有されるリポからは将来的に除外)。**`docs/plans` 配下は
+  今後の commit から外す方針**を確認
+
+### 派生 change (portfolio 統合含む)
+
+`openspec/changes/` 配下に本セッションの直接産物：
+
+- `adopt-founder-master-canonical` — 260618 マスター採用・schema 再整合・
+  portfolio 統合 (この change に他 in-flight change の統合方針が入る)
+- `adopt-habi-v1-canonical-baseline` — Ver1.0 canonical baseline
+- `add-founder-approval-gates` — Founder Approval Gate 0–9
+- `add-core-validation-memory-gate` — Core validation + memory gate
+- `add-prompt-contract-compiler` — Prompt Contract の compiler
+- `add-seed-quality-runner` — Seed runner (既存 quality-always-on の runner を
+  Founder Seed 25 本 (Core 9 + Tuning 12 + Holdout 4) 前提で置き換える設計)
+
+### PM Chat MFA + Month 2 テスト実運用
+
+- MFA verify (`212992`) + ログイン成立を確認
+- `crew-user_hlab_device` の指定違い (別 crew role 混入) を修正
+- Month 2 の PM テストケース (`docs/tests/PM_TESTCASE_MONTH2_USER_OS.md`) を
+  実運用で踏めた
+
+### PM 向け HTML 実装状況レポート + 引き継ぎパック
+
+- `CTO_STATUS_REPORT_260703.html` を `docs/plans/UPDATED_MASTER_TEXT_JUNE2026/`
+  配下に生成 (PM 向け実装状況の可視化)
+- `HANDOVER_TO_FOUNDER_AI_260703.md` — 先方 AI (UPDATED_PLAN_JUNE2026 を取り
+  まとめた PM 側 LLM) に渡すべきドキュメントのリスト化
+
+### 派生した学び
+
+- **外部向けリリース計画では日付＋機能数だけで語らない**。「観測可能性・判断・
+  調律ができる状態」でゴールを言い切る。Habi のようなガードレール型
+  プロダクトでは Founder/PM 側の調律余地が品質そのものなので、機能数完了を
+  ゴールにすると Habi 品質を CTO 側で決めきる方向にドリフトしやすい。詳細
+  → [[05_learn/external-planning-docs-observability-framing]]
+- **CTO 責務 = 器 / Founder-PM 責務 = 意味** の切り分けは、外部 LLM (Habi 側
+  GPT) にも「良い開発体制」と評価される。ガード規則の DO NOT リストと同じで
+  「CTO が Habi の意味を推測で固めない」を宣言に落とすと、実装 AI の判断が
+  安定する
+
+see also: [[02_diary/2026-06-16]], [[05_learn/external-planning-docs-observability-framing]]
+
+## 2026-07-03 dev デプロイ実成功 + Step 4.3/6.3 完走 + AWS プロファイル取り違い解消 (session 6d328a3b、07-02→07-03 部分)
+
+前 H2 で扱った 6/16 → 7/03 の長大セッションの、**最終盤 (07-02 夜〜 07-03 昼) の実装・デプロイ完走部分**を run-118 ingest 時に抽出。既述の高レベル決定 (canonical マスター採用・ステップ制リファクタ・portfolio 統合 change 起票) の続きで、**Founder が Web 実機で「器」を試せる状態**に到達したのが本節。
+
+### Step 4.3 完了 — `comparison_mode` を pipeline 制御へマッピング
+
+- `src/services/comparison-mode.ts` 新規、canonical `ComparisonMode` を **skipHabiCore / processingFlow / 各 Step LLM に写像**
+  - `full_habi` (現状不変・既定) / `habi_core_off` / `direction_llm_off` / `review_llm_off` / `summarize_llm_off` / `all_habi_flow_off` (flow は残し全 Step LLM off) / `baseline_llm` (single-call + Core off)
+- **Safety は常時 ON** (Guard/boundary は全モードで実行) — comparison_mode は「素の LLM で比較する」用途でも安全側は下りない設計
+- validation → 非同期経路 (`chat-start` / `queue` / `chat-processor`) → `executeChatPipeline` に貫通、分岐前に effect を適用
+- 純関数テスト付き、**unit 249 green** (pre-existing warning 1 = 変わらず)
+
+### Step 6.3 完了 — PM Chat UI の A/B 比較パネル
+
+- `runChatJob` 抽出 + 再利用、**プリセット**: Habi vs 素の LLM / Review ON-OFF / Core ON-OFF / Summarize ON-OFF
+- 「A/B 比較」ボタン → 同一入力を 2 モードで並列実行 → 左右並置、各サイド Step Debug 折りたたみ、公平性行 (`same_input` / `state` / `model`) と `run_id` を出力
+- **A/B プローブは会話履歴を汚さない設計** (メモリ append を stub、後で本流実行時に混線しない)
+
+### dev デプロイ実機動作確認 — 器が Web で成立
+
+- API: `https://ww6knpkhu4.execute-api.ap-northeast-1.amazonaws.com/development/`
+- PM Chat Tool: `https://ww6knpkhu4.execute-api.ap-northeast-1.amazonaws.com/development/pm/chat`
+- スタック: `habi-bff-dev` (`062759670692` / ap-northeast-1、CloudFormation `UPDATE_COMPLETE`)
+- **`NarrativeMemoryTable` 新規作成** (DynamoDB) — M3 の narrative-memory infra が初めて実環境に載った
+- 手順確認: ログイン → 実行 → **「Processing Flow (4-step)」+「Step Debug (StepTrace)」ON** で canonical Step Debug (`direction→attunement_selector→drafting→review→bff_guard→output→summarize`) が表示 → **「A/B 比較」プリセット** で同一入力の構造差を並列確認、まで通過。**PM 側 Lv1「器」到達点 = 実装状況の証明対象「単発差・構造差」を Founder が Web で観測できる状態**に到達
+
+### AWS プロファイル取り違い解消 (最大の運用発見)
+
+デプロイ最初の試行が `hlab-prod-MFA-required-policy` の explicit Deny で失敗:
+
+```
+make_bucket failed ... AccessDenied ... with an explicit deny in an
+identity-based policy: arn:aws:iam::864310138286:policy/hlab-prod-MFA-required-policy
+```
+
+user 直感「`crew-user_hlab_device` が指定されているのが違う気がする」→ `~/.aws/config` を精査した結果、**default プロファイル (`CREW-USER`) は本番系アカウント `864310138286` (MFA 必須)**、**dev 用は別プロファイル `bff-lambda-dev` = アカウント `062759670692` / user tatoflam / MFA 不要 / `s3://habi-bff-deploy-dev` に既にアクセス可**、と判明。dev バケット・スタックは 062759670692 側にしか存在せず、default のまま `sam deploy` を叩くと本番側で Deny を食う構造。以後 dev は `AWS_PROFILE=bff-lambda-dev` を使うのが正、default は本番系のため触らない。詳細と再発防止 (deploy スクリプト冒頭で `sts get-caller-identity` を期待値比較して不一致 abort など) は [[05_learn/aws-profile-account-hlab-mfa]]。
+
+### `scripts/deploy.sh` バケット名・スタック名バグ修正 (commit `f3924dc`)
+
+- `S3_BUCKET="habi-bff-deploy-${ENVIRONMENT}"` は `${ENVIRONMENT}` = `development`/`production` を展開 → `habi-bff-deploy-development` (samconfig は `habi-bff-deploy-dev`) と不一致
+- `STACK_NAME="habi-bff-$(echo $ENVIRONMENT | cut -c1-4)"` は staging を `habi-bff-stag` に切り詰めるバグ持ち
+- 修正: **環境短縮名マップ** (`development→dev` / `staging→staging` / `production→prod`) を導入して `S3_BUCKET` と `STACK_NAME` の両方に適用、3 環境 samconfig 完全一致を確認 (`bash -n` 構文 OK)
+
+### ドキュメント 3 点 (すべて `docs/plans/` = git 除外・機微・ローカルのみ)
+
+- `docs/plans/HABI_DEVELOPMENT.md` §3「現在地」を **2026-07-03** に更新 — dev デプロイ + Web 実機で「ログイン → 実行 → Step Debug → A/B 確認済み」、**Founder 確認① 可**。§9「環境・デプロイ」新設 (dev アカウント `062759670692` / `bff-lambda-dev` / stack `habi-bff-dev` / PM Chat Tool URL / default (CREW-USER) は本番系で dev 用でない旨明記 / 実応答の前提シークレット = Secrets Manager `OPENAI_API_KEY` + `JWT_ACCESS_SECRET` (habi-identity と一致))
+- `docs/plans/UPDATED_MASTER_TEXT_JUNE2026/CTO_STATUS_REPORT_260703.html` — PM 向け実装状況レポート HTML (結論 3 行 / 到達点 / **実装状況ステップ表** / Web で試す手順 URL+3 手順 / **Founder が今できること (単発差・構造差の観測)** / **Founder 依頼 (Gate 1・Seed = 律速)** / 次の実装 / ガバナンス前提)
+- `docs/plans/UPDATED_MASTER_TEXT_JUNE2026/HANDOVER_TO_FOUNDER_AI_260703.md` — 先方 AI (マスター 260618 取りまとめ元) への引き渡し資料リスト (A: 当方→先方 = 状況レポート / ステップ計画 / CHANGELOG / openspec change 群 + master doc ↔ 当方 spec 対応表 / B: 先方→当方 = Gate 1 Policy/Enum/Schema Lock・禁止表現・Seed 期待値/Rubric・Memory 境界・[UNRESOLVED] 解消 / C: 実機 URL / D: 渡し方の推奨手順 + **秘匿方針明記** = Holdout は渡さない、openspec は生 Policy 非含有なので共有可)
+
+### 次アクション
+
+- 先方 AI からの Gate 1 (Policy/Enum/Schema Lock)・Seed 確定待ち。並行して CTO 側は **Step 5 (Prompt Contract/Compiler 実装)** または **6.4 (Founder Annotation + Seed 出力 = 調律の入口)** を進行可能
+- 未完: **5.3 (async の trace_id/versionSet 永続、SQS payload / job record / result endpoint)**、**6.2 (記憶経路表示 = Summarize / Memory Candidate / Core Validation)**、**LocalStack E2E 目視 (7.3)**
+
+see also: [[02_diary/2026-07-03]] / [[05_learn/aws-profile-account-hlab-mfa]] / [[06_output/2026-07]]
