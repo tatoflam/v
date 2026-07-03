@@ -1,7 +1,7 @@
 ---
 title: habi-bff — HABI BFF / インフラ層
 category: 03_work
-tags: [project:habi-bff, client:hlab, entity:habi, tech:typescript, tech:aws-lambda, tech:dynamodb, tech:openai, tech:openspec, tech:sqs, capability:async-chat-pipeline, capability:attunement-policy, capability:bff-guard, capability:quality-always-on, milestone:pm-inquiry-260508, milestone:add-quality-always-on-m1-m2, milestone:pm-260613-integration, milestone:founder-master-260618, stage:active]
+tags: [project:habi-bff, client:hlab, entity:habi, tech:typescript, tech:aws-lambda, tech:dynamodb, tech:openai, tech:openspec, tech:sqs, tech:cloudformation, tech:sam, capability:async-chat-pipeline, capability:attunement-policy, capability:bff-guard, capability:quality-always-on, capability:comparison-mode, capability:narrative-memory, milestone:pm-inquiry-260508, milestone:add-quality-always-on-m1-m2, milestone:pm-260613-integration, milestone:founder-master-260618, milestone:dev-deploy-260703, stage:active, topic:aws-profile-account-mismatch, topic:step-debug-ab-comparison]
 sources: [c2dd2c85-7cc6-45d2-8df6-ebd5f5358bc4, e6de9be8-7152-4213-b913-f501d258dafe, 6a2f552b-d79a-4c1e-93ca-5b6b3bc4a045, c5c0230b-b3e6-43ae-ba7f-ea585ad01a6e, c6b59a1d-11af-4eb4-8f38-5910c5644ab3, 8694d4d3-0a31-40a3-8cf9-f711376af20b, a1f12954-3832-48ce-8f5c-92c23f413365, 5b553af9-8076-45d0-8a8c-05e809a7fdc0, 1889f8ec-b67c-482b-a0aa-3301f546e04c, 6d328a3b-7b3e-44e1-bfd7-29bc66f889a7]
 updated: 2026-07-04
 ---

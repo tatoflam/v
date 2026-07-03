@@ -1,12 +1,47 @@
 ---
 title: MeguruPMReport
 category: 03_work
-sources: [e890279a-c5ba-4e99-ac91-42532a75dc57, d89e2db0-b4c7-4381-a946-4af9b382ed56, 5a66216a-4267-423b-a323-e6e8c1747109, 62b7500a-0d94-4800-baf5-0ce73661acde, 3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af, f3a28fae-f6aa-45c6-94cf-566dcb101b26, fe1f5fac-3230-4199-912e-bdda570463c1, 2e4721dd-2285-4f3d-97ff-7e5e88c37b52, 8c7aa96d-0845-4a70-84e2-dc8bf17ffea7, 821f682c-145f-460a-9214-effb01b8a849, f1336766-5705-4d8b-a7bc-559494e807e1, fbb058f2-6e1d-4ae1-9460-f4e54099fbc0, cdd93242-ab74-40ad-a85e-4635b815f09d, 1fca49c1-8c3b-4a77-b6a4-0c4dcdbc0f81, 66be2df6-aeed-483f-804d-ca033fc1cf6a, 0ef2475c-8995-476b-aebc-f8856a937bed, d56dc1c3-34eb-4a4e-95d6-40cbe8f6da58, 00db3a35-a07a-43bf-913e-97f2d41c1041, 19921cfa-1d09-4c76-b029-edeec9f12618, 1a5c6b2a-38fa-41e0-9818-cb874d49efbd, b7134930-f6b2-44d5-b0e5-28a5b65fcb71, cc512662-ef94-49eb-88ea-16f6b1448c3c, 1bd39308-a1f1-4971-a78f-d1a645d9f8c6, 2378c86f-f18b-4f77-a3ec-51b1b2e23b82, ca23a43a-f3f1-40ea-af7f-d0802db887ea, 2de8fa6b-1e60-4d30-988f-f7f069f18ea9, 9b169945-6ca1-4412-9b5d-6255708d0b9a, ef4291c0-aa2b-4b6c-9d8e-d4e96389a1c5, 212f0ea0-0f60-4f4c-a4b5-3f0f4c9a8e7b, 5f676a3a-1c2d-4e8f-9a6b-7d3e8c5f4a2b, 0d974a46-909d-4bee-83e2-8885c1196a89]
-tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, tech:google-drive, tech:firebase-hosting, tech:firebase-functions, tech:launchd, tech:mermaid, stage:active, milestone:milestone-alert-single-send, milestone:milestone-alert-email-schedule, milestone:writer-catchup-sync-archived, milestone:jooto-writer-plugin, milestone:pr-1-merged, milestone:designer-load-end-at-kafu, milestone:manual-memo-carryforward-archived, milestone:doc-diff-carryforward-archived, milestone:jooto-checklist-backfill-archived, milestone:exclude-ordinance-from-overdue-archived, topic:openspec, topic:designer-load-view, topic:milestone-alert-exclusion, topic:report-header-consistency, topic:wiki-integration, topic:manual-memo-carryforward, topic:ordinance-exclusion, topic:jooto-checklist-backfill, topic:doc-diff-carryforward, topic:phase-progress-render-degradation, topic:projects-csv-roster-refresh, topic:integration-h-design-supervision]
-updated: 2026-07-03
+sources: [2082d6eb-5bac-4ddc-aeb1-848c0fb1fb37, e890279a-c5ba-4e99-ac91-42532a75dc57, d89e2db0-b4c7-4381-a946-4af9b382ed56, 5a66216a-4267-423b-a323-e6e8c1747109, 62b7500a-0d94-4800-baf5-0ce73661acde, 3e07de94-4eea-46b3-892a-e815cd133f4e, 92ea8970-d8f1-4aa3-aaed-66db645434ca, bab023ec-53ee-4301-869d-306222b4a3f8, 002f63f9-be02-4b79-acd5-3f0f1b1ea354, 0e835096-fe82-4b7c-9127-a91d45d19520, a78e0aaa-c07f-4a30-bc50-8bec60ab1b1c, d87e347c-74eb-4770-bb1b-9b8ac0c9e386, 552ceb4f-7b74-492d-b829-616f7d6da38b, 61d82ae6-e969-4ebb-a4d1-d5174c250de1, 50e16870-ca1e-4877-8c90-c87059048d94, 27c4797e-4a8a-45c4-9fe4-7a06118a56af, 75556c24-bc5c-4976-baae-d00fdd820b15, b51914bf-d923-4c9a-8ab5-92f42b82481a, 0a506395-789d-4176-882c-7cce4fb8e07a, b50d3ddb-d9a6-4539-b43b-5a967748e748, 7d4100ea-5e88-4447-a4fd-5102759d4877, eee551a5-1222-433f-afc9-6158234a3b33, 3c659039-30a8-48b4-b825-7b0dc77bbaaf, d13623c3-f842-4c48-b688-8dc149f20c20, 24f10575-318b-41d3-b6c7-4a18bcb5d229, 3f66a79f-6018-47eb-83c7-d963ed362111, 5d8213db-5b81-4f67-a4aa-86c85e83d3af, f3a28fae-f6aa-45c6-94cf-566dcb101b26, fe1f5fac-3230-4199-912e-bdda570463c1, 2e4721dd-2285-4f3d-97ff-7e5e88c37b52, 8c7aa96d-0845-4a70-84e2-dc8bf17ffea7, 821f682c-145f-460a-9214-effb01b8a849, f1336766-5705-4d8b-a7bc-559494e807e1, fbb058f2-6e1d-4ae1-9460-f4e54099fbc0, cdd93242-ab74-40ad-a85e-4635b815f09d, 1fca49c1-8c3b-4a77-b6a4-0c4dcdbc0f81, 66be2df6-aeed-483f-804d-ca033fc1cf6a, 0ef2475c-8995-476b-aebc-f8856a937bed, d56dc1c3-34eb-4a4e-95d6-40cbe8f6da58, 00db3a35-a07a-43bf-913e-97f2d41c1041, 19921cfa-1d09-4c76-b029-edeec9f12618, 1a5c6b2a-38fa-41e0-9818-cb874d49efbd, b7134930-f6b2-44d5-b0e5-28a5b65fcb71, cc512662-ef94-49eb-88ea-16f6b1448c3c, 1bd39308-a1f1-4971-a78f-d1a645d9f8c6, 2378c86f-f18b-4f77-a3ec-51b1b2e23b82, ca23a43a-f3f1-40ea-af7f-d0802db887ea, 2de8fa6b-1e60-4d30-988f-f7f069f18ea9, 9b169945-6ca1-4412-9b5d-6255708d0b9a, ef4291c0-aa2b-4b6c-9d8e-d4e96389a1c5, 212f0ea0-0f60-4f4c-a4b5-3f0f4c9a8e7b, 5f676a3a-1c2d-4e8f-9a6b-7d3e8c5f4a2b, 0d974a46-909d-4bee-83e2-8885c1196a89]
+tags: [meguruit, jooto, weekly-report, python, google-sheets, project:meguru-pm-report, client:meguru, tech:python, tech:google-sheets, tech:gmail-mcp, tech:google-drive, tech:firebase-hosting, tech:firebase-functions, tech:launchd, tech:mermaid, stage:active, milestone:milestone-alert-single-send, milestone:milestone-alert-email-schedule, milestone:writer-catchup-sync-archived, milestone:jooto-writer-plugin, milestone:pr-1-merged, milestone:designer-load-end-at-kafu, milestone:manual-memo-carryforward-archived, milestone:doc-diff-carryforward-archived, milestone:jooto-checklist-backfill-archived, milestone:exclude-ordinance-from-overdue-archived, topic:openspec, topic:designer-load-view, topic:milestone-alert-exclusion, topic:report-header-consistency, topic:wiki-integration, topic:manual-memo-carryforward, topic:ordinance-exclusion, topic:jooto-checklist-backfill, topic:doc-diff-carryforward, topic:phase-progress-render-degradation, topic:projects-csv-roster-refresh, topic:integration-h-design-supervision, topic:weekly-report-2026-07-03, topic:firebase-reauth, topic:milestone-writeback-scope-all]
+updated: 2026-07-04
 ---
 
 # MeguruPMReport
+
+## 2026-07-03 weekly-report 2026-07-03 フルセット publish + Firebase re-auth + Milestone writeback 8 セル (session 2082d6eb、~30 min)
+
+前セッション `e890279a` が 07-03 未明 (02:00 頃) に週次 6-30 分を仕上げて sleep、user 発意 「最新のレポートを作成して。各ソースから対象の全案件について取りこぼしがないように。遅延、未解決の状況は詳しく記載すること。」で **同日 01:29 起動の新 session** `2082d6eb` として `/weekly-report` フルセット (前倒し publish なし) を実行。全 27 案件を取りこぼしなく走査、遅延・未解決は 6 項目ごとに詳細記載。
+
+### 実行順序 (1〜9 順序厳守、前倒し publish なし)
+
+1. **baseline sync** — 前週 (06-30) Doc export snapshot `state/doc_snapshot/2026-06-30.md` を carry-forward 差分元として読み込み
+2. **Gmail 全 27 案件収集** — 並列 4 エージェント、差分窓 (6/26 以降) で `get_thread` を回して全メッセージを期間内展開。動きなし 6 案件は「更新なし」明記
+3. **6 項目要約 / 工程グリッド / 条例マトリクス / 負荷ビュー生成** — 案件セクションを LLM で `- 施主:` `- 意匠:` `- 構造:` `- 設備:` `- 省エネ:` `- 進捗:` の 6 項目に整形、工程グリッド 15 phase、条例 8 列マトリクス、負荷ビューは並行本数 = 2 案件 (⚠️ 警告なし)
+4. **Milestone writeback (`--scope all`、8 セル FALSE→TRUE、巻き戻し 0、integrity 保持)** — Jooto 進捗チェック / Gmail エビデンスから 8 セルを機械 flip、書き戻しの冪等性検査 (巻き戻し検知 0) 通過
+5. **Milestone 再取得**
+6. **工程グリッド再生成 (3 案件前進を反映)** — 4 の writeback を反映して工程行の状態を最新化
+7. **publish** — Doc 冪等 update + HTML dist + Firebase Hosting deploy
+
+### Firebase 認証切れの発生と回復
+
+publish の中で **Firebase 認証 (`FIREBASE_TOKEN` 未設定 → 保存済み login token 期限切れ)** で最終ステップ (Firebase Hosting deploy + meta 追記) が失敗。Drive アップロード (step 2) は成功済で、Doc の重複作成なし = idempotent (`in-place update`、doc id `1R9Vxm7XeFg_khZYRhCCt7eaNSzGxL4Z98cLhNSv3EMU`) を確認。CI トークン等の非対話代替はなく `firebase login --reauth` (対話 OAuth) 必須のためユーザーに手動リフレッシュを依頼 → 完了通知後に **publish 部分のみ再実行** で `latest_state.json` の doc ポインタ更新まで完走。
+
+### 1 点の手動整合修正
+
+高田馬場の 6 項目に「直近予定: 仮受 (意匠)」の Milestone サブ行が入っていたが、対象期日が **8/7 = 7 日窓外** で Milestone サブ行の表示条件 (今週から 7 日以内) を満たさず → 削除。ここは Milestone マトリクスと 6 項目要約の窓境界が食い違うと出やすい typo で、以後の再発防止観点として 6 項目テンプレの窓計算を要確認。
+
+### 外部公開 (全 27 案件、取りこぼしなし)
+
+- **配信 HTML**: <https://meguru-pm-report.web.app/r/2026-07-03/> (Firebase Hosting、GWS ドメイン制限)
+- **原本 Google Doc**: [Doc ID `1R9Vxm7XeFg_khZYRhCCt7eaNSzGxL4Z98cLhNSv3EMU`](https://docs.google.com/document/d/1R9Vxm7XeFg_khZYRhCCt7eaNSzGxL4Z98cLhNSv3EMU/edit)
+- **Markdown 原本 (マスキング前)**: `reports/2026-07-03_weekly_update.md` (リポジトリ内、公開先には出さない)
+- 詳細: [[06_output/2026-07]] に週次 07-03 として転記、[[02_diary/2026-07-03]] にも run-118 として ingest
+
+### 今週 (2026-06-27 → 07-03) の外部インパクト要点
+
+- **期日超過**: **東長崎 4 丁目 S08_省エネ申請 (期日 6/12) の 1 件のみ**。Jooto コメント上の現況 = 適判の申請待ちで PC/DE 側と調整中、次アクション明記
+- **Milestone writeback = 8 セル前進**: 幡ヶ谷本町「仮受付 → 図面整合性確認」の遷移が今週の中核前進、他は書き戻し済状態の反映
+- **Gmail カバレッジ 27/27** (差分窓で動きのなかった 6 案件も「更新なし」明記して取りこぼし可視化)
 
 ## 2026-07-03 weekly-report 2026-06-30 フルセット + 工程チャート renderer 修正 + replace-memo-with-doc-diff-carryforward 完走 + archive 2 件 (session e890279a、単発長時間)
 
