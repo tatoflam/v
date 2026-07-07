@@ -2,7 +2,7 @@
 title: Wiki 自動運用パイプライン
 category: 05_learn
 tags: [wiki, automation, hooks, github-actions, topic:wiki-system]
-sources: [8a25326c-5119-438b-bcf3-4c4c7dba4127, a974a8f6-c56d-4b5f-9064-3ab8884ee7d8, 03859554-98cc-4d1a-b62e-212103596b54, 949188fb-38df-403c-8b5a-d1d560de74f0, 6711184a-25c9-4cb4-9566-2c041aeb955b, 5a969394-b6e8-4550-aa00-4ea7dbd77df8, 023f317a-a958-4f56-ad10-efcf22773aba, 536fc370-29c5-41fc-9eb0-69219ed653ad, 663d418d-e50e-4fab-9865-243d8963e0aa, dc9a7e40-43ae-4e27-a21f-645777ba320c, 6f7fbba7-fca3-49cc-b8e4-061a3aaf9959, ffb55997-2783-45e8-a8ca-0538e3667bf2, 9fbe5dc5-5c0a-4afa-9b75-35848727f8de, 91ba116f-dc5e-494b-a0dd-f7ec2d56632e, cbfe2df6-6fe3-4ef0-9c18-3795800a122b, 3ca18b54-5b6e-41c2-91d1-315125bc379d, d7c2ef62-2763-4c58-b699-dadca5e9c2ca, b1eb2235-42e0-42f2-bc5c-9d9534b64eef]
+sources: [8a25326c-5119-438b-bcf3-4c4c7dba4127, a974a8f6-c56d-4b5f-9064-3ab8884ee7d8, 03859554-98cc-4d1a-b62e-212103596b54, 949188fb-38df-403c-8b5a-d1d560de74f0, 6711184a-25c9-4cb4-9566-2c041aeb955b, 5a969394-b6e8-4550-aa00-4ea7dbd77df8, 023f317a-a958-4f56-ad10-efcf22773aba, 536fc370-29c5-41fc-9eb0-69219ed653ad, 663d418d-e50e-4fab-9865-243d8963e0aa, dc9a7e40-43ae-4e27-a21f-645777ba320c, 6f7fbba7-fca3-49cc-b8e4-061a3aaf9959, ffb55997-2783-45e8-a8ca-0538e3667bf2, 9fbe5dc5-5c0a-4afa-9b75-35848727f8de, 91ba116f-dc5e-494b-a0dd-f7ec2d56632e, cbfe2df6-6fe3-4ef0-9c18-3795800a122b, 3ca18b54-5b6e-41c2-91d1-315125bc379d, d7c2ef62-2763-4c58-b699-dadca5e9c2ca, b1eb2235-42e0-42f2-bc5c-9d9534b64eef, 3618585f-757b-4564-bd66-5765ef4be4ff]
 updated: 2026-07-08
 ---
 
@@ -179,6 +179,8 @@ sed -i '' 's|\[\[vercel-path-to-regexp\]\]|[[vercel-path-to-regexp-v6]]|g' \
 ```
 
 **予防策（未実装）**: ingest 開始時に **session_id をキー**として「このセッションが既に touch したファイル」を `~/.claude/wiki/state/in-flight.json` に記録、別 worker が同 session を扱おうとしたら yield。
+
+**再発 near-miss — 無傷回避の初例（2026-07-08 run-123/124 並走）**: SessionEnd hook fanout で run-123 (`b1eb2235`) と run-124 (`3618585f`) が起動差 33 秒で同一キューに並走。run-124 は 6 並列抽出まで進んだ後、run-123 の vault commit `d61ab10` を検知し、独自抽出との内容一致を検証した上で **stand-down**（duplicate page 生成ゼロ・vault commit なし・hook-errors.log に defer 4 行のみ）。二重書き込みを実際に阻止したのは Write tool の read-before-write check（既存ファイルを未読のまま上書きできない）。staged していた 05_learn 草稿 2 本（cloud-scheduler-relative-drift / google-api-retry-fresh-connection）は削除し、内容は `deferred-extracts/` の stash で担保。in-flight.json は依然未実装だが、「後着 run が先着 commit を検証して yield する」挙動により 05-03 型の事後 cleanup（`efd00e2`）が不要になった。副作用: stand-down した run は log.md に行を残さないため、run 採番が飛んで見える（run-124 欠番は正常）。
 
 ### 病理 3 — user の Obsidian live-edit による 18 サイクル defer
 
