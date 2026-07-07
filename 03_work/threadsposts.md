@@ -1,9 +1,9 @@
 ---
 title: ThreadsPosts — 腸活スタジオ Threads 自動投稿パイプライン
 category: 03_work
-tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, tech:esim, tech:tampermonkey, tech:userscript, tech:gemini-image, stage:active, stage:incident-response, entity:chokatsu-studio, entity:meta-classifier, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, milestone:weekly-cycle-w19-execution, milestone:openspec-3-archive-batch, milestone:playbook-process-revamp, milestone:playbook-archive-sync, milestone:account-ban-pivot, milestone:openspec-3-change-ban-pivot, milestone:ban-pivot-explore-synthesis, milestone:publish-relocate-local-shipping, milestone:legacy-tenant-archive, milestone:ban-decision7-reframing, milestone:3-account-staged-scaling, milestone:interior-uchi-style-confirmed, milestone:account-1-phase-0-shipped, milestone:account-1-d001-draft, milestone:interior-playbook-from-K, milestone:subject-omission-style, milestone:launch-week-brand-suppression, milestone:affiliate-first-research, milestone:weekly-cycle-w23-normal-phase, milestone:affiliate-buzz-mining-loop, milestone:threads-observation-tools, milestone:pr-14-merged, entity:oheyamemo, genre:interior, incident:threads-ban-2026-05-04, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic, principle:capture-first-explore, principle:change-boundary-equals-commit-boundary, principle:composite-fingerprint-not-single-cause, principle:milestone-driven-scaling, principle:subject-axis-not-credential-axis, principle:two-layer-persona-profile-ok-body-ng, principle:launch-week-trust-first, principle:affiliate-first-over-youtube-seed, principle:reply-chain-default-monetization, principle:dont-scrape-third-party-posts, principle:dont-automate-products-yaml-edit, principle:source-buzz-id-provenance, topic:ceiling-light, topic:youtube-subtitle-research, topic:affiliate-driven-research, topic:buzz-mining-loop, topic:userscript-1-click-capture, milestone:fan-formation-principles-2026-06-09, topic:fan-formation, topic:mission-manifesto, milestone:publish-due-greedy-reorder, milestone:publish-pipeline-self-sustaining, milestone:pr-15-merged, topic:pairing-invariant, topic:publish-stall-fault, topic:reply-chain-flaky-fix, principle:pairing-non-aff-precedes-monetization, milestone:image-generate-source, milestone:pr-16-merged, milestone:buzz-voice-rootcause-fix, topic:image-l4-gemini, topic:buzz-voice-from-real-data, topic:affiliate-first-workflow, principle:no-narrative-drift-write-into-repo, principle:visual-verified-manual-not-webfetch]
-sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8, a73c0aa2-c9a4-46e3-ab60-72b6b426901a, 8b57f7c8-b8fa-4f65-8c06-06cf6fbe87b3, 97d3f618-8d6c-40e6-8210-06549512f183, cef7a3c1-5798-4534-ab51-63c1a2279734, c02fca64-85c4-40f5-9bae-00ea56f138c1, f198b34e-7c91-4bee-8bf4-a3a532f86901, ea0b21e8-0197-4d87-a637-45d18bc759d7, 665cb2da-de7e-4b1b-93f9-2500f8d6fe95, 99902682-b840-494b-b76c-59c90854c892, c0b0dfea-a81b-4470-b2f5-07cbbaa4aae8, 1228fa25-787b-4c38-b347-3a9231d5431a, d59da658-e5d8-4292-9095-c907f18fcca8, 196a73b5-f043-46ca-a902-3a9ba3669c98, 028c145c-62e4-46ba-8c98-efc52d5d77cc, 6c99bbeb-c873-4342-bc9c-e6807882b5f3, 8cf2b80c-2557-43b0-849c-8aa5aea7552f, c7f92639-9af8-456a-92ef-8f770a7311e9, 86141ecc-90e4-4efe-8751-35b1fc2af063, a878e29c-097d-4107-99de-8409c30f6dff, 72d2768d-9123-4b73-bb0b-175426c509ae, 0c5ca024-b170-475a-b15c-f05e11bfddce, de58f560-dbab-49d6-be74-45d84d58c99f, 23ea12c6-2b05-41be-8917-67d9e620323d, a1953a4b-693a-4c2c-83e9-2f8ba1f0ca4c, f735097b-d93b-4b83-ad46-d2614d7d1cd3, 8b819182-df49-4d5f-b4ad-6ba093c2231f, 51140742-646c-4c61-9c65-b46330f0eca5, 542cf004-82dc-4003-979d-f9fc5873e4d4]
-updated: 2026-06-25
+tags: [project:threadsposts, channel:threads, channel:rakuten-affiliate, channel:amazon-associates, tech:nodejs, tech:openspec, tech:playwright, tech:claude-sonnet, tech:openai-whisper, tech:yt-dlp, tech:esim, tech:tampermonkey, tech:userscript, tech:gemini-image, stage:active, stage:incident-response, entity:chokatsu-studio, entity:meta-classifier, milestone:v2-launch, milestone:d002-production, milestone:research-pipeline-k006, milestone:companify-stage1, milestone:weekly-cycle-bootstrap, milestone:weekly-cycle-w19-execution, milestone:openspec-3-archive-batch, milestone:playbook-process-revamp, milestone:playbook-archive-sync, milestone:account-ban-pivot, milestone:openspec-3-change-ban-pivot, milestone:ban-pivot-explore-synthesis, milestone:publish-relocate-local-shipping, milestone:legacy-tenant-archive, milestone:ban-decision7-reframing, milestone:3-account-staged-scaling, milestone:interior-uchi-style-confirmed, milestone:account-1-phase-0-shipped, milestone:account-1-d001-draft, milestone:interior-playbook-from-K, milestone:subject-omission-style, milestone:launch-week-brand-suppression, milestone:affiliate-first-research, milestone:weekly-cycle-w23-normal-phase, milestone:affiliate-buzz-mining-loop, milestone:threads-observation-tools, milestone:pr-14-merged, entity:oheyamemo, genre:interior, incident:threads-ban-2026-05-04, infra:claude-github-app, infra:remote-agent, principle:local-first-anthropic, principle:capture-first-explore, principle:change-boundary-equals-commit-boundary, principle:composite-fingerprint-not-single-cause, principle:milestone-driven-scaling, principle:subject-axis-not-credential-axis, principle:two-layer-persona-profile-ok-body-ng, principle:launch-week-trust-first, principle:affiliate-first-over-youtube-seed, principle:reply-chain-default-monetization, principle:dont-scrape-third-party-posts, principle:dont-automate-products-yaml-edit, principle:source-buzz-id-provenance, topic:ceiling-light, topic:youtube-subtitle-research, topic:affiliate-driven-research, topic:buzz-mining-loop, topic:userscript-1-click-capture, milestone:fan-formation-principles-2026-06-09, topic:fan-formation, topic:mission-manifesto, milestone:publish-due-greedy-reorder, milestone:publish-pipeline-self-sustaining, milestone:pr-15-merged, topic:pairing-invariant, topic:publish-stall-fault, topic:reply-chain-flaky-fix, principle:pairing-non-aff-precedes-monetization, milestone:image-generate-source, milestone:pr-16-merged, milestone:buzz-voice-rootcause-fix, topic:image-l4-gemini, topic:buzz-voice-from-real-data, topic:affiliate-first-workflow, principle:no-narrative-drift-write-into-repo, principle:visual-verified-manual-not-webfetch, milestone:autonomous-posting-loop, milestone:buzz-driven-replenishment, milestone:ten-viewpoints-policy, topic:gate-auto-pairing, topic:feedback-signals, topic:loop-orchestrator, topic:buzz-replenish, principle:short-buzz-stays-short, principle:human-gates-preserved]
+sources: [088ab1c0-c2f2-4677-8201-1c6f9767bcfa, d7e16e9a-907a-4850-91af-9994070433bd, ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 0d885baa-7e18-4eff-b6e2-d0671863bc92, e01596df-0fca-4571-bc96-599e88e0e72c, 4695d1ed-f9c9-4b80-ab4c-c1dd3a3eff2d, ce4cb7d1-c726-49a8-9b98-b1f7c1856063, 57a002bd-6c29-47d4-ae0b-f42b43b5b03d, d40649e2-fb8b-4e0a-8c18-14bc3a972ea8, a73c0aa2-c9a4-46e3-ab60-72b6b426901a, 8b57f7c8-b8fa-4f65-8c06-06cf6fbe87b3, 97d3f618-8d6c-40e6-8210-06549512f183, cef7a3c1-5798-4534-ab51-63c1a2279734, c02fca64-85c4-40f5-9bae-00ea56f138c1, f198b34e-7c91-4bee-8bf4-a3a532f86901, ea0b21e8-0197-4d87-a637-45d18bc759d7, 665cb2da-de7e-4b1b-93f9-2500f8d6fe95, 99902682-b840-494b-b76c-59c90854c892, c0b0dfea-a81b-4470-b2f5-07cbbaa4aae8, 1228fa25-787b-4c38-b347-3a9231d5431a, d59da658-e5d8-4292-9095-c907f18fcca8, 196a73b5-f043-46ca-a902-3a9ba3669c98, 028c145c-62e4-46ba-8c98-efc52d5d77cc, 6c99bbeb-c873-4342-bc9c-e6807882b5f3, 8cf2b80c-2557-43b0-849c-8aa5aea7552f, c7f92639-9af8-456a-92ef-8f770a7311e9, 86141ecc-90e4-4efe-8751-35b1fc2af063, a878e29c-097d-4107-99de-8409c30f6dff, 72d2768d-9123-4b73-bb0b-175426c509ae, 0c5ca024-b170-475a-b15c-f05e11bfddce, de58f560-dbab-49d6-be74-45d84d58c99f, 23ea12c6-2b05-41be-8917-67d9e620323d, a1953a4b-693a-4c2c-83e9-2f8ba1f0ca4c, f735097b-d93b-4b83-ad46-d2614d7d1cd3, 8b819182-df49-4d5f-b4ad-6ba093c2231f, 51140742-646c-4c61-9c65-b46330f0eca5, 542cf004-82dc-4003-979d-f9fc5873e4d4, 0ad8ad20-6be4-4db9-9a52-bea0acf22eea]
+updated: 2026-07-08
 ---
 
 # ThreadsPosts
@@ -2355,3 +2355,73 @@ bd5a7c9 chore(content): scheduled publish D027_照明は色で印象が変わる
   変化する構造を初めて明示化
 
 see also: [[02_diary/2026-06-25#run-103 追加分 (= /wiki-ingest 再ラン、6/25 夜)]] / [[06_output/2026-06]] (= PR #16 + D024/D021 mood + D026/D027 entries) / `memory:feedback_buzz_voice_use_real_data_2026-06-24` (= 本 voice 根治の memory canonical)
+
+## 2026-07-02 → 07-07 — 7日停止の診断即日解消 + 10観点ポリシー化 + autonomous-posting-loop 29/29 完走 + buzz-driven-replenishment（session 0ad8ad20）
+
+「最近、Threads 投稿が止まってるのはなんでだっけ？」という user の問いから始まり、**診断 → 即日解消 → 再発の構造的封じ込め → 自律ループ実装 → 在庫自動補充** まで 1 session（実質 5 日間、07-02〜07-07）で貫通した回。
+
+### 診断 — 7 日投稿停止の真因（D027 6/25 以降ストップ）
+
+- `scheduled` 在庫が **D026（monetization）1 本だけ** → 「その日の 1 本目」に affiliate を出すと日次 affiliate 比率 = 1.00 で normal phase 上限 0.8 を超過 → `publish:due` が gate_rejected を繰り返す
+- 残る D007 / D013 / D018 は `status: draft`（人ゲート待ち）で publish 対象外 → **出せる在庫が実質ゼロ**
+- 結論: **gate が厳しいのではなく、非 affiliate draft の在庫が空だったのが真因**。gate は BAN 防火壁（pairing 不変条件）なので撤廃しない方針を維持
+
+### 即日解消 — D007 + D026 ペア publish
+
+- D007 の frontmatter を `status: scheduled` / `scheduled_at`=now に書き換え → `publish:due` で **ペア成立（ratio 0.50）両方公開**
+- D007「ペンダントは低く吊る」→ post_id `18099398050913183`、D026「シーリングは色も」→ 親 `18186644317404536` + reply 2 本（flaky だった reply chain も今回は全部成功）
+- `published=2 threads=1 failed=0`、**7 日ギャップ解消**
+
+### 10 観点ポリシー化（interior 翻訳版）
+
+user 持ち込みの汎用 Threads グロース 10 観点を CLAUDE.md に焼き込み。**そのまま焼くと既存設計と正面衝突する 3 点**（②自分語り全削除 / ③ターゲット=1人社長 / ④リンク直貼り禁止）を先に user に確認し、「**汎用テンプレを interior/oheyamemo に翻訳して入れる**（account の方向は変えない）」で確定:
+
+- ②→ 自分語りは「読者の得に直結する体験語り」に絞る（実践者の覚書 voice は核として維持）
+- ③→ ターゲットは「部屋を整え始めた人」のまま、専門用語を 3 秒語彙に置換（配光→光の広がり 等）
+- ④→ 非 monetization はプロフ誘導締め / monetization は bio 透明性前提で URL inline 継続
+- ⑩ AI 臭ワード検出は機械 enforce 化: `banned_patterns.yaml` に `ai_smell` カテゴリ（まさに/ぜひ/革命的 ほか、warn レベル）を追加し `lint:posts` に組込み
+
+### openspec `autonomous-posting-loop` — 起票 + 29/29 実装（同 session 内で完走）
+
+「gate 緩和 + 自律ループ確立」の残り 2 テーマを `/opsx:propose` → `/opsx:apply` で実装。**設計不変条件: affiliate ratio gate は弱めない・人ゲート（status:draft）は飛ばさない・voice/account 方向不変**。
+
+| Group | 実装 | 中身 |
+|---|---|---|
+| 1. gate auto-pairing | `lib/auto_pair.js` + publish.js 配線 | affiliate draft が単独 due になったら、**scheduled の非 aff draft を 1 本当日前枠に自動昇格してペア成立**（gate を弱めずに詰みを構造的に解消）。`POSTING_AUTO_PAIR_ENABLED=false` で無効化、unit 9 ケース |
+| 2. buffer 監視 fault | `detectNonAffBufferLow` | 非 aff reserve 枯渇を `non_aff_buffer_low` fault として `loop:check` に追加 |
+| 3. feedback signals | `lib/feedback_signals.js` + CLI + `feedback_bias.js` | metrics.csv → 3 点診断 hints (#5) / 保存採点 (#6) / 指止め単語 (#7) を週次ファイル出力。`--stage-winners` で勝ちパターンを `ok-buzz` staging（auto-promote 禁止）、`generate_post.js --show-feedback` が winner hook を bias hint 表示 |
+| 4. orchestrator | `lib/orchestrator.js` (planLoop) + `loop:run` CLI | 調査→執筆→投稿→分析→フィードバックの 5 stage 状態を fault から集計し **stalled stage + 次アクション**を提示。既定 report-only、`--run` は安全な機械ステップのみ実行 |
+| 5-6. docs + 検証 | CLAUDE.md / weekly-cycle skill / docs/operations.md | 752 tests pass、lint 緑、openspec valid |
+
+commits: `9670c7f`（G1-2）+ `9097d21`（G3-5）。実装直後の実機 `loop:run` が「stalled = content（非 aff buffer 0/2）+ analyze（metrics 20 日 stale）」を正しく指した = ループの自己診断が初回から機能。
+
+### buzz-driven-replenishment — 非 aff 在庫の半自動補充（第 2 の openspec change）
+
+「非 affiliate draft の補充を自動でできない？バズってるインテリア系の非アフィ投稿を踏襲して」という user 要望に、**自動化できる範囲（決定論）と Claude/人を挟む範囲を線引き**して実装:
+
+- `npm run buzz:replenish` — 溜まった buzz から「**非アフィ（rakuten_urls 空）× 未使用（source_buzz_id 照合）× 高エンゲージ**」を deterministic に抽出し、review window（数日先の 12:00 JST 非 aff 枠）を割り当てた plan を出力
+- `/content-replenish` skill — plan を吟味し Claude が buzz を**踏襲（型を借りて oheyamemo voice に翻訳、literal copy 禁止）**して `status: scheduled` draft を書き出し
+- **hybrid 承認**（user 選択）= scheduled 直行だが `scheduled_at` を数日先に置き、publish 前に人が見られる窓を残す
+- 第三者投稿の auto-scrape はしない方針を維持（buzz は user 投入が入口）
+- 実走: buffer 0/2 の枯渇を **D028-D030 の 3 本補充（7/9-11 scheduled）で解消**。採用 3（781♡「無印より雰囲気勝ち」→ D028 / モデルハウス照明 → D029 / 「建築士の私が」→ プロ目線 framing を外して D030 に翻訳）+ skip 3（D017/D018 と角度被り・商品リスティング素材）。commits: `41c6b3f`（機能）+ `1d7b46c`（draft）、759 tests
+
+### 最終チェック → 「ポエムすぎ」フィードバック → 68-76 字に凝縮
+
+1. 公開前最終チェックで「〜んだと思う」3 連続 + 問い締め偏りを検出 → D029 言い切り / D030 観察締めに分散（`ab6685d`）
+2. user 指摘「**ちょっとポエムすぎだけどねw もっと短く、端的に**」→ 原因を特定: **1-2 行で 781♡ 取った実バズを 200 字のミニエッセイに膨らませていた**。empathy はショート版が正解
+3. 3 本とも **68-76 字（元の約 1/3）・3 行・言い切り・感情先行・punch 締め**に書き直し、内省「〜んだと思う」と問い締めを除去（`afaab78`）
+4. 「**踏襲 = 型を借りて短いまま言い切る、解説を足さない**」を buzz voice memory（`feedback_buzz_voice_use_real_data_2026-06-24`）に追記 — 次回の replenish は最初から短く出す
+
+### 着地状態（07-08 未明）
+
+- main へ rebase（remote の自動 weekly-report commit 2 本を取り込み）して push 済、working tree clean、759 tests pass
+- `loop:run`: content stage ✅ 回復、残 stall は **analyze（metrics 21 日 stale → `npm run metrics:sync` の人作業）のみ**
+- scheduled: D028（7/9）/ D029（7/10）/ D030（7/11）各 12:00 JST
+
+### 構造的意義
+
+- **「published=0 の詰み」が 3 层で封じられた**: ①auto-pairing（単独 affiliate due の自動ペア化）②non_aff_buffer_low fault（枯渇の早期警報）③buzz:replenish（在庫の半自動補充）。publish-pipeline-self-sustaining（6/15 の段階 B）が rotation 設計で防いだものを、今回は**実行時の自動回復**まで引き上げた
+- **自律ループの部品が閉じた**: 調査（buzz mining）→ 執筆（generate + 10 観点）→ 投稿（publish:due + launchd）→ 分析（feedback:signals）→ フィードバック（--show-feedback bias）の全 stage が CLI で繋がり、`loop:run` が横断監視。ただし**完全 unattended にはしない**（本文執筆は Claude、承認は hybrid、起動は当面手動）
+- **「短いバズを長いポエムに膨らませる」= AI drift の新変種**: 6/24 の「自分の頭で書くと AI エッセイ調に drift」の再発形。実バズの型を borrowing しても**長さを borrowing しなければ同じ穴に落ちる**。詳細は [[05_learn/persona-driven-content-rules]] 追補
+
+see also: [[02_diary/2026-07-08]] run-128 / [[06_output/2026-07]]（Threads 2 posts + push 群）/ [[05_learn/persona-driven-content-rules]]（ポエム化 anti-pattern）

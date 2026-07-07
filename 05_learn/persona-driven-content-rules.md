@@ -1,9 +1,9 @@
 ---
 title: ペルソナ駆動の継続可能なコンテンツルール（健康ジャンル Threads から学んだ）
 category: 05_learn
-tags: [topic:persona-driven-content-rules, domain:content-creation, lesson:authenticity, anti-pattern:authority-borrowing, channel:threads, principle:subject-omission-style, principle:launch-week-trust-first, principle:two-layer-persona-profile-ok-body-ng]
-sources: [ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 6c99bbeb-c873-4342-bc9c-e6807882b5f3]
-updated: 2026-05-17
+tags: [topic:persona-driven-content-rules, domain:content-creation, lesson:authenticity, anti-pattern:authority-borrowing, anti-pattern:poem-inflation, channel:threads, principle:subject-omission-style, principle:launch-week-trust-first, principle:two-layer-persona-profile-ok-body-ng, principle:short-buzz-stays-short]
+sources: [ea7dfd5b-e2ac-4067-82b3-a2efde32bb29, 6c99bbeb-c873-4342-bc9c-e6807882b5f3, 0ad8ad20-6be4-4db9-9a52-bea0acf22eea]
+updated: 2026-07-08
 ---
 
 # ペルソナ駆動の継続可能なコンテンツルール
@@ -150,6 +150,16 @@ Threads bio の 130 字枠で第三者にスキャンされる際の信用フッ
 - **投稿本文 (D0XX)**: 肩書きは一切出さない。subject 軸 + 主語省略 + 出典脚注なし (warmup 期は brand 名も抑制) を貫徹
 
 CLAUDE.md 本体の「PM/設計 background はすべての層で明示しない」ルールとの矛盾は user 判断待ち (A. 2 層確定 / B. 全層 OK / C. プロフィールも戻す)。本記事は A (2 層運用) を暫定採用前提の記録。
+
+## 短いバズは短いまま踏襲する — ポエム化 anti-pattern (2026-07-07 追補)
+
+buzz 踏襲で生成した empathy 3 本 (D028-D030、[[03_work/threadsposts]] buzz-driven-replenishment) に user が「**ちょっとポエムすぎ**」と指摘した事例。個別には全規約 pass (非 aff / 180-300 字 / 命令なし / ai_smell なし) だったのに、**1-2 行で 781♡ 取った実バズを 200 字のミニエッセイに膨らませていた**のが敗因。68-76 字 (元の約 1/3)・3 行・言い切り・感情先行・punch 締めに書き直して解決。
+
+横展開可能な学び:
+
+- **実バズの「型」を借りても「長さ」を借りなければ同じ穴に落ちる**: 2026-06-24 の「自分の頭で書くと AI エッセイ調に drift」の再発形。hook 形式・言い切り・感情先行をなぞっても、そこに解説と内省を足して膨らませれば結局 AI ポエムになる。**踏襲 = 型を借りて短いまま言い切る、解説を足さない**
+- **「規約を全部 pass した投稿」と「voice が正しい投稿」は別物**: lint/文字数/禁止表現のチェックリストは膨張 drift を検出できない。原文バズとの**長さ比**が最も単純で強い検出シグナル (200 字 vs 元 1-2 行 = 明確な異常値)
+- **文体教訓は口頭修正で終わらせず、生成時に必ず読まれる場所へ焼き込む**: この教訓も memory (`feedback_buzz_voice_use_real_data_2026-06-24`) に追記して次回生成から最初から短く出す構造にした。「実物を書いてから初めて出る欠陥 → 検出ルールを canonical な場所へ逆流」は 2026-05-16 の「うち」撤回と同じサイクル
 
 ## Links
 
