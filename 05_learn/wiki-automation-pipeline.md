@@ -2,8 +2,8 @@
 title: Wiki 自動運用パイプライン
 category: 05_learn
 tags: [wiki, automation, hooks, github-actions, topic:wiki-system]
-sources: [8a25326c-5119-438b-bcf3-4c4c7dba4127, a974a8f6-c56d-4b5f-9064-3ab8884ee7d8, 03859554-98cc-4d1a-b62e-212103596b54, 949188fb-38df-403c-8b5a-d1d560de74f0, 6711184a-25c9-4cb4-9566-2c041aeb955b, 5a969394-b6e8-4550-aa00-4ea7dbd77df8, 023f317a-a958-4f56-ad10-efcf22773aba, 536fc370-29c5-41fc-9eb0-69219ed653ad, 663d418d-e50e-4fab-9865-243d8963e0aa, dc9a7e40-43ae-4e27-a21f-645777ba320c, 6f7fbba7-fca3-49cc-b8e4-061a3aaf9959, ffb55997-2783-45e8-a8ca-0538e3667bf2, 9fbe5dc5-5c0a-4afa-9b75-35848727f8de, 91ba116f-dc5e-494b-a0dd-f7ec2d56632e, cbfe2df6-6fe3-4ef0-9c18-3795800a122b, 3ca18b54-5b6e-41c2-91d1-315125bc379d]
-updated: 2026-05-16
+sources: [8a25326c-5119-438b-bcf3-4c4c7dba4127, a974a8f6-c56d-4b5f-9064-3ab8884ee7d8, 03859554-98cc-4d1a-b62e-212103596b54, 949188fb-38df-403c-8b5a-d1d560de74f0, 6711184a-25c9-4cb4-9566-2c041aeb955b, 5a969394-b6e8-4550-aa00-4ea7dbd77df8, 023f317a-a958-4f56-ad10-efcf22773aba, 536fc370-29c5-41fc-9eb0-69219ed653ad, 663d418d-e50e-4fab-9865-243d8963e0aa, dc9a7e40-43ae-4e27-a21f-645777ba320c, 6f7fbba7-fca3-49cc-b8e4-061a3aaf9959, ffb55997-2783-45e8-a8ca-0538e3667bf2, 9fbe5dc5-5c0a-4afa-9b75-35848727f8de, 91ba116f-dc5e-494b-a0dd-f7ec2d56632e, cbfe2df6-6fe3-4ef0-9c18-3795800a122b, 3ca18b54-5b6e-41c2-91d1-315125bc379d, d7c2ef62-2763-4c58-b699-dadca5e9c2ca, b1eb2235-42e0-42f2-bc5c-9d9534b64eef]
+updated: 2026-07-08
 ---
 
 # Wiki 自動運用パイプライン
@@ -268,3 +268,16 @@ user invokes /wiki-ingest in terminal A
 3. queue.jsonl の dedup: 同一 cwd で processed=false が既にあれば重複 enqueue を skip
 
 **当面の運用**: 1 エントリに集約 (4 session ID を frontmatter sources に書く)、log.md には 1 行で `... (concurrent fanout, N-way race observed)` と記載、本病理を識別マーカーとして残す。
+
+### 病理 7 — chronic defer × transcript retention → 恒久ソース喪失（2026-07-08 観察）
+
+**症状**: dirty-target gate による defer（病理 3）が Claude Code の transcript retention（既定 ~30 日、`cleanupPeriodDays`）を超えて長期化すると、queue エントリが指す transcript `.jsonl` が retention cleanup で削除され、その session は永久に ingest 不能になる。2026-07-08 run-123 で ToDoBot の `e594cbdd`（enqueue 5/29）と `87c832cd`（enqueue 6/7）の transcript 消滅を確認 — defer 55 日目で retention に追い抜かれた。両 session の内容は run-120 が [[02_diary/2026-07-07]] に書いた要約だけが残る。
+
+**never-landed 系との区別**: 「enqueue 直後から transcript が存在しない」パターン（`6a65883e` / `c3073193` / `cf04f9f6` / `7c32d656` / `ace39f6b` / `1087fb95` の 6 例、SessionEnd hook 起因の疑い）とは別系統。こちらは transcript が長期間読める状態で defer し続けた結果の喪失であり、**病理 3 の long-defer がそのまま data loss に転化する**ことを示した初のケース。
+
+**対症療法（run-123 実施）**: defer 対象 session（`6c36b23b` / `41a0fb6a` / `e19b11f3` / `b7a41f9f`）の詳細抽出を transcript 現存のうちに行い、要約を `~/.claude/wiki/state/deferred-extracts/<session_id>.md` に退避。transcript が消えても次回 drain 時にこの stash から反映できる。runtime state なので vault は汚さない。
+
+**根本治療候補（未実装）**:
+- defer 発生時点で毎回 stash を自動生成（run-123 は手動判断。skill 手順化すべき）
+- defer レポートに transcript の「retention 残り日数」警告を表示
+- 根本原因は病理 3 と同じ user の未 commit dirty file — N 日超え defer で通知エスカレーション
