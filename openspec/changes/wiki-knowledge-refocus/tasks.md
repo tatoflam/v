@@ -26,14 +26,14 @@
 
 ## 4. 新パイプラインの検証
 
-- [ ] 4.1 実セッション 2–3 件で ingest を実行し、staging ダイジェスト生成・diary のユーザー活動記録・curated ページ無変更・defer ゼロを確認
-- [ ] 4.2 curated ページ編集中（dirty）状態で ingest を実行し、defer が発生せず staging に着地することを確認
-- [ ] 4.3 /wiki-distill を実行し、staging → curated 統合・archive 移動・sources 追記・home.md / index.md 更新を確認
-- [ ] 4.4 /wiki-query で 3 型の質問（今どうなってる / なぜ決めた / どうやる）+ 人格質問 1 件を実行し、citation 付き応答と鮮度開示を確認
-- [ ] 4.5 /wiki-status で staging 滞留数が表示されることを確認
+- [x] 4.1 実セッション 2–3 件で ingest を実行し、staging ダイジェスト生成・diary のユーザー活動記録・curated ページ無変更・defer ゼロを確認
+- [x] 4.2 curated ページ編集中（dirty）状態で ingest を実行し、defer が発生せず staging に着地することを確認
+- [x] 4.3 /wiki-distill を実行し、staging → curated 統合・archive 移動・sources 追記・home.md / index.md 更新を確認
+- [x] 4.4 /wiki-query で 3 型の質問（今どうなってる / なぜ決めた / どうやる）+ 人格質問 1 件を実行し、citation 付き応答と鮮度開示を確認
+- [x] 4.5 /wiki-status で staging 滞留数が表示されることを確認
 
 ## 5. 運用定着
 
-- [ ] 5.1 log.md / _schema.md ミラーの書式を新パイプラインに合わせて更新
+- [x] 5.1 log.md / _schema.md ミラーの書式を新パイプラインに合わせて更新
 - [ ] 5.2 1 週間の実運用（ingest 自動 + distill 手動）で staging 滞留の実態を観察し、log.md に所感を記録
 - [ ] 5.3 滞留が恒常化する場合のみ: distill の定期起動（launchd / cron / schedule スキル）を検討して Open Question を解消
