@@ -13,32 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_schema.md",
+                "file": "05_learn/milestone-yaml-comment-out-behavior.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "_schema"
-            }
-          }
-        ]
-      },
-      {
-        "id": "9be50fb9a8f1f433",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "f66dd5868da0aa90",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "05_learn/gmail-mcp-reauth.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "gmail-mcp-reauth"
+              "title": "milestone-yaml-comment-out-behavior"
             }
           }
         ]
@@ -205,41 +185,43 @@
   },
   "active": "01139fadcf5c9a34",
   "lastOpenFiles": [
-    "05_learn/fy-cycle-mmdd-year-inference.md",
-    "02_diary/2026-04-25.md",
-    "05_learn/google-sheets-image-excel-compat.md",
+    "02_diary/2026-06-30.md",
+    "02_diary/2026-06-28.md",
+    "02_diary/2026-06-27.md",
+    "05_learn/reins-headlesschrome-ua-block.md",
+    "03_work/land-searcher.md",
+    "05_learn/juutaku-apartment-shouhizei-kanpu.md",
+    "05_learn/brew-cask-libreoffice-soffice-path.md",
+    "02_diary/2026-06-26.md",
+    "04_life/minami-gakudo-tshirt-site.md",
+    "03_work/meguru-wiki.md",
+    "02_diary/2026-06-25.md",
+    "03_work/meguru-appcheck-advisory.md",
     "05_learn/google-sheets-multi-row-header.md",
-    "05_learn/claude-code-plugin-namespace.md",
-    "05_learn/metsushitsu-touki-kihon.md",
-    "03_work/yahatayama-rokujizo.md",
-    "05_learn/ssh-agent-shortcuts.md",
-    "02_diary/2026-04-24.md",
-    "00_self/profile.md",
-    "06_output/2026-04.md",
-    "05_learn/wiki-automation-pipeline.md",
-    "04_life/sayama-land-contract.md",
-    "03_work/meguru-pm-report.md",
-    "02_diary/2026-04-23.md",
-    "05_learn/pm-master-sheet-headers.md",
-    "05_learn/claude-plugin-namespace.md",
+    "05_learn/google-sheets-image-excel-compat.md",
+    "05_learn/gmail-search-threads-message-limit.md",
     "05_learn/gmail-mcp-reauth.md",
-    "02_diary/2026-04-22.md",
+    "05_learn/fy-cycle-mmdd-year-inference.md",
+    "05_learn/claude-code-session-resume.md",
     "05_learn/claude-code-hooks.md",
-    "00_self/goals.md",
-    "00_self/skills.md",
-    "log.md",
-    "00_self/values.md",
-    "ようこそ.md",
-    "_schema.md",
+    "05_learn/apartment-gomi-stocker-sizing.md",
+    "05_learn/anthropic-tool-use-max-tokens-empty-input.md",
+    "05_learn/ac-energy-saving-regulation.md",
+    "02_diary/2026-05-04.md",
+    "02_diary/2026-05-02.md",
+    "02_diary/2026-04-29.md",
+    "02_diary/2026-04-28.md",
+    "appcheck-security-report.html",
+    "01_inbox/finance/ソルトムーン1650万円調達_検討レポート.html",
+    "無題のファイル 1.canvas",
+    "01_inbox/2026-05-15_AC_highsense_summary.html",
+    "無題のファイル.base",
+    "無題のファイル.canvas",
     "07_archive",
     "openspec/changes/archive",
     "openspec/specs",
     "openspec/config.yaml",
     "openspec/changes",
-    "openspec",
-    "07_Archive",
-    "06_Output",
-    "05_Learn",
-    "04_Life"
+    "openspec"
   ]
 }
