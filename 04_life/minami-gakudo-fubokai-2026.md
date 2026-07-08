@@ -3,7 +3,7 @@ title: みなみ学童父母会 2026 実行委員割り当て
 category: 04_life
 tags: [domain:minami-gakudo, entity:minami-gakudo, tech:python, tech:openpyxl, tech:chartjs, stage:active]
 sources: [48d7668d-9b60-4702-8f4b-98536217ccd3]
-updated: 2026-05-18
+updated: 2026-05-23
 ---
 
 # みなみ学童父母会 2026 実行委員割り当て
@@ -69,8 +69,24 @@ backup: `_BACKUP_20260516.xlsx` / `.html`
 ## 配布前評価
 本セッション時点 (2026-05-16 着地、ingest 2026-05-18) では HTML/Excel 生成までで、外部配布 (世帯メール / Drive 共有 / 印刷物配布) の証跡は未取得 → [[06_output]] への channel 行追加は配布実施後に判定。
 
+## 保守ドキュメント (2026-05-23 00:09 JST 追加)
+
+session 48d7668d 終話の user 依頼「CLAUDE.md は必要？不要なら作らなくても良いが、今後のメンテナンス（元データレコードの追加）や抽出ロジックの変更を想定して、CLAUDE.md が必要であれば記載してほしい。あと、README.md もよろしく」に対し、Claude 判断: **CLAUDE.md は必要** — 暗黙の前提が多く、データ追加や定員変更時に壊れやすいため。両ファイル生成 (`CLAUDE.md` 132 行 / `README.md` 79 行)。
+
+明示した「壊れやすさ」根拠:
+- `CAPACITY` / `SNAPSHOT_DATE` が `assign.py` と `build_report.py` の**両方に重複**しており手動同期が必要
+- placeholder 人数は `TOTAL_MEMBERS` から逆算され、定数のずれが静かに不整合を生む
+- `split_two_names()` (父母氏名分割) と `norm_child_key()` (重複判定) は推定ロジックで特殊データで誤動作しうる
+- 再生成は `assign.py → build_report.py` の順序依存
+
+`CLAUDE.md` 構成: データフロー図 / 5 段階マッチング / 重要定数の所在表 / 保守シナリオ (レコード追加・定員変更・基準日変更・抽出ロジック変更) / 列マッピング / 出力シート構成。
+`README.md` 構成: セットアップ・実行手順・ファイル構成・割り当てルール・現在の定員設定・PDF 化手順。
+
+両ドキュメントに「定数の二重持ち」「レコード追加時の手順」(`TOTAL_HOUSEHOLDS` / `BOTH_PARENT_HOUSEHOLDS` 更新 + 実行後ログでの「保護者総数 == TOTAL_MEMBERS」確認) を明記。リポジトリは未 `git init` 状態 (2026-05-23 ingest 時点)。
+
 ## see also
 - [[02_diary/2026-05-16]] — 5-16 18:06-20:39 JST の 1 セッション完走ログ (20:27 entry)
 - [[02_diary/2026-05-18]] — 本ページの ingest race 顛末 (13:00 / 13:05 entries)
+- [[02_diary/2026-05-23]] — CLAUDE.md / README.md 追加日 (00:09 entry, run-37)
 - [[02_diary/2026-04-24]] — 父母会総会で会長職を退任した日 (このプロジェクトの前史)
 - [[03_work/yahatayama-rokujizo]] — 同じく地域コミュニティ運営の自治会案件
