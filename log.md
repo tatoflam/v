@@ -302,3 +302,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-07-07T23:32:38Z  op:ingest  S=16 I=0 staged=5 diary=4 missing=4 staging_backlog=5 (meta-acks=6 zero-delta=1 diary_pending=1 queue-pruned=0)
 - 2026-07-08T02:11:05Z  op:distill  staged=5 pages=6 created=1 self=0 home=updated backlog_left=0 (todobot ×2 統合 [email-only + scheduler-drift] / gakudo ×2 統合 [世帯優先調整 + 6/11 再集計] / 新規 04_life/tamentai-note-sosaku-taisho-2026 / 06_output 2 行 [PR#1, gakudo-assignment push] / diary_pending 1 件を 02_diary/2026-05-23 に着地; 手動 attended distill = openspec wiki-knowledge-refocus task 4.3)
 - 2026-07-08T02:12:00Z  op:query  "検証4問: MPM状態/todobot email-only理由/リカバリ手順/文面の好み" → 03_work/meguru-pm-report, 03_work/todobot, 00_self/preferences (openspec task 4.4 verification)
+- 2026-07-08T03:21:05Z  op:lint    contradictions=3 orphans=0 stale=0 broken=94 stuck-inbox=0
