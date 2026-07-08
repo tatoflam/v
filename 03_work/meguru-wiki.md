@@ -10,16 +10,40 @@ updated: 2026-06-25
 
 ## Summary
 
-Bizuayeu (= 株式会社めぐる向け Claude Code プラグイン基盤) 配下の **中央ナレッジ Vault** (= `~/repo/github/Bizuayeu/MeguruWiki/`)。case-shard 形式で project / team / vendor / knowledge を独立ファイルとして管理し、JootoGrabber / GmailGrabber からの自動吸収 + LLM 駆動の `/wiki-jooto-absorb` / `/wiki-absorb` skill 群で日次更新する。本ページは 2026-06-16 の大規模 Gmail 統合 + Jooto 再吸収 + MeguruPMReport 側への OpenSpec 引き継ぎを記録する。
+Bizuayeu (= 株式会社めぐる向け Claude Code プラグイン基盤) 配下の **中央ナレッジ Vault** (= `~/repo/github/Bizuayeu/MeguruWiki/`)。case-shard 形式で project / team / vendor / knowledge を独立ファイルとして管理し、JootoGrabber / GmailGrabber からの自動吸収 + LLM 駆動の `/wiki-jooto-absorb` / `/wiki-absorb` skill 群で日次更新する。2026-06-16 に大規模 Gmail 統合 + Jooto 再吸収 + MeguruPMReport 側への OpenSpec 引き継ぎを実施済 (session 0d974a46)。
 
-## 2026-06-16 大規模 Wiki 最新化 + Gmail 統合 + OpenSpec 引き継ぎ (session 0d974a46、1 日跨ぎ、9 commits)
+## 現在の状態
 
-User 起点「ローカルで wiki を最新化したい」を受け、Jooto 再吸収 → Gmail 認証統合 → メール大量吸収 → 知識シャード反映 → 統合運用 OpenSpec 引き継ぎ、まで一気通貫で完了。最終 `main` は **`origin/main` から 9 commits ahead** (user が手動 push 予定)。
+- 2026-06-16 の大規模最新化 (session 0d974a46、1 日跨ぎ、9 commits) 完了時点で、ローカル `main` は **`origin/main` から 9 commits ahead** (user が手動 push 予定)
+- **Jooto 側**: `--all-active` 再吸収で **20 ボード更新 / 26 不変** (4/16 以来 ~2 ヶ月分の差分) を反映済
+- **Gmail 側**: hishida 受信箱 1 ヶ月 + thomma 経由の togami-log 1 ヶ月で 1,643 件取得 → **1,005 emails** をシャードに吸収済。rule_match 1,147 件 (68%)、unclassified 496 件 (32%)。triage 後の残 494 件は CG 納品自動通知 / システム配信 / 部署内 / 空本文返信などのノイズ
+- **Cloud プロジェクト**: GmailGrabber を `meguru-pm-master` に統合済 (`gmail.readonly` scope 追加、`orbital-caldron-455606-d6` 配下の旧 client は不要化)
+- **3 アカウント認証体制**が稼働: thomma (個人 OAuth) / togami-log (thomma 経由の間接取得) / hishida (Service Account + DWD)
+- **PMReport ↔ MeguruWiki 統合運用**: MeguruPMReport 側 `openspec/` に 3 change として引き継ぎ済 (commit `a113f3b`、全 change `openspec validate --strict` ✅)
+
+## 決定事項
+
+- 2026-06-16: GmailGrabber の Cloud プロジェクトを `meguru-pm-master` へ統合 (**option B**) — MeguruPMReport 側 3 plugin が既に `meguru-pm-master` を共有しており、GmailGrabber だけの完全分離 (`orbital-caldron-455606-d6`) を解消するため。`gmail.readonly` scope を OAuth 同意画面に追加し、`client_secret.json` は symlink 参照、旧 client は不要化
+- 2026-06-16: 3 アカウントの認証方式振り分け — `thomma@meguru-construction.com` (user 本人) = **個人 OAuth** (`token_thomma.json`)、`togami-log@meguru-construction.com` (GWS グループアドレス、本人参加) = thomma OAuth + `to:togami-log@` Gmail 検索で間接取得 (Groups は Gmail API で直接読めない仕様のため)、`hishida@meguru-construction.com` (別人・役員) = **Service Account + DWD** (user は Super Admin、Admin Console で domain-wide-delegation 登録)
+- 2026-06-16: `inbox/unclassified/jooto-1294167.md` (FY26_21 江古田江原) は `NakanoEhara3Chome` にマップ — user 指示 (commit `30a8e9c`)
+- 2026-06-16: PMReport ↔ MeguruWiki 統合は 4 シナリオ (I 統合せず維持 / II Wiki 側に寄せる / III PMReport 側に寄せる / IV ハイブリッド) のうち **IV 案 (主導 = MeguruPMReport、OpenSpec で 3 phase 設計)** を選択 — user 提案「PMReport の更新と MeguruWiki の更新を一体化した運用を行いたい」を受けて
+- 2026-06-16: `inbox/absorbed/` (吸収済みメール raw cache) を `.gitignore` に追加 (`b844a3a`) — agent 副次産物のため
+
+## 手順・Runbook
+
+- **Jooto 再吸収**: `JootoGrabber/scripts/interfaces/backup_cli.py --all-active`。スキル方針「**勝手に新規 project を起こさない**」に従い `_alias_resolver.md` ベースで分類、ambiguous は `inbox/unclassified/` に退避 (.gitignored)
+- **Gmail 横断バックアップ**: `/gmail-multi-backup` で 1 コマンド全アカウント横断、**RFC5322 Message-ID で自動 dedup** (CC 配信の二重取得防止)。SA key: `~/.config/gmailgrabber/sa-key.json` (600)、Client ID `118121602385730379920` を Admin Console で DWD 登録 → impersonation で本人ノータッチで取得可能
+- **メール吸収**: 並列 subagent (`/wiki-absorb-shard`) で project / team / vendor / knowledge 系シャードに吸収。`_index.md` の既存 Jooto セクション保持 + alias_resolver 更新 + frontmatter `last_synced` 更新までセットで行う
+- **unclassified triage**: `triage_cli` (rule fallback として `claude -p` subprocess、~50–100 分想定の background 起動)
+
+## 経緯
+
+2026-06-16、User 起点「ローカルで wiki を最新化したい」を受け、Jooto 再吸収 → Gmail 認証統合 → メール大量吸収 → 知識シャード反映 → 統合運用 OpenSpec 引き継ぎ、まで一気通貫で完了 (session 0d974a46、1 日跨ぎ、9 commits)。
 
 ### Phase 1: Jooto 再吸収 (commits `bf55fb5`, `30a8e9c`)
 
 - `JootoGrabber/scripts/interfaces/backup_cli.py --all-active` で **20 ボード更新 / 26 不変** (4/16 以来 ~2 ヶ月分の差分)
-- スキル方針「**勝手に新規 project を起こさない**」に従い `_alias_resolver.md` ベースで分類:
+- `_alias_resolver.md` ベースで分類:
   - 既存 project shard 更新: **12 件** (高円寺南5丁目 / 渋谷区本町5丁目 / 中野坂上 / 高田馬場 / 新宿山吹町 / 山王3丁目 / 中野区本町5丁目 / 東尾久4丁目 / 東向島5丁目 / 多摩川1丁目 / 西大井6丁目 / 恵比寿三田1丁目)
   - 既存 team shard 更新: **2 件** (Div1Ka, SekkeiPMTemplate)
   - 新規 team shard 作成: **1 件** (SaiTasks)
@@ -92,7 +116,7 @@ unclassified 550 件に対し `triage_cli` (rule fallback として `claude -p` 
 
 ### Phase 6: PMReport ↔ MeguruWiki 統合運用の OpenSpec 引き継ぎ (commit `a113f3b` on MeguruPMReport)
 
-User 提案「**PMReport の更新と MeguruWiki の更新を一体化した運用を行いたい**」を受け、4 つの統合シナリオ (I 統合せず維持 / II Wiki 側に寄せる / III PMReport 側に寄せる / IV ハイブリッド) のうち **IV 案 (主導 = MeguruPMReport、OpenSpec で 3 phase 設計)** を選択。MeguruPMReport の `openspec/` 配下に **3 つの change を新規追加**:
+**IV 案** (決定事項参照) に基づき、MeguruPMReport の `openspec/` 配下に **3 つの change を新規追加**:
 
 | Change | パス | 役割 |
 |---|---|---|

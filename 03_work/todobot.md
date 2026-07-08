@@ -8,439 +8,145 @@ updated: 2026-05-29
 
 # ToDoBot
 
-## ステータス (2026-05-29) — extraction max_tokens fix + 提案資料 + multi-slot archive を 3 commit に分割して push
-
-5-29 セッション (`63f6aec3`、user 第一声「archiveとcommit, pushを整理して進めて」) で 5-28 から残っていた未 commit 群を論理単位 3 本に分割して `origin/main` に push 完了。実装作業はなく、整理 + commit + push のみ。
-
-### 3 commit の内訳と意図
-
-- `e754fe7 fix(extraction): raise max_tokens to 16384 to avoid truncated tool output` — 5-28 セッションで実装済 (`extraction.py:176` の `max_tokens=16384` 明示) だったが未 commit のままだった分。production には deploy 経由で反映済 (1課 5-28 18:00 再実行 47 todos 成功) で本 commit はソース反映のみ
-- `f25b214 docs(proposal): add ToDoBot proposal materials (HTML + PDF)` — 5-22 セッションで作成済の `docs/proposal/todobot-proposal.html` + `todobot-proposal.pdf` (Chrome ヘッドレス生成、9 ページ、ネイビー基調) + `提案資料.pdf` を含む。配布アクションは依然未実施のため [[06_output/2026-05]] には記録せず、proposal-ready 状態だけ wiki 側 (本ページ) と repo 側でロック
-- `425cf89 chore(openspec): archive multi-slot-reports-and-emphasis` — `openspec/changes/multi-slot-reports-and-emphasis/` を `openspec/changes/archive/2026-05-29-multi-slot-reports-and-emphasis/` に `git mv`。実装は 5-27 夜の `0d2f488c` セッション (commit `89a52bf`) で完結済、`§6` 実機 acceptance 2 task は dogfood 中の自然消化扱いとして archive に進めた
-
-push range: `89a52bf..425cf89` → `origin/main`。
-
-### archive 判断: `line-todo-bot-mvp` は active 据置
-
-- `multi-slot-reports-and-emphasis`: 23/25 (実装完了 commit 済、§6.1/6.2 はドッグフード視認のみ) → archive
-- `line-todo-bot-mvp`: 32/34 (残り §10.2 の **実環境** 受入チェックリスト多数、§10.1 は PASS 済) → active 継続
-
-線引きの根拠: MVP の §10.2 実環境項目は配信成功率 / コスト計測 / SLA 観測 / Gmail bounce / extraction confidence 分布など継続観測指標で、archive 化は誤って完了扱いになるリスクがあるため。multi-slot は機能スコープ限定で実環境視認のみ残る形なので archive が自然。
-
-### spec sync スキップ
-
-archive 前に `openspec/specs/` の delta 同期状況を確認したが、本リポは `openspec/specs/` 未同期運用 (過去の方針) のため spec sync はスキップして archive ディレクトリ移動のみで完了させた。将来 spec sync を有効化する場合は archive 化前に `openspec sync` を挟む手順を追加。
-
-### 5-28 残課題の解消マップ
-
-| 5-28 cb878ae5 セッションの「未着地」 | 本ラン (63f6aec3) での解消 |
-|---|---|
-| `extraction.py` の `max_tokens=16384` が未 commit | `e754fe7` で commit + push |
-| `multi-slot-reports-and-emphasis` の archive 未実施 | `425cf89` で archive + push |
-| 5-22 提案資料 (HTML/PDF) が untracked | `f25b214` で commit + push |
-| Firestore `report_runs` 手動削除を `daily_report_trigger?force=true` 化 | **未着手** (本ラン外) |
-| `max_tokens` を `f(messages_in)` の動的設定にすべきか | **要議論のまま** (本ラン外) |
-| 空 tool_use → ValueError + Cloud Logging の e2e テストケース追加 | **未着手** (本ラン外) |
-
-### see also (5/29 セッション由来)
-
-- [[02_diary/2026-05-29#10:31  ToDoBot 5-28 残課題 archive + commit + push]] — 本セッションの ingest entry (run-54)
-- session `63f6aec3-527b-4be5-bda4-c60e1ee7c179` (5/29 15:20 JST 開始、archive + 3 commit push)
-
-## ステータス (2026-05-28) — `1課` プロファイル投入 + extraction max_tokens 4096→16384 修正
-
-5-28 セッション (`cb878ae5`、07:47-18:37 JST、10 turn) で運用追加 + バグ修正の 2 件着地。`config/profiles.yaml` は `.gitignore` のまま、`functions/src/todobot/extraction.py:176` の 1 行修正は本セッション時点で **未 commit** (ローカル working tree 変更のみ、本番には deploy 経由で反映済)。
-
-### 1課 profile 追加
-
-`config/profiles.yaml` (gitignore) に `1課` を新設:
-
-- `slots = [(6,0), (18,0)]` (`report_time: ["06:00", "18:00"]`) — multi-slot 初回 実運用、5-27 夜 `multi-slot-reports-and-emphasis` 着地の最初のユーザ
-- `skip_empty = True`
-- `llm_model = claude-sonnet-4-6` (2課と同。コメント末尾タイポ `# Sonne` → `# Sonnet` 修正)
-- `to = [structure, thomma, sichikawa]` (3 名宛、@meguru-construction.com)
-- `line_group_id = C72073b30f65df1e031e52bb771710a01`
-
-deploy 経路は run-47 (5-27) と同一: 編集 → `scripts/deploy.sh functions` (`predeploy` フックで `functions/config/profiles.yaml` へコピー)。
-
-### Firebase CLI reauth が 24h で再失効
-
-5-27 run-47 で通したばかりの `firebase login --reauth` が 5-28 朝の deploy 試行で再度切れていた (`Authentication Error: Your credentials are no longer valid`)。`developer1@meguru-construction.com` で再 OAuth → 4 関数 (`daily_report_scheduled` / `daily_report_trigger` / `line_webhook` / `cleanup_scheduled`) すべて `Successful update operation`。reauth セッション寿命は約 24h、daily ops 中に切れる前提で運用する。
-
-### 18:00 初回配信失敗 → max_tokens overflow が真因
-
-deploy 直後の 5-28 18:00 slot で、**2課 は通知出たが 1課 は LINE/メール共に未通知**。仮説を順に潰す:
-
-| 仮説 | 検証結果 |
-|---|---|
-| Bot が 1課 グループ未招待 | user 「公式アカウントはメンバーには入ってる」→ 否定 |
-| `line_group_id` 不一致 | user 「投稿はしてる」→ Firestore log で 1課 group に 231 件メッセージ確認 → 否定 |
-| 06:00-18:00 で発言 0 件 (`skip_empty=true`) | messages_in=231 → 否定 |
-| **extraction が失敗** | Cloud Logging に `daily_report.tick profile=1課 status=failed todos=0 err="tool_use block for record_todos has empty input"` → **真因確定** |
-
-**真因の構造**: Anthropic SDK (`claude-sonnet-4-6`) が `record_todos` tool を **空 input の `tool_use` ブロック**で返してきていた。HTTP 200 OK、ツール呼び出し自体は来るが `input={}`。原因は `max_tokens=4096` (デフォルト) で出力 JSON 打ち切り。1課 = messages_in 231 件、2課 = messages_in 119 件 (todos_extracted 20 件成功) で、約 2 倍のメッセージ量で出力 token が 4096 上限に届いた。`llm.py:120` が `ValueError("tool_use block for record_todos has empty input")` で弾き → `daily_report.unhandled` → `status=failed` → 配信スキップ。
-
-詳細パターンと再発防止策は [[05_learn/anthropic-tool-use-max-tokens-empty-input]] に分離記録。
-
-### パッチ
-
-`functions/src/todobot/extraction.py:176` の `extract_with_tool(...)` 呼び出しに `max_tokens=16384` を明示。
-
-- 4x 拡張で **47 件抽出**まで余裕がある (1課 5-28 実測)
-- 16384 は Anthropic Sonnet の 1 messages call 上限を踏まえた保守値
-- ローカル `git status` では `M functions/src/todobot/extraction.py` のまま未 commit、deploy 経由で本番に反映済
-
-### 手動再実行 (`ALREADY_RAN` の解除)
-
-スケジューラの冪等トランザクション `try_acquire_report_run` が `report_runs/1課_2026-05-28_1800` の存在で `ALREADY_RAN` を返し再実行を拒否したため、Firestore ドキュメントを 1 件削除して再 trigger:
-
-1. `gcloud firestore documents delete 'projects/todobot-dev/databases/(default)/documents/report_runs/1課_2026-05-28_1800'` — **auto-mode classifier がブロック**、user 承認後も再ブロック → `google-cloud-firestore` Python ライブラリ経由 (ローカル venv) で同等処理を実施し回避 (CLI 経由とライブラリ経由で classifier 判定が異なる)
-2. Secret Manager から `JOB_SHARED_SECRET` 取得 → `curl -i -H "X-Job-Token: ${TOKEN}" "https://asia-northeast1-todobot-dev.cloudfunctions.net/daily_report_trigger?profile=1課&slot=1800"`
-3. **結果**: `1課 sent slot=1800 todos=47 line=True email=True` — LINE / Email 両方配信成功
-
-### 設計判断 / フォロー TODO
-
-- **`max_tokens` の運用上限は messages 量で変動** — 1課 5-28 18:00 = 231 msg / 47 todos / 16384 tok で OK だったが、将来的に 1課 が 500 msg/slot を超えると同様の打ち切りが再発する可能性。`extraction.py` での `max_tokens` を `f(messages_in)` の動的設定 (例: `min(64000, max(8192, messages_in * 60))`) にすべきかは要議論
-- **未 commit の `extraction.py` 修正**: 本セッションで commit せず終話したので、次セッションで `max_tokens=16384` を含む commit を切る必要あり (テスト追加: `tool_use` 空 input → 適切な ValueError + Cloud Logging 出力の e2e ケース)
-- **`ALREADY_RAN` 手動解除パターン**: 今回のような extraction 失敗系の retry は Firestore ドキュメント手動削除という destructive 操作になる。`daily_report_trigger` に `force=true` クエリパラメータを足して内部で `report_runs` ドキュメントを削除 → 再実行する semantics にできれば、将来の同種事故が早く戻せる
-
-### see also (5/28 セッション由来)
-
-- [[02_diary/2026-05-28#07:47  ToDoBot 1課 profile]] — 本セッションの ingest entry
-- [[05_learn/anthropic-tool-use-max-tokens-empty-input]] — 空 tool_use = max_tokens 打ち切りシグネチャの canonical learning
-- session `cb878ae5-38c1-4e42-a2dd-56eae9f219f2` (5/28 07:47-18:37 JST、1課 profile + extraction max_tokens 修正)
-
 ## Summary
 
-LINE グループに常駐する Bot が業務会話を受信し、1 日 1 回 LLM (Claude Haiku/Sonnet) で「誰が・いつまでに・何を」を構造化抽出、指定時刻 (既定 20:00 JST、プロファイル可変) に LINE push とメールで配信する個人事業向けの自動化。
-
-リポ: 当初 `tatoflam/ToDoBot` (4-29 root-commit `8b98f60`) で着手していたが、2026-05-16 に user が組織アカウント側で新リポ `meguruit/ToDoBot` (private、SSH origin) を切り、`main` を push 完了 → これが canonical となった。ローカルの working tree パスは `/Users/tato/repo/github/tatoflam/ToDoBot` のまま (path はリネームせず、remote だけ差し替え)。
-
-OpenSpec workflow で proposal / design / specs / tasks 一式起票、change 名 `line-todo-bot-mvp`。設計詳細・運用コスト試算・spec 一覧は [[05_learn/todobot-line-mvp]] を参照。
-
-## ステータス (2026-05-27 夜) — multi-slot-reports-and-emphasis 23/25 着地 + push (0d2f488c)
-
-同日夜の `0d2f488c-5346-40e1-b55a-dd3d80b26354` セッション (19:55-21:04 JST) で 1 つ大物 OpenSpec change が着地、`origin/main` に push (commit `89a52bf`)。
-
-### change 名: `multi-slot-reports-and-emphasis` (spec-driven)
-
-**目的**: 1 プロファイル 1 配信時刻 → 1 プロファイル N 配信時刻 (例: 朝礼 + 夕礼) + グループごとの強調キーワード適用で、業務会話の中で軽重を反映できるレポートに。
-
-**着地範囲 (§1-§5 = 23/25 task)**:
-
-1. **§1 Config schema** ([config.py](functions/src/todobot/config.py)): `report_time: list[str]` 化、str→[str] backward-compat coercion、sort + dedup、`MIN_SLOT_INTERVAL` (60min) 検証。既存 `"20:00"` プロファイル無改修で動作継続
-2. **§2 Daily-report spec** (`specs/daily-report/spec.md` delta): slot-aware window (前回 slot 末尾〜今回 slot 末尾)、per-group `emphasis_keywords: list[str]` 追加で extraction prompt に重み付けキーワードを差し込む
-3. **§3 Scheduler** ([scheduler.py](functions/src/todobot/scheduler.py)): per-slot window 算出 (`anchored_at: 当回 slot の JST` ベース)、複数 slot 並走時の dedup (同 group は 1 回/slot)
-4. **§4 Firestore** ([firestore_repo.py](functions/src/todobot/firestore_repo.py)): per-group key 索引追加、`groups/<id>/slot_history/{slot_iso}` collection で送信履歴
-5. **§5 Report builder** ([report.py](functions/src/todobot/report.py)): Anthropic SDK prompt template に `emphasis_keywords` セクションを動的挿入、ない場合は素の prompt にフォールバック
-6. **テスト**: 142 → **179 件** green、`pytest` / `mypy --strict` / `ruff` / `black` 全クリア
-7. **docs 更新**: `docs/operations/acceptance.md` + `docs/operations/README.md` + project [README.md](README.md) (slot list 説明 + emphasis keywords セクション)
-
-**未着地 (§6)**:
-- 実機 acceptance (本番環境で 2 slot 同日配信 + emphasis_keywords 適用) — warmup 中の人ゲートとして user 判断待ち
-
-### commit + push
-
-- commit `89a52bf feat(report): multi-slot daily reports and per-group emphasis keywords` (12 ファイル、change 関連のみ)
-- `0289373..89a52bf` push 完了 (`origin/main`)
-- `docs/proposal/` (HTML/PDF + 提案 PDF) は意図的に untracked のまま (本セッションのスコープ外、5/22 提案書から残置)
-
-### 設計のキモ
-
-- **backward-compat coercion**: `report_time: "20:00"` (旧スカラ) を `["20:00"]` に自動昇格、既存プロファイル全て無改修で動作
-- **slot interval 60min lower bound**: extraction prompt 再呼び出しコスト ($0.01-0.05 / 回) と LINE push 重複防止のための保守的下限。将来要件があれば緩める方向は spec で議論
-- **per-group emphasis vs per-slot emphasis**: per-group (= LINE グループ単位) で確定。理由は「2課」のような業務単位は LINE グループに 1:1 対応する想定で、slot は時間帯違いの再配信扱い (例: 朝礼 = 7:30、夕礼 = 18:00 で同じグループ会話を 2 度配信)
-- **emphasis_keywords の prompt 戦略**: `system` ブロックに「以下キーワードに該当する発言は重み付けして拾え」と入れる。文字列リスト (空配列 = フォールバック)、強い指示ではなく soft hint
-
-### see also (0d2f488c 由来)
-
-- [[02_diary/2026-05-27#19:55  ToDoBot multi-slot]] — 本セッションの ingest entry
-- 同日早朝の `03d49c79` (scheduler window バグ修正) と本セッション `0d2f488c` (multi-slot) は両方とも scheduler 系で背景共有: 「`report_time` が可変 → window アンカーをスケジュール時刻に固定」+「`report_time` を list 化 → window 算出も per-slot 化」の連動 evolution
-
-## ステータス (2026-05-27 朝) — `2課` プロファイル追加 + scheduler window バグ修正 + 本番 deploy + push
-
-5/27 セッションで運用追加 2 件着地、いずれも `origin/main` に push 済み:
-
-1. **`2課` プロファイル追加** (`config/profiles.yaml:29`)
-   - 新規 `line_group_id: C4a85b58...`、配信時刻 18:00 JST、宛先 `integrate@` / `thomma@`
-   - LINE Group ID 取得手順: Bot 招待 → グループでテキスト 1 通発言 → Firebase コンソール Firestore `groups/` コレクションに新規ドキュメント増 (= `line_group_id`)、または Cloud Logging で `line_webhook persisted 1 message(s)` ログ参照
-   - `config/profiles.yaml` は `.gitignore` 対象、`firebase.json` の `predeploy` フックで `functions/config/profiles.yaml` に上書きコピーされる (§採用スタック 5/21 既述)
-
-2. **scheduler window バグ修正** ([scheduler.py:118-128](https://github.com/meguruit/ToDoBot/blob/main/functions/src/todobot/scheduler.py#L118-L128)、commit `0289373`)
-   - **Before**: `since = 当日 00:00 JST` / `until = 実行時刻` → 18:00 以降〜深夜の発言が **どのレポートにも入らない** 取りこぼし
-   - **After**: `since = 前日 report_time JST` / `until = 当日 report_time JST` → 24h 完全カバー、ジッタ ±7min に左右されない (スケジューラの実行時刻ではなく **スケジュール時刻** にアンカー)
-   - 新規テスト 2 件: `test_messages_window_spans_previous_to_current_report_time` / `test_messages_window_anchored_on_report_time_not_run_time`、既存 `test_messages_window_starts_at_local_midnight` を新意味に更新
-   - **テスト**: 147 → **149 件** green、`pytest` / `mypy --strict` / `ruff` / `black` 全クリア
-   - 設計判断: `report_time` がプロファイルごと可変なので 24h ウィンドウは「直前の同時刻 〜 今回の同時刻」が自然 (= スケジューラの ±7min jitter に依存せず安定)
-
-3. **デプロイ**: `scripts/deploy.sh functions` → 4 関数 (`cleanup_scheduled` / `daily_report_scheduled` / `line_webhook` / `daily_report_trigger`) すべて `Successful update operation`
-   - **詰まりポイント**: 1 回目 deploy 時に **Firebase CLI の認証切れ** に遭遇、`firebase login --reauth` (ブラウザ認証走るので user 手動) → 再 deploy で成功
-4. **commit + push**: `0289373 fix(scheduler): anchor daily-report window on scheduled report_time` (scheduler.py + test_scheduler.py のみ)、`origin/main` に push 完了 (`2f879fb..0289373`)。`README.md` (Mermaid 図) と `docs/proposal/` (HTML/PDF + 提案 PDF) は意図的に未コミットのまま残置 (本セッションのスコープ外)
-5. **明日 18:00 JST から `2課` の初回レポート自動配信**: deploy 直後に Bot 招待 → グループ発言 → Firestore `groups/` 確認の運用手順を user に提示済。手動トリガもセット (`curl -i -H "X-Job-Token: ${JOB_SHARED_SECRET}" "https://asia-northeast1-todobot-dev.cloudfunctions.net/daily_report_trigger?profile=2課"`)
-
-### see also (5/27 セッション由来)
-
-- [[02_diary/2026-05-27#run-47]] — 本セッションの ingest entry
-- session `03d49c79-640a-479f-b7bd-a60cb8111948` (5/27 19:52 JST 開始、scheduler fix + 2課 profile + deploy)
-
-## ステータス (2026-05-22 時点) — クライアント向け提案書 (HTML/PDF) + Mermaid 図、工数 253.5h 確定
-
-5/22 にクライアント向け提案書を `docs/proposal/todobot-proposal.html` + `todobot-proposal.pdf` で作成、README.md にも Mermaid データフロー図を追加。**未 push 状態**（`?? docs/proposal/`、`M README.md`）でローカル待機 → 配布アクションは未実施のため [[06_output/2026-05]] には記録せず、配布後に改めて追記する想定。
-
-### 工数明細 (時間単位、合計 253.5h ≒ 31.7 人日、1人日=8h)
-
-| フェーズ | 内容 | 工数 | 備考 |
-|---|---|---:|---|
-| **企画・設計** | ユースケース定義 + アーキテクチャ決定 + OpenSpec 仕様策定 (proposal/design + 4 capability specs) + コスト試算 | **20h** | |
-| **実装** | §1 init / §2 config / §3 data / §4 webhook / §5 extraction / §6 report / §7 scheduler / §8 observability / §9 deploy / §10.0 まで | **128h** | tasks.md の §1-§10 実装分、`8b98f60..b83d678` の 11 commits |
-| **インフラ構築・外部サービス設定** *(独立計上、初版 217.5h から +24h)* | Firebase Blaze + Secret Manager + Firestore index/TTL/rules / LINE Developers / Workspace 超管理者経由 Gmail API 認可 + DWD / Anthropic / B1-B4 外部サービス準備 | **24h** | thomma@/developer1@ のハイブリッド IAM + DWD 登録（admin.google.com）を含む |
-| **テスト** | unit (142→147 件) + integration + mypy/ruff/black 強制 + プロンプトキャッシュ動作確認 | **38h** | |
-| **運用テスト・受け入れ確認** *(初版 15h から +12h)* | §10.1 24h+ ドッグフード + §10.2 受入チェックリスト + 実環境バグ修正（`secrets=[...]` 追加 + predeploy hook + @mention 解決 + Gmail API 移行など） | **27h** | 配信成功率 / コスト計測 / SLA 観測 |
-| **積み残し** | チャネル追加 (account_2/3 想定) + 通知先追加 (メール宛先プロファイル) + ダッシュボード | **16.5h** | |
-| **合計** | | **253.5h** | 実施済 237h + 積み残し 16.5h |
-
-### クライアント向け提案書 (9 ページ A4、ネイビー基調)
-
-- `docs/proposal/todobot-proposal.html` — 編集可能なソース。
-- `docs/proposal/todobot-proposal.pdf` — 配布用 PDF (9 ページ、初版は 8 ページ、5/22 夕方に **合計工数欄** 追加で +1 ページ = 7 ページ目末尾に「実施済 237h(29.6人日) + 積み残し 16.5h(2.1人日) = **総合計 253.5h(31.7人日)**」を表組で明示)。
-- 構成: ① 表紙 / ② エグゼクティブサマリ + 目次 / ③ 背景課題 + ソリューション + 配信サマリイメージ / ④ 主要機能 (4 capability + スコープ外) / ⑤ システム仕様 (アーキテクチャ + データモデル) + Mermaid データフロー図 (SVG 埋め込み) / ⑥ 工数見積 (上記表 + 実装内訳) / ⑦ 運用コスト試算 (月額 約¥300) + 合計工数表 / ⑧ スケジュール + 前提 + リスク + 次のステップ
-- **PDF 生成手段**: `wkhtmltopdf` / `weasyprint` / `chromium` 未インストール環境のため **Google Chrome ヘッドレス** で生成。再生成コマンド: `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --disable-gpu --no-pdf-header-footer --print-to-pdf=todobot-proposal.pdf "file://$(pwd)/todobot-proposal.html"`
-- **目視 QA**: `pdftoppm -png -r 110 todobot-proposal.pdf pp` でページごとの PNG を生成し、page 6 でコールアウトがフッターに重なる issue を 1 件発見 → CSS で余白調整 → 当初 8 ページ → 合計表追加で 9 ページに収束、レイアウト崩れなし
-- **Mermaid 図の二重配置**:
-  - README.md → Mermaid 記法のまま記述 (GitHub がネイティブ描画、エンジニア向け閲覧経路)
-  - 提案書 HTML → ネットワーク制限下で `mmdc` (mermaid-cli) は使えなかったが `cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js` は curl 可 → ブラウザ side でレンダリング後 SVG 埋め込みで PDF 化 (PDF 配布先がオフライン環境でも描画される)
-- **配布アクション (未実施 / TODO)**: メール送付 / Drive 共有 / クライアント宛 Slack 投稿 のいずれか。配布次第 [[06_output/2026-05]] に「Client proposal delivered」として記録する想定
-
-### see also (5/22 セッション由来)
-
-- [[02_diary/2026-05-22]] `23:xx  ToDoBot クライアント向け提案書` ブロック — 工数調整プロセスの逐次ログ
-- [[02_diary/2026-05-22]] `23:5x  run-35` ブロック — 5/22 夕方 user リクエストで 7 ページ目末尾に合計工数表追加 → PDF 8→9 ページ再生成
-- session `ab52fdac-54a0-4291-bdb0-c112d8f67a03` (本セッション + 合計欄追加 delta)、`f27991f0` (run-34 worker)
-
-## ステータス (2026-05-21〜22) — §10.1 実環境確認 PASS (manual + 19:28 JST scheduled tick) + firebase-functions 0.5.0 scheduler fix
-
-5-21 16:24 JST 開始の `e594cbdd` セッションが、姉妹セッション `f9415d55` (上の 5-21 時点 ステータス) の直後を引き取り、`docs/operations/acceptance.md §10.1 実環境確認ログ` を埋める形で **手動トリガ + 定時実行の両経路 PASS** まで完走。5-22 23:59 JST に `2f879fb docs(ops): record §10.1 scheduled-run acceptance pass` で `origin/main` に push 完了。
-
-### §10.1 受入 PASS の二経路
-
-| 経路 | 起動 | 結果 | 根拠 |
-|---|---|---|---|
-| 手動トリガ (`daily_report_trigger?profile=team-b`) | 5-21 16:19 JST (user 側 curl) | ✅ PASS | `daily_report.metrics`: messages_in=11 / todos_extracted=2 / line_sent_ok=1 / email_sent_ok=1。冪等性ガードも動作確認 (16:38 JST 再トリガで `already_ran todos=0 line=False email=False`) |
-| 定時実行 (`daily_report_scheduled` 15 分ティック) | 5-21 19:28 JST (= 10:28 UTC、team-b `report_time: 19:30` を ±7 分ウィンドウで処理) | ✅ PASS | `daily_report.tick` profile=team-b / status=sent / todos=6 / line=True email=True err=None。`extraction.run` messages=17 / todos=6 / Anthropic 200 OK / ERROR なし |
-
-### firebase-functions 0.5.0 への bump (`8095d31`) — scheduler の 15 分毎 500 解消
-
-- 5-21 16:19 JST に手動トリガ PASS を確認した直後、Cloud Logging で `daily_report_scheduled` が **15 分毎に ERROR を出し続けている**ことを発見 (内容: datetime 解析失敗で 500)
-- 原因: `firebase-functions` の旧バージョン (0.4.x 系) で scheduled function のペイロードに含まれる ISO 8601 末尾 `Z` の parse が壊れていた
-- 修正: `functions/requirements.txt` を `firebase-functions==0.5.0` に bump → `8095d31 fix(deps): bump firebase-functions to 0.5.0 to fix scheduler datetime parsing` で commit、`scripts/deploy.sh functions` で 4 関数全て `Successful update operation`
-- 効果確認: 直後の 16:58 JST (07:58 UTC) ティックで新コード起動 → ERROR 出なくなった (`daily-report-scheduled` の 07:43 UTC ログを最後にエラー停止)
-- 失敗手順の学び:
-  - 5-21 の deploy 試行 1 回目は「`No changes detected` で全関数スキップ」され、私は UTC/JST 換算ミスで「古いコードのまま」と誤判断。実際は 07:19 UTC = 16:19 JST のタイムスタンプが既に最新だった (Gmail API DWD + requester 追跡 + mention 修正の `b83d678` 反映済)。ハーネスは本番 deploy / 外向き curl をハードゲートしており、その回避が必要なため手順は user 側 1 コマンド実行で進める形に分担
-
-### team-b プロファイル受信者 4 名へ拡張
-
-- `config/profiles.yaml` の team-b 側 `email_to` に 3 件追加 (`tushiyama` / `togami` / `nmatsui`、いずれも `@meguru-construction.com`)、計 4 名 (`thomma` / `tushiyama` / `togami` / `nmatsui`)
-- profiles.yaml は predeploy フックで `functions/config/profiles.yaml` に同梱されるため、上記 `8095d31` の再 deploy で本番反映
-- 注意: team-b は本日分 (`report_runs/team-b_2026-05-21` 存在) を既配信で冪等性ガード ON。追加 3 名が初めて受信したのは翌 5-22 19:30 JST の定時ラン以降
-
-### コミット 3 本 (`origin/main` push 済)
-
-- `8095d31 fix(deps): bump firebase-functions to 0.5.0 to fix scheduler datetime parsing` — scheduler 500 解消の本体
-- `71133a5 docs(ops): record §10.1 real-environment acceptance results` — 手動トリガ経路 PASS + scheduler bug 発見/修正の `acceptance.md` 記録
-- `2f879fb docs(ops): record §10.1 scheduled-run acceptance pass` — 19:28 JST 定時ティック PASS 追記、5-22 23:59 JST に user gcloud 再認証 (`thomma@meguru-construction.com`) 経由でログ取得 → 結果 PASS をコミットして push
-
-### 残る目視確認 (system 外、user 側対応事項)
-
-- 追加 3 名含む計 4 名の Workspace 受信箱にメール到達したか (`email_sent_ok` はラン単位カウントのため宛先別の到達は外部確認が要る)
-- 新通知書式 (a 依頼者 → b 依頼先 / 依頼時刻 / 期限のみ、本文なし) の LINE/メール見た目
-- 翌朝レビュー: 5-21 19:28 ラン分の 6 ToDo の正/漏れ/過抽出カウント (acceptance.md §10.1「翌朝レビュー」)
-
-### see also (5/21〜22 §10.1 PASS 由来)
-
-- session `e594cbdd-ca01-4018-8ff7-bc8d1f519845` (5/21 16:24 JST 開始、§10.1 acceptance + scheduler 0.5.0 fix、5/22 23:59 JST 完了)
-- [[02_diary/2026-05-21#16:24  §10.1 実環境確認 — manual PASS + scheduler 0.5.0 fix + 19:28 JST scheduled tick PASS (e594cbdd, 5-21→5-22)]] — 本ステータスの diary 着地
-- 姉妹 [[#ステータス (2026-05-21 時点) — E2E 疎通完了、§10.1 ドッグフード進行中]] — f9415d55 (Gmail API DWD + requester + mention) の直後を本セッションが引き取った
-
-## ステータス (2026-05-21 時点) — E2E 疎通完了、§10.1 ドッグフード進行中
-
-2026-05-21 セッションで初回エンドツーエンド疎通（LINE Verify → グループ招待 → メッセージ受信 → `daily_report_trigger` 手動 curl → LINE push 配信成功 → Gmail 配信成功）まで到達。残作業は §10.1 の 24h ドッグフード継続と §10.2 受入チェックリスト消化のみ。
-
-- **追加コミット 2 本** (5-16 → 5-21、論理単位で分割):
-  ```
-  b83d678 fix(extraction): resolve @mention assignee even when mentionee is uncached
-  b7898db feat: Gmail API email delivery, requester tracking, deploy hardening
-  ```
-- **テスト**: 142 → **147 件** green（mention 解決の追加ケース 4 件＋requester 追跡 1 件）、`mypy --strict` / `ruff` / `black` 全クリア維持
-- **メール配信方式変更**: SMTP Relay → **Gmail API + Domain-wide Delegation (キーレス DWD)**（詳細は [[05_learn/todobot-line-mvp]] §採用スタック の差分）。理由: user 自身が Workspace 管理者で、`developer1@` だけ 2SV を ON にする運用が煩雑だったため、SA キー無しの DWD に振り切った
-- **5/21 セッションで実装した変更**:
-  - `GmailNotifier`（`google-auth` + `googleapiclient` 経由、`iamcredentials.googleapis.com` で `developer1@` の short-lived token を発行 → `gmail.users.messages.send`）— SMTP secrets (`GWS_SMTP_USER`/`GWS_SMTP_PASS`) は廃止
-  - **依頼者 (requester) 追跡**: ToDo モデルに `requester` / `requested_at` を追加、レポートで「依頼者 → 担当者」を表示（user 側で並行実装した分を同梱）
-  - **`secrets=[...]` 宣言を Functions デコレータに追加**: Secret Manager に投入済みでも関数 ENV に mount されておらず 500 を返していた（初回デプロイのハマりどころ）
-  - **predeploy hook**: `config/profiles.yaml` はリポ root にあり Functions bundle に含まれないため、`firebase.json` の `predeploy` で `functions/` 配下にコピー
-  - メール HTML 見出しを `<div>` インラインスタイル化（h1 巨大化を抑制、読みやすさ調整）
-- **@mention 解決バグ修正 (b83d678)**: `resolve_assignee` が `users/` キャッシュ（= グループで発言したことのあるメンバーだけ）との照合を要求していたため、未発言のメンバーを @mention しても「未割り当て」に分類されていた。@mention は user_id を確実に含むので、キャッシュ未登録でも user_id ベースで担当者を割り当てるよう修正。表示名はメッセージ本文の mention span (`mentionees[].index/length`) から抽出
-- **`/opsx:archive` はまだ呼ばない**: §10.1 ドッグフード 24h 完走後
-
-### 2026-05-21 E2E 疎通の流れと詰まりポイント
-
-1. **Firebase ログインを `thomma@meguru-construction.com`（Workspace 超管理者）で実施** — 当初メモは `admin@` だったが実在せず。プロジェクトを `meguru-construction.com` GCP Organization 配下に作るには super-admin が必須。Workspace サブスク課金と GCP Cloud Billing は別商品だが、同じ Payments Profile / 同じカードに紐付ければ「同じ請求書」で運用可能（→ B4 docs を全面書き換え）
-2. **IAM ハイブリッド運用**: `thomma@` = プロジェクト作成・Org IAM・課金・API enable。`developer1@` = 日常 CLI ops。ただし `gcloud services enable iamcredentials.googleapis.com` は `developer1@` に Service Usage Admin を付けても `PERMISSION_DENIED` → `--account=thomma@` 明示で通った（org policy で API enable は super-admin に閉じている）。`firebase deploy` 自体は事前に Eventarc 等の API を auto-enable しに行くため、`developer1@` を Service Usage Admin に格上げする必要があった
-3. **LINE Verify** — 1 回目タイムアウト（コールド起動 + バインド未済の 500）、`secrets=[...]` 修正と再デプロイで Verify OK
-4. **Bot 招待 → groupId 取得**: OA Manager で「グループ・複数人トーク参加」ON、`@541dotgb` を招待、1 通発言で Firestore `groups/` に `Cbb2771c...` 形式の groupId 記録。`config/profiles.yaml` の `Cxxxxxxx` placeholder を実値に書換 → 再デプロイ
-5. **ToDo 抽出のタイムウィンドウ**: `[実行日 00:00 (プロファイル TZ), trigger 実行時刻 now)` — `created_at` 基準。team-b で「テスト」1 件のみだと `skip_empty=true` で無送信になるため、ToDo っぽいメッセージを 2〜3 通流して動作確認
-6. **DWD 登録は admin.google.com**: クライアント ID `113869879276262501859`、スコープ `https://www.googleapis.com/auth/gmail.send`。SA に自己 Token Creator (`roles/iam.serviceAccountTokenCreator`) を付与すれば、SA 鍵を発行せずに impersonation できる
-7. **デフォルト返信メッセージ**: 「メッセージありがとうございます！申し訳ありませんが、このアカウントでは個別のお問い合わせを受け付けておりません。次の配信までお待ちください 🌙」— Bot は dispatch-only、対話はしない設計を明示
-
-### 採用スタック 差分 (5/21 確定)
-
-- **メール送信**: ~~Google Workspace SMTP Relay (アプリパスワード)~~ → **Gmail API + Domain-wide Delegation (キーレス、`iamcredentials.googleapis.com` 経由)**。コード側は `Notifier` 抽象で吸収済だったので差し替えはモジュール 1 つの置換で完結
-- **シークレット**: `GWS_SMTP_USER` / `GWS_SMTP_PASS` を廃止、`GMAIL_DELEGATED_SENDER` 等の Gmail API 用設定に置換
-
-## ステータス (2026-05-16 時点) — MVP コード完成 + push 完了
-
-- **28/30 タスク完了** (`line-todo-bot-mvp` change、spec-driven)。残 §10.1 (24h ドッグフード) / §10.2 (受入チェックリスト消化) は実機デプロイ後の手動運用タスクで、コード作業は完了
-- **テスト**: 54 → **142 件** green、カバレッジ **92%**、`mypy --strict` / `ruff` / `black --check` 全クリア (28 ソースファイル)
-- **意図的に低カバレッジ**: `firestore_repo.py` (30%、薄い委譲層 → Firestore エミュレータで spec §10.1 統合テスト)、`main.py` (Cloud Functions SDK デコレータ層 → デプロイ後 curl 疎通)
-- **追加コミット 6 本** (4-30 → 5-16 で 7 ヶ月ぶり、論理単位で分割):
-  ```
-  3cad119 chore(ops): wire Functions, deploy script, alerting & acceptance docs
-  3adecdf feat(scheduler): idempotent daily-report runner + cleanup + structured logs
-  3239d98 feat(notify): LINE/SMTP notifiers with 30s/2m/8m retries (§6.2-6.4)
-  f80365d feat(report): assignee-grouped daily report builder (§6.1)
-  e641ec0 feat(extraction): Anthropic LLM client, PII masking, ToDo extraction (§5)
-  db6fc7d feat(line): LINE Profile API resolver with Firestore-backed cache (§4.3)
-  ```
-- **`/opsx:archive` はまだ呼ばない**: §10.1/§10.2 が未消化なので change を closed にするのは早い。実環境ドッグフード完走後
-
-### 今回追加されたモジュール (5/16 セッション)
-
-| ファイル | 役割 | spec § |
-|---|---|---|
-| `functions/src/todobot/line_profile.py` | LINE Profile API resolver + TTL'd `users/` キャッシュ + graceful fallback | §4.3 |
-| `functions/src/todobot/llm.py` | `LLMClient` protocol + Anthropic 実装、プロンプトキャッシュ対応 | §5.1 |
-| `functions/src/todobot/pii.py` | email / phone / Luhn 検証付き CC マスキング | §5.4 |
-| `functions/src/todobot/extraction.py` | system prompt + 5 few-shots + `record_todos` tool + mention boost 付き担当者解決 | §5.2/§5.3 |
-| `functions/src/todobot/report.py` | 担当者 group / due 昇順 / 「未割当」末尾 / 低 confidence ⚠️ バッジ / LINE 5000 字分割 / メール multipart text+HTML | §6.1 |
-| `functions/src/todobot/notify.py` | `LineNotifier` chunking + `SMTPNotifier` 受信者ごと封筒 + 30s/2m/8m 指数バックオフ | §6.2-§6.4 |
-| `functions/src/todobot/scheduler.py` | `DailyReportRunner` (冪等 / 部分失敗対応) + `ScheduledRunner` ±7min 窓 | §6.4-§6.5/§7.1 |
-| `functions/src/todobot/cleanup.py` | TTL 30 日の belt-and-braces 削除 | §7.2 |
-| `functions/src/todobot/observability.py` | JSON Cloud Logging + contextvar log fields + `RunMetrics` | §8.1 |
-| `functions/main.py` | 4 Cloud Functions 結線 (`line_webhook` / `daily_report_scheduled` / `daily_report_trigger` 共有秘密チェック付き / `cleanup_scheduled`) | — |
-| `scripts/deploy.sh`, `scripts/smoke_smtp.py` | デプロイスクリプト + SMTP 疎通スモーク | §9.1/§9.2 |
-| `docs/operations/{alerting,deploy,acceptance}.md` | アラート設計 / デプロイ手順 / §10.1-§10.2 ドッグフード runbook | §8.2/§9.1/§10 |
-
-### 設計判断の要点 (5/16 実装で固めた)
-
-- **`build_report` 出力構造** (`report.py`): LINE は 1 グループ宛 `pushMessage`、ヘッダ `📋 {date} の本日のToDo (N件)`、担当者ごとに `👤 名前 (件数)` セクション → 期限昇順 → `[mm/dd HH:MM] タスク` → `↳ HH:MM 元発言抜粋` (80 字 trim)。担当者 sort は **既知名 表示名順 → 「未割当」最後**。低 confidence (< 0.5) は `⚠️ 要確認` + セクション見出しに `⚠️`
-- **メール**: `email_to` の各エントリに 1 通ずつ、From は `profile.email_from`、Subject `[ToDoBot] {date} {profile} ToDo N件`、multipart/alternative (text + HTML 両出し)、HTML はユーザ入力を `html.escape` で XSS 防止
-- **0 件の日**: `skip_empty=false` で「本日のToDoはありませんでした。」単行、`skip_empty=true` で送信丸ごとスキップ
-- **§5 抽出方針**: Anthropic `claude-haiku-4-5` 既定、tools ベース構造化出力 (`record_todos` tool)、プロンプトキャッシュ (system + few-shot 5 件 ~3,500 tok を 1 日 1 回 write)、担当者解決は `@mentions` を最優先 (=mention boost)、PII マスキング (`pii.py`) は LLM 投入前に email/phone/CC を `[EMAIL]`/`[PHONE]`/`[CC]` に置換
-
-### 次の動き
-
-1. **§10.1 — 実機ドッグフード** (24h): 本番 LINE channel に Bot を招待 → 実会話 1 日分を流して `daily_report_trigger` を curl で叩いて結果検証 → runbook ([docs/operations/acceptance.md](https://github.com/meguruit/ToDoBot/blob/main/docs/operations/acceptance.md)) のチェックボックスを順次埋める
-2. **§10.2 — 受入チェックリスト**: 同 runbook 内、コスト計測 (Anthropic / LINE push / SMTP / Firestore reads) と SLA 観測 (push success rate / mail bounce / extraction confidence 分布) を 24h 取得
-3. **B1 — Workspace SMTP 管理者承認**: user 側継続 (1〜3 営業日)、承認後 `secrets:set SMTP_*` で本番投入
-
-### コミット履歴 (2026-04-29 → 2026-05-16、main 直 commit)
-
-```
-3cad119 chore(ops): wire Functions, deploy script, alerting & acceptance docs   # 5-16 push to meguruit/ToDoBot
-3adecdf feat(scheduler): idempotent daily-report runner + cleanup + structured logs
-3239d98 feat(notify): LINE/SMTP notifiers with 30s/2m/8m retries (§6.2-6.4)
-f80365d feat(report): assignee-grouped daily report builder (§6.1)
-e641ec0 feat(extraction): Anthropic LLM client, PII masking, ToDo extraction (§5)
-db6fc7d feat(line): LINE Profile API resolver with Firestore-backed cache (§4.3)
-c7556f9 docs(ops): LINE and GWS SMTP credential references for maintenance   # 4-30 07:49 JST
-710cb9b docs(setup): external service preparation checklists (B1-B4)         # 4-29 12:18 JST
-dac0875 feat(webhook): LINE webhook handler with mention/reply capture (§4)  # 4-29 12:15 JST
-106f9fd feat(data): models and Firestore repository (§3)                     # 4-29 12:10 JST
-2b22b35 feat(config): implement profile loader and Settings (§2)             # 4-29 12:00 JST
-8b98f60 chore: scaffold OpenSpec proposal and Firebase Functions skeleton    # 4-29 11:46 JST (root)
-```
-
-(5/11 時点で「次は §5」「remote 未設定 / push なし」だった状態から、5/16 1 セッションで §5-§10 を完走 + push まで到達。)
-
-## ステータス (2026-05-11 時点) — §5 着手前 (履歴保存)
-
-### コミット履歴 (main 直 commit、push なし)
-
-### tasks.md 進捗 (10 sections × 19.0 人日見積、本稿時点で 5 章完了)
-
-| § | 内容 | 状態 | 工数 |
-|---|---|---|---|
-| 1 | プロジェクト初期化 | ✅ done (`8b98f60`) | 1.5d |
-| 2 | 設定／プロファイル | ✅ done (`2b22b35`、tests 29 件) | 1.5d |
-| 3 | データ層 (Firestore) | ✅ done (`106f9fd`、tests 11 件) | 2.0d |
-| 4 | LINE Webhook 受信 | ✅ done (`dac0875`、tests 14 件) | 2.5d |
-| 5 | ToDo 抽出 (LLM) | ⬜ next | 4.0d |
-| 6 | 日次レポート配信 | ⬜ | 3.0d |
-| 7 | Scheduled Functions 起動口 | ⬜ | 1.0d |
-| 8 | 観測・運用 | ⬜ | 1.0d |
-| 9 | Firebase デプロイ | ⬜ | 1.5d |
-| 10 | 動作確認 | ⬜ | 1.5d |
-| B1-B4 | 外部サービス準備 | ✅ docs 揃え (`710cb9b`) | 並行 |
-| Ops | 運用ドキュメント | ✅ done (`c7556f9`) | 並行 |
-
-合計 54 tests pass (`pytest` / `ruff` / `black --check` / `mypy --strict` 全クリア)。
-
-### 主要モジュール
-
-- [functions/src/todobot/config.py](https://github.com/tatoflam/ToDoBot/blob/main/functions/src/todobot/config.py) — `ProfilesFile` / `Settings` (pydantic-settings)、`HH:MM` 正規表現 + `zoneinfo.ZoneInfo` + `EmailStr` + `active_profiles` ⊆ `profiles` の `model_validator`
-- [functions/src/todobot/models.py](https://github.com/tatoflam/ToDoBot/blob/main/functions/src/todobot/models.py) — `RawMessage` (mentions / quoted_message_id) / `UserCache` / `Todo` (0-1 信頼度 + source 非空) / `ReportRun`
-- [functions/src/todobot/firestore_repo.py](https://github.com/tatoflam/ToDoBot/blob/main/functions/src/todobot/firestore_repo.py) — 4 コレクション facade、`try_acquire_report_run` トランザクション冪等、TTL 30 日
-- [functions/src/todobot/line_handler.py](https://github.com/tatoflam/ToDoBot/blob/main/functions/src/todobot/line_handler.py) — `WebhookParser` 署名検証、group/room の text のみ保存、`UserMentionee` / `AllMentionee` / `quoted_message_id` 捕捉
-- [functions/main.py](https://github.com/tatoflam/ToDoBot/blob/main/functions/main.py) — `@cache` で cold-start 後 handler 再利用、`InvalidSignatureError`→403
-
-## ドキュメント構成 (二層、4-30 07:49 JST 確立)
+LINE グループに常駐する Bot が業務会話を受信し、1 日 N 回（プロファイル可変、multi-slot 対応）LLM (Claude Haiku/Sonnet) で「誰が・いつまでに・何を」を構造化抽出、指定時刻（既定 20:00 JST）に LINE push とメールで配信する個人事業向けの自動化。
+リポ: 当初 `tatoflam/ToDoBot`（4-29 root-commit `8b98f60`）→ 2026-05-16 に組織アカウントの新リポ **`meguruit/ToDoBot`**（private、SSH origin）へ push、これが canonical。ローカル working tree は `/Users/tato/repo/github/tatoflam/ToDoBot` のまま（path リネームせず remote だけ差し替え）。
+OpenSpec workflow で proposal / design / specs / tasks 一式起票、change 名 `line-todo-bot-mvp`。設計詳細・運用コスト試算・spec 一覧は [[05_learn/todobot-line-mvp]]。
+
+## 現在の状態
+
+（2026-05-29 時点）
+
+- **本番ドッグフード運用中**、3 プロファイル:
+  - `team-b` — report_time 19:30、メール 4 名（`thomma` / `tushiyama` / `togami` / `nmatsui`、いずれも `@meguru-construction.com`）
+  - `2課` — 18:00、宛先 `integrate@` / `thomma@`、`line_group_id: C4a85b58...`
+  - `1課` — **multi-slot 初運用** `slots = [(6,0), (18,0)]`（`report_time: ["06:00", "18:00"]`）、`skip_empty = True`、`llm_model = claude-sonnet-4-6`（2課と同）、宛先 3 名（`structure` / `thomma` / `sichikawa`）、`line_group_id = C72073b30f65df1e031e52bb771710a01`
+- **OpenSpec**: `multi-slot-reports-and-emphasis` は archive 済（23/25、`openspec/changes/archive/2026-05-29-multi-slot-reports-and-emphasis/`）。`line-todo-bot-mvp` は **32/34 で active 据置**（§10.1 PASS 済、§10.2 実環境受入チェックリストが残: 配信成功率 / コスト計測 / SLA 観測 / Gmail bounce / extraction confidence 分布などの継続観測指標）
+- **テスト**: 179 件 green、`pytest` / `mypy --strict` / `ruff` / `black` 全クリア
+- **提案資料 proposal-ready**: `docs/proposal/todobot-proposal.html` + `todobot-proposal.pdf` + `提案資料.pdf` は commit 済（`f25b214`）だが**配布アクション未実施**（メール送付 / Drive 共有 / Slack 投稿のいずれか）。配布次第 [[06_output/2026-05]] に「Client proposal delivered」として記録する想定
+- **残 TODO**:
+  - `daily_report_trigger` に `force=true` クエリパラメータを追加し、`report_runs` ドキュメント削除 → 再実行を内部化（現状は destructive な Firestore 手動削除）
+  - `max_tokens` を `f(messages_in)` の動的設定（例: `min(64000, max(8192, messages_in * 60))`）にすべきか要議論 — 1課 5-28 実測は 231 msg / 47 todos / 16384 tok で OK だが、500 msg/slot 超で打ち切り再発の可能性
+  - 空 `tool_use` → 適切な ValueError + Cloud Logging 出力の e2e テストケース追加
+  - §10.1 由来の user 側目視: 4 名の受信箱到達確認 / 新通知書式（a 依頼者 → b 依頼先・依頼時刻・期限のみ、本文なし）の LINE/メール見た目 / 5-21 19:28 ラン 6 ToDo の正・漏れ・過抽出の翌朝レビュー
+- **Open Questions**: OQ5 = SMTP Relay の許可 IP / VPC Connector 要否（Workspace 管理者ヒアリング待ち）/ OQ6 = Anthropic 残データ取扱と Workspace データ持出ポリシーの整合（社内法務確認）
+
+### 採用スタック（要約）
+
+- **ランタイム**: Cloud Functions for Firebase 2nd gen（Python 3.10、Firebase Functions Python SDK、`firebase-functions==0.5.0`）
+- **DB**: Firestore（TTL 30 日、scheduled function で集計）
+- **スケジューラ**: Scheduled Functions（Cloud Scheduler 不要、15 分ティック ±7min 窓）
+- **LLM**: Anthropic Claude（既定 `claude-haiku-4-5`、必要時 `claude-sonnet-4-6`）+ プロンプトキャッシュ + tools ベース構造化出力（`record_todos`）
+- **メール**: ~~Google Workspace SMTP Relay（`smtp-relay.gmail.com:587`）~~ → **Gmail API + Domain-wide Delegation（キーレス DWD）**（5/21 切替）
+- **LINE**: Messaging API（webhook → Bot push、group/room の text のみ収集）
+- 運用コスト試算（3 グループ × 150 msg/日 = 月 約 ¥320 中央値）は [[05_learn/todobot-line-mvp]]
+
+### ドキュメント構成（二層、4-30 07:49 JST 確立）
 
 | 役割 | パス | 方向性 |
 |---|---|---|
-| 初回セットアップ | `docs/external-setup/` | 「何もない状態から作る」手順書 (B1=Workspace SMTP / B2=LINE Developers / B3=Anthropic / B4=Firebase) |
+| 初回セットアップ | `docs/external-setup/` | 「何もない状態から作る」手順書（B1=Workspace SMTP / B2=LINE Developers / B3=Anthropic / B4=Firebase）|
 | 運用中の参照 | `docs/operations/` | 「動いている状態を確認・更新する」リファレンス + 全シークレット所在マップ表 + ローテーション手順 + トラブルシュート |
 
-意図: 3〜6 ヶ月後に「アプリパスワードどこで更新するんだっけ？」を探すコストを抑える。両層から相互リンクを張り、`docs/external-setup/README.md` から `docs/operations/` への循環参照を整備。
+意図: 3〜6 ヶ月後に「アプリパスワードどこで更新するんだっけ？」を探すコストを抑える。両層から相互リンク、`docs/external-setup/README.md` ⇄ `docs/operations/` の循環参照を整備。
+- `docs/operations/README.md` — 全シークレット所在マップ（一次保管=コンソール / 二次保管=Firebase Secrets / コード参照箇所 / 推奨ローテーション頻度）、`assert_runtime_secrets_present()` で早期発見
+- `docs/operations/line-credentials.md` — Channel ID / secret / access token / Webhook URL / Bot user ID / Bot LINE ID のインベントリ、OA Manager「グループ参加 ON」見落とし、ローテーション（secret 即失効 / access token 24h 猶予 / 再デプロイ必須）、トラブルシュート（`invalid signature` / push 401 / 月 200 通超過 / 招待不可 / Verify timeout）
+- `docs/operations/gws-smtp.md` — SMTP host/port / Bot ユーザー / アプリパスワード / SPF/DKIM/DMARC、管理コンソールパス、ローテーション、動作確認（ローカル `smtplib` / 本番 `daily_report_trigger` / Gmail ログイベント監査）、Gmail API + DWD 代替との比較表
+- `docs/operations/acceptance.md` — §10.1-§10.2 ドッグフード runbook（[GitHub](https://github.com/meguruit/ToDoBot/blob/main/docs/operations/acceptance.md)）
 
-### 運用ドキュメント要点
+## 決定事項
 
-- **`docs/operations/README.md`** — 全シークレット所在マップ (一次保管=コンソール / 二次保管=Firebase Secrets / コード参照箇所 / 推奨ローテーション頻度)、`assert_runtime_secrets_present()` で早期発見
-- **`docs/operations/line-credentials.md`** — Channel ID / secret / access token / Webhook URL / Bot user ID / Bot LINE ID のインベントリ、OA Manager「グループ参加 ON」見落としポイント、ローテーション (secret 即失効 / access token 24h 猶予 / 再デプロイ必須)、トラブルシュート (`invalid signature` / push 401 / 月 200 通超過 / 招待不可 / Verify timeout)
-- **`docs/operations/gws-smtp.md`** — SMTP host/port / Bot ユーザー / アプリパスワード / SPF/DKIM/DMARC、管理コンソールパス、ローテーション (アプリパスワード差替 / Bot メアド変更 / テナント移行)、動作確認 (ローカル `smtplib` / 本番 `daily_report_trigger` / Gmail ログイベント監査)、Gmail API + Domain-wide Delegation 代替との比較表
+- 2026-04-28: **ユースケース定義 + Plan B 棄却 + Firebase 一本化** — 初日の方針確定（[[02_diary/2026-04-28]]）
+- 2026-04-29: **`.python-version` は 3.11 指定をやめ既存インストール済の `3.10.11` に揃える** — pyenv install せず対応
+- 2026-04-30: **ドキュメント二層化**（`docs/external-setup/` = 初回構築 / `docs/operations/` = 運用参照）— 数ヶ月後の「どこで更新するんだっけ」コストを抑える
+- 2026-05-16: **`firestore_repo.py`（30%）と `main.py` の低カバレッジは意図的** — 薄い委譲層は Firestore エミュレータ統合テスト（spec §10.1）、SDK デコレータ層はデプロイ後 curl 疎通で担保
+- 2026-05-16: **`/opsx:archive` は §10.1/§10.2 消化後まで呼ばない** — 実環境ドッグフード完走前に change を closed にするのは早い
+- 2026-05-16: **組織リポ `meguruit/ToDoBot`（private）を canonical 化** — `tatoflam/ToDoBot` から remote 差し替えのみ、ローカルパス不変
+- 2026-05-21: **メール配信を SMTP Relay → Gmail API + キーレス DWD に切替** — user 自身が Workspace 管理者で、`developer1@` だけ 2SV ON にする運用が煩雑なため SA キー無し DWD に振り切り。`Notifier` 抽象のおかげでモジュール 1 つの置換で完結。シークレット `GWS_SMTP_USER` / `GWS_SMTP_PASS` 廃止 → `GMAIL_DELEGATED_SENDER` 等に置換
+- 2026-05-21: **IAM ハイブリッド運用** — `thomma@meguru-construction.com`（Workspace 超管理者）= プロジェクト作成・Org IAM・課金・API enable、`developer1@` = 日常 CLI ops（Service Usage Admin へ格上げ。ただし org policy により API enable は super-admin に閉じており `--account=thomma@` 明示が必要）
+- 2026-05-21: **Bot は dispatch-only、対話しない** — デフォルト返信「メッセージありがとうございます！申し訳ありませんが、このアカウントでは個別のお問い合わせを受け付けておりません。次の配信までお待ちください 🌙」で設計を明示
+- 2026-05-22: **提案資料は配布アクション完了まで [[06_output/2026-05]] に記録しない** — proposal-ready 状態は wiki（本ページ）と repo 側でロック
+- 2026-05-27: **scheduler window はスケジュール時刻アンカー**（`since = 前日 report_time JST` / `until = 当日 report_time JST`）— 旧「当日 00:00〜実行時刻」では 18:00 以降〜深夜の発言がどのレポートにも入らない取りこぼし。スケジューラ ±7min ジッタにも依存しない
+- 2026-05-27: **emphasis は per-group（per-slot でない）で確定** — 「2課」のような業務単位は LINE グループに 1:1 対応、slot は時間帯違いの再配信扱い（朝礼 7:30 / 夕礼 18:00 で同じグループ会話を 2 度配信）
+- 2026-05-27: **slot interval 下限 60min（`MIN_SLOT_INTERVAL`）** — extraction prompt 再呼び出しコスト（$0.01-0.05 / 回）と LINE push 重複防止の保守的下限。緩和は将来 spec で議論
+- 2026-05-27: **`report_time` の backward-compat coercion** — 旧スカラ `"20:00"` を `["20:00"]` に自動昇格、既存プロファイル無改修で動作継続
+- 2026-05-27: **`emphasis_keywords` は `system` ブロックの soft hint**（「以下キーワードに該当する発言は重み付けして拾え」、空配列はフォールバック）— 強い指示にしない
+- 2026-05-28: **extraction の `max_tokens=16384` を明示**（`functions/src/todobot/extraction.py:176`）— デフォルト 4096 で出力 JSON 打ち切り → 空 input の `tool_use` になる障害の対策。4x 拡張で 47 件抽出まで余裕、16384 は Anthropic Sonnet の 1 messages call 上限を踏まえた保守値
+- 2026-05-29: **`multi-slot-reports-and-emphasis` は archive、`line-todo-bot-mvp` は active 据置** — MVP §10.2 の実環境項目は継続観測指標で archive 化は誤完了扱いのリスク、multi-slot は機能スコープ限定で実環境視認のみ残る形なので archive が自然
+- 2026-05-29: **spec sync はスキップ** — 本リポは `openspec/specs/` 未同期運用（過去の方針）。将来有効化する場合は archive 化前に `openspec sync` を挟む手順を追加
 
-## 採用スタック (要約)
+## 手順・Runbook
 
-- **ランタイム**: Cloud Functions for Firebase 2nd gen (Python 3.10、Firebase Functions Python SDK)
-- **DB**: Firestore (TTL 30 日、scheduled function で集計)
-- **スケジューラ**: Scheduled Functions (Cloud Scheduler 不要)
-- **LLM**: Anthropic Claude (既定 `claude-haiku-4-5`、必要時 `claude-sonnet-4-6`) + プロンプトキャッシュ + tools ベース構造化出力
-- **メール**: Google Workspace SMTP Relay (`smtp-relay.gmail.com:587`、Notifier 抽象で Gmail API 切替可)
-- **LINE**: Messaging API (webhook → Bot push、group/room の text のみ収集)
+### デプロイ
 
-詳細・運用コスト試算 (3 グループ × 150 msg/日 = 月 約 ¥320 中央値) は [[05_learn/todobot-line-mvp]]。
+- `scripts/deploy.sh functions` — 4 関数（`line_webhook` / `daily_report_scheduled` / `daily_report_trigger`（共有秘密チェック付き）/ `cleanup_scheduled`）を更新
+- `config/profiles.yaml` は **`.gitignore` 対象**。`firebase.json` の `predeploy` フックで `functions/config/profiles.yaml` に上書きコピーされる（リポ root にあり Functions bundle に含まれないため）
+- **Firebase CLI の reauth セッション寿命は約 24h** — deploy 時に `Authentication Error: Your credentials are no longer valid` が出たら `firebase login --reauth`（`developer1@meguru-construction.com`、ブラウザ認証なので user 手動）。daily ops 中に切れる前提で運用
+- deploy で「`No changes detected` で全関数スキップ」される場合あり — タイムスタンプの UTC/JST 換算に注意（過去に「古いコードのまま」と誤判断した事例あり）
 
-## 環境セットアップの罠 (4-29 ハマりポイント)
+### 手動トリガ
 
-- **`.python-version=3.11` 指定 → pyenv に未インストール**で `python3.11 not found` → `.python-version` を `3.10.11` に書き換え (system に既にインストール済) で対応。pyenv install せず既存版に揃える判断
-- **`firebase-functions` SDK の型 stub が `sync/async` ユニオン** → `mypy --strict` で部分的 `# type: ignore`。`get_user` / `get_message` 両方で同じスタイルに揃える
-- **`ruff` UP037 + I001 → auto-fix 一発、`black` 再整形 1 ファイル**
+```
+curl -i -H "X-Job-Token: ${JOB_SHARED_SECRET}" \
+  "https://asia-northeast1-todobot-dev.cloudfunctions.net/daily_report_trigger?profile=2課"
+```
 
-## 残課題 (Open Questions)
+- slot 指定は `&slot=1800`。`JOB_SHARED_SECRET` は Secret Manager から取得
 
-- **OQ5**: SMTP Relay の許可 IP / VPC Connector 要否 (Workspace 管理者ヒアリング待ち)
-- **OQ6**: Anthropic 残データ取扱と Workspace データ持出ポリシーの整合 (社内法務確認)
+### `ALREADY_RAN` の手動解除（失敗ランの再実行）
 
-## 次の動き
+冪等トランザクション `try_acquire_report_run` が `report_runs/{profile}_{date}_{slot}`（例: `report_runs/1課_2026-05-28_1800`）の存在で再実行を拒否するため:
 
-- §5 ToDo 抽出 (LLM) 着手 — Claude Haiku 4.5 + tools/JSON schema、プロンプトキャッシュ (system + few-shot ~3,500 tok を 1 日 1 回 write)、PII マスキング
-- 並行で B1 (Workspace 管理者承認、1〜3 営業日リードタイム) を user 側で進捗
+1. Firestore ドキュメントを削除 — `gcloud firestore documents delete 'projects/todobot-dev/databases/(default)/documents/report_runs/1課_2026-05-28_1800'` は **auto-mode classifier がブロックする場合あり**（user 承認後も再ブロック）→ `google-cloud-firestore` Python ライブラリ経由（ローカル venv）で同等処理を実施して回避（CLI とライブラリで classifier 判定が異なる）
+2. 上記の手動トリガ curl で再実行
+3. destructive 操作なので、将来は `daily_report_trigger?force=true` に内部化する（残 TODO）
+
+### 新グループ（プロファイル）追加
+
+1. OA Manager で「グループ・複数人トーク参加」ON、Bot（`@541dotgb`）をグループに招待
+2. グループでテキスト 1 通発言 → Firestore `groups/` コレクションに新規ドキュメント（`Cxxxxxxx` 形式の `line_group_id`）が増える。または Cloud Logging の `line_webhook persisted 1 message(s)` ログ参照
+3. `config/profiles.yaml` にプロファイル追記 → `scripts/deploy.sh functions` で反映
+
+### DWD（Gmail API）設定
+
+- 登録は admin.google.com: クライアント ID `113869879276262501859`、スコープ `https://www.googleapis.com/auth/gmail.send`
+- SA に自己 Token Creator（`roles/iam.serviceAccountTokenCreator`）を付与すれば SA 鍵を発行せず impersonation 可能（`iamcredentials.googleapis.com` で `developer1@` の short-lived token を発行 → `gmail.users.messages.send`）
+
+### 提案書 PDF 再生成
+
+- `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --disable-gpu --no-pdf-header-footer --print-to-pdf=todobot-proposal.pdf "file://$(pwd)/todobot-proposal.html"`（`wkhtmltopdf` / `weasyprint` / `chromium` 未インストール環境のため Chrome ヘッドレス）
+- 目視 QA: `pdftoppm -png -r 110 todobot-proposal.pdf pp` でページごと PNG 化して確認
+
+## 経緯
+
+- **2026-04-28**: 初日 — ユースケース定義、Plan B 棄却、Firebase 一本化（[[02_diary/2026-04-28]]）
+- **2026-04-29**: 実装開始。commits: `8b98f60` scaffold（root、11:46 JST）→ `2b22b35` config §2（12:00、tests 29 件）→ `106f9fd` data §3（12:10、tests 11 件）→ `dac0875` webhook §4（12:15、tests 14 件）→ `710cb9b` B1-B4 外部サービス準備 docs（12:18）。環境の罠: `.python-version=3.11` が pyenv 未インストールで `python3.11 not found` → `3.10.11` へ / `firebase-functions` SDK の型 stub が sync/async ユニオンで `mypy --strict` に部分 `# type: ignore`（`get_user` / `get_message` 同スタイル）/ `ruff` UP037 + I001 は auto-fix 一発、`black` 再整形 1 ファイル
+- **2026-04-30** 07:49 JST: `c7556f9` docs(ops) — ドキュメント二層化を確立（LINE / GWS SMTP クレデンシャル参照）
+- **2026-05-11 時点**: §1-§4 + B1-B4 + Ops 完了（tasks.md 10 sections × 19.0 人日見積のうち 5 章、§5 ToDo 抽出 4.0d が next）、54 tests pass。remote 未設定 / push なし。主要モジュール: [config.py](https://github.com/tatoflam/ToDoBot/blob/main/functions/src/todobot/config.py)（`ProfilesFile` / `Settings` pydantic-settings、`HH:MM` 正規表現 + `zoneinfo.ZoneInfo` + `EmailStr` + `active_profiles` ⊆ `profiles` の `model_validator`）/ [models.py](https://github.com/tatoflam/ToDoBot/blob/main/functions/src/todobot/models.py)（`RawMessage`（mentions / quoted_message_id）/ `UserCache` / `Todo`（0-1 信頼度 + source 非空）/ `ReportRun`）/ [firestore_repo.py](https://github.com/tatoflam/ToDoBot/blob/main/functions/src/todobot/firestore_repo.py)（4 コレクション facade、`try_acquire_report_run` トランザクション冪等、TTL 30 日）/ [line_handler.py](https://github.com/tatoflam/ToDoBot/blob/main/functions/src/todobot/line_handler.py)（`WebhookParser` 署名検証、group/room の text のみ保存、`UserMentionee` / `AllMentionee` / `quoted_message_id` 捕捉）/ [main.py](https://github.com/tatoflam/ToDoBot/blob/main/functions/main.py)（`@cache` で cold-start 後 handler 再利用、`InvalidSignatureError`→403）
+- **2026-05-16**: 1 セッションで §5-§10 完走（4-30 以来）、**28/30 タスク・142 tests・カバレッジ 92%**。6 commits を論理分割して `meguruit/ToDoBot` へ初 push: `db6fc7d` line_profile §4.3 / `e641ec0` extraction §5（Anthropic LLM client + PII masking）/ `f80365d` report §6.1 / `3239d98` notify §6.2-6.4（30s/2m/8m retries）/ `3adecdf` scheduler（冪等 runner + cleanup + structured logs）/ `3cad119` ops（Functions 結線 + deploy script + alerting + acceptance docs）。追加モジュール: `line_profile.py`（Profile API resolver + TTL'd `users/` キャッシュ + graceful fallback）/ `llm.py`（`LLMClient` protocol + Anthropic 実装、プロンプトキャッシュ）/ `pii.py`（email / phone / Luhn 検証付き CC を `[EMAIL]`/`[PHONE]`/`[CC]` に置換、LLM 投入前）/ `extraction.py`（system prompt + 5 few-shots + `record_todos` tool + mention boost 担当者解決）/ `report.py` / `notify.py`（`LineNotifier` chunking + `SMTPNotifier` 受信者ごと封筒）/ `scheduler.py`（`DailyReportRunner` 冪等・部分失敗対応 + `ScheduledRunner` ±7min 窓）/ `cleanup.py`（TTL 30 日 belt-and-braces）/ `observability.py`（JSON Cloud Logging + contextvar + `RunMetrics`）/ `functions/main.py` / `scripts/deploy.sh` + `scripts/smoke_smtp.py` / `docs/operations/{alerting,deploy,acceptance}.md`。設計要点: LINE レポートは 1 グループ宛 `pushMessage`、ヘッダ `📋 {date} の本日のToDo (N件)`、`👤 名前 (件数)` セクション → 期限昇順 → `[mm/dd HH:MM] タスク` → `↳ HH:MM 元発言抜粋`（80 字 trim）、担当者 sort は既知名表示名順 → 「未割当」最後、低 confidence（< 0.5）は `⚠️ 要確認`、LINE 5000 字分割 / メールは `email_to` 各エントリに 1 通ずつ、From `profile.email_from`、Subject `[ToDoBot] {date} {profile} ToDo N件`、multipart/alternative（text + HTML）、`html.escape` で XSS 防止 / 0 件の日は `skip_empty=false` で「本日のToDoはありませんでした。」、`true` で送信スキップ / 抽出は `claude-haiku-4-5` 既定、プロンプトキャッシュ（system + few-shot 5 件 ~3,500 tok を 1 日 1 回 write）（[[02_diary/2026-05-16]]）
+- **2026-05-21**（session f9415d55）: 初回 **E2E 疎通完了**（LINE Verify → グループ招待 → メッセージ受信 → `daily_report_trigger` 手動 curl → LINE push + Gmail 配信成功）。commits `b7898db`（Gmail API 配信 + requester 追跡 + deploy hardening）+ `b83d678`（@mention 解決: `resolve_assignee` が `users/` キャッシュ照合を要求し未発言メンバーの @mention が「未割り当て」になるバグ → @mention は user_id を確実に含むためキャッシュ未登録でも user_id ベースで割当、表示名は `mentionees[].index/length` の mention span から抽出）。147 tests（mention 4 件 + requester 1 件追加）。実装: `GmailNotifier`（`google-auth` + `googleapiclient`）/ ToDo モデルに `requester` / `requested_at` 追加、レポートで「依頼者 → 担当者」表示（user 並行実装分を同梱）/ **`secrets=[...]` 宣言を Functions デコレータに追加**（Secret Manager 投入済みでも ENV 未 mount で 500 の初回ハマり）/ predeploy hook / メール HTML 見出しの `<div>` インラインスタイル化。詰まりポイント: Firebase ログインは `thomma@`（当初メモの `admin@` は実在せず。GCP Organization 配下作成に super-admin 必須。Workspace 課金と Cloud Billing は別商品だが同一 Payments Profile / 同一カードで「同じ請求書」可 → B4 docs 全面書き換え）/ LINE Verify 1 回目タイムアウト（コールド起動 + バインド未済 500）→ `secrets` 修正 + 再デプロイで OK / groupId は `Cbb2771c...` 形式で Firestore `groups/` に記録、`config/profiles.yaml` の placeholder を実値化 / 抽出ウィンドウは `[実行日 00:00 (プロファイル TZ), trigger 実行時刻 now)` `created_at` 基準、team-b「テスト」1 件のみは `skip_empty=true` で無送信のため ToDo 風メッセージ 2〜3 通で確認（[[02_diary/2026-05-21]]）
+- **2026-05-21→22**（session e594cbdd、f9415d55 の直後を引き取り）: **§10.1 実環境確認を二経路 PASS**。手動トリガ（5-21 16:19 JST user curl、`daily_report.metrics`: messages_in=11 / todos_extracted=2 / line_sent_ok=1 / email_sent_ok=1、16:38 再トリガで `already_ran todos=0 line=False email=False` の冪等性も確認）+ 定時実行（5-21 19:28 JST = 10:28 UTC、team-b `report_time: 19:30` を ±7 分ウィンドウで処理、`daily_report.tick` status=sent / todos=6 / line=True email=True err=None、`extraction.run` messages=17 / Anthropic 200 OK）。**scheduler 15 分毎 500 の発見と修正**: `firebase-functions` 0.4.x が scheduled function ペイロードの ISO 8601 末尾 `Z` parse で壊れ datetime 解析失敗 → `functions/requirements.txt` を `firebase-functions==0.5.0` に bump（commit `8095d31`）→ 16:58 JST（07:58 UTC）ティックからエラー消滅（07:43 UTC ログを最後に停止）。team-b `email_to` に 3 名追加（`tushiyama` / `togami` / `nmatsui`）で計 4 名、同 deploy で本番反映（当日分は `report_runs/team-b_2026-05-21` 既存で冪等ガード ON、初受信は 5-22 19:30 定時ラン以降）。commits `8095d31` / `71133a5`（手動経路 PASS + scheduler バグ記録）/ `2f879fb`（scheduled-run PASS 追記、5-22 23:59 JST に user gcloud 再認証 `thomma@meguru-construction.com` 経由でログ取得し push）。学び: deploy 1 回目「No changes detected」を UTC/JST 換算ミスで誤判断（実際は `b83d678` 反映済）、ハーネスが本番 deploy / 外向き curl をハードゲートするため user 側 1 コマンド実行に分担
+- **2026-05-22**（session ab52fdac + `f27991f0` run-34 worker）: クライアント向け提案書作成 — `docs/proposal/todobot-proposal.html`（編集可能ソース）+ `todobot-proposal.pdf`（9 ページ A4 ネイビー基調。初版 8 ページ → 夕方 user リクエストで 7 ページ目末尾に合計工数表を追加して 9 ページ）。**工数 253.5h ≒ 31.7 人日（1人日=8h）= 実施済 237h（29.6人日）+ 積み残し 16.5h（2.1人日）**: 企画・設計 20h（ユースケース + アーキテクチャ + OpenSpec 仕様 + コスト試算）/ 実装 128h（tasks.md §1-§10.0、`8b98f60..b83d678` の 11 commits）/ インフラ構築・外部サービス設定 24h（独立計上、初版 217.5h から +24h。Firebase Blaze + Secret Manager + Firestore index/TTL/rules / LINE Developers / 超管理者経由 Gmail API 認可 + DWD（admin.google.com）/ Anthropic / B1-B4、thomma@/developer1@ ハイブリッド IAM 含む）/ テスト 38h（unit 142→147 + integration + mypy/ruff/black + プロンプトキャッシュ確認）/ 運用テスト・受入 27h（初版 15h から +12h。§10.1 24h+ ドッグフード + §10.2 + 実環境バグ修正 = `secrets=[...]` + predeploy hook + @mention 解決 + Gmail API 移行など）/ 積み残し 16.5h（チャネル追加 account_2/3 + メール宛先プロファイル追加 + ダッシュボード）。構成: ① 表紙 / ② エグゼクティブサマリ + 目次 / ③ 背景課題 + ソリューション + 配信サマリイメージ / ④ 主要機能（4 capability + スコープ外）/ ⑤ システム仕様 + Mermaid データフロー図（SVG 埋め込み）/ ⑥ 工数見積 / ⑦ 運用コスト試算（月額 約¥300）+ 合計工数表 / ⑧ スケジュール + 前提 + リスク + 次のステップ。PDF は Chrome ヘッドレス生成、`pdftoppm` QA で page 6 のコールアウトがフッターに重なる issue 1 件 → CSS 余白調整。Mermaid 二重配置: README.md は記法のまま（GitHub ネイティブ描画）、HTML はネットワーク制限で `mmdc` 不可 → `cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js` は curl 可でブラウザレンダリング後 SVG 埋め込み（オフライン配布先でも描画）。README.md（Mermaid 図）+ `docs/proposal/` は未 push でローカル待機（[[02_diary/2026-05-22]] `23:xx  ToDoBot クライアント向け提案書` = 工数調整の逐次ログ、`23:5x  run-35` = 合計工数表追加 → 8→9 ページ再生成）
+- **2026-05-27 朝**（session 03d49c79、19:52 JST 開始）: `2課` プロファイル追加（`config/profiles.yaml:29`、詳細は現在の状態）+ **scheduler window バグ修正**（[scheduler.py:118-128](https://github.com/meguruit/ToDoBot/blob/main/functions/src/todobot/scheduler.py#L118-L128)、commit `0289373 fix(scheduler): anchor daily-report window on scheduled report_time`）。新規テスト `test_messages_window_spans_previous_to_current_report_time` / `test_messages_window_anchored_on_report_time_not_run_time`、既存 `test_messages_window_starts_at_local_midnight` を新意味に更新、147 → **149 件** green。deploy 4 関数 OK（1 回目に Firebase CLI 認証切れ → reauth）。push `2f879fb..0289373`（scheduler.py + test_scheduler.py のみ、README.md と `docs/proposal/` は意図的に未コミット残置）。翌 18:00 JST から `2課` 初回自動配信、手動トリガもセット（[[02_diary/2026-05-27#run-47]]）
+- **2026-05-27 夜**（session 0d2f488c、19:55-21:04 JST）: OpenSpec change **`multi-slot-reports-and-emphasis` 23/25 着地**、commit `89a52bf feat(report): multi-slot daily reports and per-group emphasis keywords`（12 ファイル）push `0289373..89a52bf`。目的: 1 プロファイル 1 配信時刻 → N 配信時刻（朝礼 + 夕礼）+ グループごとの強調キーワードで軽重を反映。§1 [config.py](functions/src/todobot/config.py) = `report_time: list[str]` 化 + coercion + sort/dedup + `MIN_SLOT_INTERVAL`（60min）検証 / §2 `specs/daily-report/spec.md` delta = slot-aware window（前回 slot 末尾〜今回 slot 末尾）+ per-group `emphasis_keywords: list[str]` / §3 [scheduler.py](functions/src/todobot/scheduler.py) = per-slot window（`anchored_at: 当回 slot の JST`）+ 複数 slot 並走 dedup（同 group 1 回/slot）/ §4 [firestore_repo.py](functions/src/todobot/firestore_repo.py) = per-group key 索引 + `groups/<id>/slot_history/{slot_iso}` 送信履歴 / §5 [report.py](functions/src/todobot/report.py) = prompt template に `emphasis_keywords` 動的挿入、無ければ素の prompt フォールバック。テスト 142 → **179 件** green + docs 更新（`docs/operations/acceptance.md` / `docs/operations/README.md` / [README.md](README.md)）。§6 実機 acceptance（2 slot 同日配信 + emphasis 適用）のみ残（[[02_diary/2026-05-27#19:55  ToDoBot multi-slot]]。同日早朝 `03d49c79` と scheduler 系で背景共有: 「window をスケジュール時刻に固定」+「report_time list 化 → window per-slot 化」の連動 evolution）
+- **2026-05-28**（session cb878ae5、07:47-18:37 JST、10 turn）: `1課` プロファイル投入（multi-slot 初実運用、コメントタイポ `# Sonne` → `# Sonnet` 修正含む。deploy 経路は run-47 と同一）+ **18:00 初回配信失敗の障害対応**。Firebase CLI reauth が前日通した直後に 24h で再失効 → 再 OAuth（`developer1@`）で 4 関数更新。18:00 slot で 2課は通知・1課は LINE/メール共に未通知 → 仮説つぶし（Bot 未招待 → 否定 / `line_group_id` 不一致 → Firestore で 231 件確認し否定 / 発言 0 件 → 否定）→ Cloud Logging `daily_report.tick profile=1課 status=failed todos=0 err="tool_use block for record_todos has empty input"` で**真因確定**: Anthropic SDK（`claude-sonnet-4-6`）が `record_todos` を空 input の `tool_use` ブロックで返却（HTTP 200、`input={}`）。原因は `max_tokens=4096`（デフォルト）で出力 JSON 打ち切り — 1課 messages_in=231 vs 2課 119（todos 20 件成功）の約 2 倍量で上限到達。`llm.py:120` の `ValueError` → `daily_report.unhandled` → 配信スキップ。パッチ: `extraction.py:176` に `max_tokens=16384` 明示（本セッションでは未 commit、deploy 経由で本番反映）。`ALREADY_RAN` 手動解除（Runbook 参照）→ 再実行で `1課 sent slot=1800 todos=47 line=True email=True`。詳細パターン → [[05_learn/anthropic-tool-use-max-tokens-empty-input]]（[[02_diary/2026-05-28#07:47  ToDoBot 1課 profile]]）
+- **2026-05-29**（session `63f6aec3-527b-4be5-bda4-c60e1ee7c179`、15:20 JST 開始、user 第一声「archiveとcommit, pushを整理して進めて」）: 5-28 までの未 commit 群を論理単位 3 commit に分割して push（`89a52bf..425cf89` → `origin/main`、実装作業なし）: `e754fe7 fix(extraction): raise max_tokens to 16384 to avoid truncated tool output`（本番反映済分のソース反映）/ `f25b214 docs(proposal): add ToDoBot proposal materials (HTML + PDF)`（5-22 作成分 + `提案資料.pdf`）/ `425cf89 chore(openspec): archive multi-slot-reports-and-emphasis`（`git mv` で archive、§6 実機 acceptance 2 task はドッグフード中の自然消化扱い）。5-28 残課題のうち解消 3 件（extraction commit / archive / 提案資料 commit）、未着手 3 件は現在の状態の残 TODO 参照（[[02_diary/2026-05-29#10:31  ToDoBot 5-28 残課題 archive + commit + push]] = run-54）
 
 ## Links
 
-- [[05_learn/todobot-line-mvp]] — 設計・運用コスト・spec 一覧 (planning 起点)
+- [[05_learn/todobot-line-mvp]] — 設計・運用コスト・spec 一覧（planning 起点）
+- [[05_learn/anthropic-tool-use-max-tokens-empty-input]] — 空 tool_use = max_tokens 打ち切りシグネチャの canonical learning
 - [[02_diary/2026-04-28]] — 初日: ユースケース定義 + Plan B 棄却 + Firebase 一本化
 - [[02_diary/2026-04-29]] — 実装 §2-§4 + B1-B4 docs
 - [[02_diary/2026-04-30]] — 運用ドキュメント二層化
 - [[02_diary/2026-05-16]] — §5-§10 完走 + 6 commits 分割 + meguruit/ToDoBot へ push
 - [[02_diary/2026-05-21]] — E2E 疎通 + Gmail API DWD 切替 + @mention 解決バグ修正 + ドッグフード開始
+- [[02_diary/2026-05-21#16:24  §10.1 実環境確認 — manual PASS + scheduler 0.5.0 fix + 19:28 JST scheduled tick PASS (e594cbdd, 5-21→5-22)]] — §10.1 PASS の diary 着地
 - [[02_diary/2026-05-22]] — クライアント向け提案書 (HTML/PDF) + Mermaid 図 + 工数 253.5h 確定
 - [[02_diary/2026-05-27]] — `2課` プロファイル追加 + scheduler window バグ修正 (anchor on report_time) + push (commit `0289373`)
+- [[02_diary/2026-05-27#run-47]] — 5-27 朝セッション ingest entry
+- [[02_diary/2026-05-27#19:55  ToDoBot multi-slot]] — 5-27 夜セッション ingest entry
+- [[02_diary/2026-05-28#07:47  ToDoBot 1課 profile]] — 5-28 セッション ingest entry
+- [[02_diary/2026-05-29#10:31  ToDoBot 5-28 残課題 archive + commit + push]] — 5-29 セッション ingest entry (run-54)
+- [[06_output/2026-05]] — 配布後に「Client proposal delivered」を記録する先

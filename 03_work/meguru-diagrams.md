@@ -12,9 +12,9 @@ updated: 2026-06-12
 
 株式会社めぐる向けの業務フロー設計を Mermaid シーケンスダイアグラムで可視化するリポジトリ (`/Users/tato/repo/github/tatoflam/meguru-diagrams`)。営業プロセス見直しの局面で、CRM (`meguru-crm`) が現状カバーする機能と、CRM 外で GWS スプレッドシート管理になっている業務を 3 レイヤで視覚化し、ワークフロー管理追加 (= 提案クロージングまでのステータス管理) の議論基盤に使う。
 
-## 2026-06-10 sales-process-sequence.md 初版 (session 0b793fb1、JST 10:38→12:47、~2h、4 user turn)
+## 現在の状態
 
-土地探し → 構造キックオフまでの 14 ステップ営業プロセスを 3 レイヤ構成のシーケンスダイアグラムに落とした初版 `sales-process-sequence.md`。
+初版 `sales-process-sequence.md` (土地探し → 構造キックオフまでの 14 ステップ営業プロセスを 3 レイヤ構成のシーケンスダイアグラムに落としたもの) を main に push 済 (2026-06-10)。
 
 ### 業務フロー (14 ステップ + アクター)
 
@@ -46,19 +46,7 @@ updated: 2026-06-12
 1. **08 → 09 案件化反映 (提案登録)**: GWS 上の目論見・概算見積データを起点に、09 顧客提案フェーズで CRM 側に「提案」レコードを登録。**転記の主体は営業**で図中に表現 (= 「手動」テキストは未記載、矢印で示す)
 2. **11 以降 設計成果物リンク**: 基本設計以降の成果物リンクを CRM の提案レコードに紐付け
 
-### 反復した user 確認事項
-
-- **GWS の細分化を解消** (修正 2 回目、最終形): 「土地調査シート」「ボリュームシート」「概算見積シート」「設計管理シート」を個別エンティティ化していた中間版を、`GWS スプレッドシート（共有ドライブ）` 1 ロールに統合。ノートと管理先テーブル列も `GWS` に統一
-- **提案登録は手動想定**: 「手動」テキストは figure に明示せず、08→09 の 🔁 反映ブロックを残して営業の矢印で表現
-- **目論見の確認済 status テーブル所在は保留**: 03 レビューステータス更新の対象テーブルは現状の db design からは不明 (= UI 上で「確認済」管理されているがバックエンドの該当テーブル要確認)。提案側は `proposals.status` がテーブルに存在することは確認済
-
-### 既知の制約・運用メモ
-
-- 1 回目作成時に socket disconnect 系の API Error で書き込み未完 → user「エラーしたのでリカバリして続けて！」で再適用。GWS 細分化解消の編集が前回未着地だった分も合わせて反映
-- CRM のデータベース設計参照元: `https://github.com/meguruit/meguru-crm/blob/main/docs/designs/database-design.md`
-- 本リポジトリの cwd は `tatoflam/meguru-diagrams` (= 個人 GitHub org)、設計成果物として `meguruit/meguru-crm` の検討資料を補完する関係
-
-## 公開先 (= channel:github)
+### 公開先 (= channel:github)
 
 - repo: `https://github.com/tatoflam/meguru-diagrams` (= 個人 GitHub org)
 - sales-process-sequence.md の main push 2 commit (= 2026-06-10):
@@ -66,6 +54,22 @@ updated: 2026-06-12
   - [`d5cf0cc`](https://github.com/tatoflam/meguru-diagrams/commit/d5cf0cc) `update: sales process w/GWS`
 - GitHub の native Mermaid render で web 上で図確認可能: `https://github.com/tatoflam/meguru-diagrams/blob/main/sales-process-sequence.md`
 - 06_output 着地: [[06_output/2026-06#GitHub commits — tatoflam/meguru-diagrams 営業プロセス × GWS × CRM 図新設 (2026-06-10)]]
+
+### 未解決事項・運用メモ
+
+- **目論見の確認済 status テーブル所在は保留**: 03 レビューステータス更新の対象テーブルは現状の db design からは不明 (= UI 上で「確認済」管理されているがバックエンドの該当テーブル要確認)。提案側は `proposals.status` がテーブルに存在することは確認済
+- CRM のデータベース設計参照元: `https://github.com/meguruit/meguru-crm/blob/main/docs/designs/database-design.md`
+- 本リポジトリの cwd は `tatoflam/meguru-diagrams` (= 個人 GitHub org)、設計成果物として `meguruit/meguru-crm` の検討資料を補完する関係
+
+## 決定事項
+
+- 2026-06-10: **GWS の細分化を解消** — 「土地調査シート」「ボリュームシート」「概算見積シート」「設計管理シート」を個別エンティティ化していた中間版を `GWS スプレッドシート（共有ドライブ）` 1 ロールに統合、ノートと管理先テーブル列も `GWS` に統一 (user 修正 2 回目で最終形)。理由: ユーザー向け資料として煩雑になるのを避ける。
+- 2026-06-10: **提案登録は手動想定**だが「手動」テキストは figure に明示しない — 08→09 の 🔁 反映ブロックを残して営業の矢印で表現。
+- 2026-06-10: `proposals.status` によるワークフロー管理を CRM への新規追加対象とする。
+
+## 経緯
+
+- 2026-06-10 (session 0b793fb1、JST 10:38→12:47、~2h、4 user turn): `sales-process-sequence.md` 初版を作成。1 回目作成時に socket disconnect 系の API Error で書き込み未完 → user「エラーしたのでリカバリして続けて！」で再適用 (GWS 細分化解消の編集が前回未着地だった分も合わせて反映)。user 確認 2 回 (GWS 細分化解消・提案登録の手動表現) を経て最終形、main へ 2 commit push。
 
 ## Links
 

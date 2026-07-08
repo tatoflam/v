@@ -1,9 +1,9 @@
 ---
 title: 目標
 category: 00_self
-tags: [goals]
-sources: [b9b34f00-5b1d-4720-a2e7-714368fe0c52]
-updated: 2026-04-23
+tags: [goals, aspect:goals]
+sources: [b9b34f00-5b1d-4720-a2e7-714368fe0c52, wiki-knowledge-refocus-migration]
+updated: 2026-07-08
 ---
 
 # 目標
@@ -12,7 +12,7 @@ updated: 2026-04-23
 
 - 担当するプロジェクトの成功裡の遂行
 - 個人開発によるプロダクトの収益化
-- 土地から新築APの契約調印
+- ~~土地から新築APの契約調印~~ ✅ 2026-04-28 契約済（狭山市 S-068、[[04_life/sayama-land-contract]]）→ 以降は建築・決済フェーズの遂行
 
 ## 中期（〜1 年）
 

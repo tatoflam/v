@@ -12,7 +12,12 @@ updated: 2026-07-08
 
 株式会社めぐる (client:meguru) の外部設計士向けドキュメント共有 portal の新規案件。めぐる側の設計標準資料・標準収まり図を外部の意匠/構造設計士へ**一方向共有**する web portal。2026-07-07 深夜の session `2550f3e9` で初回要件プロンプトを受領 (session は 10 秒で中断、実装は後続 session)。
 
-## Details
+## 現在の状態
+
+要件プロンプト受領のみの planning 段階。提案書・openspec・実装はすべて後続 session 待ち。
+
+> [!question] 後続 session 未取り込み
+> 本ページの内容は「要件プロンプトの記述」であり実装結果ではない。cwd `~/repo/github/meguruit/MeguruDesignPortal` には `openspec/` が既に存在するが repo は未 git-init (2026-07-08 時点の観測)。実際の提案書・openspec 作成を行った後続 session が enqueue され次第、本ページを更新する。
 
 ### 事業コンテキスト
 
@@ -30,10 +35,15 @@ updated: 2026-07-08
 - **成果物要求**: 前提/制約/必要リソース込みの HTML 提案書、要件定義〜運用移行の人間工数見積 (単価 10,000 円/h)、初期構築費 + ランニングコスト。
 - **プロセス要求**: openspec ドキュメントを Fable で作成し、Opus で継続するための思考体系・引き継ぎ事項を文書化。private repo `meguruit/MeguruDesignPortal` として git-init + push。
 
-### ステータス
+## 決定事項
 
-> [!question] 後続 session 未取り込み
-> 本ページの内容は「要件プロンプトの記述」であり実装結果ではない。cwd `~/repo/github/meguruit/MeguruDesignPortal` には `openspec/` が既に存在するが repo は未 git-init (2026-07-08 時点の観測)。実際の提案書・openspec 作成を行った後続 session が enqueue され次第、本ページを更新する。
+- 2026-07-07: 専用 content DB を持たない方針 — 実体はめぐるの GWS 共有ドライブに置き、portal はリンクのみ登録する（元請けが標準を握り外部設計士へ配る構図に沿う）。
+- 2026-07-07: DB はログイン履歴 + 通知管理のみの最小構成（無料枠または Google Sheets 志向）、hosting は Firebase など安価で GitHub 連携しやすいサービス志向。
+
+## 経緯
+
+- 2026-07-07 深夜 (session `2550f3e9`): 初回要件プロンプトを受領。session は 10 秒で中断、実装は後続 session。
+- 2026-07-08: run-123 で本ページ取り込み。`openspec/` は cwd に存在するが repo は未 git-init と観測。
 
 ## Links
 
