@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>合同会社ソルトムーン 1650万円調達プラン 検討レポート v4 (ベストプラクティス・6/30決済確定版)</title>
+<style>
+  :root {
+    --bg: #f7f8fa;
+    --card: #ffffff;
+    --text: #1a1a1a;
+    --muted: #555;
+    --border: #d4d8dd;
+    --accent: #2c5aa0;
+    --accent-bg: #e8f0fb;
+    --good: #1f7a3f;
+    --good-bg: #e3f3e9;
+    --warn: #b56b00;
+    --warn-bg: #fff4dc;
+    --bad: #b81c1c;
+    --bad-bg: #fde5e5;
+    --tax-bg: #f3f0fa;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    margin: 0 auto;
+    padding: 24px;
+    max-width: 1200px;
+  }
+  h1 { font-size: 24px; margin: 0 0 6px; border-bottom: 3px solid var(--accent); padding-bottom: 10px; }
+  h2 { font-size: 20px; margin: 36px 0 12px; padding: 8px 14px; background: var(--accent); color: white; border-radius: 6px 6px 0 0; }
+  h3 { font-size: 16px; margin: 18px 0 8px; color: var(--accent); border-left: 4px solid var(--accent); padding-left: 10px; }
+  .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+  .version-tag { display: inline-block; background: var(--good-bg); color: var(--good); padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; margin-left: 8px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 20px; margin-bottom: 18px; }
+  table { width: 100%; border-collapse: collapse; margin: 8px 0 16px; font-size: 14px; }
+  th, td { border: 1px solid var(--border); padding: 7px 10px; text-align: right; }
+  th:first-child, td:first-child { text-align: left; }
+  th { background: #eef2f6; font-weight: 600; }
+  tr.total td { background: var(--accent-bg); font-weight: bold; }
+  tr.subtotal td { background: #f1f3f5; font-weight: 600; }
+  tr.keep td { background: var(--good-bg); }
+  tr.sell td { background: var(--warn-bg); }
+  tr.best td { background: var(--good-bg); font-weight: bold; }
+  tr.done td { background: #eef7f0; }
+  tr.pending td { background: #fbf3e3; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+  .badge-good { background: var(--good-bg); color: var(--good); }
+  .badge-warn { background: var(--warn-bg); color: var(--warn); }
+  .badge-bad { background: var(--bad-bg); color: var(--bad); }
+  .badge-keep { background: #cfe8d7; color: #155a30; }
+  .badge-tax { background: var(--tax-bg); color: #5a3aa0; }
+  .badge-done { background: #cfe8d7; color: #155a30; }
+  .badge-pending { background: var(--warn-bg); color: var(--warn); }
+  .step-card { border-left: 5px solid var(--accent); background: var(--card); padding: 16px 20px; margin-bottom: 14px; border-radius: 0 6px 6px 0; }
+  .step-card.step1 { border-left-color: var(--good); }
+  .step-card.step2 { border-left-color: var(--warn); }
+  .step-card.step3 { border-left-color: var(--accent); }
+  .step-num { display: inline-block; background: var(--accent); color: white; padding: 3px 10px; border-radius: 14px; font-size: 13px; font-weight: 600; margin-right: 10px; }
+  .step1 .step-num { background: var(--good); }
+  .step2 .step-num { background: var(--warn); }
+  .step3 .step-num { background: #7a5fb8; }
+  .status-pill { display:inline-block; padding:2px 10px; border-radius:12px; font-size:12px; font-weight:700; margin-left:8px; }
+  .status-done { background:#cfe8d7; color:#155a30; }
+  .status-pending { background:var(--warn-bg); color:var(--warn); }
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 12px 0; }
+  .kpi { background: var(--accent-bg); border-radius: 6px; padding: 12px 14px; text-align: center; }
+  .kpi .label { font-size: 12px; color: var(--muted); }
+  .kpi .value { font-size: 22px; font-weight: bold; color: var(--accent); margin-top: 4px; }
+  .kpi.best { background: var(--good-bg); }
+  .kpi.best .value { color: var(--good); }
+  .alert { background: var(--warn-bg); border-left: 4px solid var(--warn); padding: 12px 16px; margin: 12px 0; border-radius: 0 6px 6px 0; }
+  .alert-good { background: var(--good-bg); border-left: 4px solid var(--good); padding: 12px 16px; margin: 12px 0; border-radius: 0 6px 6px 0; }
+  .alert-bad { background: var(--bad-bg); border-left: 4px solid var(--bad); padding: 12px 16px; margin: 12px 0; border-radius: 0 6px 6px 0; }
+  .principle-card { background: var(--tax-bg); border: 1px solid #c8b5e8; border-radius: 6px; padding: 14px 18px; margin: 10px 0; }
+  ul, ol { padding-left: 22px; }
+  ul li, ol li { margin-bottom: 4px; }
+  .small { font-size: 12px; color: var(--muted); }
+  .timeline { border-left: 3px solid var(--accent); margin: 12px 0 12px 8px; padding-left: 18px; }
+  .timeline-item { position: relative; margin-bottom: 14px; }
+  .timeline-item::before { content: ""; position: absolute; left: -25px; top: 7px; width: 11px; height: 11px; background: var(--accent); border-radius: 50%; }
+  .timeline-item.done::before { background: var(--good); }
+  .timeline-item.crit::before { background: var(--bad); }
+  .timeline-date { font-weight: bold; color: var(--accent); display: inline-block; margin-right: 10px; min-width: 90px; }
+  code { background: #eef2f6; padding: 1px 6px; border-radius: 3px; font-size: 13px; }
+  .source { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .formula { background: #f5f8fc; border-left: 3px solid var(--accent); padding: 8px 12px; margin: 8px 0; font-size: 13px; font-family: "SF Mono", Menlo, monospace; }
+</style>
+</head>
+<body>
+
+<h1>合同会社ソルトムーン 1,650万円調達プラン <span class="version-tag">v4 ベストプラクティス / 6-30決済確定版</span></h1>
+<div class="subtitle">作成日: 2026-06-15 / 金消契約: 6-23(火) / <b>決済(土地): 6-30(火)</b> / 用途: 6-30 土地決済の自己資金 16,431,600円 を役員借入金で手当て</div>
+
+<!-- ===================== サマリー ===================== -->
+<h2>0. エグゼクティブサマリー</h2>
+<div class="card">
+  <div class="kpi-grid">
+    <div class="kpi"><div class="label">調達総額(目標)</div><div class="value">1,650万円</div></div>
+    <div class="kpi"><div class="label">うち Monex証券売却</div><div class="value">約1,001万円</div></div>
+    <div class="kpi"><div class="label">6-25 入金(賞与+借入戻り)</div><div class="value">200万円</div></div>
+    <div class="kpi best"><div class="label">v4 Monex税負担</div><div class="value">745,004円</div></div>
+  </div>
+
+  <div class="alert-good">
+    <b>v4 最適解（決済確定版）</b>：当初1,450万円の調達計画に対し、<b>6-30の土地決済の自己資金が融資配分改定で約+200万円増（14,493,601→16,431,600円）</b>。増分は<b>6-25入金予定の役員賞与＋役員借入金の戻り 200万円で手当て</b>。
+    証券売却はベストプラクティスを維持し、<b>NVDA・ホットランド・MRK・MSFT を温存</b>。三菱UFJは下記制約により<b>温存に変更</b>し、穴埋めはオルカン特定で実施 → <b>税負担はむしろ約2.1万円軽減（766,333→745,004円）</b>。
+  </div>
+
+  <div class="alert">
+    <b>⚠️ 制約の反映①（三菱UFJ）</b>：三菱UFJ FG(8306)は<b>売買単位が100株（単元株）</b>のため、当初v3の「90株売却・10株残し」は<b>執行不可</b>。本案では<b>100株すべて温存</b>（高益率87%＝税効率上も温存がベスト）。
+  </div>
+  <div class="alert">
+    <b>⏱ 制約の反映②（受渡）</b>：投信は受渡に営業日を要する。6-30決済に間に合わせるには、<b>未済のStep3（投信特定）を遅くとも6-22(月)〜6-23(火)午前までに発注</b>（海外資産投信は受渡+4〜6営業日。正確な受渡日はMonexで要確認）。
+  </div>
+</div>
+
+<!-- ===================== 全体像と進捗 ===================== -->
+<h2>1. 調達の全体像と進捗</h2>
+<div class="card">
+  <h3>1,650万円の資金源（3ソース）</h3>
+  <table>
+    <thead><tr><th>資金源</th><th>金額(目安)</th><th>状況</th><th>備考</th></tr></thead>
+    <tbody>
+      <tr class="done"><td>A. Monex 証券売却（Step1〜3）</td><td>約10,006,461</td><td><span class="badge badge-pending">一部未済</span></td><td>Step1・2は6-15発注済、Step3が未済</td></tr>
+      <tr><td>B. 他口座の既存資金（ダイワ・ゆうちょ・Monex現金等）</td><td>約4,500,000</td><td><span class="badge badge-keep">繰越</span></td><td>当初1,450万円計画から変更なし</td></tr>
+      <tr class="pending"><td>C. 6-25 入金（役員賞与＋役員借入金の戻り）<b>【今回の+200万】</b></td><td>2,000,000</td><td><span class="badge badge-pending">6-25入金予定</span></td><td>土地決済自己資金の増分を手当て</td></tr>
+      <tr class="total"><td>合計</td><td>約16,506,461</td><td></td><td>6-30 土地決済 自己資金 16,431,600円 を充足（小バッファ）</td></tr>
+    </tbody>
+  </table>
+
+  <h3>証券売却プラン（Step）の進捗</h3>
+  <table>
+    <thead><tr><th>Step</th><th>内容</th><th>売却額</th><th>状況</th></tr></thead>
+    <tbody>
+      <tr class="done"><td>STEP 1</td><td>旧一般NISA投信4本を全売却（非課税）</td><td>3,568,853</td><td><span class="status-pill status-done">✅ 6-15 発注済</span></td></tr>
+      <tr class="done"><td>STEP 2</td><td>個別株 AAPL 10株＋TSLA 20株（NVDA/ホットランド/MRK/MSFT温存）</td><td>1,752,691</td><td><span class="status-pill status-done">✅ 6-15 発注済</span></td></tr>
+      <tr class="pending"><td>STEP 3</td><td>投信特定 S&amp;P500 全売＋オルカン 75%売（三菱UFJの穴埋め込み）</td><td>5,429,921</td><td><span class="status-pill status-pending">⏳ 未発注（6-22〜23発注）</span></td></tr>
+      <tr class="total"><td>Monex 合計</td><td></td><td>10,751,465</td><td>税 745,004 / 手取り 10,006,461</td></tr>
+    </tbody>
+  </table>
+  <div class="alert">
+    <b>三菱UFJ撤回に伴う調整</b>：当初Step2には三菱UFJ 90株（売却282,690・手取り232,593）が含まれていたが単元制約で執行不可。Step2実績は<b>AAPL＋TSLAの約175万円</b>。不足分（手取り約23万円）は<b>未済のStep3でオルカン特定の売却比率を60%→75%に引上げて充当</b>。
+  </div>
+</div>
+
+<!-- ===================== 税負担最適化のベストプラクティス ===================== -->
+<h2>2. 税負担最適化の原則（ベストプラクティス）</h2>
+<div class="card">
+  <div class="principle-card">
+    <b>原則①: 非課税口座（旧NISA）を最優先で売却</b><br>
+    旧一般NISAの含み益は無税で確定できる絶好の機会（2022年枠=2026年末、2023年枠=2027年末で非課税終了）。→ Step1で全売（税0）。
+  </div>
+  <div class="principle-card">
+    <b>原則②: 含み益率の低い銘柄から売却</b><br>
+    特定口座の売却益課税 = 20.315% × 含み益。
+    <div class="formula">同じ売却額に対する税負担 = (売却額 × 益率) × 20.315%</div>
+    益率が低い銘柄ほど税負担が軽い。同額調達なら低益率銘柄を優先売却。
+  </div>
+  <div class="principle-card">
+    <b>原則③: 含み益率の高い銘柄は温存</b><br>
+    NVDA(93%)・三菱UFJ(87%)のような高益率銘柄は売ると税負担が大きい。<br>
+    <b>→ NVDA温存に加え、三菱UFJも温存（単元制約＋税効率の両面でベスト）。</b>
+  </div>
+  <div class="principle-card">
+    <b>原則④: 市況シグナルとの整合</b><br>
+    益率が同程度なら市況弱気銘柄（AAPL・TSLA）を優先売却、強気銘柄（NVDA・MRK）は温存。
+  </div>
+  <div class="principle-card">
+    <b>原則⑤: 投信の中でも益率の低い方を多く売る</b><br>
+    S&amp;P500特定(45.7%) を全売、オルカン特定(52.8%) は必要分のみ。低益率のS&amp;P500を厚く売る方が税効率良い。
+  </div>
+
+  <h3>各銘柄の含み益率ランキング（税効率の良い順）</h3>
+  <table>
+    <thead><tr><th>銘柄</th><th>益率</th><th>v4判定</th><th>理由</th></tr></thead>
+    <tbody>
+      <tr class="keep"><td>ホットランドHD</td><td>4.2%</td><td><span class="badge badge-keep">温存</span></td><td>ユーザー指示</td></tr>
+      <tr class="sell"><td>AAPL</td><td>30.1%</td><td><span class="badge badge-warn">10株売却 ✅</span></td><td>益率低 + 市況弱気</td></tr>
+      <tr class="keep"><td>MSFT</td><td>43.5%</td><td><span class="badge badge-keep">温存(10株のみ保有)</span></td><td>分散方針</td></tr>
+      <tr class="sell"><td>S&amp;P500特定</td><td>45.7%</td><td><span class="badge badge-warn">全売（Step3）</span></td><td>投信のうち税効率最良</td></tr>
+      <tr class="keep"><td>MRK</td><td>52.4%</td><td><span class="badge badge-keep">温存(10株のみ保有)</span></td><td>分散方針 + 市況強気</td></tr>
+      <tr class="sell"><td>オルカン特定</td><td>52.8%</td><td><span class="badge badge-warn">75%売却（Step3）</span></td><td>不足分＋三菱UFJの穴埋め</td></tr>
+      <tr class="sell"><td>TSLA</td><td>74.2%</td><td><span class="badge badge-warn">20株売却 ✅</span></td><td>分散方針 + 市況弱気</td></tr>
+      <tr class="keep"><td>三菱UFJ FG</td><td>87.2%</td><td><span class="badge badge-keep">温存（変更）</span></td><td>単元100株で90株売却不可 + 高益率は温存が税効率最良</td></tr>
+      <tr class="keep"><td>NVDA</td><td>93.2%</td><td><span class="badge badge-keep">温存</span></td><td>ユーザー指示 + 税効率最悪 + 市況強気</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ===================== 3. v4 売却プラン詳細 ===================== -->
+<h2>3. v4 売却プラン詳細</h2>
+
+<div class="step-card step1">
+  <span class="step-num">STEP 1</span><b>旧一般NISA投信を全売却（非課税 / 約357万円）</b><span class="status-pill status-done">✅ 6-15 発注済</span>
+  <table>
+    <thead><tr><th>銘柄</th><th>枠</th><th>売却額</th><th>税</th><th>手取り</th></tr></thead>
+    <tbody>
+      <tr><td>S&amp;P500</td><td>2022/2023</td><td>2,063,576</td><td>0</td><td>2,063,576</td></tr>
+      <tr><td>オルカン</td><td>2022/2023</td><td>1,131,859</td><td>0</td><td>1,131,859</td></tr>
+      <tr><td>グローバルAIファンド</td><td>2022/2023</td><td>212,726</td><td>0</td><td>212,726</td></tr>
+      <tr><td>iFreeNEXTインド株</td><td>2023</td><td>160,692</td><td>0</td><td>160,692</td></tr>
+      <tr class="total"><td colspan="2">小計（非課税）</td><td>3,568,853</td><td>0</td><td>3,568,853</td></tr>
+    </tbody>
+  </table>
+  <p class="small"><b>累計手取り: 3,568,853円</b> / 残必要: 6,431,147円</p>
+</div>
+
+<div class="step-card step2">
+  <span class="step-num">STEP 2</span><b>個別株（NVDA・ホットランド・MRK・MSFT 温存、AAPL/TSLA を10株残し売却）/ 約175万円</b><span class="status-pill status-done">✅ 6-15 発注済</span>
+  <table>
+    <thead><tr><th>銘柄</th><th>保有/売却/残</th><th>売却額(円)</th><th>含み益</th><th>税(20.315%)</th><th>手取り</th></tr></thead>
+    <tbody>
+      <tr><td>AAPL</td><td>20→10/10</td><td>474,058</td><td>142,868</td><td>29,024</td><td>445,034</td></tr>
+      <tr><td>TSLA</td><td>30→20/10</td><td>1,278,633</td><td>949,233</td><td>192,827</td><td>1,085,806</td></tr>
+      <tr class="keep"><td>三菱UFJ FG</td><td>100→0/100（温存）</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr class="total"><td>小計</td><td></td><td>1,752,691</td><td>1,092,101</td><td>221,851</td><td>1,530,840</td></tr>
+    </tbody>
+  </table>
+  <p class="small"><b>累計手取り: 5,099,693円</b> / 残必要: 4,900,307円　※三菱UFJ 90株（旧計画 手取り232,593）は単元制約で撤回 → Step3で穴埋め</p>
+</div>
+
+<div class="step-card step3">
+  <span class="step-num">STEP 3</span><b>投信特定口座（S&amp;P500 全売 + オルカン 75%売）/ 約543万円</b><span class="status-pill status-pending">⏳ 未発注</span>
+  <p>原則⑤に従い、税効率の良いS&amp;P500特定（益率45.7%）を全売却。オルカン特定（益率52.8%）は当初60%売の予定だったが、<b>三菱UFJ撤回分（手取り約23万）を埋めるため75%売に引上げ</b>。</p>
+  <table>
+    <thead><tr><th>銘柄</th><th>売却比率</th><th>売却額</th><th>含み益</th><th>税</th><th>手取り</th></tr></thead>
+    <tbody>
+      <tr><td>S&amp;P500特定</td><td>100%（全売）</td><td>4,090,890</td><td>1,867,728</td><td>379,524</td><td>3,711,366</td></tr>
+      <tr><td>オルカン特定</td><td>75%（約1,339,031円分）</td><td>1,339,031</td><td>707,008</td><td>143,629</td><td>1,195,402</td></tr>
+      <tr class="total"><td>小計</td><td></td><td>5,429,921</td><td>2,574,736</td><td>523,153</td><td>4,906,768</td></tr>
+    </tbody>
+  </table>
+  <p class="small"><b>累計手取り: 10,006,461円 ≒ 目標1,000万 達成 ✓</b>（小バッファ込み）</p>
+</div>
+
+<div class="card">
+  <h3>v4 証券売却プラン総括（Monex）</h3>
+  <table>
+    <thead><tr><th>ステップ</th><th>区分</th><th>売却額</th><th>税</th><th>手取り</th></tr></thead>
+    <tbody>
+      <tr class="done"><td>STEP1 ✅</td><td>旧NISA投信全売</td><td>3,568,853</td><td>0</td><td>3,568,853</td></tr>
+      <tr class="done"><td>STEP2 ✅</td><td>個別株 AAPL/TSLA（三菱UFJ撤回）</td><td>1,752,691</td><td>221,851</td><td>1,530,840</td></tr>
+      <tr class="pending"><td>STEP3 ⏳</td><td>投信 S&amp;P500全売＋オルカン75%</td><td>5,429,921</td><td>523,153</td><td>4,906,768</td></tr>
+      <tr class="best"><td colspan="2">合計</td><td>10,751,465</td><td>745,004</td><td>10,006,461</td></tr>
+    </tbody>
+  </table>
+  <div class="alert-good">
+    三菱UFJ（税効率最悪に近い87%益率）の売却を撤回し、より低益率のオルカンで穴埋めしたことで、<b>税負担は v3 の766,333円 → v4 の745,004円へ約21,329円軽減</b>。「高益率を温存・低益率を売る」原則に、より忠実な構成になった。
+  </div>
+</div>
+
+<!-- ===================== 4. v3 vs v4 比較 ===================== -->
+<h2>4. プラン比較（v3 → v4 決済確定版）</h2>
+<div class="card">
+  <table>
+    <thead><tr><th>項目</th><th>v3（当初ベストプラクティス）</th><th>v4（6-30決済確定版）</th></tr></thead>
+    <tbody>
+      <tr><td>調達総額</td><td>1,450万円</td><td><b>1,650万円</b>（+200万は6-25入金で手当）</td></tr>
+      <tr><td>三菱UFJ FG</td><td>90株売却</td><td><b>温存（単元100株で90株不可）</b></td></tr>
+      <tr><td>NVDA / ホットランド / MRK / MSFT</td><td>温存</td><td>温存（変更なし）</td></tr>
+      <tr><td>AAPL / TSLA</td><td>10株/20株売却</td><td>10株/20株売却（✅6-15発注済）</td></tr>
+      <tr><td>S&amp;P500特定</td><td>100%売</td><td>100%売</td></tr>
+      <tr><td>オルカン特定</td><td>60%売</td><td><b>75%売</b>（三菱UFJの穴埋め）</td></tr>
+      <tr><td>Monex売却総額</td><td>10,766,349</td><td>10,751,465</td></tr>
+      <tr class="best"><td><b>Monex税負担</b></td><td>766,333</td><td><b>745,004（−21,329）</b></td></tr>
+      <tr><td>決済期日</td><td>6-19（旧目標）</td><td><b>6-30（土地決済）</b></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ===================== 5. 市況サマリー ===================== -->
+<h2>5. 市況サマリー（2026年6月時点）</h2>
+<div class="card">
+  <table>
+    <thead><tr><th>銘柄</th><th>現値</th><th>アナリスト</th><th>v4判定</th><th>論拠</th></tr></thead>
+    <tbody>
+      <tr class="keep"><td>NVDA</td><td>$205.96</td><td>Strong Buy $298(+49%)</td><td><span class="badge badge-keep">温存</span></td><td>ユーザー指示。8/26決算前で強気継続</td></tr>
+      <tr class="sell"><td>TSLA</td><td>$440</td><td>Hold $409(-7%)</td><td><span class="badge badge-warn">20株売 ✅</span></td><td>ボラ高い → 早期利確</td></tr>
+      <tr class="sell"><td>AAPL</td><td>$290.55</td><td>Buy $309(+6%)</td><td><span class="badge badge-warn">10株売 ✅</span></td><td>WWDC後懸念で急落</td></tr>
+      <tr class="keep"><td>MSFT</td><td>$397</td><td>Buy $561(+41%)</td><td><span class="badge badge-keep">10株のみ温存</span></td><td>市況弱気だが分散方針で温存</td></tr>
+      <tr class="keep"><td>MRK</td><td>~$119</td><td>Buy $125(+5%)</td><td><span class="badge badge-keep">温存</span></td><td>強気・元から10株</td></tr>
+      <tr class="keep"><td>ホットランドHD</td><td>1,617円</td><td>—</td><td><span class="badge badge-keep">温存</span></td><td>ユーザー指示</td></tr>
+      <tr class="keep"><td>三菱UFJ</td><td>3,141円</td><td>目標3,130円(横ばい)</td><td><span class="badge badge-keep">温存（変更）</span></td><td>単元100株で90株売却不可。高益率87%は温存が税効率最良</td></tr>
+      <tr class="sell"><td>S&amp;P500/オルカン</td><td>—</td><td>6月綱引き相場</td><td><span class="badge badge-warn">売却対象</span></td><td>Step3で売却（投信内で低益率を厚めに）</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ===================== 6. 売却後の残存ポートフォリオ ===================== -->
+<h2>6. 売却後のMonex残存ポートフォリオ</h2>
+<div class="card">
+  <table>
+    <thead><tr><th>区分</th><th>銘柄</th><th>残存数</th><th>残存評価額</th></tr></thead>
+    <tbody>
+      <tr><td rowspan="2">国内株</td><td>ホットランドHD</td><td>100株（全保持）</td><td>161,700</td></tr>
+      <tr><td>三菱UFJ FG</td><td>100株（全保持・変更）</td><td>314,100</td></tr>
+      <tr><td rowspan="5">米国株</td><td>AAPL</td><td>10株</td><td>474,058</td></tr>
+      <tr><td>MRK</td><td>10株</td><td>193,422</td></tr>
+      <tr><td>MSFT</td><td>10株</td><td>629,732</td></tr>
+      <tr><td>NVDA</td><td>100株（全保持）</td><td>3,301,013</td></tr>
+      <tr><td>TSLA</td><td>10株</td><td>639,317</td></tr>
+      <tr><td>投信(特定)</td><td>オルカン特定（25%残）</td><td>—</td><td>446,344</td></tr>
+      <tr class="total"><td colspan="3">Monex残存合計</td><td>6,159,686</td></tr>
+    </tbody>
+  </table>
+  <div class="alert-good">
+    残存ポートフォリオの特徴：<br>
+    ・<b>NVDA 330万円（米国AI集中投資の継続）</b><br>
+    ・<b>三菱UFJ 100株（温存に変更 → 国内高配当株を満額継続）</b><br>
+    ・米国株5銘柄 各10株（FAANG的分散維持）<br>
+    ・オルカン約45万円（全世界分散の継続）＋ ホットランドHD全保持
+  </div>
+</div>
+
+<!-- ===================== 7. 6/30決済に向けた発注スケジュール ===================== -->
+<h2>7. 6-30決済に向けた発注・入金スケジュール</h2>
+<div class="card">
+  <div class="alert">
+    <b>受渡しタイミング</b>：国内株/海外株 T+2、国内投信 +2〜3営業日、<b>海外資産投信 +4〜6営業日</b>。
+    → <b>未済のStep3（投信）は遅くとも6-22(月)〜6-23(火)午前までに発注</b>し、6-30着金を確保（正確な受渡日はMonexで要確認）。
+  </div>
+  <div class="timeline">
+    <div class="timeline-item done">
+      <span class="timeline-date">6-15 (月)</span>
+      <b>【完了】</b> Step1 旧NISA投信4本 全売 ＋ Step2 AAPL10株/TSLA20株 売却発注
+    </div>
+    <div class="timeline-item done">
+      <span class="timeline-date">〜6-19 (金)</span>
+      Step1・Step2 受渡完了（米国株は米ドル受領 → 円転）
+    </div>
+    <div class="timeline-item crit">
+      <span class="timeline-date">6-22 (月)</span>
+      <b>【最重要・未済】Step3 投信売却発注</b>：S&amp;P500特定 全売（約409万）＋ オルカン特定 75%売（約134万）。海外資産投信の受渡を考慮し、この日の発注を推奨
+    </div>
+    <div class="timeline-item">
+      <span class="timeline-date">6-23 (火)</span>
+      <b>スルガ銀行 金消契約</b>（融資 79,000,000円／土地5.2M＋建物73.8M）。※Step3発注の最終リミット（午前）
+    </div>
+    <div class="timeline-item">
+      <span class="timeline-date">6-25 (木)</span>
+      <b>役員賞与＋役員借入金の戻り 2,000,000円 入金</b>（+200万の手当）
+    </div>
+    <div class="timeline-item">
+      <span class="timeline-date">6-26〜29</span>
+      投信売却代金 受渡 → 各口座（ダイワ・ゆうちょ・Monex現金 ほか）から GMOあおぞらへ集約振込／役員借入金の金銭消費貸借契約書を整備
+    </div>
+    <div class="timeline-item crit">
+      <span class="timeline-date">6-30 (火)</span>
+      <b>土地決済</b>：自己資金 16,431,600円 充当 ／ ソルトムーン 1,650万円 調達完了
+    </div>
+  </div>
+</div>
+
+<!-- ===================== 8. 留意事項 ===================== -->
+<h2>8. 留意事項</h2>
+<div class="card">
+  <ul>
+    <li><b>Step3の発注期限が生命線</b>：6-30決済に対し、海外資産投信は受渡+4〜6営業日。<b>6-22(月)発注で6-30着金を確保</b>。基準価額は当日確定のため、<b>1,000万ジャスト狙いではなくオルカン75%（やや多め）で発注し余裕を持たせる</b>。受渡日はMonexで必ず事前確認。</li>
+    <li><b>三菱UFJの扱い（要意思決定）</b>：単元100株のため「0株 or 100株」の二択。本案は<b>100株温存</b>（税効率最良＋穴埋めはオルカンで完了）。もし保有トリミングを優先するなら100株全売も可だが、含み益87%で税が約5万円増（オルカン穴埋め対比で約2.1万円不利）。</li>
+    <li><b>+200万の手当（6-25入金）</b>：役員賞与は<b>定期同額給与・事前確定届出給与の枠組み</b>と源泉徴収に注意（損金算入の可否は佐藤氏に要確認）。役員借入金の戻りは法人→個人の返済として整理。いずれも6-30決済前の着金を確認。</li>
+    <li><b>役員借入金処理</b>：ソルトムーンへの資金注入（証券売却分＋他口座＋6-25入金）は役員借入金として処理。<b>金銭消費貸借契約書を第1期決算(2026-08-31)までに整備</b>。</li>
+    <li><b>2026年所得税申告</b>：特定口座の譲渡益（Step2・Step3で含み益 約366万円）が今年の譲渡所得。源泉徴収あり口座なら申告不要だが、損益通算の検討余地あり。</li>
+    <li><b>為替リスク</b>：Step2のAAPL+TSLAは米ドル受領済。円転は即日実行が原則。</li>
+    <li><b>NVDA温存の意義</b>：8/26決算前後で大きく動く可能性。長期保有方針なら決算を見届けるのが合理的。</li>
+  </ul>
+</div>
+
+<!-- ===================== 9. 参考情報源 ===================== -->
+<h2>9. 参考情報源（2026年6月）</h2>
+<div class="card">
+  <ul class="small">
+    <li>NVDA: <a href="https://www.cnn.com/markets/stocks/NVDA">CNN Markets</a> / <a href="https://www.marketbeat.com/stocks/NASDAQ/NVDA/forecast/">MarketBeat</a></li>
+    <li>TSLA: <a href="https://capital.com/en-int/market-updates/tesla-stock-forecast-09-06-2026">Capital.com</a></li>
+    <li>AAPL: <a href="https://stockinvest.us/stock/AAPL">Stockinvest</a></li>
+    <li>三菱UFJ: <a href="https://minkabu.jp/stock/8306/analyst_consensus">みんかぶ 8306</a></li>
+    <li>S&amp;P500: <a href="https://kabukiso.com/america/outlook/2026/sp500_june.html">株きそ S&amp;P500 2026/6</a></li>
+  </ul>
+  <p class="source">本レポートは2026-06-15時点の検討資料。証券売却の税額は概算（基準価額・株価・為替で変動）。役員賞与・役員借入金の税務処理は税理士（Take Off 佐藤氏）に要確認。外部公開なし・ユーザー参照用ローカルHTML。</p>
+</div>
+
+</body>
+</html>
