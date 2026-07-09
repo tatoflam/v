@@ -304,3 +304,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-07-08T02:12:00Z  op:query  "検証4問: MPM状態/todobot email-only理由/リカバリ手順/文面の好み" → 03_work/meguru-pm-report, 03_work/todobot, 00_self/preferences (openspec task 4.4 verification)
 - 2026-07-09T04:55:18Z  op:ingest  S=2 I=0 staged=0 diary=0 missing=0 staging_backlog=0 (meta-acks=1 zero-delta=1 queue-pruned=0; both queued sessions no-digest)
 - 2026-07-09T05:35:00Z  op:ingest  S=2 I=0 staged=1 diary=1 missing=0 staging_backlog=1 (session 28d0b12c = wiki meta-session, acked no digest)
+- 2026-07-09T05:59:36Z  op:ingest  S=2 I=0 staged=0 diary=0 missing=1 staging_backlog=1 (session 82ff510b = wiki meta-session acked; session 4b947b2a = missing_transcript → hook-errors.log)
