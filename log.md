@@ -308,3 +308,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-07-09T06:03:00Z  op:ingest  S=2 I=0 staged=1 diary=1 missing=0 staging_backlog=2 (run-133; 2d5a30cb=MeguruFacadeStudio planning substantive→diary 2026-07-08; 85b4b96d=wiki meta-session run-132 acked)
 - 2026-07-09T07:20:22Z  op:ingest  S=2 I=0 staged=1 diary=1 missing=0 staging_backlog=3  (meta-ack: 5904aa9b prior /wiki-ingest run — no digest/diary)
 - 2026-07-09T10:25:04Z  op:ingest  S=2 I=0 staged=0 diary=0 missing=1 staging_backlog=3  (meta-ack session=75bb0af0 prior-ingest; missing session=8f289d54)
+- 2026-07-09T23:29:21Z  op:ingest  S=2 I=0 staged=1 diary=1 missing=0 staging_backlog=4 (session 0d69f223 = wiki meta-session, acked no digest)
