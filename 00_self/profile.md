@@ -2,15 +2,15 @@
 title: プロフィール
 category: 00_self
 tags: [profile]
-sources: [b9b34f00-5b1d-4720-a2e7-714368fe0c52]
-updated: 2026-04-23
+sources: [b9b34f00-5b1d-4720-a2e7-714368fe0c52, wiki-persona-refresh-2026-07]
+updated: 2026-07-09
 ---
 
 # プロフィール
 
 ## 現在の活動
 
-- **エミル株式会社** 代表取締役 — IT を軸とした業務技術支援の一人法人（IT/建築設計）
+- **エミル株式会社** 代表取締役（法人 3 期目・本業利益あり） — IT を軸とした業務技術支援の一人法人（IT/建築設計）。主な案件: Meguru 設計 PM 自動化（[[03_work/meguru-pm-report]]）、HABI/hlab（[[03_work/habi-bff]]）、ToDoBot（[[03_work/todobot]]）、小金井市 放課後プラットフォーム（[[03_work/afterschoolplatform]]）
 - **合同会社ソルトムーン** 代表社員 — 資産管理法人
   - 保有物件: 中古戸建
   - 検討中: 新築 AP
