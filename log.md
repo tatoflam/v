@@ -304,3 +304,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-07-08T02:12:00Z  op:query  "検証4問: MPM状態/todobot email-only理由/リカバリ手順/文面の好み" → 03_work/meguru-pm-report, 03_work/todobot, 00_self/preferences (openspec task 4.4 verification)
 - 2026-07-08T03:21:05Z  op:lint    contradictions=3 orphans=0 stale=0 broken=94 stuck-inbox=0
 - 2026-07-09T03:48:00Z  op:lint    contradictions=3 orphans=0 stale=0 broken=94 stuck-inbox=0
+- 2026-07-10T03:49:26Z  op:lint    contradictions=3 orphans=0 stale=0 broken=94 stuck-inbox=0
