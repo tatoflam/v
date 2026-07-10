@@ -310,3 +310,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-07-09T10:25:04Z  op:ingest  S=2 I=0 staged=0 diary=0 missing=1 staging_backlog=3  (meta-ack session=75bb0af0 prior-ingest; missing session=8f289d54)
 - 2026-07-09T23:29:21Z  op:ingest  S=2 I=0 staged=1 diary=1 missing=0 staging_backlog=4 (session 0d69f223 = wiki meta-session, acked no digest)
 - 2026-07-10T09:25:41Z  op:ingest  S=2 I=0 staged=0 diary=0 missing=1 staging_backlog=4  (meta-ack session=cf7d8814 prior /wiki-ingest run; missing session=1f95811b)
+- 2026-07-10T09:33:27Z  op:ingest  S=3 I=0 staged=1 diary=1 missing=0 staging_backlog=5  (910666d1=wiki meta-session acked; 41a0fb6a=re-enqueued, already ingested+distilled, no new signal; ad4dd117=ToDoBot profiles.yaml email_to変更+deploy substantive→digest+diary)
