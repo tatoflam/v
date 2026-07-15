@@ -319,3 +319,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-07-14T12:16:35Z  op:ingest  S=2 I=0 staged=1 diary=1 missing=0 staging_backlog=15  (meta-ack: 5cb7ad01 wiki-ingest run)
 - 2026-07-15T01:22:33Z  op:ingest  S=864 I=0 staged=1 diary=1 missing=0 staging_backlog=16 (863 wiki-pipeline meta-acks: 862 /wiki-absorb workers + 1 prior /wiki-ingest run — no digest/diary, marked processed)
 - 2026-07-15T03:33:33Z  op:ingest  S=3 I=0 staged=1 diary=1 missing=1 staging_backlog=17  (substantive 20544af1 continuation → 03_work/meguru-pm-report commit 29284f9 push; meta-ack 5c614054 [prior /wiki-ingest run]; missing 45ab7513 [transcript not landed])
+- 2026-07-15T03:38:48Z  op:ingest  S=1 I=0 staged=0 diary=0 missing=0 staging_backlog=17  (delta after 5697643: meta-ack 383416a1 [the interrupted 03:33Z /wiki-ingest run, now ended]; also flipped 45ab7513 missing to processed; no new digest/diary)
