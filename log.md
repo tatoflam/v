@@ -317,3 +317,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-07-14T02:00:00Z  op:ingest  S=4 I=0 staged=1 diary=1 missing=2 staging_backlog=13  (1 substantive 9dbc773d → 03_work/meguru-pm-report [consolidate-project-identity closeout]; 1 meta-ack: f4add707 /wiki-ingest run; 2 missing-transcript: 212e71da/492a6a29 v-cwd sessions)
 - 2026-07-14T05:47:00Z  op:ingest  S=4 I=0 staged=1 diary=1 missing=0 staging_backlog=14 (meta-ack=3: c9fafe6b/599beaf3/1f2d3655 prior /wiki-ingest runs)
 - 2026-07-14T12:16:35Z  op:ingest  S=2 I=0 staged=1 diary=1 missing=0 staging_backlog=15  (meta-ack: 5cb7ad01 wiki-ingest run)
+- 2026-07-15T01:22:33Z  op:ingest  S=864 I=0 staged=1 diary=1 missing=0 staging_backlog=16 (863 wiki-pipeline meta-acks: 862 /wiki-absorb workers + 1 prior /wiki-ingest run — no digest/diary, marked processed)
