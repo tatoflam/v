@@ -1,0 +1,309 @@
+<title>道路使用許可 窓口申請 効率化ツール 提案資料</title>
+<style>
+:root{
+  --paper:#fbfaf7;
+  --ink:#22262e;
+  --ink-soft:#5a6070;
+  --line:#dcd9d0;
+  --navy:#20365c;
+  --blue:#2b5fb8;
+  --amber:#b97a0a;
+  --amber-bg:#fdf4e0;
+  --card:#f3f1ea;
+  --code:#eceae2;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --paper:#191b20;
+    --ink:#e6e4dd;
+    --ink-soft:#a3a49e;
+    --line:#3a3d45;
+    --navy:#a9bfe6;
+    --blue:#7ba3e8;
+    --amber:#e0a63f;
+    --amber-bg:#2b2416;
+    --card:#22252c;
+    --code:#22252c;
+  }
+}
+:root[data-theme="light"]{
+  --paper:#fbfaf7; --ink:#22262e; --ink-soft:#5a6070; --line:#dcd9d0;
+  --navy:#20365c; --blue:#2b5fb8; --amber:#b97a0a; --amber-bg:#fdf4e0;
+  --card:#f3f1ea; --code:#eceae2;
+}
+:root[data-theme="dark"]{
+  --paper:#191b20; --ink:#e6e4dd; --ink-soft:#a3a49e; --line:#3a3d45;
+  --navy:#a9bfe6; --blue:#7ba3e8; --amber:#e0a63f; --amber-bg:#2b2416;
+  --card:#22252c; --code:#22252c;
+}
+html{background:var(--paper);}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:"Hiragino Sans","Yu Gothic","Noto Sans JP",system-ui,sans-serif;
+  font-size:15.5px; line-height:1.9; margin:0;
+}
+.page{max-width:880px; margin:0 auto; padding:56px 28px 96px;}
+header.doc{border-bottom:3px double var(--line); padding-bottom:28px; margin-bottom:40px;}
+.eyebrow{
+  font-size:12px; letter-spacing:.18em; color:var(--ink-soft);
+  text-transform:uppercase; margin-bottom:14px;
+}
+h1{
+  font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;
+  font-size:31px; line-height:1.45; font-weight:600; color:var(--navy);
+  margin:0 0 10px; text-wrap:balance;
+}
+.subtitle{color:var(--ink-soft); font-size:14.5px; margin:0;}
+.docmeta{display:flex; flex-wrap:wrap; gap:6px 28px; margin-top:20px; font-size:13px; color:var(--ink-soft);}
+.docmeta b{color:var(--ink); font-weight:600;}
+h2{
+  font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;
+  font-size:21.5px; font-weight:600; color:var(--navy);
+  margin:56px 0 16px; padding-left:14px; border-left:4px solid var(--navy);
+  line-height:1.5; text-wrap:balance;
+}
+h3{font-size:16.5px; font-weight:600; margin:30px 0 8px;}
+p{margin:0 0 14px;}
+ul,ol{margin:0 0 14px; padding-left:1.5em;}
+li{margin-bottom:4px;}
+strong{font-weight:600;}
+.lede{font-size:16.5px;}
+.callout{
+  background:var(--amber-bg); border:1px solid color-mix(in srgb, var(--amber) 35%, transparent);
+  border-radius:6px; padding:16px 20px; margin:20px 0;
+}
+.callout .tag{
+  display:inline-block; font-size:11.5px; font-weight:700; letter-spacing:.12em;
+  color:var(--amber); margin-bottom:6px;
+}
+.card{
+  background:var(--card); border:1px solid var(--line); border-radius:6px;
+  padding:18px 22px; margin:18px 0;
+}
+table{
+  border-collapse:collapse; width:100%; font-size:13.8px; line-height:1.7;
+  font-variant-numeric:tabular-nums;
+}
+.tablewrap{overflow-x:auto; margin:18px 0;}
+th{
+  text-align:left; font-weight:600; color:var(--navy);
+  border-bottom:2px solid var(--navy); padding:8px 12px; white-space:nowrap;
+}
+td{border-bottom:1px solid var(--line); padding:9px 12px; vertical-align:top;}
+tbody tr:last-child td{border-bottom:none;}
+.pill{
+  display:inline-block; font-size:11.5px; font-weight:600; padding:2px 10px;
+  border-radius:999px; white-space:nowrap;
+}
+.pill.auto{background:color-mix(in srgb, var(--blue) 14%, transparent); color:var(--blue);}
+.pill.manual{background:color-mix(in srgb, var(--ink-soft) 16%, transparent); color:var(--ink-soft);}
+.pill.confirm{background:color-mix(in srgb, var(--amber) 18%, transparent); color:var(--amber);}
+.diagram{
+  background:var(--card); border:1px solid var(--line); border-radius:6px;
+  padding:20px; margin:18px 0; overflow-x:auto;
+}
+.diagram figcaption{font-size:12.5px; color:var(--ink-soft); margin-top:10px;}
+pre.mermaid{margin:0; display:flex; justify-content:center; background:transparent;}
+code{
+  background:var(--code); border-radius:4px; padding:1px 6px;
+  font-family:"SF Mono",Menlo,Consolas,monospace; font-size:.86em;
+}
+.steps{counter-reset:step; list-style:none; padding-left:0;}
+.steps li{
+  counter-increment:step; position:relative; padding-left:44px; margin-bottom:12px;
+}
+.steps li::before{
+  content:counter(step); position:absolute; left:0; top:2px;
+  width:28px; height:28px; border-radius:50%;
+  background:var(--navy); color:var(--paper);
+  font-size:13.5px; font-weight:700; display:flex; align-items:center; justify-content:center;
+}
+footer.doc{
+  margin-top:72px; padding-top:20px; border-top:1px solid var(--line);
+  font-size:12.5px; color:var(--ink-soft);
+}
+@media (max-width:600px){
+  .page{padding:36px 18px 72px;}
+  h1{font-size:25px;}
+}
+</style>
+
+<div class="page">
+
+<header class="doc">
+  <div class="eyebrow">Proposal — Road Use Permit Workflow</div>
+  <h1>道路使用許可 窓口申請 効率化ツール<br>ご提案資料</h1>
+  <p class="subtitle">Google Workspace（GAS）による申請書自動生成・ステータス管理・申請漏れアラート</p>
+  <div class="docmeta">
+    <span>作成日: <b>2026年7月23日</b></span>
+    <span>作成: <b>株式会社めぐる</b></span>
+    <span>実装: <b>社内開発者（GWS 組織アカウント）</b></span>
+  </div>
+</header>
+
+<h2>1. 背景と課題</h2>
+<p class="lede">道路使用許可のオンライン申請（eGov）が、7月1日の申請から1週間以上停滞したため、<strong>警察窓口での申請へ切り替える</strong>ことになりました。</p>
+<p>窓口申請では、道路使用許可を <strong>2週間分ずつ</strong> しか取得できません。そのため必要な工事期間中は「許可証の受領 → その場で次回分を申請」というループを、<strong>現場×工種（材料搬入・残土搬出・生コン打設 など）ごと</strong>に回し続ける必要があります。</p>
+<div class="callout">
+  <span class="tag">手作業運用のリスク</span>
+  <ul style="margin-bottom:0">
+    <li>2週間ごとの申請書を Word で都度コピーして日付を書き換える作業が現場×工種の数だけ発生する</li>
+    <li>「受領したか」「次回申請したか」の追跡が漏れると、<strong>道路使用許可のない期間</strong>が発生し工事が止まる</li>
+    <li>図面セット（案内図・保安図・迂回路図）や前回受理済み写しの準備状況が見えない</li>
+  </ul>
+</div>
+
+<h2>2. ご提案の概要</h2>
+<p>株式会社めぐるの Google Workspace 組織アカウント内で完結する、<strong>GAS（Google Apps Script）ベースの軽量な仕組み</strong>を構築します。外部サーバ・データベース・有料サービスは使用しません。</p>
+<ol class="steps">
+  <li><strong>管理表（Google スプレッドシート）</strong> — 現場名・工種・申請期間・担当課・管轄警察署・2週間ごとの期間・受領日／次回申請日を一元管理。</li>
+  <li><strong>申請書の自動生成</strong> — 管理表に申請期間を指定すると、GAS が期間を2週間単位に分割し、<strong>全期間分の申請書を Google ドキュメントとして工種フォルダに自動生成</strong>。警察様式（別記様式第六）の黄色ハイライト「期間」欄へ日付を転記します。冒頭の提出日は手書き運用のため空欄、バーコードは固定のまま変更しません。</li>
+  <li><strong>Drive フォルダ整備と資料巡回</strong> — 「現場 &gt; 工種」のフォルダを自動作成。図面セットと受理済み写しの格納状況を GAS が定期巡回し、管理表にステータス表示します。</li>
+  <li><strong>申請漏れアラート</strong> — 各2週間期間の始期日の数営業日前（既定: 3営業日、変更可）になっても受領日が未入力なら、担当者へ自動でメール通知します。</li>
+</ol>
+<p>受領・次回申請の完了報告は、従来どおり現場監督から LINE で受け、秘書課またはバックオフィスが管理表へ日付を入力する運用です（LINE 連携の自動化は将来拡張）。</p>
+
+<h2>3. システムコンテキスト図</h2>
+<figure class="diagram">
+<pre class="mermaid">
+flowchart LR
+  classDef person fill:#20365c,stroke:#20365c,color:#ffffff
+  classDef gws fill:#e8effc,stroke:#2b5fb8,color:#1b2a4a
+  classDef ext fill:#f3f1ea,stroke:#8b8678,color:#3a3d45
+
+  kantoku["現場監督"]:::person
+  jimu["秘書課／バックオフィス"]:::person
+  police["管轄警察署（窓口）"]:::ext
+  line["LINE（既存運用）"]:::ext
+
+  subgraph GWS["Google Workspace（株式会社めぐる 組織アカウント）"]
+    direction LR
+    sheet["管理表<br/>Google スプレッドシート<br/>（案件・2週間スロット・設定・通知ログ）"]:::gws
+    gas["GAS<br/>定期巡回／スロット展開<br/>申請書生成／アラート判定"]:::gws
+    drive["Google Drive<br/>現場 ＞ 工種 フォルダ<br/>（申請書・図面セット・受理済写し）"]:::gws
+    docsvc["申請書<br/>Google ドキュメント<br/>（別記様式第六）"]:::gws
+    mail["Gmail<br/>アラートメール"]:::gws
+  end
+
+  jimu -- "① 案件・申請期間を登録<br/>受領日・次回申請日を入力" --> sheet
+  gas -- "② 2週間スロット展開<br/>ステータス書き戻し" --> sheet
+  gas -- "③ テンプレート複製・期間転記" --> docsvc
+  docsvc -- "工種フォルダへ格納" --> drive
+  kantoku -- "図面セットを格納" --> drive
+  gas -- "④ 格納状況を定期巡回" --> drive
+  gas -- "⑤ 受領日未入力を検知" --> mail
+  mail -- "始期日前アラート" --> jimu
+  kantoku -- "受領・申請完了を報告" --> line
+  line -- "報告内容を転記" --> jimu
+  jimu -- "申請書2部＋図面セットを印刷し提出" --> police
+  police -- "許可証交付・受理済写し" --> kantoku
+</pre>
+<figcaption>図1: システムコンテキスト図 — 青枠が Google Workspace 内で自動化される範囲。LINE 報告の転記と窓口への提出は従来どおり人が行う。</figcaption>
+</figure>
+
+<h2>4. 管理表の項目</h2>
+<p>ご要望いただいた項目をすべて含みます。1行目のシート「案件マスタ」に現場×工種を登録し、「申請スロット」シートに2週間ごとの期間が自動展開されます。</p>
+<div class="tablewrap">
+<table>
+  <thead><tr><th>シート</th><th>項目</th><th>入力</th></tr></thead>
+  <tbody>
+    <tr><td rowspan="6">案件マスタ<br>（1行 = 現場×工種）</td><td>現場名／工種</td><td><span class="pill manual">手入力</span></td></tr>
+    <tr><td>申請期間（開始〜終了。工種ごとに異なる）</td><td><span class="pill manual">手入力</span></td></tr>
+    <tr><td>担当課</td><td><span class="pill manual">手入力</span></td></tr>
+    <tr><td>管轄警察署</td><td><span class="pill manual">手入力</span></td></tr>
+    <tr><td>通知先メールアドレス（担当監督・秘書課）</td><td><span class="pill manual">手入力</span></td></tr>
+    <tr><td>工種フォルダ URL</td><td><span class="pill auto">自動</span></td></tr>
+    <tr><td rowspan="6">申請スロット<br>（1行 = 2週間の期間）</td><td>2週間ごとの期間（回次・開始日〜終了日）</td><td><span class="pill auto">自動</span></td></tr>
+    <tr><td>申請書ドキュメント URL</td><td><span class="pill auto">自動</span></td></tr>
+    <tr><td>図面セット格納状況（案内図・保安図・迂回路図）</td><td><span class="pill auto">自動</span></td></tr>
+    <tr><td>前回受理済み写しの格納状況</td><td><span class="pill auto">自動</span></td></tr>
+    <tr><td>受領日（許可証の窓口受領日）</td><td><span class="pill manual">手入力</span></td></tr>
+    <tr><td>次回申請日</td><td><span class="pill manual">手入力</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>5. 申請書テンプレートの扱い</h2>
+<ul>
+  <li>お預かりした Word 様式（別記様式第六・道路使用許可申請書）を Google ドキュメントに変換し、テンプレートとして登録します。</li>
+  <li><strong>黄色ハイライトの「期間」欄</strong>（〇年〇月〇日〇時 から 〇年〇月〇日〇時 まで）に、スプレッドシートの2週間スロットの日付が自動転記されます。</li>
+  <li>冒頭の日付（提出日）は<strong>空欄のまま</strong>生成し、窓口提出時にペンで手書きしていただきます。</li>
+  <li>バーコードは固定のため<strong>変更しません</strong>（テンプレートごと複製されます）。</li>
+  <li>ファイル名は <code>道路使用許可申請書_現場名_工種_第n回_期間</code> で統一し、工種フォルダの「01_申請書」に格納されます。</li>
+</ul>
+<div class="callout">
+  <span class="tag">事前にご確認いただきたい点</span>
+  <p style="margin-bottom:0">Word → Google ドキュメント変換で罫線やバーコードの位置が僅かにずれる場合があります。導入初週に変換後の体裁を実物と見比べてご確認いただき（確認①）、必要であれば様式をドキュメント上で調整します。警察窓口で受理可能な体裁であることを最優先とします。</p>
+</div>
+
+<h2>6. アラートの仕組み</h2>
+<ul>
+  <li>毎営業日の朝、GAS が全スロットを確認します（土日・祝日は営業日から除外）。</li>
+  <li>2週間期間の<strong>始期日の3営業日前</strong>（設定で変更可能）を過ぎても受領日が入力されていない場合、通知先メールへアラートを送信します。</li>
+  <li>本文には現場名・工種・期間・管轄警察署・管理表リンクを記載し、すぐに状況確認・入力ができるようにします。</li>
+  <li>同じアラートは1日1回まで。受領日が入力されると自動的に停止します。始期日を過ぎた場合は件名で超過を強調します。</li>
+</ul>
+
+<h2>7. スコープ外（今回は含まない）</h2>
+<ul>
+  <li>LINE Messaging API による報告の自動取り込み（当面は秘書課・バックオフィスによる転記。将来拡張として検討可能）</li>
+  <li>eGov オンライン申請との連携</li>
+  <li>手数料の会計処理、押印済み書類のスキャン・印刷の自動化</li>
+</ul>
+
+<h2>8. スケジュール（ご確認ポイント込み）</h2>
+<p>社内開発者による実装を想定しています。開始週を第1週として、約4週間で本番運用開始を見込みます。</p>
+<div class="tablewrap">
+<table>
+  <thead><tr><th>週</th><th>作業内容</th><th>お客様のご確認</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>第1週</td>
+      <td>環境セットアップ（管理表・フォルダ・GAS）、Word 様式の Google ドキュメント変換とテンプレート化</td>
+      <td><span class="pill confirm">確認①</span> 変換後の申請書様式の体裁（罫線・バーコード・レイアウト）をご確認</td>
+    </tr>
+    <tr>
+      <td>第2週</td>
+      <td>2週間スロット展開・フォルダ自動作成・申請書自動生成の実装</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>第3週</td>
+      <td>資料巡回・アラート通知の実装、ダミー案件での一連動作テスト。進行中の実案件を登録</td>
+      <td><span class="pill confirm">確認②</span> 実案件で生成された申請書の内容（特に期間欄の日時表記）を現場監督・秘書課にてご確認</td>
+    </tr>
+    <tr>
+      <td>第4週</td>
+      <td>アラートを管理者宛のみで1週間試運転し、誤報・漏れを調整</td>
+      <td><span class="pill confirm">確認③</span> 試運転結果をご確認のうえ、通知先を本番宛先へ切り替えて運用開始</td>
+    </tr>
+    <tr>
+      <td>運用開始後</td>
+      <td>運用手順書（案件登録・LINE 報告の転記・期間変更時の対応）の共有、初月フォロー</td>
+      <td>随時のフィードバック</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>9. 運用イメージ（2回目以降の申請ループ）</h2>
+<ol class="steps">
+  <li>警察窓口で許可証を受領し、その場で次回分（自動生成済みの申請書＋図面セット＋前回受理済み写し）を申請。</li>
+  <li>現場監督が LINE で「受領・次回申請完了」を報告し、受理済み写しを工種フォルダへ格納。</li>
+  <li>秘書課／バックオフィスが管理表に受領日・次回申請日を入力（アラート自動停止）。</li>
+  <li>次のスロットの始期日が近づくと、未受領のままなら自動でメールアラート。</li>
+</ol>
+
+<footer class="doc">
+  本資料は OpenSpec change <code>road-use-permit-automation</code>（proposal / design / specs / tasks）に基づき作成。実装仕様の詳細は同 change の design.md・specs を参照してください。
+</footer>
+
+</div>
+
+<script type="module">
+try{
+  const m = await import("https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs");
+  m.default.initialize({startOnLoad:false, theme:"neutral"});
+  await m.default.run({querySelector:"pre.mermaid"});
+}catch(e){/* Artifact 環境では CSP によりブロックされ、ネイティブ描画が使われる */}
+</script>
