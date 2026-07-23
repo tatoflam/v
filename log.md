@@ -348,3 +348,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-07-23T03:22:56Z  op:lint    contradictions=3 orphans=0 stale=1 broken=118 stuck-inbox=0
 - 2026-07-24T03:16:36Z  op:lint    contradictions=3 orphans=0 stale=6 broken=118 stuck-inbox=0
 - 2026-07-25T03:16:50Z  op:lint    contradictions=3 orphans=0 stale=8 broken=118 stuck-inbox=0
+- 2026-07-23T07:47:52Z  op:ingest  S=4 I=0 staged=0 diary=0 missing=1 staging_backlog=31 (run-143: meta-ack 3 = run-142 race instances [a5599d93 c5dc379f 372d5507, all /wiki-ingest meta]; missing 1 = RoadUsePermit cb7f4da4 transcript never landed [07:45 enqueue]; no substantive sessions, inbox empty [finance/ subdir out of scope])
