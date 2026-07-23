@@ -330,3 +330,18 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-07-22T05:30:00Z  op:ingest  S=418 I=0 staged=2 diary=2 missing=0 staging_backlog=30 (run-140: meta-ack 416 = 414 pipeline workers [212 MeguruWiki /wiki-absorb + 202 business-curator classifier, WIKI_INGEST_WORKER guard still leaking] + 1 /wiki-ingest meta [06a1d03d] + 1 trivial no-signal [cfdfe548]; substantive 438fd11a [weekly report 2026-07-21] + 03d9eb2f [weekly report 2026-07-22] → 03_work/meguru-pm-report)
 - 2026-07-23T01:41:57Z  op:ingest  S=273 I=0 staged=1 diary=1 missing=5 staging_backlog=31 (run-141: meta-ack 267 = 201 business-curator classifier + 59 MeguruWiki /wiki-absorb shard workers [WIKI_INGEST_WORKER guard still leaking] + 5 /wiki-ingest meta + 2 no-new-content [tatoflam/v]; missing 5 = tatoflam/v transcripts never landed; substantive 9450fea0 [weekly report 2026-07-23] → 03_work/meguru-pm-report; queue aged-out 27 lines >30d)
 - 2026-07-23T01:52:09Z  op:ingest  S=6 I=0 staged=0 diary=0 missing=3 staging_backlog=31 (run-142: meta-ack 3 = prior /wiki-ingest runs this morning [d8bf673 run-141 + 2 stand-downs]; missing 3 = MeguruPMReport transcripts never landed [01:51 enqueue, likely not-logged-in aborts]; no substantive sessions, inbox empty. 3 concurrent run-142 instances raced; duplicate log line deduped)
+- 2026-07-08T03:21:05Z  op:lint    contradictions=3 orphans=0 stale=0 broken=94 stuck-inbox=0
+- 2026-07-09T03:48:00Z  op:lint    contradictions=3 orphans=0 stale=0 broken=94 stuck-inbox=0
+- 2026-07-10T03:49:26Z  op:lint    contradictions=3 orphans=0 stale=0 broken=94 stuck-inbox=0
+- 2026-07-11T03:15:45Z  op:lint    contradictions=3 orphans=0 stale=0 broken=94 stuck-inbox=0
+- 2026-07-12T03:27:13Z  op:lint    contradictions=3 orphans=0 stale=0 broken=94 stuck-inbox=0
+- 2026-07-13T03:30:18Z  op:lint    contradictions=3 orphans=0 stale=0 broken=94 stuck-inbox=0
+- 2026-07-14T02:52:14Z  op:lint    contradictions=3 orphans=0 stale=0 broken=94 stuck-inbox=0
+- 2026-07-15T02:50:58Z  op:lint    contradictions=3 orphans=0 stale=0 broken=94 stuck-inbox=0
+- 2026-07-16T03:12:06Z  op:lint    contradictions=3 orphans=0 stale=0 broken=94 stuck-inbox=0
+- 2026-07-17T03:15:00Z  op:lint    contradictions=3 orphans=0 stale=0 broken=94 stuck-inbox=0
+- 2026-07-18T02:52:20Z  op:lint    contradictions=3 orphans=0 stale=0 broken=94 stuck-inbox=0
+- 2026-07-19T03:23:23Z  op:lint    contradictions=3 orphans=0 stale=0 broken=94 stuck-inbox=0
+- 2026-07-20T03:37:33Z  op:lint    contradictions=3 orphans=0 stale=0 broken=94 stuck-inbox=0
+- 2026-07-21T03:17:53Z  op:lint    contradictions=3 orphans=0 stale=0 broken=94 stuck-inbox=0
+- 2026-07-22T03:16:02Z  op:lint    contradictions=3 orphans=0 stale=0 broken=94 stuck-inbox=0
