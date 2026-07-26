@@ -367,3 +367,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-07-25T23:37:06Z  op:ingest  S=2 I=0 staged=0 diary=0 missing=0 staging_backlog=42 (run-156: meta-ack 1 = e2fed233 [run-155 attended /wiki-ingest meta]; no-signal 1 = 5e0e73ee [2-turn trivial test, 1+1]; queue purge: 0 processed lines >30d dropped; inbox empty [finance/ subdir out of scope]; schema mirror current; index regenerated)
 - 2026-07-26T00:00:00+09:00  op:query  "狭山市APのプロジェクトスケジュール" → 04_life/sayama-land-contract
 - 2026-07-26T01:50:41Z  op:ingest  S=246 I=0 staged=0 diary=0 missing=2 staging_backlog=42  (batch-ack 200 email-classifier + 43 wiki-absorb headless workers, signature-verified; 1 meta-ack run-156 ingest session; 2 missing transcripts in tatoflam/v; queue drained to 0)
+- 2026-07-26T03:29:02Z  op:lint    contradictions=3 orphans=0 stale=9 broken=122 stuck-inbox=0
