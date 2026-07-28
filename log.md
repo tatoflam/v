@@ -369,3 +369,4 @@ Format: `- <ISO>  op:<ingest|query|lint|status>  <one-line summary>`
 - 2026-07-26T01:50:41Z  op:ingest  S=246 I=0 staged=0 diary=0 missing=2 staging_backlog=42  (batch-ack 200 email-classifier + 43 wiki-absorb headless workers, signature-verified; 1 meta-ack run-156 ingest session; 2 missing transcripts in tatoflam/v; queue drained to 0)
 - 2026-07-26T03:29:02Z  op:lint    contradictions=3 orphans=0 stale=9 broken=122 stuck-inbox=0
 - 2026-07-27T03:37:13Z  op:lint    contradictions=3 orphans=0 stale=9 broken=122 stuck-inbox=0
+- 2026-07-28T02:53:33Z  op:lint    contradictions=3 orphans=0 stale=9 broken=122 stuck-inbox=0
